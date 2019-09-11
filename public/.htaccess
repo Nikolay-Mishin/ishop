@@ -1,0 +1,5 @@
+# условия перенаправления !-f (файл есуществует) / !-d (папка несуществует)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# все запросы к несуществующим файлам/папкам перенаправляем на index.php
+RewriteRule (.*) index.php?$1 [L,QSA]
