@@ -43,14 +43,18 @@ class ErrorHandler{
         // $errfile - файл, в котором произошла ошибка
         // $errline - строка, в которой произошла ошибка
         // $responce - http код для отправки браузеру
-        http_response_code($responce);
+        http_response_code($responce); // отправляем заголовок (код ответа для http заголовка)
+        // показываем шаблон 404 ошибки, если код ответа 404 и константа дебаг = 0
         if($responce == 404 && !DEBUG){
             require WWW . '/errors/404.php';
             die;
         }
+        // в режиме отладки показываем шаблон с полным описанием ошибки (шаблон разработчика)
         if(DEBUG){
             require WWW . '/errors/dev.php';
-        }else{
+        }
+        // иначе показываем шаблон для продакшен версии с сообщением, что ошибка произошла (инфо об ошибке смотрим в логах)
+        else{
             require WWW . '/errors/prod.php';
         }
         die;
