@@ -14,6 +14,7 @@ class App{
         session_start(); // стартуем сессию
         self::$app = Registry::instance(); // запишем в свойство приложения объект Реестра
         $this->getParams();
+        new ErrorHandler();
     }
 
     protected function getParams(){
