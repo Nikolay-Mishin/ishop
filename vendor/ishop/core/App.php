@@ -14,7 +14,7 @@ class App{
         session_start(); // стартуем сессию
         self::$app = Registry::instance(); // запишем в свойство приложения объект Реестра
         $this->getParams(); // получаем параметры приложения
-        new ErrorHandler();
+        new ErrorHandler(); // создаем объект класса Исключений
     }
 
     protected function getParams(){

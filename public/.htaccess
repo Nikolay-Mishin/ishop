@@ -2,4 +2,6 @@
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 # все запросы к несуществующим файлам/папкам перенаправляем на index.php
+# L - last (последнее правило - больше другие правила срабатывать не должны)
+# QSA - query string append (дополнительные get-параметры добавляются к существующим, а не отбрасываются)
 RewriteRule (.*) index.php?$1 [L,QSA]
