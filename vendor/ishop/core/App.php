@@ -13,7 +13,7 @@ class App{
         $query = trim($_SERVER['QUERY_STRING'], '/');
         session_start(); // стартуем сессию
         self::$app = Registry::instance(); // запишем в свойство приложения объект Реестра
-        $this->getParams();
+        $this->getParams(); // получаем параметры приложения
         new ErrorHandler();
     }
 
