@@ -1,28 +1,48 @@
 <?php
+// класс для отлова исключений
+// не перехватывает ошибки (фатальные/ не фатальные (warning/notice)), только исключения (полный отлов в курсе по фреймворку)
 
 namespace ishop;
 
 class ErrorHandler{
 
     public function __construct(){
+        // уровень вывода ошибок устанавливаем в зависимости от значения констатнты дебага
         if(DEBUG){
             error_reporting(-1);
         }else{
             error_reporting(0);
         }
-        set_exception_handler([$this, 'exceptionHandler']);
+        set_exception_handler([$this, 'exceptionHandler']); // назначаем свою функцию для обработки исключений
     }
 
+    // метод для обработки исключений (курс по фреймворку)
     public function exceptionHandler($e){
+        // $e - оъект, содержащий всю информацию об выброшенном исключении
+        // getMessage() - текст исключения
+        // getFile() - файл, в котором было выброшено исключение
+        // getLine() - строка с исключением
+        // getCode() - код исключения
         $this->logErrors($e->getMessage(), $e->getFile(), $e->getLine());
         $this->displayError('Исключение', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getCode());
     }
 
+    // метод для логирования ошибок
     protected function logErrors($message = '', $file = '', $line = ''){
-        error_log("[" . date('Y-m-d H:i:s') . "] Текст ошибки: {$message} | Файл: {$file} | Строка: {$line}\n=================\n", 3, ROOT . '/tmp/errors.log');
+        // $message - текст ошибки
+        // $file - файл, в котором произошла ошибка
+        // $line - строка, в которой произошла ошибка
+        // message_type = 3 - запись в файл (2 - отправка по email)
+        error_log("[" . date('Y-m-d H:i:s') . "] Текст ошибки: {$message} | Файл: {$file} | Строка: {$line}\n=================\n", 3, TMP . '/errors.log');
     }
 
+    // метод для вывода ошибкок и подключения шаблона
     protected function displayError($errno, $errstr, $errfile, $errline, $responce = 404){
+        // $errno - номер ошибки
+        // $errstr - текст ошибки
+        // $errfile - файл, в котором произошла ошибка
+        // $errline - строка, в которой произошла ошибка
+        // $responce - http код для отправки браузеру
         http_response_code($responce);
         if($responce == 404 && !DEBUG){
             require WWW . '/errors/404.php';
