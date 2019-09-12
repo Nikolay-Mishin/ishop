@@ -46,7 +46,7 @@ class ErrorHandler{
         http_response_code($responce); // отправляем заголовок (код ответа для http заголовка)
         // показываем шаблон 404 ошибки, если код ответа 404 и константа дебаг = 0
         if($responce == 404 && !DEBUG){
-            require WWW . '/errors/404.php';
+            require WWW . "/errors/{$responce}.php";
             die;
         }
         // в режиме отладки показываем шаблон с полным описанием ошибки (шаблон разработчика)
