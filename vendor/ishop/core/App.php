@@ -15,6 +15,7 @@ class App{
         self::$app = Registry::instance(); // запишем в свойство приложения объект Реестра
         $this->getParams(); // получаем параметры приложения
         new ErrorHandler(); // создаем объект класса Исключений
+        Router::dispatch($query);
     }
 
     protected function getParams(){
