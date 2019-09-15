@@ -37,8 +37,7 @@ class Router{
                 $action = self::lowerCamelCase(self::$route['action']) . 'Action';
                 // проверяем существует ли такой метод у данного класса
                 if(method_exists($controllerObject, $action)){
-                    // вызываем экшен у заданного класса
-                    $controllerObject->$action();
+                    $controllerObject->$action(); // вызываем экшен у заданного класса
                     $controllerObject->getView();
                 }else{
                     throw new \Exception("Метод $controller::$action не найден", 404);
@@ -70,13 +69,10 @@ class Router{
                 if(!isset($route['prefix'])){
                     $route['prefix'] = '';
                 }else{
-                    // добавляем обратный слэш (2 слэш - экранирование)
-                    $route['prefix'] .= '\\';
+                    $route['prefix'] .= '\\'; // добавляем обратный слэш (2 слэш - экранирование)
                 }
-                // меняем имя контроллера для вызова
-                $route['controller'] = self::upperCamelCase($route['controller']);
-                // записываем результат в текущий маршрут
-                self::$route = $route;
+                $route['controller'] = self::upperCamelCase($route['controller']); // меняем имя контроллера для вызова
+                self::$route = $route; // записываем результат в текущий маршрут
                 return true;
             }
         }
