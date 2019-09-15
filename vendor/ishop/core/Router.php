@@ -4,9 +4,10 @@
 namespace ishop;
 
 class Router{
-
-    protected static $routes = []; // таблица марштуров - 
-    protected static $route = []; // текущий маршрут - если найдено соответствие с адресом в маршрутах
+    // таблица марштуров
+    protected static $routes = [];
+    // текущий маршрут - если найдено соответствие с адресом в маршрутах
+    protected static $route = [];
 
     // записывает правила в таблицу маршрутов
     public static function add($regexp, $route = []){
@@ -32,11 +33,13 @@ class Router{
             $controller = 'app\controllers\\' . self::$route['prefix'] . self::$route['controller'] . 'Controller';
             // проверяем существует ли такой класс
             if(class_exists($controller)){
-                $controllerObject = new $controller(self::$route); // объект контроллера
-                $action = self::lowerCamelCase(self::$route['action']) . 'Action'; // имя экшена (indexAction)
+                $controllerObject = new $controller(self::$route);
+                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
                 // проверяем существует ли такой метод у данного класса
                 if(method_exists($controllerObject, $action)){
-                    $controllerObject->$action(); // вызываем экшен у заданного класса
+                    // вызываем экшен у заданного класса
+                    $controllerObject->$action();
+                    $controllerObject->getView();
                 }else{
                     throw new \Exception("Метод $controller::$action не найден", 404);
                 }
@@ -67,11 +70,13 @@ class Router{
                 if(!isset($route['prefix'])){
                     $route['prefix'] = '';
                 }else{
-                    $route['prefix'] .= '\\'; // добавляем обратный слэш (2 слэш - экранирование)
+                    // добавляем обратный слэш (2 слэш - экранирование)
+                    $route['prefix'] .= '\\';
                 }
                 // меняем имя контроллера для вызова
                 $route['controller'] = self::upperCamelCase($route['controller']);
-                self::$route = $route; // записываем результат в текущий маршрут
+                // записываем результат в текущий маршрут
+                self::$route = $route;
                 return true;
             }
         }

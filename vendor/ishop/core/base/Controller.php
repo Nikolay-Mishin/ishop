@@ -4,14 +4,17 @@
 namespace ishop\base;
 
 abstract class Controller{
-
-    public $route; // массив с маршрутами
+    // массив с маршрутами
+    public $route;
     public $controller;
     public $model;
     public $view;
     public $prefix;
-    public $data = []; // обычные данные (контент)
-    public $meta = []; // мета-данные
+    public $layout;
+    // обычные данные (контент)
+    public $data = [];
+    // мета-данные
+    public $meta = [];
 
     public function __construct($route){
         $this->route = $route;
@@ -19,6 +22,11 @@ abstract class Controller{
         $this->model = $route['controller'];
         $this->view = $route['action'];
         $this->prefix = $route['prefix'];
+    }
+
+    public function getView(){
+        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta);
+        $viewObject->render($this->data);
     }
 
     // записывает полученные данные в массив (свойство)
