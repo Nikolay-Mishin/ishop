@@ -28,17 +28,18 @@ class Router{
 
     // принимает запрошенный url адрес и обрабатывает его
     public static function dispatch($url){
+        // ищем соответствие переданного адреса в таблице маршрутов
         if(self::matchRoute($url)){
             // имя контроллера (путь), который будет вызван + постфикс (MainController)
             $controller = 'app\controllers\\' . self::$route['prefix'] . self::$route['controller'] . 'Controller';
             // проверяем существует ли такой класс
             if(class_exists($controller)){
-                $controllerObject = new $controller(self::$route);
-                $action = self::lowerCamelCase(self::$route['action']) . 'Action';
+                $controllerObject = new $controller(self::$route); // объект вызываемого контроллера
+                $action = self::lowerCamelCase(self::$route['action']) . 'Action'; // задаем имя экшена для вызова (indexAction)
                 // проверяем существует ли такой метод у данного класса
                 if(method_exists($controllerObject, $action)){
                     $controllerObject->$action(); // вызываем экшен у заданного класса
-                    $controllerObject->getView();
+                    $controllerObject->getView(); // вызываем метод для отображения вида
                 }else{
                     throw new \Exception("Метод $controller::$action не найден", 404);
                 }

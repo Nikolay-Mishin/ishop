@@ -23,7 +23,7 @@ class View {
         $this->model = $route['controller'];
         $this->prefix = $route['prefix'];
         $this->meta = $meta;
-        // если жёстко передано значение false
+        // если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
         if($layout === false){
             $this->layout = false;
         }else{
@@ -32,27 +32,35 @@ class View {
         }
     }
 
+    // рендерит (формирует) страницу для пользователя на основе полученных данных
     public function render($data){
-        $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
+        // prefix - имя префикса (админки)
+        // controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
+        // view - имя вида, который должен быть отображен
+        $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php"; // путь к файлу вида
+        // если такой файл существует - подключаем его, иначе выбрасываем исключение - такой вид не найден
         if(is_file($viewFile)){
-            ob_start();
-            require_once $viewFile;
-            $content = ob_get_clean();
+            ob_start(); // включаем буферизацию, чтобы вид не выводился
+            require_once $viewFile; // подключаем файл вида
+            $content = ob_get_clean(); // возвращаем все данные из буфера в переменную и одновременно очистим буфер
         }else{
-            throw new \Exception("На найден вид {$viewFile}", 500);
+            throw new \Exception("Не найден вид {$viewFile}", 500);
         }
+        // если свойство layout не равно false (подключение шаблона включено)
         if(false !== $this->layout){
-            $layoutFile = APP . "/views/layouts/{$this->layout}.php";
+            $layoutFile = APP . "/views/layouts/{$this->layout}.php"; // путь к файлу шаблона
+            // если такой файл существует - подключаем его, иначе выбрасываем исключение - такой шаблон не найден
             if(is_file($layoutFile)){
                 require_once $layoutFile;
             }else{
-                throw new \Exception("На найден шаблон {$this->layout}", 500);
+                throw new \Exception("Не найден шаблон {$this->layout}", 500);
             }
         }
     }
 
+    // возвращает готовую разметку (или массив) с мета-тегами (title, description, keywords)
     public function getMeta(){
-
+        $this->meta; // массив с мета-тегами, заданными через метод setMeta() в контроллере
     }
 
 }

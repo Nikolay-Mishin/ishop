@@ -1,16 +1,16 @@
 <?php
-// (абстрактный) базовый класс
+// (абстрактный) базовый класс контроллера
 
 namespace ishop\base;
 
 abstract class Controller{
     
     public $route; // массив с маршрутами
-    public $controller;
-    public $model;
-    public $view;
-    public $prefix;
-    public $layout;
+    public $controller; // контроллер
+    public $model; // модель
+    public $view; // вид
+    public $prefix; // префикс
+    public $layout; // шаблон
     public $data = []; // обычные данные (контент)
     public $meta = []; // мета-данные
 
@@ -22,9 +22,10 @@ abstract class Controller{
         $this->prefix = $route['prefix'];
     }
 
+    // получает объект вида и вызывает рендер
     public function getView(){
-        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta);
-        $viewObject->render($this->data);
+        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta); // объект класса Вида
+        $viewObject->render($this->data); // вызов метода для рендера
     }
 
     // записывает полученные данные в массив (свойство)
@@ -34,9 +35,9 @@ abstract class Controller{
 
     // задает массив мета-данных
     public function setMeta($title = '', $desc = '', $keywords = ''){
-        $this->meta['title'] = $title;
-        $this->meta['desc'] = $desc;
-        $this->meta['keywords'] = $keywords;
+        $this->meta['title'] = $title; // заголовок
+        $this->meta['desc'] = $desc; // описание
+        $this->meta['keywords'] = $keywords; // ключевые слова
     }
 
 }
