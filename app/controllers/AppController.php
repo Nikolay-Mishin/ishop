@@ -1,9 +1,10 @@
 <?php
-// базовый класс приложения, который наследуют остальные контроллеры
+// базовый класс Контроллеров приложения, который наследуют остальные контроллеры
+// extends (наследует базовый класс контроллера) - AppController наследует класс Controller (расширяет/дополняет его)
 
 namespace app\controllers;
 
-use app\models\AppModel;
+use app\models\AppModel; // подключаем базовый класс Моделей приложения
 use ishop\base\Controller; // подключаем базовый класс Контроллера
 
 class AppController extends Controller{
