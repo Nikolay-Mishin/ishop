@@ -33,6 +33,7 @@ class View {
 
     // рендерит (формирует) страницу для пользователя на основе полученных данных
     public function render($data){
+        // если $data - массив, то извлечем данные из массива и сформируем из них соответствующие переменные
         if(is_array($data)) extract($data);
         // prefix - имя префикса (админки)
         // controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
@@ -60,7 +61,8 @@ class View {
 
     // возвращает готовую разметку (или массив) с мета-тегами (title, description, keywords)
     public function getMeta(){
-        $output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL;
+        // разметку для вывода в шаблон запишем в переменную и вернем ее
+        $output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
         $output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
         $output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
         return $output;
