@@ -12,7 +12,7 @@ abstract class Controller{
     public $prefix; // префикс
     public $layout; // шаблон
     public $data = []; // обычные данные (контент)
-    public $meta = []; // мета-данные
+    public $meta = []; // мета-данные ()
 
     public function __construct($route){
         $this->route = $route;

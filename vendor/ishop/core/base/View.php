@@ -1,5 +1,4 @@
 <?php
-// базовый класс вида (динамичная часть сайта - центральный контент, меняющий между страницами)
 
 namespace ishop\base;
 
@@ -12,7 +11,7 @@ class View {
     public $prefix;
     public $layout;
     public $data = [];
-    public $meta = [];
+    public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в контроллере
 
     public function __construct($route, $layout = '', $view = '', $meta){
         // $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
@@ -34,10 +33,11 @@ class View {
 
     // рендерит (формирует) страницу для пользователя на основе полученных данных
     public function render($data){
+        if(is_array($data)) extract($data);
         // prefix - имя префикса (админки)
         // controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
         // view - имя вида, который должен быть отображен
-        $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php"; // путь к файлу вида
+        $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
         // если такой файл существует - подключаем его, иначе выбрасываем исключение - такой вид не найден
         if(is_file($viewFile)){
             ob_start(); // включаем буферизацию, чтобы вид не выводился
@@ -60,7 +60,10 @@ class View {
 
     // возвращает готовую разметку (или массив) с мета-тегами (title, description, keywords)
     public function getMeta(){
-        $this->meta; // массив с мета-тегами, заданными через метод setMeta() в контроллере
+        $output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL;
+        $output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
+        $output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+        return $output;
     }
 
 }
