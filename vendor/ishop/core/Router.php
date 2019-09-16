@@ -1,5 +1,5 @@
 <?php
-// класс Маршрутизатор - отвечает за обработку запросов и вызов контроллера (controller) и экшена (action)
+// класс Маршрутизатор - отвечает за обработку запросов (url) и вызов контроллера (controller) и экшена (action)
 
 namespace ishop;
 
@@ -93,11 +93,16 @@ class Router{
         return lcfirst(self::upperCamelCase($name));
     }
 
+    // вырезает из строки запроса (url) get-параметры (ishop/?id=1 => '&id=1')
     protected static function removeQueryString($url){
         if($url){
-            $params = explode('&', $url, 2);
+            $params = explode('&', $url, 2); // разделяем строку по символу '&' и возвращаем массив не более, чем из 2 элементов
+            // page/view/?id=1&page=1
+            // 0 = page/view/
+            // 1 = id=1&page=1
+            // если в 0 элементе массива нет знака '=' возвращаем данную, иначе возвращаем пустую строку
             if(false === strpos($params[0], '=')){
-                return rtrim($params[0], '/');
+                return rtrim($params[0], '/'); // вырезаем из конца строки '/'
             }else{
                 return '';
             }

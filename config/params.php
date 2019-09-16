@@ -1,4 +1,5 @@
 <?php
+// параметры/свойства приложения
 
 return [
     'admin_email' => 'admin@mail.com',

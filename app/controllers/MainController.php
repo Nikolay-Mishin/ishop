@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+// extends - MainController наследует класс AppController (расширяет/дополняет его)
 class MainController extends AppController {
 
     // public $layout = 'test'; // переопределяем свойство layout для данного контроллера (подключаемый шалон)
