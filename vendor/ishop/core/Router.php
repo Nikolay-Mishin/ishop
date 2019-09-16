@@ -28,6 +28,7 @@ class Router{
 
     // принимает запрошенный url адрес и обрабатывает его
     public static function dispatch($url){
+        $url = self::removeQueryString($url);
         // ищем соответствие переданного адреса в таблице маршрутов
         if(self::matchRoute($url)){
             // имя контроллера (путь), который будет вызван + постфикс (MainController)
@@ -90,6 +91,17 @@ class Router{
     // camelCase - для изменения имен экшенов (первый символ в нижнем регистре)
     protected static function lowerCamelCase($name){
         return lcfirst(self::upperCamelCase($name));
+    }
+
+    protected static function removeQueryString($url){
+        if($url){
+            $params = explode('&', $url, 2);
+            if(false === strpos($params[0], '=')){
+                return rtrim($params[0], '/');
+            }else{
+                return '';
+            }
+        }
     }
 
 }
