@@ -8,6 +8,8 @@ class MainController extends AppController {
     // public $layout = 'test'; // переопределяем свойство layout для данного контроллера (подключаемый шалон)
 
     public function indexAction(){
+        $posts = \R::findAll('test');
+        $post = \R::findOne('test', 'id = ?', [2]);
         // $this->layout = 'test'; // меняем свойство layout для данного контроллера (подключаемый шалон)
         // echo __METHOD__; // константа имя метода (app\controllers\MainController::indexAction)
         // заполняем мета-данные для данного контроллера
@@ -20,7 +22,7 @@ class MainController extends AppController {
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение
-        $this->set(compact('name', 'age', 'names'));
+        $this->set(compact('name', 'age', 'names', 'posts'));
     }
 
 }
