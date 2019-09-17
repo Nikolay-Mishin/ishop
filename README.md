@@ -1,1 +1,1 @@
-# ishop
+# ishop - part 2
