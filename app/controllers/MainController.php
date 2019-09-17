@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use ishop\Cache;
+
 class MainController extends AppController {
 
     // public $layout = 'test'; // переопределяем свойство layout для данного контроллера (подключаемый шалон)
@@ -18,7 +20,15 @@ class MainController extends AppController {
         // данные для данного контроллера
         $name = 'John';
         $age = 30;
-        $names = ['Andrey', 'Jane',];
+        $names = ['Andrey', 'Jane', 'Mike'];
+        $cache = Cache::instance();
+        //$cache->set('test', $names);
+//        $cache->delete('test');
+        $data = $cache->get('test');
+        if(!$data){
+            $cache->set('test', $names);
+        }
+        debug($data);
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение
