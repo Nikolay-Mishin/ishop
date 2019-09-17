@@ -21,14 +21,15 @@ class MainController extends AppController {
         $name = 'John';
         $age = 30;
         $names = ['Andrey', 'Jane', 'Mike'];
-        $cache = Cache::instance();
-        //$cache->set('test', $names);
-//        $cache->delete('test');
-        $data = $cache->get('test');
+        $cache = Cache::instance(); // создаем объект кэша
+        // $cache->set('test', $names); // кэшируем данные
+        // $cache->delete('test'); // очищаем кэш
+        $data = $cache->get('test'); // получаем данные из кэша
+        // если данные не получены, то кэшируем их заново
         if(!$data){
             $cache->set('test', $names);
         }
-        debug($data);
+        debug($data); // распечатываем массив с данными кэша
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение

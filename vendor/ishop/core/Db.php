@@ -12,6 +12,7 @@ class Db{
         $db = require_once CONF . '/config_db.php'; // подключаем файл конфигурации БД
         // RedBeanPHP подключается автозагрузчиком композера (composer)
         class_alias('\RedBeanPHP\R','\R'); // меняем пространство имен \RedBeanPHP\R на \R
+        // class_alias('\RedBeanPHP\R','R');
         \R::setup($db['dsn'], $db['user'], $db['pass']); // подключаемся к БД через RedBeanPHP
         // если соединение не установлено выбрасываем исключение
         if( !\R::testConnection() ){

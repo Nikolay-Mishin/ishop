@@ -1,4 +1,8 @@
 <?php
+// класс для кэширования - снижает нагрузку на БД
+// реализует паттерн Singletone
+// например, формирование меню (каталога/категорий) - взятие данных из БД и рекурсия (проход нескольких циклов в одном цикле)
+// формируем меню 1 раз и записываем в кэш - при повторном обращении к сайту берем его из кэша или формируем из БД и записываем в кэш
 
 namespace ishop;
 
@@ -6,10 +10,18 @@ class Cache{
 
     use TSingletone;
 
+    // запись в кэш
     public function set($key, $data, $seconds = 3600){
+        // $key - уникальное имя файла кэша
+        // $data - данные для кэширования
+        // $seconds - время кэширования данных в сек (на 1ч)
+        // если время кэширования > 0 - кэшируем данные (в целях тестирования ставится в 0, чтобы временно не кэшировать данные)
         if($seconds){
-            $content['data'] = $data;
-            $content['end_time'] = time() + $seconds;
+            $content['data'] = $data; // записываем переданные данные в массив
+            $content['end_time'] = time() + $seconds; // записываем в массив конечное время кэширования (текущие время + время кэша)
+            // записываем данные в кэш
+            // md5($key) - хэшируем ключ имени кэша
+            // serialize($content) - сериализует весь контент (переводит в строковый формат)
             if(file_put_contents(CACHE . '/' . md5($key) . '.txt', serialize($content))){
                 return true;
             }
@@ -17,10 +29,13 @@ class Cache{
         return false;
     }
 
+    // получение кэша
     public function get($key){
-        $file = CACHE . '/' . md5($key) . '.txt';
+        $file = CACHE . '/' . md5($key) . '.txt'; // путь к файлу кэша по ключу
+        // если файл существует вынимает контент из кэша
         if(file_exists($file)){
-            $content = unserialize(file_get_contents($file));
+            $content = unserialize(file_get_contents($file)); // десериализуем контент из файла (преобразовываем из строки в массив)
+            // проверяем не устарели ли данные в кэше и возвращаем их, иначе удаляем файл
             if(time() <= $content['end_time']){
                 return $content;
             }
@@ -29,8 +44,10 @@ class Cache{
         return false;
     }
 
+    // удаление/очистка кэша
     public function delete($key){
-        $file = CACHE . '/' . md5($key) . '.txt';
+        $file = CACHE . '/' . md5($key) . '.txt'; // путь к файлу кэша по ключу
+        // если файл существует, удаляем его
         if(file_exists($file)){
             unlink($file);
         }
