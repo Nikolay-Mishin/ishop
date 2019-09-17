@@ -7,7 +7,8 @@ class MainController extends AppController {
     // public $layout = 'test'; // переопределяем свойство layout для данного контроллера (подключаемый шалон)
 
     public function indexAction(){
-        $posts = \R::findAll('test');
+        $posts = \R::findAll('test'); // получаем все статьи из таблицы test
+        // биндим данные (защита от sql-инъекций) вместо '?' подставляются указанные данные
         $post = \R::findOne('test', 'id = ?', [2]);
         // $this->layout = 'test'; // меняем свойство layout для данного контроллера (подключаемый шалон)
         // echo __METHOD__; // константа имя метода (app\controllers\MainController::indexAction)

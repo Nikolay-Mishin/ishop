@@ -5,6 +5,7 @@
 <p><?=$age;?></p>
 <?php debug($names); ?>
 
+<!-- статьи из массива $posts -->
 <?php foreach($posts as $post): ?>
     <h3><?=$post->title;?></h3>
 <?php endforeach; ?>

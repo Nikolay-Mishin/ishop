@@ -16,6 +16,7 @@
 
 <?=$content;?>
 
+<!-- выводим все запросы выполняемые RedBeanPHP -->
 <?php
 $logs = \R::getDatabaseAdapter()
     ->getDatabase()
