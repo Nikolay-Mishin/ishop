@@ -40,3 +40,5 @@
 =================
 [2019-09-17 20:46:16] Текст ошибки: Class 'ishop\R' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Db.php | Строка: 16
 =================
+[2019-09-18 12:48:20] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
