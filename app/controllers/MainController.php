@@ -11,6 +11,7 @@ class MainController extends AppController {
     public function indexAction(){
         // echo __METHOD__; // константа имя метода (app\controllers\MainController::indexAction)
         // $this->layout = 'test'; // меняем свойство layout для данного контроллера (подключаемый шалон)
+        
         // заполняем мета-данные для данного контроллера
         // 'Главная страница' - можно использовать App::$app->getProperty('shop_name') | use ishop\App
         $this->setMeta('Главная страница', 'Описание...', 'Ключевики...');
