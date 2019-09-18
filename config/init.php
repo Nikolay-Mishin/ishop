@@ -11,7 +11,7 @@ define("LIBS", VENDOR . '/ishop/core/libs'); // папка с библиотек
 define("TMP", ROOT . '/tmp'); // папка с временными файлами
 define("CACHE", TMP . '/cache'); // папка кэша
 define("CONF", ROOT . '/config'); // папка конфигурации приложения
-define("LAYOUT", 'default'); // шаблон (тема) по умолчанию
+define("LAYOUT", 'watches'); // шаблон (тема) по умолчанию
 
 // http://ishop2.loc/public/index.php
 $app_path = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";
