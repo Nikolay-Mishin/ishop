@@ -7,7 +7,7 @@ namespace app\controllers;
 class MainController extends AppController {
 
     public function indexAction(){
-        $brands = \R::find('brand', 'LIMIT 3');
+        $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // $posts = \R::findAll('test'); // получаем все статьи из таблицы test
         // биндим данные (защита от sql-инъекций) вместо '?' подставляются указанные данные
         // $post = \R::findOne('test', 'id = ?', [2]);
@@ -22,7 +22,7 @@ class MainController extends AppController {
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение
-        $this->set(compact('brands'));
+        $this->set(compact('brands')); // передаем полученные бренды в шаблон для вывода
 
         // данные для данного контроллера
         /* $name = 'John';

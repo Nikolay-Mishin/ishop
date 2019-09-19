@@ -18,17 +18,19 @@
 <!--banner-ends-->
 
 <!--about-starts-->
+<!-- если массив с брендами не пуст (есть бренды для вывода), выводим полученные бренды -->
 <?php if($brands): ?>
 <div class="about">
     <div class="container">
         <div class="about-top grid-1">
+            <!-- выводим в цикле отдельно каждый бренд -->
             <?php foreach($brands as $brand): ?>
                 <div class="col-md-4 about-left">
                 <figure class="effect-bubba">
-                    <img class="img-responsive" src="images/<?=$brand->img;?>" alt=""/>
+                    <img class="img-responsive" src="images/<?=$brand->img;?>" alt=""/> <!-- Фото -->
                     <figcaption>
-                        <h2><?=$brand->title;?></h2>
-                        <p><?=$brand->description;?></p>
+                        <h2><?=$brand->title;?></h2> <!-- Наименование -->
+                        <p><?=$brand->description;?></p> <!-- Описание -->
                     </figcaption>
                 </figure>
             </div>

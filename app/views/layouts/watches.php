@@ -224,6 +224,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!--bottom-header-->
 
+<!-- выводим динамический контент данной страницы -->
 <div class="content">
     <?=$content;?>
 </div>
