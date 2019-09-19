@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 16 2019 г., 21:08
+-- Время создания: Сен 19 2019 г., 17:30
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -158,6 +158,7 @@ CREATE TABLE `brand` (
   `title` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL DEFAULT 'brand_no_image.jpg',
+  `keywords` varchar(256) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -165,12 +166,12 @@ CREATE TABLE `brand` (
 -- Дамп данных таблицы `brand`
 --
 
-INSERT INTO `brand` (`id`, `title`, `alias`, `img`, `description`) VALUES
-(1, 'Casio', 'casio', 'abt-1.jpg', 'In sit amet sapien eros Integer dolore magna aliqua'),
-(2, 'Citizen', 'citizen', 'abt-2.jpg', 'In sit amet sapien eros Integer dolore magna aliqua'),
-(3, 'Royal London', 'royal-london', 'abt-3.jpg', 'In sit amet sapien eros Integer dolore magna aliqua'),
-(4, 'Seiko', 'seiko', 'seiko.png', NULL),
-(5, 'Diesel', 'diesel', 'diesel.png', NULL);
+INSERT INTO `brand` (`id`, `title`, `alias`, `img`, `keywords`, `description`) VALUES
+(1, 'Casio', 'casio', 'abt-1.jpg', NULL, 'In sit amet sapien eros Integer dolore magna aliqua'),
+(2, 'Citizen', 'citizen', 'abt-2.jpg', NULL, 'In sit amet sapien eros Integer dolore magna aliqua'),
+(3, 'Royal London', 'royal-london', 'abt-3.jpg', NULL, 'In sit amet sapien eros Integer dolore magna aliqua'),
+(4, 'Seiko', 'seiko', 'seiko.png', NULL, NULL),
+(5, 'Diesel', 'diesel', 'diesel.png', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -395,17 +396,6 @@ INSERT INTO `related_product` (`product_id`, `related_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `test`
---
-
-CREATE TABLE `test` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `user`
 --
 
@@ -504,12 +494,6 @@ ALTER TABLE `related_product`
   ADD PRIMARY KEY (`product_id`,`related_id`);
 
 --
--- Индексы таблицы `test`
---
-ALTER TABLE `test`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
@@ -580,12 +564,6 @@ ALTER TABLE `order_product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT для таблицы `test`
---
-ALTER TABLE `test`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
