@@ -7,8 +7,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- получаем разметку с мета-тегами из вида -->
     <?=$this->getMeta();?>
+    <!-- Vendor-Theme-files -->
+    <!-- theme-style -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //theme-style -->
     <!--Custom-Theme-files-->
     <!--theme-style-->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />

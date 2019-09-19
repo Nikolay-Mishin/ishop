@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use ishop\Cache;
+// use ishop\Cache;
 
 class MainController extends AppController {
 
