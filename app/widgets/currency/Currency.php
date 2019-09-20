@@ -3,6 +3,8 @@
 
 namespace app\widgets\currency;
 
+use ishop\App;
+
 class Currency{
 
     protected $tpl; // шаблон валюты
@@ -16,8 +18,9 @@ class Currency{
 
     // метод запуска виджета - вызывает метод, который строит html-разметку на основе спика валют и текущей валюты
     protected function run(){
-
-        $this->getHtml(); // получаем html-разметку
+        $this->currencies = App::$app->getProperty('currencies');
+        $this->currency = App::$app->getProperty('currency');
+        echo $this->getHtml(); // получаем html-разметку
     }
 
     // метод для получения спика доступных валют - сделаны статичными, чтобы каждый раз обращаться к ним не создавая объект класса
@@ -43,7 +46,9 @@ class Currency{
 
     // формирует html-разметку
     protected function getHtml(){
-
+        ob_start();
+        require_once $this->tpl;
+        return ob_get_clean();
     }
 
 }
