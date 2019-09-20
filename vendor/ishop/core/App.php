@@ -8,6 +8,7 @@
 // ИмяПространстваИмён (vendor name) - имя производителя (разработчика/продукта) - виртуальная папка, которой в проекте нет
 // (vendor name) ishop = vendor/ishop/core (псевдоним пути в автозагрузчике - composer.json)
 // app = app
+
 namespace ishop;
 
 class App{
@@ -26,7 +27,7 @@ class App{
 
     protected function getParams(){
         $params = require_once CONF . '/params.php'; // массив параметров (настроек) приложения
-        // записываем массив параметров в реестр
+        // записываем каждый из параметров в реестр
         if(!empty($params)){
             foreach($params as $k => $v){
                 self::$app->setProperty($k, $v);
