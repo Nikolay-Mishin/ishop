@@ -31,6 +31,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="drop">
                     <div class="box">
                         <select id="currency" tabindex="4" class="dropdown drop">
+                            <!-- вызываем виджет валюты (создаем объект класса) -->
                             <?php new \app\widgets\currency\Currency(); ?>
                         </select>
                     </div>

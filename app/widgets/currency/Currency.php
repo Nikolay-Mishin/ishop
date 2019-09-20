@@ -18,9 +18,9 @@ class Currency{
 
     // метод запуска виджета - вызывает метод, который строит html-разметку на основе спика валют и текущей валюты
     protected function run(){
-        $this->currencies = App::$app->getProperty('currencies');
-        $this->currency = App::$app->getProperty('currency');
-        echo $this->getHtml(); // получаем html-разметку
+        $this->currencies = App::$app->getProperty('currencies'); // записываем доступные валюты в свойство виджета
+        $this->currency = App::$app->getProperty('currency'); // записываем текущую валюту в свойство виджета
+        echo $this->getHtml(); // получаем и выводим html-разметку
     }
 
     // метод для получения спика доступных валют - сделаны статичными, чтобы каждый раз обращаться к ним не создавая объект класса
@@ -46,9 +46,9 @@ class Currency{
 
     // формирует html-разметку
     protected function getHtml(){
-        ob_start();
-        require_once $this->tpl;
-        return ob_get_clean();
+        ob_start(); // включаем буферизацию
+        require_once $this->tpl; // подключаем шаблон
+        return ob_get_clean(); // возвращаем контент из буфера и очищаем его
     }
 
 }
