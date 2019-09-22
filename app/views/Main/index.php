@@ -48,6 +48,7 @@
 <!--product-starts-->
 <!-- выводим хиты -->
 <?php if($hits): ?>
+<!-- получаем активную валюту из контейнера (реестра) -->
 <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
 <div class="product">
     <div class="container">
@@ -67,17 +68,19 @@
                             <h4>
                                 <!-- ссылка для добавления товара в корзину (текущая цена) -->
                                 <!-- в контроллере cart вызывается экшен add и передается id товара -->
-                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=$hit->price * $curr['value'];?><?=$curr['symbol_right'];?></span>
+                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($hit->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
                             <!-- выводим старую цену, если такая есть -->
                                 <?php if($hit->old_price): ?>
-                                <small><del><?=$curr['symbol_left'];?><?=$hit->old_price * $curr['value'];?><?=$curr['symbol_right'];?></del></small>
+                                <small><del><?=$curr['symbol_left'];?><?=price_format($hit->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                             <?php endif; ?>
                             </h4>
                         </div>
                         <!-- ДЗ - рассчитать размер скидки программно (при наличии старой цены) -->
-                        <div class="srch">
-                            <span>-50%</span>
-                        </div>
+                        <?php if($hit->old_price > 0): ?>
+                            <div class="srch">
+                                <span><?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
