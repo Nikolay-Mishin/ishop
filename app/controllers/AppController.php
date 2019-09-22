@@ -6,7 +6,7 @@ namespace app\controllers;
 use ishop\base\Controller; // подключаем базовый класс Контроллера фреймворка
 use app\models\AppModel; // подключаем базовый класс Моделей приложения
 use ishop\App;
-use app\widgets\currency\Currency;
+use ishop\Cache;
 
 class AppController extends Controller{
 
@@ -18,6 +18,17 @@ class AppController extends Controller{
         App::$app->setProperty('currencies', Currency::getCurrencies());
         App::$app->setProperty('currency', Currency::getCurrency(App::$app->getProperty('currencies')));
         // debug(App::$app->getProperties()); // распечатываем список параметров из реестра
+        App::$app->setProperty('cats', self::cacheCategory());
+    }
+
+    public static function cacheCategory(){
+        $cache = Cache::instance();
+        $cats = $cache->get('cats');
+        if(!$cats){
+            $cats = \R::getAssoc("SELECT * FROM category");
+            $cache->set('cats', $cats);
+        }
+        return $cats;
     }
 
 }
