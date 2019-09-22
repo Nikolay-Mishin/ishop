@@ -48,6 +48,7 @@
 <!--product-starts-->
 <!-- выводим хиты -->
 <?php if($hits): ?>
+<?php $curr = \ishop\App::$app->getProperty('currency'); ?>
 <div class="product">
     <div class="container">
         <div class="product-top">
@@ -66,13 +67,14 @@
                             <h4>
                                 <!-- ссылка для добавления товара в корзину (текущая цена) -->
                                 <!-- в контроллере cart вызывается экшен add и передается id товара -->
-                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>"><i></i></a> <span class=" item_price">$ <?=$hit->price;?></span>
-                                <!-- выводим старую цену, если такая есть -->
+                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=$hit->price * $curr['value'];?><?=$curr['symbol_right'];?></span>
+                            <!-- выводим старую цену, если такая есть -->
                                 <?php if($hit->old_price): ?>
-                                    <small><del><?=$hit->old_price;?></del></small>
-                                <?php endif; ?>
+                                <small><del><?=$curr['symbol_left'];?><?=$hit->old_price * $curr['value'];?><?=$curr['symbol_right'];?></del></small>
+                            <?php endif; ?>
                             </h4>
                         </div>
+                        <!-- ДЗ - рассчитать размер скидки программно (при наличии старой цены) -->
                         <div class="srch">
                             <span>-50%</span>
                         </div>
