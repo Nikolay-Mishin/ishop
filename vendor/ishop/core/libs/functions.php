@@ -36,7 +36,8 @@ function number_round($price, $precision = 0, $mode = 'up'){
      * 2. PHP_ROUND_HALF_DOWN - Округляет val в меньшую сторону к нулю до precision десятичных знаков, если следующий знак находится посередине. То есть округляет 1.5 в 1 и -1.5 в -1.
      * 3. PHP_ROUND_HALF_EVEN - Округляет val до precision десятичных знаков в сторону ближайшего четного знака.
      * 4. PHP_ROUND_HALF_ODD - Округляет val до precision десятичных знаков в сторону ближайшего нечетного знака.
-    */
+     */
+    
     switch ($mode) {
         case 'down':
             $mode = PHP_ROUND_HALF_DOWN;

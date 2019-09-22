@@ -56,3 +56,5 @@
 =================
 [2019-09-22 18:20:24] Текст ошибки: syntax error, unexpected ';' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\views\Main\index.php | Строка: 81
 =================
+[2019-09-22 19:56:01] Текст ошибки: Class 'app\controllers\Currency' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\AppController.php | Строка: 18
+=================
