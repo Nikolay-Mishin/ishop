@@ -15,7 +15,7 @@ class AppController extends Controller{
         // перегрузка - переопределение методов и свойств родительского класса
         parent::__construct($route); // вызов родительского конструктора, чтобы его не затереть
         new AppModel(); // создаем объект базовой модели приложения
-        // записываем список доступных валют и текущую валютув реестр
+        // записываем в реестр список доступных валют и текущую валюту
         App::$app->setProperty('currencies', Currency::getCurrencies());
         App::$app->setProperty('currency', Currency::getCurrency(App::$app->getProperty('currencies')));
         // debug(App::$app->getProperties()); // распечатываем список параметров из реестра

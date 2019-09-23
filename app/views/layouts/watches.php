@@ -72,7 +72,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="header">
             <div class="col-md-9 header-left">
+                <!-- обертка для меню -->
                 <div class="menu">
+                    <!-- объект виджета меню - передаем параметры (пользовательский шаблон) -->
                     <?php new \app\widgets\menu\Menu([
                         'tpl' => WWW . '/menu/menu.php',
                     ]); ?>

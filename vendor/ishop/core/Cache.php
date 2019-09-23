@@ -8,7 +8,7 @@ namespace ishop;
 
 class Cache{
 
-    use TSingletone;
+    use TSingletone; // шаблон Одининочка
 
     // запись в кэш
     public function set($key, $data, $seconds = 3600){
