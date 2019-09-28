@@ -11,6 +11,7 @@ namespace app\widgets\menu;
 
 use ishop\App;
 use ishop\Cache;
+use RedUNIT\Base\Threeway;
 
 class Menu{
 
@@ -20,6 +21,7 @@ class Menu{
     protected $tpl; // шаблон для меню
     // protected $tpl = __DIR__ . '/menu_tpl/menu.php'; // в старых версиях php такая запись запрещена
     protected $container = 'ul'; // контейнер для меню (классическое - 'ul', например в админке для выпадающих пунктов - 'select')
+    protected $class = 'menu';
     protected $table = 'category'; // таблица в БД, из которой необходимо выбирать данные
     protected $cache = 3600; // время кэширования данных
     protected $cacheKey = 'ishop_menu'; // ключ для сохранения кэша в файл
@@ -32,7 +34,7 @@ class Menu{
         // для сохранения совместимости версий php значение по умолчанию задаем в конструкторе, а не в самом свойстве
         $this->tpl = __DIR__ . '/menu_tpl/menu.php'; // шаблон по умолчанию
         $this->getOptions($options); // получаем опции
-        debug($this->table); // распечатываем свойство с именем таблицы
+        // debug($this->table); // распечатываем свойство с именем таблицы
         $this->run(); // формируем меню
     }
 
@@ -58,19 +60,42 @@ class Menu{
             if(!$this->data){
                 $this->data = \R::getAssoc("SELECT * FROM {$this->table}");
             }
-
+            $this->tree = $this->getTree();
+            $this->menuHtml = $this->getMenuHtml($this->tree);
+            if($this->cache){
+                $cache->set($this->cacheKey, $this->menuHtml, $this->cache);
+            }
         }
         $this->output(); // выводим меню
     }
 
     // метод для вывода меню
     protected function output(){
-        echo $this->menuHtml; // выводим html-разметку меню
+        // echo $this->menuHtml; // выводим html-разметку меню
+        $attrs = '';
+        if(!empty($this->attrs)){
+            foreach($this->attrs as $k => $v){
+                $attrs .= " $k='$v' ";
+            }
+        }
+        echo "<{$this->container} class='{$this->class}' $attrs>";
+            echo $this->prepend;
+            echo $this->menuHtml;
+        echo "</{$this->container}>";
     }
 
     // метод для получения дерева, сформированного из ассоциативного массива данных
     protected function getTree(){
-
+        $tree = [];
+        $data = $this->data;
+        foreach ($data as $id=>&$node) {
+            if (!$node['parent_id']){
+                $tree[$id] = &$node;
+            }else{
+                $data[$node['parent_id']]['childs'][$id] = &$node;
+            }
+        }
+        return $tree;
     }
 
     // метод для получения html-разметки на основе дерева и разтелителя
@@ -82,6 +107,11 @@ class Menu{
          * -category 1.1
          * --category 1.1.1
          */
+        $str = '';
+        foreach($tree as $id => $category){
+            $str .= $this->catToTemplate($category, $tab, $id);
+        }
+        return $str;
     }
 
     // метод для формирования куска html-разметки конкретной категории по шаблону
@@ -89,6 +119,9 @@ class Menu{
         // $category - категория
         // $tab - разделитель
         // $id - id категории
+        ob_start();
+        require $this->tpl;
+        return ob_get_clean();
     }
 
 }
