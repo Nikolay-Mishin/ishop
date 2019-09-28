@@ -26,10 +26,10 @@ class AppController extends Controller{
     public static function cacheCategory(){
         $cache = Cache::instance(); // объет кэша
         $cats = $cache->get('cats'); // получаем категории из кэша
-        // если данные из кэша не получены, то получаем их из БД и записываем в кэш
+        // если данные из кэша не получены
         if(!$cats){
-            $cats = \R::getAssoc("SELECT * FROM category");
-            $cache->set('cats', $cats);
+            $cats = \R::getAssoc("SELECT * FROM category"); // берем категории из БД
+            $cache->set('cats', $cats); // записываем в кэш
         }
         return $cats;
     }
