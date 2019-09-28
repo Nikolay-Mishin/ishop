@@ -38,7 +38,9 @@ class Menu{
 
     // получает опции
     protected function getOptions($options){
+        // если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
         foreach($options as $k => $v){
+            // проверяем существет ли такое свойство у класса
             if(property_exists($this, $k)){
                 $this->$k = $v;
             }
@@ -47,32 +49,46 @@ class Menu{
 
     // формирует меню
     protected function run(){
-        $cache = Cache::instance();
-        $this->menuHtml = $cache->get($this->cacheKey);
+        $cache = Cache::instance(); // получаем объект кэша
+        $this->menuHtml = $cache->get($this->cacheKey); // получаем данные html-разметки из кэша по ключу
+        // если данные не получены из кэша, то формируем (получаем) их
         if(!$this->menuHtml){
-            $this->data = App::$app->getProperty('cats');
+            $this->data = App::$app->getProperty('cats'); // получаем категории из контейнера (реестра)
+            // если данные не получены, берем их из БД
             if(!$this->data){
-                $this->data = $cats = \R::getAssoc("SELECT * FROM {$this->table}");
+                $this->data = \R::getAssoc("SELECT * FROM {$this->table}");
             }
 
         }
-        $this->output();
+        $this->output(); // выводим меню
     }
 
+    // метод для вывода меню
     protected function output(){
-        echo $this->menuHtml;
+        echo $this->menuHtml; // выводим html-разметку меню
     }
 
+    // метод для получения дерева, сформированного из ассоциативного массива данных
     protected function getTree(){
 
     }
 
+    // метод для получения html-разметки на основе дерева и разтелителя
     protected function getMenuHtml($tree, $tab = ''){
-
+        // $tree - дерево
+        // $tab - разделитель
+        /** когда меню идет не классическое (ul-li), а select (выпадающее меню в виде option)
+         * category 1
+         * -category 1.1
+         * --category 1.1.1
+         */
     }
 
+    // метод для формирования куска html-разметки конкретной категории по шаблону
     protected function catToTemplate($category, $tab, $id){
-
+        // $category - категория
+        // $tab - разделитель
+        // $id - id категории
     }
 
 }

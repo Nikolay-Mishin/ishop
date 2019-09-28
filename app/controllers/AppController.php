@@ -15,16 +15,18 @@ class AppController extends Controller{
         // перегрузка - переопределение методов и свойств родительского класса
         parent::__construct($route); // вызов родительского конструктора, чтобы его не затереть
         new AppModel(); // создаем объект базовой модели приложения
-        // записываем в реестр список доступных валют и текущую валюту
+        // записываем в контейнер (реестр) список доступных валют и текущую валюту
         App::$app->setProperty('currencies', Currency::getCurrencies());
         App::$app->setProperty('currency', Currency::getCurrency(App::$app->getProperty('currencies')));
         // debug(App::$app->getProperties()); // распечатываем список параметров из реестра
-        App::$app->setProperty('cats', self::cacheCategory());
+        App::$app->setProperty('cats', self::cacheCategory()); // записываем категории в контейнер
     }
 
+    // метод для кэширования массива категорий
     public static function cacheCategory(){
-        $cache = Cache::instance();
-        $cats = $cache->get('cats');
+        $cache = Cache::instance(); // объет кэша
+        $cats = $cache->get('cats'); // получаем категории из кэша
+        // если данные из кэша не получены, то получаем их из БД и записываем в кэш
         if(!$cats){
             $cats = \R::getAssoc("SELECT * FROM category");
             $cache->set('cats', $cats);
