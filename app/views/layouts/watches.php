@@ -74,9 +74,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-9 header-left">
                 <!-- обертка для меню -->
                 <div class="menu">
-                    <!-- объект виджета меню - передаем параметры (пользовательский шаблон) -->
+                    <!-- объект виджета меню - передаем параметры (пользовательский шаблон) и аттрибуты -->
                     <?php new \app\widgets\menu\Menu([
                         'tpl' => WWW . '/menu/menu.php',
+                        /* 'attrs' => [
+                            'style' => 'color: red; border: 1px solid red;',
+                            'id' => 'menu'
+                        ] */
                     ]); ?>
                 </div>
                 <!--<div class="top-nav">

@@ -37,7 +37,7 @@ class Cache{
             $content = unserialize(file_get_contents($file)); // десериализуем контент из файла (преобразовываем из строки в массив)
             // проверяем не устарели ли данные в кэше и возвращаем их, иначе удаляем файл
             if(time() <= $content['end_time']){
-                return $content;
+                return $content['data'];
             }
             unlink($file);
         }

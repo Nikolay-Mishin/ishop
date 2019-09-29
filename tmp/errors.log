@@ -60,3 +60,7 @@
 =================
 [2019-09-28 13:17:29] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
 =================
+[2019-09-29 15:41:00] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2019-09-29 20:20:58] Текст ошибки: syntax error, unexpected ''id'' (T_CONSTANT_ENCAPSED_STRING), expecting ']' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\views\layouts\watches.php | Строка: 82
+=================

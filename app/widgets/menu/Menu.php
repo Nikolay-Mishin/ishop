@@ -21,12 +21,12 @@ class Menu{
     protected $tpl; // шаблон для меню
     // protected $tpl = __DIR__ . '/menu_tpl/menu.php'; // в старых версиях php такая запись запрещена
     protected $container = 'ul'; // контейнер для меню (классическое - 'ul', например в админке для выпадающих пунктов - 'select')
-    protected $class = 'menu';
+    protected $class = 'menu'; // класс по умолчанию
     protected $table = 'category'; // таблица в БД, из которой необходимо выбирать данные
     protected $cache = 3600; // время кэширования данных
     protected $cacheKey = 'ishop_menu'; // ключ для сохранения кэша в файл
     protected $attrs = []; // массив дополнительных аттрибутов для меню
-    protected $prepend = ''; // для админки
+    protected $prepend = ''; // для админки (когда работаем с select можно вставить option - 'выберите значение')
 
     // заполняет недостающие свойства и получает опции
     public function __construct($options = []){
@@ -60,8 +60,9 @@ class Menu{
             if(!$this->data){
                 $this->data = \R::getAssoc("SELECT * FROM {$this->table}");
             }
-            $this->tree = $this->getTree();
-            $this->menuHtml = $this->getMenuHtml($this->tree);
+            $this->tree = $this->getTree(); // получаем дерево
+            $this->menuHtml = $this->getMenuHtml($this->tree); // получаем html-разметку и передаем дерево для ее формирования
+            // кэшируем меню, если включено кэширование
             if($this->cache){
                 $cache->set($this->cacheKey, $this->menuHtml, $this->cache);
             }
@@ -72,12 +73,14 @@ class Menu{
     // метод для вывода меню
     protected function output(){
         // echo $this->menuHtml; // выводим html-разметку меню
+        // формируем список аттрибутов (data-attr='value', style='' и тд)
         $attrs = '';
         if(!empty($this->attrs)){
             foreach($this->attrs as $k => $v){
                 $attrs .= " $k='$v' ";
             }
         }
+        // оборачиваем html-разметку в контейнер ('ul') + добавляем класс и аттрибуты
         echo "<{$this->container} class='{$this->class}' $attrs>";
             echo $this->prepend;
             echo $this->menuHtml;
@@ -85,20 +88,27 @@ class Menu{
     }
 
     // метод для получения дерева, сформированного из ассоциативного массива данных
+    // код взят из бесплатного курса по созданию фреймворка (урок 2-9 + 1 урок из премиум курса - создание каталога товара)
     protected function getTree(){
-        $tree = [];
-        $data = $this->data;
+        $tree = []; // массив для хранения дерева
+        $data = $this->data; // получаем массив данных
         foreach ($data as $id=>&$node) {
+            // если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень
             if (!$node['parent_id']){
                 $tree[$id] = &$node;
             }else{
+                // в элементе с parent_id создаем элемент (childs) и помещаем в него дочерние элементы (ветки)
                 $data[$node['parent_id']]['childs'][$id] = &$node;
             }
         }
         return $tree;
     }
-
-    // метод для получения html-разметки на основе дерева и разтелителя
+ 
+    /**
+     * метод для получения html-разметки на основе дерева и разтелителя
+     * код взят из бесплатного курса по созданию фреймворка
+     * передаем дерево, а не работаем с ним внутри метода, чтобы рекурсивно формировать html-разметку на основе шаблона
+     * для формирования html-разметки потомков */ 
     protected function getMenuHtml($tree, $tab = ''){
         // $tree - дерево
         // $tab - разделитель
@@ -108,6 +118,8 @@ class Menu{
          * --category 1.1.1
          */
         $str = '';
+        // $category - категория (ветка массива - участок дерева)
+        // рекурсивно формируем html-разметку на основе шаблона
         foreach($tree as $id => $category){
             $str .= $this->catToTemplate($category, $tab, $id);
         }
@@ -115,13 +127,14 @@ class Menu{
     }
 
     // метод для формирования куска html-разметки конкретной категории по шаблону
+    // код взят из бесплатного курса по созданию фреймворка
     protected function catToTemplate($category, $tab, $id){
-        // $category - категория
+        // $category - категория (участок дерева)
         // $tab - разделитель
         // $id - id категории
-        ob_start();
-        require $this->tpl;
-        return ob_get_clean();
+        ob_start(); // включаем буферизацию
+        require $this->tpl; // подключаем шаблон меню
+        return ob_get_clean(); // возвращаем данные из буфера
     }
 
 }
