@@ -12,6 +12,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- Vendor-Theme-files -->
     <!-- theme-style -->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //theme-style -->
     <!--Custom-Theme-files-->
     <!--theme-style-->
@@ -19,9 +21,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!--start-menu-->
+<!--start-menu-->
     <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
 </head>
+
 <body>
 <!--top-header-->
 <div class="top-header">
@@ -72,7 +75,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="header">
             <div class="col-md-9 header-left">
-                <!-- обертка для меню -->
+                <div class="menu-container">
+                    <!-- обертка для меню -->
                 <div class="menu">
                     <!-- объект виджета меню - передаем параметры (пользовательский шаблон) и аттрибуты -->
                     <?php new \app\widgets\menu\Menu([
@@ -82,6 +86,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             'id' => 'menu'
                         ] */
                     ]); ?>
+                </div>
                 </div>
                 <!--<div class="top-nav">
                     <ul class="memenu skyblue"><li class="active"><a href="index.html">Home</a></li>
@@ -330,6 +335,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     });
 </script>
+<script src="megamenu/js/megamenu.js"></script>
 <script src="js/main.js"></script>
 <!--End-slider-script-->
 </body>
