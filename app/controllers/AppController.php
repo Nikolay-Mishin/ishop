@@ -3,10 +3,10 @@
 
 namespace app\controllers;
 
-use ishop\base\Controller; // подключаем базовый класс Контроллера фреймворка
 use app\models\AppModel; // подключаем базовый класс Моделей приложения
-use ishop\App; // подключаем класс базовый приложения
 use app\widgets\currency\Currency; // подключаем виджет валюты
+use ishop\App; // подключаем класс базовый приложения
+use ishop\base\Controller; // подключаем базовый класс Контроллера фреймворка
 use ishop\Cache; // подключаем класс кэша
 
 class AppController extends Controller{
