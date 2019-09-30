@@ -21,8 +21,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--start-menu-->
-    <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    <!--start-menu-->
+    <!-- <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" /> -->
 </head>
 
 <body>
@@ -75,18 +75,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="header">
             <div class="col-md-9 header-left">
+                <!-- плагин MegaMenu (memenu) -->
                 <div class="menu-container">
                     <!-- обертка для меню -->
-                <div class="menu">
-                    <!-- объект виджета меню - передаем параметры (пользовательский шаблон) и аттрибуты -->
-                    <?php new \app\widgets\menu\Menu([
-                        'tpl' => WWW . '/menu/menu.php',
-                        /* 'attrs' => [
-                            'style' => 'color: red; border: 1px solid red;',
-                            'id' => 'menu'
-                        ] */
-                    ]); ?>
-                </div>
+                    <div class="menu">
+                        <!-- объект виджета меню - передаем параметры (пользовательский шаблон) и аттрибуты -->
+                        <?php new \app\widgets\menu\Menu([
+                            'tpl' => WWW . '/menu/menu.php',
+                            /* 'attrs' => [
+                                'style' => 'color: red; border: 1px solid red;',
+                                'id' => 'menu'
+                            ] */
+                        ]); ?>
+                    </div>
                 </div>
                 <!--<div class="top-nav">
                     <ul class="memenu skyblue"><li class="active"><a href="index.html">Home</a></li>
