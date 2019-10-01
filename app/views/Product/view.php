@@ -14,6 +14,7 @@
 <div class="single contact">
     <div class="container">
         <div class="single-main">
+            <!-- распечатываем информацию о товаре -->
             <?=debug($product);?>
             <div class="col-md-9 single-main-left">
                 <div class="sngl-top">
