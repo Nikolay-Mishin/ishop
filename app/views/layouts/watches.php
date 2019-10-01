@@ -239,5 +239,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </script>
 <script src="js/main.js"></script>
 <!--End-slider-script-->
+
+<!-- выводим все запросы выполняемые RedBeanPHP -->
+<?php
+$logs = \R::getDatabaseAdapter()
+    ->getDatabase()
+    ->getLogger();
+
+debug( $logs->grep( 'SELECT' ) );
+?>
 </body>
 </html>

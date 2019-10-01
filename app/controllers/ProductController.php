@@ -1,5 +1,4 @@
 <?php
-// контроллер карточки товара
 
 namespace app\controllers;
 
@@ -13,10 +12,10 @@ class ProductController extends AppController {
             throw new \Exception('Страница не найдена', 404);
         }
 
-        // хлебные крошки
-        // строка категорий - Home / Single
+        // хлебные крошки - Home / Single
 
         // связанные товары - с этим товаром покупают также
+        $related = \R::getAll("SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$product->id]);
 
         // запись в куки запрошенного товара
 
@@ -27,7 +26,7 @@ class ProductController extends AppController {
         // модификации
 
         $this->setMeta($product->title, $product->description, $product->keywords);
-        $this->set(compact('product')); // передаем данные в вид карточки товара
+        $this->set(compact('product', 'related')); // передаем данные в вид карточки товара
     }
 
 }
