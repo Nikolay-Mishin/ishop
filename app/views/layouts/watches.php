@@ -7,6 +7,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- тег <base> для указания корневого каталога, от которого работают все ссылки ресурсов (href, src) - link, script, img -->
+    <!-- "/" - строить ссылки от корня сайта (подставляется перед всеми ссылками) -->
     <base href="/">
     <!-- получаем разметку с мета-тегами из вида -->
     <?=$this->getMeta();?>
@@ -69,6 +71,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--top-header-->
 <!--start-logo-->
 <div class="logo">
+    <!-- ссыдка на главную -->
     <a href="<?=PATH;?>"><h1>Luxury Watches</h1></a>
 </div>
 <!--start-logo-->
