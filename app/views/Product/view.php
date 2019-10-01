@@ -34,11 +34,12 @@
 
                     </div>
                     <?php
-                    $curr = \ishop\App::$app->getProperty('currency');
-                    $cats = \ishop\App::$app->getProperty('cats');
+                    $curr = \ishop\App::$app->getProperty('currency'); // получаем активную валюту
+                    $cats = \ishop\App::$app->getProperty('cats'); // получаем категории
                     ?>
                     <div class="col-md-7 single-top-right">
                         <div class="single-para simpleCart_shelfItem">
+                            <!-- наименование товара -->
                             <h2><?=$product->title;?></h2>
                             <div class="star-on">
                                 <ul class="star-footer">
@@ -55,10 +56,13 @@
                                 <div class="clearfix"> </div>
                             </div>
 
-                            <h5 class="item_price"><?=$curr['symbol_left'];?><?=$product->price * $curr['value'];?><?=$curr['symbol_right'];?></h5>
+                            <!-- цена товара -->
+                            <h5 class="item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></h5>
                             <?php if($product->old_price): ?>
-                                <del><?=$curr['symbol_left'];?><?=$product->old_price * $curr['value'];?><?=$curr['symbol_right'];?></del>
+                                <del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del>
                             <?php endif; ?>
+                            <!-- // цена товара -->
+                            <!-- описание товара -->
                             <?=$product->content;?>
                             <div class="available">
                                 <ul>
@@ -79,13 +83,17 @@
                                     <div class="clearfix"> </div>
                                 </ul>
                             </div>
+                            <!-- категория - ссылка по алиасу -->
                             <ul class="tag-men">
                                 <li><span>Category</span>
-                                    <span>: <a href="category/<?=$cats[$product->category_id]['alias'];?>"><?=$cats[$product->category_id]['title'];?></a></span></li>
+                                    <span>: <a href="category/<?=$cats[$product->category_id]['alias'];?>"><?=$cats[$product->category_id]['title'];?></a></span>
+                                </li>
                             </ul>
+                            <!-- счетчик количества товара -->
                             <div class="quantity">
                                 <input type="number" size="4" value="1" name="quantity" min="1" step="1">
                             </div>
+                            <!-- ссылка для добавления в корзину -->
                             <a id="productAdd" data-id="<?=$product->id;?>" href="cart/add?id=<?=$product->id;?>" class="add-cart item_add add-to-cart-link">ADD TO CART</a>
 
                         </div>
