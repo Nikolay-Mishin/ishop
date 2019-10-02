@@ -1,6 +1,9 @@
 <?php
+// Контроллер продукта - карточка товара
 
 namespace app\controllers;
+
+use app\models\Product;
 
 class ProductController extends AppController {
 
@@ -23,11 +26,12 @@ class ProductController extends AppController {
         // просмотренные товары - последние 3 просмотренных товара
 
         // галерея
+        $gallery = \R::findAll('gallery', 'product_id = ?', [$product->id]);
 
         // модификации
 
         $this->setMeta($product->title, $product->description, $product->keywords);
-        $this->set(compact('product', 'related')); // передаем данные в вид карточки товара
+        $this->set(compact('product', 'related', 'gallery')); // передаем данные в вид карточки товара
     }
 
 }
