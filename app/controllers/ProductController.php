@@ -8,6 +8,7 @@ class ProductController extends AppController {
         $alias = $this->route['alias']; // получаем алиас текущего продукта
         // получаем по алиасу информацию о текущем продукте из БД
         $product = \R::findOne('product', "alias = ? AND status = '1'", [$alias]);
+        // если продукт не найден выбрасываем исключение
         if(!$product){
             throw new \Exception('Страница не найдена', 404);
         }

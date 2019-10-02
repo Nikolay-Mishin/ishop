@@ -75,7 +75,7 @@
                             <?php endif; ?>
                             </h4>
                         </div>
-                        <!-- рассчитат размера скидки (при наличии старой цены) -->
+                        <!-- рассчет размера скидки (при наличии старой цены) -->
                         <?php if($hit->old_price > 0): ?>
                             <div class="srch">
                                 <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
