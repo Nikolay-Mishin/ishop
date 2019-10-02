@@ -17,6 +17,7 @@
             <div class="col-md-9 single-main-left">
                 <div class="sngl-top">
                     <div class="col-md-5 single-top-left">
+                        <!-- выводим галерею -->
                         <?php if($gallery): ?>
                         <div class="flexslider">
                             <ul class="slides">
@@ -27,6 +28,7 @@
                                 <?php endforeach; ?>
                             </ul>
                         </div>
+                        <!-- если галереи нет - выводим главную картинку -->
                         <?php else: ?>
                             <img src="images/<?=$product->img;?>" alt="">
                         <?php endif; ?>
