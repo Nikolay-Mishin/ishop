@@ -10,6 +10,7 @@
     </div>
 </div>
 <!--end-breadcrumbs-->
+
 <!--start-single-->
 <div class="single contact">
     <div class="container">
@@ -32,17 +33,20 @@
                         <?php else: ?>
                             <img src="images/<?=$product->img;?>" alt="">
                         <?php endif; ?>
-                        <!-- FlexSlider -->
-
+                        <!-- // выводим галерею -->
                     </div>
+
                     <?php
                     $curr = \ishop\App::$app->getProperty('currency'); // получаем активную валюту
                     $cats = \ishop\App::$app->getProperty('cats'); // получаем категории
                     ?>
+
                     <div class="col-md-7 single-top-right">
                         <div class="single-para simpleCart_shelfItem">
                             <!-- наименование товара -->
                             <h2><?=$product->title;?></h2>
+
+                            <!-- звездный рейтинг -->
                             <div class="star-on">
                                 <ul class="star-footer">
                                     <li><a href="#"><i> </i></a></li>
@@ -63,9 +67,11 @@
                             <?php if($product->old_price): ?>
                                 <del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del>
                             <?php endif; ?>
-                            <!-- // цена товара -->
+
                             <!-- описание товара -->
                             <?=$product->content;?>
+
+                            <!-- модификации -->
                             <div class="available">
                                 <ul>
                                     <li>Color
@@ -85,23 +91,27 @@
                                     <div class="clearfix"> </div>
                                 </ul>
                             </div>
+
                             <!-- категория - ссылка по алиасу -->
                             <ul class="tag-men">
                                 <li><span>Category</span>
                                     <span>: <a href="category/<?=$cats[$product->category_id]['alias'];?>"><?=$cats[$product->category_id]['title'];?></a></span>
                                 </li>
                             </ul>
+
                             <!-- счетчик количества товара -->
                             <div class="quantity">
                                 <input type="number" size="4" value="1" name="quantity" min="1" step="1">
                             </div>
+
                             <!-- ссылка для добавления в корзину -->
                             <a id="productAdd" data-id="<?=$product->id;?>" href="cart/add?id=<?=$product->id;?>" class="add-cart item_add add-to-cart-link">ADD TO CART</a>
-
                         </div>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
+
+                <!-- аккордеон -->
                 <div class="tabs">
                     <ul class="menu_drop">
                         <li class="item1"><a href="#"><img src="images/arrow.png" alt="">Description</a>
@@ -139,6 +149,8 @@
                         </li>
                     </ul>
                 </div>
+                <!-- // аккордеон -->
+
                 <!-- выводим связанные товары -->
                 <?php if($related): ?>
                 <div class="latestproducts">
@@ -158,7 +170,7 @@
                                         <!-- новая и старая цена -->
                                         <span class="item_price"><?=$curr['symbol_left'];?><?=price_format($item['price'] * $curr['value']);?><?=$curr['symbol_right'];?></span>
                                         <?php if($item['old_price']): ?>
-                                            <del><?=$curr['symbol_left'];?><?=price_format($item['old_price'] * $curr['value']);?><?=$curr['symbol_right'];?></del>
+                                            <small><del><?=$curr['symbol_left'];?><?=price_format($item['old_price'] * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                                         <?php endif; ?>
                                     </h4>
                                 </div>
@@ -168,7 +180,16 @@
                                         <span>-<?=number_round((1 - $item['price'] / $item['old_price']) * 100);?>%</span>
                                     </div>
                                 <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <?php endif; ?>
+                <!-- // выводим связанные товары -->
 
+                <!-- выводим просмотренные товары -->
                 <?php if($recentlyViewed): ?>
                     <div class="latestproducts">
                         <div class="product-one">
@@ -176,21 +197,27 @@
                             <?php foreach($recentlyViewed as $item): ?>
                                 <div class="col-md-4 product-left p-left">
                                     <div class="product-main simpleCart_shelfItem">
+                                        <!-- ссылка на товар -->
                                         <a href="product/<?=$item['alias'];?>" class="mask"><img class="img-responsive zoom-img" src="images/<?=$item['img'];?>" alt="" /></a>
                                         <div class="product-bottom">
                                             <h3><a href="product/<?=$item['alias'];?>"><?=$item['title'];?></a></h3>
                                             <p>Explore Now</p>
                                             <h4>
+                                                <!-- ссылка для добавления товара в корзину -->
                                                 <a class="item_add add-to-cart-link" href="cart/add?id=<?=$item['id'];?>" data-id="<?=$item['id'];?>"><i></i></a>
+                                                <!-- новая и старая цена -->
                                                 <span class="item_price"><?=$curr['symbol_left'];?><?=$item['price'] * $curr['value'];?><?=$curr['symbol_right'];?></span>
                                                 <?php if($item['old_price']): ?>
-                                                    <del><?=$curr['symbol_left'];?><?=$item['old_price'] * $curr['value'];?><?=$curr['symbol_right'];?></del>
+                                                    <small><del><?=$curr['symbol_left'];?><?=$item['old_price'] * $curr['value'];?><?=$curr['symbol_right'];?></del></small>
                                                 <?php endif; ?>
                                             </h4>
                                         </div>
-                                        <div class="srch">
-                                            <span>-50%</span>
-                                        </div>
+                                        <!-- рассчет размера скидки (при наличии старой цены) -->
+                                        <?php if($item['old_price'] > 0): ?>
+                                            <div class="srch">
+                                                <span>-<?=number_round((1 - $item['price'] / $item['old_price']) * 100);?>%</span>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -198,6 +225,7 @@
                         </div>
                     </div>
                 <?php endif; ?>
+                <!-- // выводим просмотренные товары -->
 
             </div>
             <div class="col-md-3 single-right">

@@ -5,7 +5,10 @@
 ## app\views\Main\index.php (line 78)
 
 # ДЗ 2-6 - делать не запрос к БД, а выбирать валюту из контейнера (реестра)
-## app\controllers\CurrencyController.php (line 15)
+## app\controllers\CurrencyController (line 15)
 
 # ДЗ 2-7 - сделать функцию округления при пересчете цены
 ## app\views\Main\index.php (line 71, 74)
+
+# ДЗ 2-15 - ссылка для просмотра всех просмотренных товаров
+## app\controllers\ProductController (line 37)

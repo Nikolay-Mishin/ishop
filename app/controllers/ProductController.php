@@ -30,13 +30,18 @@ class ProductController extends AppController {
         $related = \R::getAll("SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$product->id]);
 
         // запись в куки запрошенного товара
-        $p_model = new Product();
-        $p_model->setRecentlyViewed($product->id);
+        $p_model = new Product(); // объект модели продукта
+        $p_model->setRecentlyViewed($product->id); // записываем запрошенный товар в список просмотренных
 
         // просмотренные товары - последние 3 просмотренных товара
-        $r_viewed = $p_model->getRecentlyViewed();
-        $recentlyViewed = null;
+        // ДЗ - сделать ссылку посмотреть все (product/recentlyViewed - ProductController => recentlyViewed())
+        $r_viewed = $p_model->getRecentlyViewed(); // получаем просмотренные товары
+        $recentlyViewed = null; // переменная для хранения просмотренных товаров, полученных из БД
+        // если просмотренные товары получены из кук, получаем их из БД
         if($r_viewed){
+            // find запрос типа IN - ищет совпадение в таблице (по заданному полю) из переданных значений (массива)
+            // \R::genSlots - формирует подстановку из '?' по числу элементов массива (?,?,?)
+            // SQL - SELECT column-names FROM table-name WHERE column-name IN (values) 
             $recentlyViewed = \R::find('product', 'id IN (' . \R::genSlots($r_viewed) . ') LIMIT 3', $r_viewed);
         }
 
