@@ -80,3 +80,13 @@
 =================
 [2019-10-03 17:07:42] Текст ошибки: syntax error, unexpected end of file | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\views\Product\view.php | Строка: 286
 =================
+[2019-10-03 18:31:16] Текст ошибки: Контроллер app\controllers\CategoryController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 48
+=================
+[2019-10-03 18:31:22] Текст ошибки: Контроллер app\controllers\CategoryController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 48
+=================
+[2019-10-03 19:02:59] Текст ошибки: syntax error, unexpected 'class' (T_CLASS) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\Breadcrumbs.php | Строка: 32
+=================
+[2019-10-03 19:14:26] Текст ошибки: Class 'app\controllers\Breadcrumbs' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\MainController.php | Строка: 11
+=================
+[2019-10-03 19:14:54] Текст ошибки: Too few arguments to function app\models\Breadcrumbs::getBreadcrumbs(), 0 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\MainController.php on line 12 and at least 1 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\Breadcrumbs.php | Строка: 11
+=================

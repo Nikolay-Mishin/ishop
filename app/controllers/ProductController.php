@@ -26,7 +26,7 @@ class ProductController extends AppController {
             throw new \Exception('Страница не найдена', 404);
         }
 
-        // хлебные крошки - Home / Single
+        // хлебные крошки - строка с ссылками на главную и категории (Home / Single)
         $breadcrumbs = Breadcrumbs::getBreadcrumbs($product->category_id, $product->title);
 
         // связанные товары - с этим товаром покупают также

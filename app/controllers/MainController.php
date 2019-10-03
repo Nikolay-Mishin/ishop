@@ -3,10 +3,14 @@
 namespace app\controllers;
 
 use ishop\Cache;
+use app\models\Breadcrumbs; // модель хлебных крошек
 
 class MainController extends AppController {
 
     public function indexAction(){
+        // хлебные крошки - строка с ссылками на главную и категории (Home / Single)
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs();
+
         $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // выбираем 8 записей из таблицы product, которые являются хитами (hit = '1') и имеют статус 'отображать' (status = '1')
         // enum('0','1') - строковый тип
@@ -25,7 +29,7 @@ class MainController extends AppController {
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение
-        $this->set(compact('brands', 'hits'));
+        $this->set(compact('breadcrumbs', 'brands', 'hits'));
         
         // данные для данного контроллера
         /* $name = 'John';

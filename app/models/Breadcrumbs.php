@@ -1,4 +1,5 @@
 <?php
+// Модель хлебных крошек - строка с ссылками на главную и категории (Home / Single)
 
 namespace app\models;
 
@@ -6,31 +7,59 @@ use ishop\App;
 
 class Breadcrumbs{
 
-    public static function getBreadcrumbs($category_id, $name = ''){
-        $cats = App::$app->getProperty('cats');
-        $breadcrumbs_array = self::getParts($cats, $category_id);
-        $breadcrumbs = "<li><a href='" . PATH . "'>Главная</a></li>";
+    // получаем хлебные крошки - строит хлебные крошки
+    public static function getBreadcrumbs($category_id = null, $name = ''){
+        // $name - наименование товара
+        $cats = App::$app->getProperty('cats'); // получаем категории
+        $breadcrumbs_array = self::getParts($cats, $category_id); // формируем массив хлебных крошек
+        // формируем html-разметку для хлебных крошек
+        $class = $name ? '' : ' class="active"';
+        $breadcrumbs = "<li{$class}><a href='" . PATH . "'>Главная</a></li>"; // ссылка на главную
+        // если массив хлебных крошек не пуст, формируем ссылки на категории (для элементов массива)
         if($breadcrumbs_array){
             foreach($breadcrumbs_array as $alias => $title){
-                $breadcrumbs .= "<li><a href='" . PATH . "/category/{$alias}'>{$title}</a></li>";
+                $breadcrumbs .= "<li{$class}><a href='" . PATH . "/category/{$alias}'>{$title}</a></li>";
             }
         }
+        // если передано наименование товара, добавляем его
         if($name){
-            $breadcrumbs .= "<li>$name</li>";
+            $breadcrumbs .= "<li class='active'>$name</li>";
         }
         return $breadcrumbs;
+
+        // работает только если явно задать ключи
+        // $array = array('1' => '1','2' => '2','3' => '3', '4'=>'4','5'=>'5');
+        /* foreach ($breadcrumbs_array as $alias => $title) {
+            if ($title != end($breadcrumbs_array)) {
+                // делаем что-либо с каждым элементом
+            }
+            else {
+                // делаем что-либо с последним элементом...
+            }
+        } */
+
+        /* $end_element = array_pop($breadcrumbs_array);
+        foreach ($breadcrumbs_array as $alias => $title) {
+            // делаем что-либо с каждым элементом
+        }
+        // делаем что-либо с последним элементом $end_element */
     }
 
+    // служебный метод
     public static function getParts($cats, $id){
-        if(!$id) return false;
+        if(!$id) return false; // если не передан id категории возвращаем false
         $breadcrumbs = [];
         foreach($cats as $k => $v){
+            // $k - идентификаторы элементов массива
+            // $v - массивы (значения элементов массива)
+            // если в массиве категорий существует переданный id, в массив хлебных крошек записываем ['алиас категории' => наименование]
             if(isset($cats[$id])){
                 $breadcrumbs[$cats[$id]['alias']] = $cats[$id]['title'];
-                $id = $cats[$id]['parent_id'];
-            }else break;
+                $id = $cats[$id]['parent_id']; // в id записываем значение родительской категории
+            }else break; // прерываем работу цикла если более не найдено совпадений
         }
-        return array_reverse($breadcrumbs, true);
+        // возвращаем массив хлебных крошек, перевернув элементы в обратном порядке
+        return array_reverse($breadcrumbs, true); // true - по умолчанию (сохранять ключи элементов)
     }
 
 }
