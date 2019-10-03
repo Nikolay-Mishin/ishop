@@ -11,10 +11,12 @@
 
 namespace app\controllers;
 
-use app\models\Product;
+use app\models\Breadcrumbs; // модель хлебных крошек
+use app\models\Product; // модель продукта
 
 class ProductController extends AppController {
 
+    // экшен вида (отображения) карточки товара
     public function viewAction(){
         $alias = $this->route['alias']; // получаем алиас текущего продукта
         // получаем по алиасу информацию о текущем продукте из БД
@@ -25,6 +27,7 @@ class ProductController extends AppController {
         }
 
         // хлебные крошки - Home / Single
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs($product->category_id, $product->title);
 
         // связанные товары - с этим товаром покупают также
         $related = \R::getAll("SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$product->id]);
@@ -52,7 +55,7 @@ class ProductController extends AppController {
 
         $this->setMeta($product->title, $product->description, $product->keywords);
         // передаем данные в вид карточки товара
-        $this->set(compact('product', 'related', 'gallery', 'recentlyViewed'));
+        $this->set(compact('product', 'related', 'gallery', 'recentlyViewed', 'breadcrumbs'));
     }
 
 }
