@@ -41,4 +41,16 @@ abstract class Controller{
         $this->meta['keywords'] = $keywords; // ключевые слова
     }
 
+    // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
+    public function isAjax() {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
+
+    // возвращает html-ответ (шаблон/вид) на ajax-запрос
+    public function loadView($view, $vars = []){
+        extract($vars); // извлекаем переменные из массива
+        require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид
+        die;
+    }
+
 }

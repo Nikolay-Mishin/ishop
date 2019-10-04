@@ -36,11 +36,13 @@ class CartController extends AppController {
                 $mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
             }
         }
-        $cart = new Cart();
-        $cart->addToCart($product, $qty, $mod);
+        $cart = new Cart(); // объект корзины
+        $cart->addToCart($product, $qty, $mod); // вызваем метод для добавления в корзину
+        // если запрос пришел асинхронно (ajax), загружаем вид корзины
         if($this->isAjax()){
             $this->loadView('cart_modal');
         }
+        // перезапрашиваем страницу, если данные пришли не ajax
         redirect();
     }
 

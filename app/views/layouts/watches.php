@@ -70,12 +70,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!--top-header-->
+
 <!--start-logo-->
 <div class="logo">
-    <!-- ссыдка на главную -->
+    <!-- ссылка на главную -->
     <a href="<?=PATH;?>"><h1>Luxury Watches</h1></a>
 </div>
 <!--start-logo-->
+
 <!--bottom-header-->
 <div class="header-bottom">
     <div class="container">
@@ -111,7 +113,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- выводим динамический контент данной страницы -->
 <div class="content">
-    <?php debug($_SESSION); //session_destroy();  ?>
+    <!-- распечатываем сессию -->
+    <?php debug($_SESSION); // session_destroy(); ?>
     <?=$content;?>
 </div>
 
@@ -160,6 +163,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!--information-end-->
+
 <!--footer-starts-->
 <div class="footer">
     <div class="container">
@@ -190,7 +194,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </script>
 
 <script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/simpleCart.min.js"> </script>
 <!--dropdown-->
 <script src="js/jquery.easydropdown.js"></script>
 <!--Slider-Starts-Here-->
