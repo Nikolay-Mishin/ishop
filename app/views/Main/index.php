@@ -80,7 +80,7 @@
                             <h4>
                                 <!-- ссылка для добавления товара в корзину (текущая цена) -->
                                 <!-- в контроллере cart вызывается экшен add и передается id товара -->
-                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($hit->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
+                                <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>" data-id="<?=$hit->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($hit->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
                             <!-- выводим старую цену, если такая есть -->
                                 <?php if($hit->old_price): ?>
                                 <small><del><?=$curr['symbol_left'];?><?=price_format($hit->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>

@@ -109,7 +109,7 @@
                             </div>
 
                             <!-- ссылка для добавления в корзину -->
-                            <a id="productAdd" data-id="<?=$product->id;?>" href="cart/add?id=<?=$product->id;?>" class="add-cart item_add add-to-cart-link">ADD TO CART</a>
+                            <a id="productAdd" href="cart/add?id=<?=$product->id;?>" data-id="<?=$product->id;?>" class="add-cart item_add add-to-cart-link">ADD TO CART</a>
                         </div>
                     </div>
                     <div class="clearfix"> </div>

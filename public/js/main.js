@@ -1,20 +1,25 @@
+// корзина
 /*Cart*/
+// Урок - делегирование событий в JS (для элементов которых изначально не было на странице - добавлены динамически)
+// берем элемент 'body' (он есть всегда) и от него делегируем событие 'click' для элементов с классом 'add-to-cart-link'
 $('body').on('click', '.add-to-cart-link', function(e){
-     e.preventDefault();
-     var id = $(this).data('id'),
-         qty = $('.quantity input').val() ? $('.quantity input').val() : 1,
-         mod = $('.available select').val();
-     $.ajax({
-         url: '/cart/add',
-         data: {id: id, qty: qty, mod: mod},
-         type: 'GET',
-         success: function(res){
-             showCart(res);
-         },
-         error: function(){
-             alert('Ошибка! Попробуйте позже');
-         }
-     });
+    e.preventDefault(); // отменяем действие по умолчанию (запретить переход по ссылке и тд) - также можно return false;
+    var id = $(this).data('id'), // id с номером товара
+        qty = $('.quantity input').val() ? $('.quantity input').val() : 1, // количество товара (если нет = 1)
+        mod = $('.available select').val(); // id модификатора товара
+    // отправляет стандартный ajax-запрос
+    $.ajax({
+        url: '/cart/add', // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
+        data: {id: id, qty: qty, mod: mod}, // объект с данными для отправки на серевер
+        type: 'GET', // метод отправки запроса
+        success: function(res){
+            // res - ответ от сервера
+            showCart(res);
+        },
+        error: function(){
+            alert('Ошибка! Попробуйте позже');
+        }
+    });
 });
 
 function showCart(cart){
