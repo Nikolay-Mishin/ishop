@@ -90,3 +90,5 @@
 =================
 [2019-10-03 19:14:54] Текст ошибки: Too few arguments to function app\models\Breadcrumbs::getBreadcrumbs(), 0 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\MainController.php on line 12 and at least 1 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\Breadcrumbs.php | Строка: 11
 =================
+[2019-10-04 19:34:59] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
