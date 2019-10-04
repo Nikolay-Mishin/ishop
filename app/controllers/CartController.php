@@ -38,12 +38,7 @@ class CartController extends AppController {
         }
         $cart = new Cart(); // объект корзины
         $cart->addToCart($product, $qty, $mod); // вызваем метод для добавления в корзину
-        // если запрос пришел асинхронно (ajax), загружаем вид корзины
-        if($this->isAjax()){
-            $this->loadView('cart_modal');
-        }
-        // перезапрашиваем страницу, если данные пришли не ajax
-        redirect();
+        $this->view(); // отображаем вид корзины
     }
 
     public function showAction(){
@@ -56,10 +51,16 @@ class CartController extends AppController {
             $cart = new Cart();
             $cart->deleteItem($id);
         }
+        $this->view();
+    }
+
+    // отображает вид корзины или перенаправляет пользователя на прдыдущую страницу
+    public function view(){
+        // если запрос пришел асинхронно (ajax), загружаем вид корзины
         if($this->isAjax()){
-            $this->loadView('cart_modal');
+            $this->showAction();
         }
-        redirect();
+        redirect(); // перезапрашиваем страницу, если данные пришли не ajax
     }
 
 }

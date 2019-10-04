@@ -35,14 +35,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="top-header">
     <div class="container">
         <div class="top-header-main">
+            <!-- виджеты -->
             <div class="col-md-6 top-header-left">
                 <div class="drop">
+                    <!-- виджет валюты -->
                     <div class="box">
                         <select id="currency" tabindex="4" class="dropdown drop">
                             <!-- вызываем виджет валюты (создаем объект класса) -->
                             <?php new \app\widgets\currency\Currency(); ?>
                         </select>
                     </div>
+                    
+                    <!-- смена языка -->
                     <div class="box1">
                         <select tabindex="4" class="dropdown">
                             <option value="" class="label">English :</option>
@@ -54,6 +58,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="clearfix"></div>
                 </div>
             </div>
+
+            <!-- корзина -->
             <div class="col-md-6 top-header-left">
                 <div class="cart box_1">
                     <a href="cart/show" onclick="getCart(); return false;">
