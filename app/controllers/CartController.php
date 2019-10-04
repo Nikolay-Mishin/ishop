@@ -12,6 +12,8 @@
 
 namespace app\controllers;
 
+use app\models\Cart; // модель корзины
+
 class CartController extends AppController {
 
     // добавляет товары в корзину
@@ -22,7 +24,7 @@ class CartController extends AppController {
         $mod_id = !empty($_GET['mod']) ? (int)$_GET['mod'] : null; // id модификатора товара
         // если модификатор не получен - переменная будет инициализирована (значение задано), но пуста
         $mod = null; // переменная для хранения модификатора товара
-        // если id получен, получаем товар - после чего завершаем работу скрипта
+        // если id получен, получаем товар
         if($id){
             $product = \R::findOne('product', 'id = ?', [$id]); // получаем товар
             // если товар не получен, возвращаем false
@@ -34,7 +36,12 @@ class CartController extends AppController {
                 $mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
             }
         }
-        die;
+        $cart = new Cart();
+        $cart->addToCart($product, $qty, $mod);
+        if($this->isAjax()){
+            $this->loadView('cart_modal');
+        }
+        redirect();
     }
 
 }

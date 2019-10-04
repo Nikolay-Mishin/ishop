@@ -73,6 +73,7 @@
                             <?=$product->content;?>
 
                             <!-- модификации -->
+                            <?php if($mods): ?>
                             <div class="available">
                                 <ul>
                                     <li>Color
@@ -95,6 +96,7 @@
                                     <div class="clearfix"> </div>
                                 </ul>
                             </div>
+                            <?php endif; ?>
 
                             <!-- категория - ссылка по алиасу -->
                             <ul class="tag-men">

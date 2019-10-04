@@ -111,6 +111,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- выводим динамический контент данной страницы -->
 <div class="content">
+    <?php debug($_SESSION); //session_destroy();  ?>
     <?=$content;?>
 </div>
 
