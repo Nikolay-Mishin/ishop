@@ -24,13 +24,17 @@ $('body').on('click', '.add-to-cart-link', function(e){
 
 // отображаем корзину
 function showCart(cart){
+    // trim - обрезаем пробелы по бокам
+    // если корзина пуста, 
     if($.trim(cart) == '<h3>Корзина пуста</h3>'){
-        $('#cart .modal-footer a, #cart .modal-footer .btn-danger').css('display', 'none');
+        // скрываем ссылку для оформления заказа и кнопку для очистки корзины
+        $('#cart-next-buy, #cart-clean').css('display', 'none');
     }else{
-        $('#cart .modal-footer a, #cart .modal-footer .btn-danger').css('display', 'inline-block');
+        // отображаем ссылку для оформления заказа и кнопку для очистки корзины
+        $('#cart-next-buy, #cart-clean').css('display', 'inline-block');
     }
-    $('#cart .modal-body').html(cart);
-    $('#cart').modal();
+    $('#cart .modal-body').html(cart); // в тело модального окна записываем полученный из запроса ответ (контент)
+    $('#cart').modal(); // показываем модальное окно
 }
 /*Cart*/
 
