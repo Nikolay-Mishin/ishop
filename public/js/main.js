@@ -22,6 +22,21 @@ $('body').on('click', '.add-to-cart-link', function(e){
     });
 });
 
+$('#cart .modal-body').on('click', '.del-item', function(){
+    var id = $(this).data('id');
+    $.ajax({
+        url: '/cart/delete',
+        data: {id: id},
+        type: 'GET',
+        success: function(res){
+            showCart(res);
+        },
+        error: function(){
+            alert('Error!');
+        }
+    });
+});
+
 // отображаем корзину
 function showCart(cart){
     // trim - обрезаем пробелы по бокам
@@ -35,6 +50,24 @@ function showCart(cart){
     }
     $('#cart .modal-body').html(cart); // в тело модального окна записываем полученный из запроса ответ (контент)
     $('#cart').modal(); // показываем модальное окно
+    if($('.cart-sum').text()){
+        $('.simpleCart_total').html($('#cart .cart-sum').text());
+    }else{
+        $('.simpleCart_total').text('Empty Cart');
+    }
+}
+
+function getCart() {
+    $.ajax({
+        url: '/cart/show',
+        type: 'GET',
+        success: function(res){
+            showCart(res);
+        },
+        error: function(){
+            alert('Ошибка! Попробуйте позже');
+        }
+    });
 }
 /*Cart*/
 
