@@ -14,7 +14,7 @@ $('body').on('click', '.add-to-cart-link', function(e){
         type: 'GET', // метод отправки запроса
         success: function(res){
             // res - ответ от сервера
-            showCart(res);
+            showCart(res); // отображаем корзину
         },
         error: function(){
             alert('Ошибка! Попробуйте позже');
@@ -22,6 +22,7 @@ $('body').on('click', '.add-to-cart-link', function(e){
     });
 });
 
+// отображаем корзину
 function showCart(cart){
     console.log(cart);
 }
