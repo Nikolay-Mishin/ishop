@@ -177,12 +177,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!--footer-end-->
 
+<!-- получаем активную валюту из контейнера -->
 <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+<!-- ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
 <script>
-    var path = '<?=PATH;?>',
-        course = <?=$curr['value'];?>,
-        symboleLeft = '<?=$curr['symbol_left'];?>',
-        symboleRight = '<?=$curr['symbol_right'];?>';
+    var path = '<?=PATH;?>', // ссылка на главную - абсолютный путь (для ajax-запросов и другого)
+        course = <?=$curr['value'];?>, // текущий курс валюты
+        symboleLeft = '<?=$curr['symbol_left'];?>', // символ слева ($ 1)
+        symboleRight = '<?=$curr['symbol_right'];?>'; // символ справа (1 руб.)
 </script>
 
 <script src="js/jquery-1.11.0.min.js"></script>

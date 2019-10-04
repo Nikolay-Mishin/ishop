@@ -51,7 +51,8 @@ class ProductController extends AppController {
         // галерея
         $gallery = \R::findAll('gallery', 'product_id = ?', [$product->id]);
 
-        // модификации
+        // модификации - в корзину можно положить 2 вида товара (как базовый, так и его модификацию)
+        // часы 1 и часы 1 (silver)
         $mods = \R::findAll('modification', 'product_id = ?', [$product->id]);
 
         $this->setMeta($product->title, $product->description, $product->keywords);

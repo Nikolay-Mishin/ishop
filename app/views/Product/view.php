@@ -64,9 +64,9 @@
                             </div>
 
                             <!-- цена товара -->
-                            <h5 class="item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></h5>
+                            <h5 class="item_price" id="base-price" data-base="<?=price_format($product->price * $curr['value']);?>"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></h5>
                             <?php if($product->old_price): ?>
-                                <del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del>
+                                <del id="old-price"><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del>
                             <?php endif; ?>
 
                             <!-- описание товара -->
@@ -79,12 +79,12 @@
                                         <select>
                                             <option>Выбрать цвет</option>
                                             <?php foreach($mods as $mod): ?>
-                                            <option data-title="<?=$mod->title;?>" data-price="<?=$mod->price * $curr['value'];?>" value="<?=$mod->id;?>"><?=$mod->title;?></option>
+                                            <option data-title="<?=$mod->title;?>" data-price="<?=price_format($mod->price * $curr['value']);?>" value="<?=$mod->id;?>"><?=$mod->title;?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </li>
                                     <!-- <li class="size-in">Size
-                                    <select>
+                                        <select>
                                             <option>Large</option>
                                             <option>Medium</option>
                                             <option>small</option>
