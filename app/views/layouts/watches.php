@@ -183,6 +183,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!--footer-end-->
 
+<!-- Modal -->
+<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Корзина</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+                <a href="cart/view" type="button" class="btn btn-primary">Оформить заказ</a>
+                <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- получаем активную валюту из контейнера -->
 <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
 <!-- ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
