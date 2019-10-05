@@ -24,6 +24,7 @@ $('#typeahead').bind('typeahead:select', function(ev, suggestion) {
     // console.log(suggestion);
     window.location = path + '/search/?s=' + encodeURIComponent(suggestion.title);
 });
+/* // Search */
 
 // отслеживаем изменение выпадающего списка валют
 $('#currency').change(function(){
@@ -45,7 +46,7 @@ $('.available select').on('change', function(){
 });
 
 // корзина
-/*Cart*/
+/* Cart */
 // событие при клике по сслыке для добавления в корзину
 // Урок - делегирование событий в JS (для элементов которых изначально не было на странице - добавлены динамически)
 // берем элемент 'body' (он есть всегда) и от него делегируем событие 'click' для элементов с классом 'add-to-cart-link'
@@ -143,7 +144,7 @@ function clearCart() {
         }
     }); */
 }
-/*Cart*/
+/* // Cart */
 
 // Ajax-запрос - отправляет стандартный ajax-запрос
 function ajax(url, success, data = {}, errorMsg = 'Ошибка! Попробуйте позже', type = 'GET') {
