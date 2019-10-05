@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <?php new \app\widgets\currency\Currency(); ?>
                         </select>
                     </div>
-                    
+
                     <!-- смена языка -->
                     <div class="box1">
                         <select tabindex="4" class="dropdown">
@@ -62,11 +62,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <!-- корзина -->
             <div class="col-md-6 top-header-left">
                 <div class="cart box_1">
+                    <!-- ссылка для открытия модального окна корзины -->
+                    <!-- return false; - для отмены стандартного поведения ссылки -->
                     <a href="cart/show" onclick="getCart(); return false;">
                         <div class="total">
                             <img src="images/cart-1.png" alt="" />
+                            <!-- если корзина не пуста, выводим общую сумму заказа -->
                             <?php if(!empty($_SESSION['cart'])): ?>
                                 <span class="simpleCart_total"><?=$_SESSION['cart.currency']['symbol_left'] . $_SESSION['cart.sum'] . $_SESSION['cart.currency']['symbol_right'];?></span>
+                            <!-- если корзина пуста, выводи данноге сообщение -->
                             <?php else: ?>
                                 <span class="simpleCart_total">Empty Cart</span>
                             <?php endif; ?>
@@ -197,21 +201,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!--footer-end-->
 
-<!-- Modal -->
+<!-- Modal - модальное окно корзины -->
 <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <!-- заголовок/шапка модального окна -->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Корзина</h4>
             </div>
+            <!-- тело - контент модального окна -->
             <div class="modal-body">
 
             </div>
+            <!-- футер -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
-                <a href="cart/view" type="button" class="btn btn-primary">Оформить заказ</a>
-                <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
+                <a href="cart/view" id="cart-order" type="button" class="btn btn-primary">Оформить заказ</a>
+                <button type="button" id="cart-clean" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
             </div>
         </div>
     </div>

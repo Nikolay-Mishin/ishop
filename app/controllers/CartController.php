@@ -38,24 +38,26 @@ class CartController extends AppController {
         }
         $cart = new Cart(); // объект корзины
         $cart->addToCart($product, $qty, $mod); // вызваем метод для добавления в корзину
-        $this->view(); // отображаем вид корзины
+        $this->show(); // отображаем вид корзины
     }
 
+    // отображает вид корзины
     public function showAction(){
-        $this->loadView('cart_modal');
+        $this->loadView('cart_modal'); // метод фреймворка (Controller) для загрузки отдельного вида
     }
 
+    // удаляет товар из корзины
     public function deleteAction(){
-        $id = !empty($_GET['id']) ? $_GET['id'] : null;
+        $id = !empty($_GET['id']) ? $_GET['id'] : null; // id удаляемого товара
         if(isset($_SESSION['cart'][$id])){
-            $cart = new Cart();
-            $cart->deleteItem($id);
+            $cart = new Cart(); // объект корзины
+            $cart->deleteItem($id); // удаляем данный элемент из корзины
         }
-        $this->view();
+        $this->show(); // отображаем вид корзины
     }
 
-    // отображает вид корзины или перенаправляет пользователя на прдыдущую страницу
-    public function view(){
+    // отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
+    private function show(){
         // если запрос пришел асинхронно (ajax), загружаем вид корзины
         if($this->isAjax()){
             $this->showAction();

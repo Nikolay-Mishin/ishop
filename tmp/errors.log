@@ -94,3 +94,5 @@
 =================
 [2019-10-04 19:54:16] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
 =================
+[2019-10-04 21:00:39] Текст ошибки: Метод app\controllers\CartController::viewAction не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 45
+=================
