@@ -31,13 +31,13 @@ class CartController extends AppController {
             if(!$product){
                 return false;
             }
-            // если передан id модификатора, получаем информацию по данному модификатора
+            // если передан id модификатора, получаем информацию по данному модификатору
             if($mod_id){
                 $mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
             }
         }
         $cart = new Cart(); // объект корзины
-        $cart->addToCart($product, $qty, $mod); // вызваем метод для добавления в корзину
+        $cart->addToCart($product, $qty, $mod); // вызываем метод для добавления в корзину
         $this->show(); // отображаем вид корзины
     }
 
@@ -56,6 +56,16 @@ class CartController extends AppController {
         $this->show(); // отображаем вид корзины
     }
 
+    // очищает корзину
+    public function clearAction(){
+        // удаляем элементы корзины из сессии
+        unset($_SESSION['cart']);
+        unset($_SESSION['cart.qty']);
+        unset($_SESSION['cart.sum']);
+        unset($_SESSION['cart.currency']);
+        $this->showAction(); // отображаем вид корзины
+    }
+
     // отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
     private function show(){
         // если запрос пришел асинхронно (ajax), загружаем вид корзины
@@ -63,14 +73,6 @@ class CartController extends AppController {
             $this->showAction();
         }
         redirect(); // перезапрашиваем страницу, если данные пришли не ajax
-    }
-
-    public function clearAction(){
-        unset($_SESSION['cart']);
-        unset($_SESSION['cart.qty']);
-        unset($_SESSION['cart.sum']);
-        unset($_SESSION['cart.currency']);
-        $this->loadView('cart_modal');
     }
 
 }

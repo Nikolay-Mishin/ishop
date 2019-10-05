@@ -1,5 +1,5 @@
 <?php
-// Можель корзины
+// Модель корзины
 
 namespace app\models;
 
@@ -85,20 +85,27 @@ class Cart extends AppModel {
         unset($_SESSION['cart'][$id]); // удаляем данный товар из корзины
     }
 
+    // статичный метод для пересчета корзины
     public static function recalc($curr){
+        // $curr - массив новой валюты, в которую нужно пересчитать корзину
         if(isset($_SESSION['cart.currency'])){
+            $unbaseCurr = $curr->value / $_SESSION['cart.currency']['value']; // коэффициент для пересчета из небазовой валюты
+            // пересчитываем конечную сумму корзины
+            // если товар в корзину положен в базовой валюте, переводим в небазовую валюту
             if($_SESSION['cart.currency']['base']){
-                $_SESSION['cart.sum'] *= $curr->value;
+                $_SESSION['cart.sum'] *= $curr->value; // переводим из базовой валюты в небазовую
             }else{
-                $_SESSION['cart.sum'] = $_SESSION['cart.sum'] / $_SESSION['cart.currency']['value'] * $curr->value;
+                $_SESSION['cart.sum'] *= $unbaseCurr; // переводим из небазовой в небазовую/базовую
             }
+            // пересчитываем цену каждого товара в корзине
             foreach($_SESSION['cart'] as $k => $v){
                 if($_SESSION['cart.currency']['base']){
                     $_SESSION['cart'][$k]['price'] *= $curr->value;
                 }else{
-                    $_SESSION['cart'][$k]['price'] = $_SESSION['cart'][$k]['price'] / $_SESSION['cart.currency']['value'] * $curr->value;
+                    $_SESSION['cart'][$k]['price'] *= $unbaseCurr;
                 }
             }
+            // перезаписываем данные активной валюты в сессии
             foreach($curr as $k => $v){
                 $_SESSION['cart.currency'][$k] = $v;
             }

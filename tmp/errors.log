@@ -96,3 +96,7 @@
 =================
 [2019-10-04 21:00:39] Текст ошибки: Метод app\controllers\CartController::viewAction не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 45
 =================
+[2019-10-05 19:46:27] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2019-10-05 21:34:35] Текст ошибки: syntax error, unexpected '&' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\AppController.php | Строка: 23
+=================

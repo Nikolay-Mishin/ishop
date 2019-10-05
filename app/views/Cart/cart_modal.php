@@ -21,7 +21,7 @@
                     <td><a href="product/<?=$item['alias'];?>"><img src="images/<?=$item['img'];?>" alt="<?=$item['title'];?>"></a></td>
                     <td><a href="product/<?=$item['alias'];?>"><?=$item['title'];?></td>
                     <td><?=$item['qty'];?></td>
-                    <td><?=$_SESSION['cart.currency']['symbol_left'] . $item['price'] . $_SESSION['cart.currency']['symbol_right'];?></td>
+                    <td><?=$_SESSION['cart.currency']['symbol_left'] . price_format($item['price']) . $_SESSION['cart.currency']['symbol_right'];?></td>
                     <td><span data-id="<?=$id;?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></td>
                 </tr>
             <?php endforeach; ?>
@@ -31,7 +31,7 @@
                 </tr>
                 <tr>
                     <td>На сумму:</td>
-                    <td colspan="4" class="text-right cart-sum"><?=$_SESSION['cart.currency']['symbol_left'] . $_SESSION['cart.sum'] . $_SESSION['cart.currency']['symbol_right'];?></td>
+                    <td colspan="4" class="text-right cart-sum"><?=$_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . $_SESSION['cart.currency']['symbol_right'];?></td>
                 </tr>
             </tbody>
         </table>

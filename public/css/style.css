@@ -3084,3 +3084,8 @@ ul.tag-men {
 .del-item{
 	cursor: pointer;
 }
+
+/* отменяем перенос слов в таблице корзины */
+#cart table {
+    white-space: nowrap;
+}

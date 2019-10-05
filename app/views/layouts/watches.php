@@ -69,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <img src="images/cart-1.png" alt="" />
                             <!-- если корзина не пуста, выводим общую сумму заказа -->
                             <?php if(!empty($_SESSION['cart'])): ?>
-                                <span class="simpleCart_total"><?=$_SESSION['cart.currency']['symbol_left'] . $_SESSION['cart.sum'] . $_SESSION['cart.currency']['symbol_right'];?></span>
+                                <span class="simpleCart_total"><?=$_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . $_SESSION['cart.currency']['symbol_right'];?></span>
                             <!-- если корзина пуста, выводи данноге сообщение -->
                             <?php else: ?>
                                 <span class="simpleCart_total">Empty Cart</span>
