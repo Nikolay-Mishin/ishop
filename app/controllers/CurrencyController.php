@@ -3,6 +3,8 @@
 
 namespace app\controllers;
 
+use app\models\Cart; // модель корзины
+
 class CurrencyController extends AppController {
 
     // метод выбора валют
@@ -17,6 +19,7 @@ class CurrencyController extends AppController {
             // записываем валюту в куки на 1 неделю для всего домена ('/')
             if(!empty($curr)){
                 setcookie('currency', $currency, time() + 3600*24*7, '/');
+                Cart::recalc($curr);
             }
         }
         redirect();

@@ -65,4 +65,12 @@ class CartController extends AppController {
         redirect(); // перезапрашиваем страницу, если данные пришли не ajax
     }
 
+    public function clearAction(){
+        unset($_SESSION['cart']);
+        unset($_SESSION['cart.qty']);
+        unset($_SESSION['cart.sum']);
+        unset($_SESSION['cart.currency']);
+        $this->loadView('cart_modal');
+    }
+
 }
