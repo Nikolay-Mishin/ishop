@@ -101,17 +101,18 @@ $('.available select').on('change', function(){
 // Ajax-запрос - отправляет стандартный ajax-запрос
 function ajax(url, success, data = {}, errorMsg = 'Ошибка! Попробуйте позже', type = 'GET') {
     $.ajax({
-        url: url,
-        data: data,
-        type: type,
+        url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
+        data: data, // объект с данными для отправки на серевер
+        type: type, // метод отправки запроса
         success: success.bind(this),
-        /* success: function(res){
-            success(res);
+        /* success: function(res) {
+            // res - ответ от сервера
+            success(res); // отображаем корзину (showCart())
         }, */
         // success: stage1_3.bind(this), // или success: stage1_3.bind(this, data, text) если нужно какие то аргументы передавать
         // Ответ от сервера будет последний в списке аргументов, передаваемых в функцию (text - response).
-        //То есть: data = arguments[arguments.length-1];
-        error: function(){
+        // То есть: data = arguments[arguments.length-1];
+        error: function() {
             alert(errorMsg);
         }
     });
@@ -120,8 +121,8 @@ function ajax(url, success, data = {}, errorMsg = 'Ошибка! Попробу�
 // передача пользовательской функции (some_func) в качестве аргумента другой функции
 /* function ajaxFormRequest(form_id, url, dataT, some_func) {
     $.ajax({
-        url:     url,
-        type:     "POST", //Тип запроса
+        url: url,
+        type: "POST", // Тип запроса
         data: jQuery("#"+form_id).serialize(), 
         dataType: dataT, 
         success: function(response) {
@@ -134,29 +135,60 @@ function ajax(url, success, data = {}, errorMsg = 'Ошибка! Попробу�
     });
 } */
 
+// bind - создаёт "обёртку" над функцией, которая подменяет контекст этой функции. Поведение похоже на call и apply, но, в отличие от них, bind не вызывает функцию, а лишь возвращает "обёртку", которую можно вызвать позже.
+/* function f() {
+    alert(this);
+}
+
+var wrapped = f.bind('abc');
+
+f(); // [object Window]
+wrapped(); // abc */
+
+// call - вызов функции с подменой контекста - this внутри функции.
+/* function f(arg) {
+    console.log(this);
+    console.log(arg);
+}
+
+f('abc'); // abc, [object Window]
+
+f.call('123', 'abc'); // 123 (this), abc */
+
+// apply - вызов функции с переменным количеством аргументов и с подменой контекста.
+/* Пример:
+function f() {
+    console.log(this);
+    console.log(arguments);
+}
+
+f(1, 2, 3); // [object Window], [1, 2, 3]
+
+f.apply('abc', [1, 2, 3, 4]); // abc (this), [1, 2, 3, 4] */
+
 // создание пользовательской функции с передачей аргументов в виде объекта (по типу JQuery Ajax)
 /**
  * This is how to document the shape of the parameter object
  * @param {boolean} [args.arg1 = false] Blah blah blah
  * @param {boolean} [args.notify = false] Blah blah blah
  */
-/* function doSomething(args)  {
+/* function doSomething(args) {
     var defaults = {
         arg1: false,
         notify: false
     };
     args = Object.assign(defaults, args);
-    console.log(args)
+    console.log(args);
 
     var arg1 = args.arg1 !== undefined ? args.arg1 : false,
         notify = args.notify !== undefined ? args.notify : false;
     console.log('arg1 = ' + arg1 + ', notify = ' + notify);
 
-    if (args.hasOwnProperty('arg1')){
+    if (args.hasOwnProperty('arg1')) {
         // arg1 isset
     }
 
-    if (args.hasOwnProperty('notify')){
+    if (args.hasOwnProperty('notify')) {
         // notify isset
     }
 }
