@@ -1,8 +1,9 @@
 <?php
+// Контроллер категорий
 
 namespace app\controllers;
 
-use app\models\Category;
+use app\models\Category; // модель категорий
 
 class CategoryController extends AppController {
 

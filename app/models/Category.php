@@ -1,4 +1,5 @@
 <?php
+// Модель категорий
 
 namespace app\models;
 
