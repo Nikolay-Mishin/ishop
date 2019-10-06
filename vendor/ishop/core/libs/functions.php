@@ -20,6 +20,13 @@ function redirect($http = false){
     exit; // завершаем скрипт
 }
 
+// обертка для функции htmlspecialchars() - обрабатывет спец символы от html-инъекций
+function h($str){
+    // ENT_QUOTES - чтобы преобразовывать и " (двойные кавычки)
+    // return htmlentities($str, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($str, ENT_QUOTES);
+}
+
 // добавление разрядов к цене (1000 => 1 000)
 function price_format($price, $precision = 0, $round = false, $mode = 'up'){
     // $precision - Количество десятичных знаков, до которых производится округление

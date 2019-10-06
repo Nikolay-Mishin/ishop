@@ -7,10 +7,9 @@ use app\models\Breadcrumbs; // модель хлебных крошек
 
 class MainController extends AppController {
 
+    // главная страница
     public function indexAction(){
-        // хлебные крошки - строка с ссылками на главную и категории (Home / Single)
-        $breadcrumbs = Breadcrumbs::getBreadcrumbs();
-
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs(); // хлебные крошки - строка с ссылками на главную и категории (Home / Single)
         $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // выбираем 8 записей из таблицы product, которые являются хитами (hit = '1') и имеют статус 'отображать' (status = '1')
         // enum('0','1') - строковый тип

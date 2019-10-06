@@ -3,6 +3,8 @@
 
 namespace app\controllers;
 
+use app\models\Breadcrumbs; // модель хлебных крошек
+
 class SearchController extends AppController{
 
     // обрабатывает поисковый ajax-запрос
@@ -10,7 +12,7 @@ class SearchController extends AppController{
         if($this->isAjax()){
             // trim - обрезает пробелы с обоих сторон
             $query = !empty(trim($_GET['query'])) ? trim($_GET['query']) : null; // пришедший поисковый запрос
-            // если поисковый запрос не пуст, получаем товары соответствующие наименованию в запросе
+            // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
             if($query){
                 // LIKE - сравниваемое выражение похоже на 'title'
                 // %{$query}% - слева и справа от выражения в запросе могут быть любые символы
@@ -22,13 +24,16 @@ class SearchController extends AppController{
         die;
     }
 
+    // страница с результатими поиска
     public function indexAction(){
-        $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null;
+        $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null; // пришедший поисковый запрос
+        // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
         if($query){
             $products = \R::find('product', "title LIKE ?", ["%{$query}%"]);
         }
-        $this->setMeta('Поиск по: ' . h($query));
-        $this->set(compact('products', 'query'));
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Поиск по запросу: "' . h($query) . '"'); // хлебные крошки
+        $this->setMeta('Поиск по: ' . h($query)); // устанавливаем мета-данные и обрабатываем их от XSS-атак (html-инъекций)
+        $this->set(compact('products', 'query', 'breadcrumbs'));
     }
 
 }
