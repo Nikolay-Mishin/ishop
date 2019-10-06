@@ -14,6 +14,7 @@ use ishop\Router; // подключаем маршрутизатор (для о�
 
 // маршрут карточки товара
 Router::add('^product/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Product', 'action' => 'view']);
+Router::add('^category/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Category', 'action' => 'view']);
 
 // default routes / общие правила
 // page/view/about
