@@ -1,28 +1,33 @@
 /* Search */
+// переменная для хранения объекта движка Bloodhound плагина typeahead
+// используем для получения данных поискового запроса
 var products = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-        wildcard: '%QUERY',
-        url: path + '/search/typeahead?query=%QUERY'
+        wildcard: '%QUERY', // маркер, который будет заменен поисковым запросом (подставляется в url)
+        // на экшен 'typeahead' отправляется GET-параметр 'query'
+        url: path + '/search/typeahead?query=%QUERY' // адрес для отправки запроса (вместо %QUERY подставляется маркер wildcard)
     }
 });
 
-products.initialize();
+products.initialize(); // инициализируем объект для поискового запроса
 
 $("#typeahead").typeahead({
     // hint: false,
-    highlight: true
+    highlight: true // подсветка вводимого текста
 },{
     name: 'products',
-    display: 'title',
-    limit: 10,
-    source: products
+    display: 'title', // то, что хотим показывать
+    limit: 10, // на 1 меньше, чем будет приходить (LIMIT 11)
+    source: products // источник данных
 });
 
+// при выборе результата из выпадающего списка срабатывает событие (typeahead:select)
 $('#typeahead').bind('typeahead:select', function(ev, suggestion) {
     // console.log(suggestion);
-    window.location = path + '/search/?s=' + encodeURIComponent(suggestion.title);
+    // на экшен 'index' отправляется GET-параметр 's' со значением наименования продукта
+    window.location = path + '/search/?s=' + encodeURIComponent(suggestion.title); // перенаправление на страницу поиского запроса
 });
 /* // Search */
 

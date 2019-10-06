@@ -102,6 +102,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="header-bottom">
     <div class="container">
         <div class="header">
+            <!-- меню -->
             <div class="col-md-9 header-left">
                 <!-- плагин MegaMenu (memenu) -->
                 <div class="menu-container">
@@ -119,8 +120,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
                 <div class="clearfix"> </div>
             </div>
+
+            <!-- поиск -->
             <div class="col-md-3 header-right">
                 <div class="search-bar">
+                    <!-- форма поиска - плагин typeahead -->
+                    <!-- autocomplete - подсказки -->
                     <form action="search" method="get" autocomplete="off">
                         <input type="text" class="typeahead" id="typeahead" name="s">
                         <input type="submit" value="">
