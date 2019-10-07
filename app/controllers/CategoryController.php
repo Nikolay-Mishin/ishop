@@ -26,11 +26,11 @@ class CategoryController extends AppController {
         // если вложенных категорий нет берем запрошенную категорию, иначе к вложенным категориям добавляем запрошенную
         $ids = !$ids ? $category->id : $ids . $category->id; // 4,6,7,5,8,9,10,1 (для категории 1)
 
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perpage = App::$app->getProperty('pagination');
-        $total = \R::count('product', "category_id IN ($ids)");
-        $pagination = new Pagination($page, $perpage, $total);
-        $start = $pagination->getStart();
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница
+        $perpage = App::$app->getProperty('pagination'); // получаем из контейнера число записей для вывода на 1 странице
+        $total = \R::count('product', "category_id IN ($ids)"); // получаем общее число товаров из списка полученных категорий
+        $pagination = new Pagination($page, $perpage, $total); // объект пагинации
+        $start = $pagination->getStart(); // получаем номер записи, с которой необходимо начинать выборку из БД
 
         // товары списка полученных категория (IN ищет совпадение в заданном диапазоне - 4,6,7,5,8,9,10,1)
         // не биндим значение ("category_id IN ?", [$ids]), тк значение для выборки из БД мы формируем сами на основе данных из БД

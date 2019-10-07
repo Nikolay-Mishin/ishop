@@ -15,16 +15,22 @@
     <div class="container">
         <div class="prdt-top">
             <div class="col-md-9 prdt-left">
+                <!-- выводим товары -->
                 <?php if(!empty($products)): ?>
                     <div class="product-one">
+                        <!-- получаем активную валюту из контейнера -->
                         <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+                        <!-- выводим отдельно каждый товар -->
                         <?php foreach($products as $product): ?>
                             <div class="col-md-4 product-left p-left">
                                 <div class="product-main simpleCart_shelfItem">
+                                    <!-- изображение -->
                                     <a href="product/<?=$product->alias;?>" class="mask"><img class="img-responsive zoom-img" src="images/<?=$product->img;?>" alt="" /></a>
                                     <div class="product-bottom">
+                                        <!-- наименование -->
                                         <h3><?=$product->title;?></h3>
                                         <p>Explore Now</p>
+                                        <!-- цена товара -->
                                         <h4>
                                             <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
                                             <?php if($product->old_price): ?>
@@ -35,12 +41,24 @@
                                     <!-- рассчет размера скидки (при наличии старой цены) -->
                                     <?php if($product->old_price > 0): ?>
                                         <div class="srch">
-                                            <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
+                                            <span>-<?=number_round((1 - $product->price / $product->old_price) * 100);?>%</span>
                                         </div>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
+                        <!-- // выводим отдельно каждый товар -->
+                        <!-- пагинация -->
+                        <div class="text-center">
+                            <!-- выводим количество товаров из общего числа -->
+                            <p>(<?=count($products)?> товара(ов) из <?=$total;?>)</p>
+                            <!-- если у нас больше 1 страницы с товарами, выводим пагинацию -->
+                            <?php if($pagination->countPages > 1): ?>
+                                <!-- объект пагинации преобразуется к строке благодаря магическому методу __toString() -->
+                                <?=$pagination;?>
+                            <?php endif; ?>
+                        </div>
+                        <!-- // пагинация -->
                         <div class="clearfix"></div>
                     </div>
                 <?php else: ?>
