@@ -9,7 +9,6 @@ class MainController extends AppController {
 
     // главная страница
     public function indexAction(){
-        $breadcrumbs = Breadcrumbs::getBreadcrumbs(); // хлебные крошки - строка с ссылками на главную и категории (Home / Single)
         $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // выбираем 8 записей из таблицы product, которые являются хитами (hit = '1') и имеют статус 'отображать' (status = '1')
         // enum('0','1') - строковый тип
@@ -28,7 +27,7 @@ class MainController extends AppController {
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]
         // compact - создает массив из переданных переменных (имен) по типу ключ-значение
-        $this->set(compact('breadcrumbs', 'brands', 'hits'));
+        $this->set(compact('brands', 'hits'));
         
         // данные для данного контроллера
         /* $name = 'John';

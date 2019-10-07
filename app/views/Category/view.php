@@ -3,13 +3,13 @@
     <div class="container">
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
-                <li><a href="<?=PATH;?>">Главная</a></li>
-                <li>Категория</li>
+                <?=$breadcrumbs?>
             </ol>
         </div>
     </div>
 </div>
 <!--end-breadcrumbs-->
+
 <!--prdt-starts-->
 <div class="prdt">
     <div class="container">
@@ -26,15 +26,18 @@
                                         <h3><?=$product->title;?></h3>
                                         <p>Explore Now</p>
                                         <h4>
-                                            <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=$product->price * $curr['value'];?><?=$curr['symbol_right'];?></span>
+                                            <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
                                             <?php if($product->old_price): ?>
-                                                <small><del><?=$curr['symbol_left'];?><?=$product->old_price * $curr['value'];?><?=$curr['symbol_right'];?></del></small>
+                                                <small><del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                                             <?php endif; ?>
                                         </h4>
                                     </div>
-                                    <div class="srch srch1">
-                                        <span>-50%</span>
-                                    </div>
+                                    <!-- рассчет размера скидки (при наличии старой цены) -->
+                                    <?php if($product->old_price > 0): ?>
+                                        <div class="srch">
+                                            <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -44,6 +47,8 @@
                     <h3>В этой категории товаров пока нет...</h3>
                 <?php endif; ?>
             </div>
+
+            <!-- фильтры -->
             <div class="col-md-3 prdt-right">
                 <div class="w_sidebar">
                     <section  class="sky-form">

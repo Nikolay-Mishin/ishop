@@ -25,6 +25,9 @@
 ### app\models\Cart
 ### public\js\main.js
 
+# Исключения - throw new \Exception('Страница не найдена', 404);
+## https://www.php.net/manual/ru/language.exceptions.php
+
 # htmlspecialchars() является подмножеством htmlentities().
 
 ## В то время как htmlentities преобразует «все применимые символы в HTML-объекты», htmlspecialchars() преобразует только символы ниже:

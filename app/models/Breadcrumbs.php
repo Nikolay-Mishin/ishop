@@ -13,12 +13,15 @@ class Breadcrumbs{
         $cats = App::$app->getProperty('cats'); // получаем категории
         $breadcrumbs_array = self::getParts($cats, $category_id); // формируем массив хлебных крошек
         // формируем html-разметку для хлебных крошек
-        $class = $name ? '' : ' class="active"';
-        $breadcrumbs = "<li{$class}><a href='" . PATH . "'>Главная</a></li>"; // ссылка на главную
+        $breadcrumbs = "<li><a href='" . PATH . "'>Главная</a></li>"; // ссылка на главную
         // если массив хлебных крошек не пуст, формируем ссылки на категории (для элементов массива)
         if($breadcrumbs_array){
             foreach($breadcrumbs_array as $alias => $title){
-                $breadcrumbs .= "<li{$class}><a href='" . PATH . "/category/{$alias}'>{$title}</a></li>";
+                $link = "<a href='" . PATH . "/category/{$alias}'>{$title}</a>"; // ссылка на категорию
+                // если не передано наименование товара последнюю категорюю выводим текст
+                $link = $title == end($breadcrumbs_array) && !$name ? $title : $link;
+                $class = $title == end($breadcrumbs_array) && !$name ? 'class="active"' : ''; // класс для активной категории
+                $breadcrumbs .= "<li {$class}>{$link}</li>";
             }
         }
         // если передано наименование товара, добавляем его

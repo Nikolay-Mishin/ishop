@@ -1,15 +1,3 @@
-<!--start-breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="breadcrumbs-main">
-            <ol class="breadcrumb">
-                <?=$breadcrumbs;?>
-            </ol>
-        </div>
-    </div>
-</div>
-<!--end-breadcrumbs-->
-
 <!--banner-starts-->
 <div class="bnr" id="home">
     <div  id="top" class="callbacks_container">
