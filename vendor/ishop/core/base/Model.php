@@ -5,6 +5,7 @@
 namespace ishop\base;
 
 use ishop\Db; // класс БД
+use Valitron\Validator; // класс валидации
 
 abstract class Model{
 
@@ -26,11 +27,33 @@ abstract class Model{
     */
     public function load($data){
         foreach($this->attributes as $name => $value){
-            // если в данных есть поле, соответствующее полю аттрибута, то данному аттрибуту присваиваем значение из данных
             if(isset($data[$name])){
                 $this->attributes[$name] = $data[$name];
             }
         }
+    }
+
+    public function validate($data){
+        Validator::langDir(WWW . '/validator/lang');
+        Validator::lang('ru');
+        $v = new Validator($data);
+        $v->rules($this->rules);
+        if($v->validate()){
+            return true;
+        }
+        $this->errors = $v->errors();
+        return false;
+    }
+
+    public function getErrors(){
+        $errors = '<ul>';
+        foreach($this->errors as $error){
+            foreach($error as $item){
+                $errors .= "<li>$item</li>";
+            }
+        }
+        $errors .= '</ul>';
+        $_SESSION['error'] = $errors;
     }
 
 }

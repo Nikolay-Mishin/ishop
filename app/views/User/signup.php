@@ -3,13 +3,13 @@
     <div class="container">
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
-                <?=$breadcrumbs?>
+                <li><a href="<?= PATH ?>">Главная</a></li>
+                <li>Регистрация</li>
             </ol>
         </div>
     </div>
 </div>
 <!--end-breadcrumbs-->
-
 <!--prdt-starts-->
 <div class="prdt">
     <div class="container">

@@ -15,8 +15,13 @@ class UserController extends AppController {
             $user = new User(); // объект модели пользователя
             $data = $_POST; // данные, пришедшие от пользователя (записываем в переменную, чтобы не работать напрямую с массивом POST)
             $user->load($data); // загружаем данные в модель (из $data в $user->attributes)
-            debug($user);
-            die;
+            if(!$user->validate($data)){
+                $user->getErrors();
+                redirect();
+            }else{
+                $_SESSION['success'] = 'OK';
+                redirect();
+            }
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
         $this->setMeta('Регистрация');
