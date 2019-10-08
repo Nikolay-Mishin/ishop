@@ -34,4 +34,21 @@ class User extends AppModel {
         ]
     ];
 
+    // проверяет уникальные поля с данными
+    public function checkUnique(){
+        // получаем пользователя с соответствующими значениями login или email из аттрибутов
+        $user = \R::findOne('user', 'login = ? OR email = ?', [$this->attributes['login'], $this->attributes['email']]);
+        // если пользователь найден, то формируем ошибки проверки уникальности
+        if($user){
+            if($user->login == $this->attributes['login']){
+                $this->errors['unique'][] = 'Этот логин уже занят';
+            }
+            if($user->email == $this->attributes['email']){
+                $this->errors['unique'][] = 'Этот email уже занят';
+            }
+            return false;
+        }
+        return true;
+    }
+
 }

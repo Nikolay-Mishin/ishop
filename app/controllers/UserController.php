@@ -16,17 +16,27 @@ class UserController extends AppController {
             $data = $_POST; // данные, пришедшие от пользователя (записываем в переменную, чтобы не работать напрямую с массивом POST)
             $user->load($data); // загружаем данные в модель (из $data в $user->attributes)
             // если валидация не пройдена, получаем список ошибок и перенаправляем пользователя на текущую страницу
-            if(!$user->validate($data)){
+            // проверяем уникальные поля с данными
+            if(!$user->validate($data) || !$user->checkUnique()){
                 $user->getErrors(); // получаем список ошибок
-                redirect(); // перезапрашаваем страницу
             }else{
-                $_SESSION['success'] = 'OK'; // записываем в сессию сообщение об успешной регистрации
-                redirect(); // перезапрашаваем страницу
+                // хэшируем пароль
+                // password_hash - хэширует пароль с учетом временной метки (текущей даты)
+                $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+                // сохраняем нового пользователя в БД
+                if($user->save('user')){
+                    $_SESSION['success'] = 'Пользователь зарегистрирован'; // записываем в сессию сообщение об успешной регистрации
+                }else{
+                    $_SESSION['error'] = 'Ошибка!'; // записываем в сессию сообщение об успешной регистрации
+                }
             }
+            $_SESSION['user.errors'] = $user->errors;
+            redirect(); // перезапрашиваем страницу
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
+        $errors = $_SESSION['user.errors'] ?? [];
         $this->setMeta('Регистрация');
-        $this->set(compact('breadcrumbs'));
+        $this->set(compact('breadcrumbs', 'errors'));
     }
 
     // авторизация пользователя

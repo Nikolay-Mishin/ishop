@@ -156,6 +156,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <!-- выводим динамический контент данной страницы -->
 <div class="content">
+    <!-- сообщения от ошибках и успехе -->
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -172,6 +173,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
+    <? debug($errors); ?>
+    <!-- динамический контент -->
     <?=$content;?>
 </div>
 

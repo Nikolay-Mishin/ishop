@@ -34,6 +34,18 @@ abstract class Model{
         }
     }
 
+    // сохраняем данные в таблицу в БД
+    public function save($table){
+        // $table - имя таблицы в БД
+        // производим 1 из операций CRUD - Create Update Delete
+        $tbl = \R::dispense($table); // создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
+        // в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
+        foreach($this->attributes as $name => $value){
+            $tbl->$name = $value;
+        }
+        return \R::store($tbl); // сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
+    }
+
     // метод валидации данных
     public function validate($data){
         Validator::langDir(WWW . '/validator/lang'); // указываем Валидатору директорию для языков
