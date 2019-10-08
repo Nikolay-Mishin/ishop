@@ -134,3 +134,5 @@
 =================
 [2019-10-07 18:40:09] Текст ошибки: Class 'app\controllers\Breadcrumbs' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CategoryController.php | Строка: 20
 =================
+[2019-10-07 22:02:53] Текст ошибки: Class 'app\controllers\Breadcrumbs' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\UserController.php | Строка: 17
+=================
