@@ -15,12 +15,13 @@ class UserController extends AppController {
             $user = new User(); // объект модели пользователя
             $data = $_POST; // данные, пришедшие от пользователя (записываем в переменную, чтобы не работать напрямую с массивом POST)
             $user->load($data); // загружаем данные в модель (из $data в $user->attributes)
+            // если валидация не пройдена, получаем список ошибок и перенаправляем пользователя на текущую страницу
             if(!$user->validate($data)){
-                $user->getErrors();
-                redirect();
+                $user->getErrors(); // получаем список ошибок
+                redirect(); // перезапрашаваем страницу
             }else{
-                $_SESSION['success'] = 'OK';
-                redirect();
+                $_SESSION['success'] = 'OK'; // записываем в сессию сообщение об успешной регистрации
+                redirect(); // перезапрашаваем страницу
             }
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки

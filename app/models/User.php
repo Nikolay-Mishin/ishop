@@ -14,7 +14,9 @@ class User extends AppModel {
         'address' => '',
     ];
 
+    // набор правил для валидации
     public $rules = [
+        // обязательные поля
         'required' => [
             ['login'],
             ['password'],
@@ -22,9 +24,11 @@ class User extends AppModel {
             ['email'],
             ['address'],
         ],
+        // поле email
         'email' => [
             ['email'],
         ],
+        // минимальная длина для поля
         'lengthMin' => [
             ['password', 6],
         ]

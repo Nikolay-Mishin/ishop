@@ -5,7 +5,7 @@
 namespace ishop\base;
 
 use ishop\Db; // класс БД
-use Valitron\Validator; // класс валидации
+use Valitron\Validator; // класс Валидатора
 
 abstract class Model{
 
@@ -27,25 +27,30 @@ abstract class Model{
     */
     public function load($data){
         foreach($this->attributes as $name => $value){
+            // если в данных есть поле, соответствующее полю в $attributes, то записываем значение из данных в аттрибуты
             if(isset($data[$name])){
                 $this->attributes[$name] = $data[$name];
             }
         }
     }
 
+    // метод валидации данных
     public function validate($data){
-        Validator::langDir(WWW . '/validator/lang');
-        Validator::lang('ru');
-        $v = new Validator($data);
-        $v->rules($this->rules);
+        Validator::langDir(WWW . '/validator/lang'); // указываем Валидатору директорию для языков
+        Validator::lang('ru'); // устанавливаем язык Валидатора
+        $v = new Validator($data); // объект Валидатора (передаем данные в конструктор)
+        $v->rules($this->rules); // передаем в Валидатор набор правил валидации
+        // если валидация прошла успешно, возвращаем true
         if($v->validate()){
             return true;
         }
-        $this->errors = $v->errors();
+        $this->errors = $v->errors(); // записываем ошибки валидации в свойство модели
         return false;
     }
 
+    // получает ошибки валидации
     public function getErrors(){
+        // формируем список ошибок
         $errors = '<ul>';
         foreach($this->errors as $error){
             foreach($error as $item){
@@ -53,7 +58,7 @@ abstract class Model{
             }
         }
         $errors .= '</ul>';
-        $_SESSION['error'] = $errors;
+        $_SESSION['error'] = $errors; // записываем список ошибок в сессию
     }
 
 }
