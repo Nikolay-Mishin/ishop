@@ -302,3 +302,51 @@ public $rules = [
     ]
 ]
 ```
+
+### Проверка кредитной карты
+```php
+public $rules = [
+    // Проверка кредитной карты в настоящее время позволяет проверить Visa visa, 
+    // Mastercard mastercard, Dinersclub dinersclub, American Express amex или Discoverdiscover
+    // ['credit_card' => '']
+    // Это будет проверять кредитную карту по каждому типу карты
+    // $v->rule('creditCard', 'credit_card');
+    'creditCard' => [
+        ['credit_card']
+    ]
+    // Чтобы дополнительно фильтровать типы карт, добавьте слаг в массив в качестве следующего параметра
+    // $v->rule('creditCard', 'credit_card', ['visa', 'mastercard']);
+    'creditCard' => [
+        ['credit_card', ['visa', 'mastercard']]
+    ]
+    // Если вы хотите проверить только один тип карты, поместите ее в виде строки
+    // $v->rule('creditCard', 'credit_card', 'visa');
+    'creditCard' => [
+        ['credit_card', 'visa']
+    ]
+    // Если информация о типе карты поступает от клиента, вы также можете указать массив допустимых типов карт
+    // $cardType = 'amex';
+    // $v->rule('creditCard', 'credit_card', $cardType, ['visa', 'mastercard']);
+    'creditCard' => [
+        ['credit_card', $cardType, ['visa', 'mastercard']]
+    ]
+]
+```
+
+### Contains fields usage (Содержит использование полей)
+```php
+public $rules = [
+    // данная строка существует в пределах поля и проверяет , что поле и значение для поиска
+    // являются как действительными строками
+    // ['username' => 'Batman123']
+    'contains' => [
+        ['username', 'man']
+    ]
+    // Вы можете использовать необязательный строгий флаг для обеспечения соответствия с учетом регистра
+    // Принимая во внимание, что это возвратило бы ложь, поскольку M в строке поиска
+    // не в верхнем регистре в предоставленном значении
+    'contains' => [
+        ['username', 'Man', true]
+    ]
+]
+```
