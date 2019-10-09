@@ -136,3 +136,27 @@
 =================
 [2019-10-07 22:02:53] Текст ошибки: Class 'app\controllers\Breadcrumbs' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\UserController.php | Строка: 17
 =================
+[2019-10-09 19:47:11] Текст ошибки: Call to undefined method app\models\User::getShortName() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2019-10-09 19:48:41] Текст ошибки: Call to undefined method app\models\User::getShortName() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\UserController.php | Строка: 18
+=================
+[2019-10-09 19:50:57] Текст ошибки: Class 'ishop\base\ReflectionClass' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2019-10-09 19:51:24] Текст ошибки: Non-static method ReflectionClass::getShortName() cannot be called statically | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2019-10-09 19:51:32] Текст ошибки: syntax error, unexpected 'getShortName' (T_STRING), expecting variable (T_VARIABLE) or '$' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2019-10-09 19:59:04] Текст ошибки: Class 'ishop\base\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 32
+=================
+[2019-10-09 19:59:24] Текст ошибки: Class 'ishop\base\ishop\base\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 32
+=================
+[2019-10-09 19:59:41] Текст ошибки: Class 'ishop\base\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 33
+=================
+[2019-10-09 20:00:16] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\App.php | Строка: 45
+=================
+[2019-10-09 20:00:42] Текст ошибки: Class self does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\App.php | Строка: 45
+=================
+[2019-10-09 20:01:42] Текст ошибки: Call to undefined function ishop\self() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\App.php | Строка: 45
+=================
+[2019-10-09 20:02:15] Текст ошибки: Call to undefined function ishop\self() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\App.php | Строка: 45
+=================

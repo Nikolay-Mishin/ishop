@@ -6,6 +6,7 @@ namespace ishop\base;
 
 use ishop\Db; // класс БД
 use Valitron\Validator; // класс Валидатора
+use ishop\App;
 
 abstract class Model{
 
@@ -35,7 +36,8 @@ abstract class Model{
     }
 
     // сохраняем данные в таблицу в БД
-    public function save($table){
+    public function save($table = null){
+        $table = $table ?? $this->getModelName();
         // $table - имя таблицы в БД
         // производим 1 из операций CRUD - Create Update Delete
         $tbl = \R::dispense($table); // создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
@@ -71,6 +73,11 @@ abstract class Model{
         }
         $errors .= '</ul>';
         $_SESSION['error'] = $errors; // записываем список ошибок в сессию
+    }
+
+    // возвращает короткое имя класса (app\models\User => User)
+    protected function getModelName(){
+        return lcfirst((new \ReflectionClass($this))->getShortName());
     }
 
 }

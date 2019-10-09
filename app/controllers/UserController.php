@@ -24,13 +24,15 @@ class UserController extends AppController {
                 // password_hash - хэширует пароль с учетом временной метки (текущей даты)
                 $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
                 // сохраняем нового пользователя в БД
-                if($user->save('user')){
+                // $user->save('user') - благодаря методу getModelName() имя Модели используется в качестве имени таблицы в БД
+                // если имя таблицы не передано, ModelName = TableName в БД (User => user)
+                if($user->save()){
                     $_SESSION['success'] = 'Пользователь зарегистрирован'; // записываем в сессию сообщение об успешной регистрации
                 }else{
                     $_SESSION['error'] = 'Ошибка!'; // записываем в сессию сообщение об успешной регистрации
                 }
             }
-            $_SESSION['user.errors'] = $user->errors;
+            $_SESSION['user.errors'] = $user->errors; // ошибки при регистрации (выводить под полями формы)
             redirect(); // перезапрашиваем страницу
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки

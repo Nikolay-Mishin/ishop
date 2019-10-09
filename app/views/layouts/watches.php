@@ -173,7 +173,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-    <? debug($errors); ?>
+    <? if(isset($errors)) debug($errors); ?>
     <!-- динамический контент -->
     <?=$content;?>
 </div>
@@ -278,7 +278,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <script src="js/jquery-1.11.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/validator.js"></script>
+<!-- <script src="js/validator.js"></script> -->
 <script src="js/typeahead.bundle.js"></script>
 <!--dropdown-->
 <script src="js/jquery.easydropdown.js"></script>

@@ -25,6 +25,10 @@
 ### app\models\Cart
 ### public\js\main.js
 
+## 2-30 - при регистрации вывод php ошибок сделать под полями формы
+### app\controllers\UserController
+### app\views\User\signup.php
+
 # Исключения - throw new \Exception('Страница не найдена', 404);
 ## https://www.php.net/manual/ru/language.exceptions.php
 
