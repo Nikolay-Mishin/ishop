@@ -14,11 +14,15 @@ function redirect($http = false){
         $redirect = $http;
     }else{
         // если в массиве $_SERVER есть страница, с которой пришел пользователь (предыдущая страница), то берем ее, иначе главную
-        $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
+        $redirect = referer_url();
     }
     if(isset($_SESSION['redirect'])) unset($_SESSION['redirect']);
     header("Location: $redirect"); // перенаправляем на сформированный адрес
     exit; // завершаем скрипт
+}
+
+function referer_url(){
+    return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
 }
 
 // обертка для функции htmlspecialchars() - обрабатывет спец символы от html-инъекций
