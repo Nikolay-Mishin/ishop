@@ -19,6 +19,7 @@ class UserController extends AppController {
             // проверяем уникальные поля с данными
             if(!$user->validate($data) || !$user->checkUnique()){
                 $user->getErrors(); // получаем список ошибок
+                $_SESSION['form_data'] = $data; // записываем в сессию данные, чтобы значения заполненных полей не сбрасывались
             }else{
                 // хэшируем пароль
                 // password_hash - хэширует пароль с учетом временной метки (текущей даты)

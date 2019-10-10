@@ -24,6 +24,7 @@
                             <form method="post" action="user/signup" id="signup" role="form" data-toggle="validator">
                                 <div class="form-group has-feedback">
                                     <label for="login">Login</label>
+                                    <!-- value - записываем из сессии данные заполненных полей -->
                                     <input type="text" name="login" class="form-control" id="login" placeholder="Login" value="<?=isset($_SESSION['form_data']['login']) ? h($_SESSION['form_data']['login']) : '';?>" required>
                                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                                 </div>
@@ -50,6 +51,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-default">Зарегистрировать</button>
                             </form>
+                            <!-- удаляем данные заполненных полей из сессии -->
                             <?php if(isset($_SESSION['form_data'])) unset($_SESSION['form_data']); ?>
                         </div>
                     </div>
