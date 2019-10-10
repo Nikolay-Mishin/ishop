@@ -14,7 +14,7 @@ class UserController extends AppController {
         if(!empty($_POST)){
             $user = new User(); // объект модели пользователя
             $data = $_POST; // данные, пришедшие от пользователя (записываем в переменную, чтобы не работать напрямую с массивом POST)
-            $user->load($data); // загружаем данные в модель (из $data в $user->attributes)
+            $user->load($data); // загружаем (массово) данные в модель (из $data в $user->attributes)
             // если валидация не пройдена, получаем список ошибок и перенаправляем пользователя на текущую страницу
             // проверяем уникальные поля с данными
             if(!$user->validate($data) || !$user->checkUnique()){
@@ -29,6 +29,7 @@ class UserController extends AppController {
                 // если имя таблицы не передано, ModelName = TableName в БД (User => user)
                 if($user->save()){
                     $_SESSION['success'] = 'Пользователь зарегистрирован'; // записываем в сессию сообщение об успешной регистрации
+                    $user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
                 }else{
                     $_SESSION['error'] = 'Ошибка!'; // записываем в сессию сообщение об успешной регистрации
                 }
@@ -37,29 +38,37 @@ class UserController extends AppController {
             redirect(); // перезапрашиваем страницу
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
-        $errors = $_SESSION['user.errors'] ?? [];
-        $this->setMeta('Регистрация');
-        $this->set(compact('breadcrumbs', 'errors'));
+        $errors = $_SESSION['user.errors'] ?? []; // записываем ошибки регистрации в переменную и передаем ее в вид
+        $this->setMeta('Регистрация'); // устанавливаем мета-данные
+        $this->set(compact('breadcrumbs', 'errors')); // передаем данные в вид
     }
 
     // авторизация пользователя
     public function loginAction(){
+        if(User::isLogin()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
+        $_SESSION['redirect'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
+        // если получены данные методом POST, обрабатываем их и регистрируем пользователя
         if(!empty($_POST)){
-            $user = new User();
+            $user = new User(); // объект модели пользователя
+            // авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
             if($user->login()){
                 $_SESSION['success'] = 'Вы успешно авторизованы';
             }else{
                 $_SESSION['error'] = 'Логин/пароль введены неверно';
             }
-            redirect();
+            $_SESSION['user.errors'] = $user->errors; // ошибки при авторизации (выводить под полями формы)
+            redirect($_SESSION['redirect']); // перезапрашиваем страницу
         }
-        $this->setMeta('Вход');
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
+        $errors = $_SESSION['user.errors'] ?? []; // записываем ошибки авторизации в переменную и передаем ее в вид
+        $this->setMeta('Вход'); // устанавливаем мета-данные
+        $this->set(compact('breadcrumbs', 'errors')); // передаем данные в вид
     }
 
     // выход для авторизованного пользователя
     public function logoutAction(){
-        if(isset($_SESSION['user'])) unset($_SESSION['user']);
-        redirect();
+        if(isset($_SESSION['user'])) unset($_SESSION['user']); // если в сессии есть данные пользователя (авторизован), удаляем их
+        redirect(); // перезапрашиваем страницу
     }
 
 }

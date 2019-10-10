@@ -25,9 +25,15 @@
 ### app\models\Cart
 ### public\js\main.js
 
-## 2-30 - при регистрации вывод php ошибок сделать под полями формы
+## 2-30 - при регистрации и входе вывод php ошибок сделать под полями формы
 ### app\controllers\UserController
+### app\layouts\watches.php (line 176)
 ### app\views\User\signup.php
+### app\views\User\login.php
+
+## ДЗ 2-31 - при регистрации авторизовывать пользователя (+ перенапрявлять со страницы входа уже авторизованного пользователя)
+### app\controllers\UserController
+### app\models\User
 
 # Исключения - throw new \Exception('Страница не найдена', 404);
 ## https://www.php.net/manual/ru/language.exceptions.php

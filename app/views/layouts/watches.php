@@ -173,7 +173,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
         </div>
     </div>
-    <? if(isset($errors)) debug($errors); ?>
+    <? // if(isset($errors)) debug($errors); ?>
+    <? debug($_SERVER['HTTP_REFERER']); if(isset($_SESSION['redirect'])) debug($_SESSION['redirect']); debug($_SESSION); ?>
     <!-- динамический контент -->
     <?=$content;?>
 </div>

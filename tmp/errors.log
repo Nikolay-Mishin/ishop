@@ -160,3 +160,5 @@
 =================
 [2019-10-09 20:02:15] Текст ошибки: Call to undefined function ishop\self() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\App.php | Строка: 45
 =================
+[2019-10-10 17:27:20] Текст ошибки: syntax error, unexpected 'debug' (T_STRING) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\views\layouts\watches.php | Строка: 177
+=================
