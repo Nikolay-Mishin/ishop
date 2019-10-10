@@ -44,12 +44,22 @@ class UserController extends AppController {
 
     // авторизация пользователя
     public function loginAction(){
-
+        if(!empty($_POST)){
+            $user = new User();
+            if($user->login()){
+                $_SESSION['success'] = 'Вы успешно авторизованы';
+            }else{
+                $_SESSION['error'] = 'Логин/пароль введены неверно';
+            }
+            redirect();
+        }
+        $this->setMeta('Вход');
     }
 
     // выход для авторизованного пользователя
     public function logoutAction(){
-
+        if(isset($_SESSION['user'])) unset($_SESSION['user']);
+        redirect();
     }
 
 }

@@ -3085,11 +3085,6 @@ ul.tag-men {
 	cursor: pointer;
 }
 
-/* отменяем перенос слов в таблице корзины */
-#cart table {
-    white-space: nowrap;
-}
-
 /*search*/
 span.twitter-typeahead .tt-menu,
 span.twitter-typeahead .tt-dropdown-menu {
@@ -3205,4 +3200,9 @@ form .has-error .form-control{
 .form-control-feedback {
 	right: 10px;
 	top: 25px;
+}
+
+/* отменяем перенос слов в таблице корзины */
+#cart table {
+    white-space: nowrap;
 }
