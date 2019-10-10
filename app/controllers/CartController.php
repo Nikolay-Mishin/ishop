@@ -13,6 +13,8 @@
 namespace app\controllers;
 
 use app\models\Cart; // модель корзины
+use app\models\Order; // модель заказов
+use app\models\User; // модель пользователя
 
 class CartController extends AppController {
 
