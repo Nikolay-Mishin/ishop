@@ -87,9 +87,12 @@ class User extends AppModel {
     }
 
     // проверяет авторизован ли пользователь
-    public static function isLogin(){
-        if(isset($_SESSION['user'])) return true; // если в сессии есть данные пользователя (авторизован), возвращаем true
-        return false;
+    public static function checkAuth(){
+        return isset($_SESSION['user']);
+    }
+
+    public static function isAdmin(){
+        return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
     }
 
 }

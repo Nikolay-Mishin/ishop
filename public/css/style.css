@@ -3077,7 +3077,8 @@ ul.tag-men {
 	float: left;
 }
 
-#cart table img{
+#cart img,
+.cart table img{
 	height: 50px;
 }
 

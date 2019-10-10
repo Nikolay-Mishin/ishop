@@ -10,7 +10,7 @@ class UserController extends AppController {
 
     // регистрция пользователя
     public function signupAction(){
-        if(User::isLogin()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
+        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
         if(empty($_POST)) $_SESSION['redirect'] = referer_url();
         // если получены данные методом POST, обрабатываем их и регистрируем пользователя
         if(!empty($_POST)){
@@ -47,7 +47,7 @@ class UserController extends AppController {
 
     // авторизация пользователя
     public function loginAction(){
-        if(User::isLogin()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
+        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
         if(empty($_POST)) $_SESSION['redirect'] = referer_url();
         // если получены данные методом POST, обрабатываем их и регистрируем пользователя
         if(!empty($_POST)){
