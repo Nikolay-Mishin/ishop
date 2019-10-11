@@ -26,7 +26,13 @@ class Order extends AppModel {
 
     // сохраняет продукты данного заказа
     public static function saveOrderProduct($order_id){
-
+        $sql_part = '';
+        foreach($_SESSION['cart'] as $product_id => $product){
+            $product_id = (int)$product_id;
+            $sql_part .= "($order_id, $product_id, {$product['qty']}, '{$product['title']}', {$product['price']}),";
+        }
+        $sql_part = rtrim($sql_part, ',');
+        \R::exec("INSERT INTO order_product (order_id, product_id, qty, title, price) VALUES $sql_part");
     }
 
     // отправляет письмо с информацией о заказе клиенту и администратору/менеджеру
