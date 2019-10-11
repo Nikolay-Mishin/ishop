@@ -91,6 +91,7 @@ class User extends AppModel {
         return isset($_SESSION['user']);
     }
 
+    // проверяет роль пользователя - админ/не админ
     public static function isAdmin(){
         return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
     }

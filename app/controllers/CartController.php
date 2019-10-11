@@ -68,38 +68,47 @@ class CartController extends AppController {
         $this->showAction(); // отображаем вид корзины
     }
 
+    // отображает вид корзины при переходе к оформлению заказа
     public function viewAction(){
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs('Корзина'); // хлебные крошки
         $this->setMeta('Корзина');
+        $this->set(compact('breadcrumbs'));
     }
 
+    // обрабатывает данные формы офрмления заказа
     public function checkoutAction(){
         if(!empty($_POST)){
             // регистрация пользователя
             if(!User::checkAuth()){
-                $user = new User();
-                $data = $_POST;
-                $user->load($data);
+                $user = new User(); // объект пользователя
+                $data = $_POST; // массив полученных данных
+                $user->load($data); // загружаем полученные данные в модель
+                // если валидация и проверка на уникальность не пройдена
                 if(!$user->validate($data) || !$user->checkUnique()){
-                    $user->getErrors();
-                    $_SESSION['form_data'] = $data;
-                    redirect();
+                    $user->getErrors(); // получаем ошибоки
+                    $_SESSION['form_data'] = $data; // запоминаем данные формы
+                    redirect(); // перезапрашиваем страницу
                 }else{
+                    // хэшируем пароль
                     $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+                    // сохраняем пользователя и получаем id нового пользователя
                     if(!$user_id = $user->save('user')){
                         $_SESSION['error'] = 'Ошибка!';
-                        redirect();
+                        redirect(); // перезапрашиваем страницу
                     }
                 }
             }
 
             // сохранение заказа
+            // сохраняем id пользователя (только что зарегистрированного или авторизованного)
             $data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
-            $data['note'] = !empty($_POST['note']) ? $_POST['note'] : '';
+            $data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
+            // email пользователя получаем из сессии (для авторизованного) или из данных формы регистрации
             $user_email = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
-            $order_id = Order::saveOrder($data);
-            Order::mailOrder($order_id, $user_email);
+            $order_id = Order::saveOrder($data); // сохраняем заказ и получаем его id
+            Order::mailOrder($order_id, $user_email); // отправляем письмо с информацией о заказе клиенту и администратору/менеджеру
         }
-        redirect();
+        redirect(); // перезапрашиваем страницу
     }
 
     // отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
