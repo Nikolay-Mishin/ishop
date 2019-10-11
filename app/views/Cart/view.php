@@ -3,13 +3,13 @@
     <div class="container">
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
-                <li><a href="<?= PATH ?>">Главная</a></li>
-                <li>Корзина</li>
+                <?= $breadcrumbs; ?>
             </ol>
         </div>
     </div>
 </div>
 <!--end-breadcrumbs-->
+
 <!--prdt-starts-->
 <div class="prdt">
     <div class="container">
@@ -48,7 +48,7 @@
                                 </tr>
                                 <tr>
                                     <td>На сумму:</td>
-                                    <td colspan="4" class="text-right cart-sum"><?= $_SESSION['cart.currency']['symbol_left'] . $_SESSION['cart.sum'] . " {$_SESSION['cart.currency']['symbol_right']}" ?></td>
+                                    <td colspan="4" class="text-right cart-sum"><?= $_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . " {$_SESSION['cart.currency']['symbol_right']}" ?></td>
                                 </tr>
                                 </tbody>
                             </table>

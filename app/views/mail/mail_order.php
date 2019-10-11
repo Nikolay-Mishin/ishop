@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,8 +23,8 @@
         <tr>
             <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['title'] ?></td>
             <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['qty'] ?></td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['price'] ?></td>
-            <td style="padding: 8px; border: 1px solid #ddd;"><?=$item['price'] * $item['qty'] ?></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><?=price_format($item['price']) ?></td>
+            <td style="padding: 8px; border: 1px solid #ddd;"><?=price_format($item['price'] * $item['qty']) ?></td>
         </tr>
     <?php endforeach;?>
     <tr>
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <td colspan="3" style="padding: 8px; border: 1px solid #ddd;">На сумму:</td>
-        <td style="padding: 8px; border: 1px solid #ddd;"><?= $_SESSION['cart.currency']['symbol_left'] . $_SESSION['cart.sum'] . " {$_SESSION['cart.currency']['symbol_right']}" ?></td>
+        <td style="padding: 8px; border: 1px solid #ddd;"><?= $_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . " {$_SESSION['cart.currency']['symbol_right']}" ?></td>
     </tr>
     </tbody>
 </table>
