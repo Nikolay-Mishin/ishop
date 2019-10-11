@@ -3,6 +3,11 @@
 
 namespace app\models;
 
+use ishop\App;
+use Swift_Mailer;
+use Swift_Message;
+use Swift_SmtpTransport;
+
 class Order extends AppModel {
 
     public $order_id; // id заказа
