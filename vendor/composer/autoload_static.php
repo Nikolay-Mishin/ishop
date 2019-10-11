@@ -6,6 +6,10 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit0dabf51485c17910d99e5a88c66a2ed6
 {
+    public static $files = array (
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'i' => 
         array (
