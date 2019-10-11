@@ -12,6 +12,7 @@
 
 namespace app\controllers;
 
+use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Cart; // модель корзины
 use app\models\Order; // модель заказов
 use app\models\User; // модель пользователя
@@ -103,9 +104,13 @@ class CartController extends AppController {
             // сохраняем id пользователя (только что зарегистрированного или авторизованного)
             $data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
             $data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
+            $data['currency'] = $_SESSION['cart.currency']['code']; // валюта заказа
+            $order = new Order(); // объект заказа
+            $order->load($data); // загружаем полученные данные в модель
+            $order_id = $order->save(); // сохраняем заказ и получаем его id
+            // $order_id = Order::saveOrder($data); // сохраняем заказ и получаем его id
             // email пользователя получаем из сессии (для авторизованного) или из данных формы регистрации
             $user_email = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
-            $order_id = Order::saveOrder($data); // сохраняем заказ и получаем его id
             Order::mailOrder($order_id, $user_email); // отправляем письмо с информацией о заказе клиенту и администратору/менеджеру
         }
         redirect(); // перезапрашиваем страницу

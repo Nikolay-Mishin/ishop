@@ -1,0 +1,1 @@
+SELECT * FROM `ishop`.`order` LIMIT 1000;

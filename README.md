@@ -35,6 +35,9 @@
 ### app\controllers\UserController
 ### app\models\User
 
+## ДЗ 2-33 - сделать правильное сохранение заказа (с помощью метода save в базовой модели)
+### app\models\Order->saveOrder() (line 8)
+
 # Исключения - throw new \Exception('Страница не найдена', 404);
 ## https://www.php.net/manual/ru/language.exceptions.php
 
