@@ -168,3 +168,7 @@
 =================
 [2019-10-11 17:48:23] Текст ошибки: syntax error, unexpected '=' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CartController.php | Строка: 107
 =================
+[2019-10-11 20:36:33] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_email' in 'field list' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2019-10-11 21:02:52] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' 3, 1, 'Casio GA-1000-1AER', 352)' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================

@@ -13,9 +13,15 @@ abstract class Model{
     public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
     public $errors = []; // хранение ошибок
     public $rules = []; // правила валидации данных
+    public $last_insert_id; // id последней сохраненной записи (метод save())
 
-    public function __construct(){
+    public function __construct($data = null){
         Db::instance(); // создаем объект класса БД
+        // если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
+        if($data){
+            $this->load($data); // загружаем полученные данные в модель
+            $this->save(); // сохраняем данные в БД и получаем id последней сохраненной записи
+        }
     }
 
     // метод автозагрузки данных из формы
@@ -37,15 +43,15 @@ abstract class Model{
 
     // сохраняем данные в таблицу в БД
     public function save($table = null){
-        $table = $table ?? $this->getModelName();
-        // $table - имя таблицы в БД
+        $table = $table ?? $this->getModelName(); // имя таблицы в БД
         // производим 1 из операций CRUD - Create Update Delete
         $tbl = \R::dispense($table); // создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
         // в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
         foreach($this->attributes as $name => $value){
             $tbl->$name = $value;
         }
-        return \R::store($tbl); // сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
+        // сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
+        return $this->last_insert_id = \R::store($tbl);
     }
 
     // метод валидации данных
