@@ -58,24 +58,30 @@ class Order extends AppModel {
     // public static function mailOrder($order_id, $user_email)
     public function mailOrder($order_id, $user_email){
         // Create the Transport
+        // создаем объект smtp и передаем параметры для настройки smtp-сервера
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
             ->setUsername(App::$app->getProperty('smtp_login'))
             ->setPassword(App::$app->getProperty('smtp_password'))
         ;
         // Create the Mailer using your created Transport
-        $mailer = new Swift_Mailer($transport);
+        $mailer = new Swift_Mailer($transport); // создаем объект для отправки писем и передаем ему настройки smtp-сервера
 
         // Create a message
+        // создаем сообщение письма и записываем его в переменную
+        // для письма администратору можно создать отдельный шаблон и подключать его ($body_admin)
         ob_start();
         require APP . '/views/mail/mail_order.php';
         $body = ob_get_clean();
 
+        // письмо для клиента
+        // setFrom должно совпадать с setUsername в настройках smtp
         $message_client = (new Swift_Message("Вы совершили заказ №{$order_id} на сайте " . App::$app->getProperty('shop_name')))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
             ->setTo($user_email)
             ->setBody($body, 'text/html')
         ;
 
+        // письмо для администратора
         $message_admin = (new Swift_Message("Сделан заказ №{$order_id}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
             ->setTo(App::$app->getProperty('admin_email'))
@@ -83,12 +89,15 @@ class Order extends AppModel {
         ;
 
         // Send the message
+        // отправляем письма клиенту и администратору
         $result = $mailer->send($message_client);
         $result = $mailer->send($message_admin);
+        // очищаем корзину
         unset($_SESSION['cart']);
         unset($_SESSION['cart.qty']);
         unset($_SESSION['cart.sum']);
         unset($_SESSION['cart.currency']);
+        // выводим сообщение об успешном офрмлении заказа
         $_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
     }
 

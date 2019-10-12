@@ -71,7 +71,7 @@ class CartController extends AppController {
 
     // отображает вид корзины при переходе к оформлению заказа
     public function viewAction(){
-        $breadcrumbs = Breadcrumbs::getBreadcrumbs('Корзина'); // хлебные крошки
+        $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Корзина'); // хлебные крошки
         $this->setMeta('Корзина');
         $this->set(compact('breadcrumbs'));
     }

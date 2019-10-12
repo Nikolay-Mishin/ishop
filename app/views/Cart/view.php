@@ -3,7 +3,7 @@
     <div class="container">
         <div class="breadcrumbs-main">
             <ol class="breadcrumb">
-                <?= $breadcrumbs; ?>
+                <?=$breadcrumbs;?>
             </ol>
         </div>
     </div>

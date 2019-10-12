@@ -1,1 +1,0 @@
-SELECT * FROM `ishop`.`user` LIMIT 1000;
