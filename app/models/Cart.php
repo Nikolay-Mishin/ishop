@@ -112,4 +112,12 @@ class Cart extends AppModel {
         }
     }
 
+    // статичный метод для очистки корзины
+    public static function clean(){
+        unset($_SESSION['cart']);
+        unset($_SESSION['cart.qty']);
+        unset($_SESSION['cart.sum']);
+        unset($_SESSION['cart.currency']);
+    }
+
 }

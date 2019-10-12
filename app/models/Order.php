@@ -4,9 +4,9 @@
 namespace app\models;
 
 use ishop\App;
-use Swift_Mailer;
-use Swift_Message;
-use Swift_SmtpTransport;
+use Swift_Mailer; // класс отправки писем
+use Swift_Message; // класс формирования писем
+use Swift_SmtpTransport; // класс smtp-сервера
 
 class Order extends AppModel {
 
@@ -24,7 +24,7 @@ class Order extends AppModel {
         $this->order_id = $this->last_insert_id;
         $this->user_email = $data['user_email'];
         $this->saveOrderProduct(); // сохраняем продукты заказа
-        $this->mailOrder($this->order_id, $this->user_email); // отправляем письмо пользователю и администратору/менеджеру
+        $this->mailOrder(); // отправляем письмо пользователю и администратору/менеджеру
     }
 
     // сохраняет оформленный заказ
@@ -56,7 +56,7 @@ class Order extends AppModel {
 
     // отправляет письмо с информацией о заказе клиенту и администратору/менеджеру
     // public static function mailOrder($order_id, $user_email)
-    public function mailOrder($order_id, $user_email){
+    public function mailOrder(){
         // Create the Transport
         // создаем объект smtp и передаем параметры для настройки smtp-сервера
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
@@ -75,14 +75,14 @@ class Order extends AppModel {
 
         // письмо для клиента
         // setFrom должно совпадать с setUsername в настройках smtp
-        $message_client = (new Swift_Message("Вы совершили заказ №{$order_id} на сайте " . App::$app->getProperty('shop_name')))
-            ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
-            ->setTo($user_email)
-            ->setBody($body, 'text/html')
+        $message_client = (new Swift_Message("Вы совершили заказ №{$this->order_id} на сайте " . App::$app->getProperty('shop_name')))
+            ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')]) // от кого
+            ->setTo($this->user_email) // кому
+            ->setBody($body, 'text/html') // тема
         ;
 
         // письмо для администратора
-        $message_admin = (new Swift_Message("Сделан заказ №{$order_id}"))
+        $message_admin = (new Swift_Message("Сделан заказ №{$this->order_id}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
             ->setTo(App::$app->getProperty('admin_email'))
             ->setBody($body, 'text/html')
@@ -92,11 +92,7 @@ class Order extends AppModel {
         // отправляем письма клиенту и администратору
         $result = $mailer->send($message_client);
         $result = $mailer->send($message_admin);
-        // очищаем корзину
-        unset($_SESSION['cart']);
-        unset($_SESSION['cart.qty']);
-        unset($_SESSION['cart.sum']);
-        unset($_SESSION['cart.currency']);
+        Cart::clean(); // очищаем корзину
         // выводим сообщение об успешном офрмлении заказа
         $_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
     }
