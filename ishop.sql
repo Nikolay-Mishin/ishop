@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 19 2019 г., 17:30
+-- Время создания: Окт 13 2019 г., 21:50
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -52,9 +52,10 @@ INSERT INTO `attribute_group` (`id`, `title`) VALUES
 -- Структура таблицы `attribute_product`
 --
 
-CREATE TABLE `attribute_product` (
-  `attr_id` int(10) UNSIGNED NOT NULL,
-  `product_id` int(11) UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS `attribute_product` (
+  `attr_id` int(10) unsigned NOT NULL,
+  `product_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`attr_id`,`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -63,52 +64,25 @@ CREATE TABLE `attribute_product` (
 
 INSERT INTO `attribute_product` (`attr_id`, `product_id`) VALUES
 (1, 1),
+(1, 2),
+(1, 3),
 (2, 4),
-(2, 5),
-(2, 11),
-(2, 15),
-(2, 16),
-(2, 17),
-(2, 20),
-(2, 21),
-(2, 22),
-(3, 12),
-(3, 23),
-(3, 24),
-(3, 25),
-(3, 26),
-(4, 2),
-(4, 3),
-(4, 27),
-(4, 28),
 (5, 1),
+(5, 2),
+(5, 3),
 (5, 4),
-(5, 5),
-(5, 12),
-(5, 13),
-(6, 2),
-(6, 29),
-(6, 30),
-(6, 31),
-(6, 32),
-(6, 33),
-(7, 3),
-(7, 6),
 (8, 1),
-(9, 2),
-(9, 14),
-(10, 4),
-(10, 5),
-(10, 13),
-(11, 7),
-(11, 8),
-(11, 9),
-(11, 10),
+(8, 2),
+(8, 3),
+(8, 4),
 (12, 1),
-(14, 3),
-(16, 1),
-(16, 4),
-(16, 5);
+(12, 2),
+(12, 3),
+(12, 4),
+(18, 1),
+(18, 2),
+(18, 4),
+(19, 3);
 
 -- --------------------------------------------------------
 
@@ -229,9 +203,9 @@ CREATE TABLE `currency` (
 --
 
 INSERT INTO `currency` (`id`, `title`, `code`, `symbol_left`, `symbol_right`, `value`, `base`) VALUES
-(1, 'гривна', 'UAH', '', 'грн.', 25.80, '0'),
-(2, 'доллар', 'USD', '$', '', 1.00, '1'),
-(3, 'Евро', 'EUR', '€', '', 0.88, '0');
+(1, 'гривна', 'UAH', '', ' грн.', 25.80, '0'),
+(2, 'доллар', 'USD', '$ ', '', 1.00, '1'),
+(3, 'Евро', 'EUR', '€ ', '', 0.88, '0');
 
 -- --------------------------------------------------------
 
@@ -295,6 +269,26 @@ CREATE TABLE `order` (
   `note` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `order`
+--
+
+INSERT INTO `order` (`id`, `user_id`, `status`, `date`, `update_at`, `currency`, `note`) VALUES
+(1, 2, '0', '2019-10-11 14:27:51', NULL, 'EUR', '111'),
+(2, 3, '0', '2019-10-11 14:49:28', NULL, 'EUR', '222'),
+(3, 2, '0', '2019-10-11 17:37:31', NULL, 'EUR', ''),
+(4, 2, '0', '2019-10-11 17:46:06', NULL, 'EUR', ''),
+(5, 2, '0', '2019-10-11 17:51:05', NULL, 'EUR', ''),
+(6, 2, '0', '2019-10-11 17:59:21', NULL, 'EUR', ''),
+(7, 2, '0', '2019-10-11 18:01:51', NULL, 'EUR', ''),
+(8, 2, '0', '2019-10-11 18:02:51', NULL, 'EUR', ''),
+(9, 2, '0', '2019-10-11 18:03:07', NULL, 'EUR', ''),
+(10, 2, '0', '2019-10-11 18:06:57', NULL, 'USD', ''),
+(11, 2, '0', '2019-10-12 15:47:59', NULL, 'USD', ''),
+(12, 2, '0', '2019-10-12 15:52:22', NULL, 'USD', 'Test'),
+(13, 2, '0', '2019-10-12 15:54:03', NULL, 'EUR', 'Test 2'),
+(14, 2, '0', '2019-10-12 16:01:29', NULL, 'EUR', '');
+
 -- --------------------------------------------------------
 
 --
@@ -310,37 +304,59 @@ CREATE TABLE `order_product` (
   `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `order_product`
+--
+
+INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `qty`, `title`, `price`) VALUES
+(1, 6, 3, 1, 'Casio GA-1000-1AER', 352),
+(2, 6, 2, 1, 'Casio MQ-24-7BUL', 61.6),
+(3, 6, 2, 2, 'Casio MQ-24-7BUL (Silver)', 70.4),
+(4, 9, 3, 1, 'Casio GA-1000-1AER', 352),
+(5, 10, 3, 1, 'Casio GA-1000-1AER', 400),
+(6, 11, 3, 1, 'Casio GA-1000-1AER', 400),
+(7, 12, 2, 1, 'Casio MQ-24-7BUL', 70),
+(8, 12, 2, 2, 'Casio MQ-24-7BUL (Silver)', 80),
+(9, 13, 3, 1, 'Casio GA-1000-1AER', 352),
+(10, 13, 2, 1, 'Casio MQ-24-7BUL', 61.6),
+(11, 13, 2, 2, 'Casio MQ-24-7BUL (Silver)', 70.4),
+(12, 14, 3, 1, 'Casio GA-1000-1AER', 352);
+
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `category_id` tinyint(3) UNSIGNED NOT NULL,
-  `brand_id` tinyint(3) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` tinyint(3) unsigned NOT NULL,
+  `brand_id` tinyint(3) unsigned NOT NULL,
   `title` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
-  `content` text DEFAULT NULL,
-  `price` float NOT NULL DEFAULT 0,
-  `old_price` float NOT NULL DEFAULT 0,
+  `content` text,
+  `price` float NOT NULL DEFAULT '0',
+  `old_price` float NOT NULL DEFAULT '0',
   `status` enum('0','1') NOT NULL DEFAULT '1',
   `keywords` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `img` varchar(255) NOT NULL DEFAULT 'no_image.jpg',
-  `hit` enum('0','1') NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `hit` enum('0','1') NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `alias` (`alias`),
+  KEY `category_id` (`category_id`,`brand_id`),
+  KEY `hit` (`hit`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Дамп данных таблицы `product`
 --
 
 INSERT INTO `product` (`id`, `category_id`, `brand_id`, `title`, `alias`, `content`, `price`, `old_price`, `status`, `keywords`, `description`, `img`, `hit`) VALUES
-(1, 6, 1, 'Casio MRP-700-1AVEF', 'casio-mrp-700-1avef', NULL, 300, 0, '1', NULL, NULL, 'p-1.png', '0'),
-(2, 6, 1, 'Casio MQ-24-7BUL', 'casio-mq-24-7bul', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>\n\n                                            <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>', 70, 80, '1', NULL, NULL, 'p-2.png', '1'),
+(1, 6, 1, 'Casio MRP-700-1AVEF', 'casio-mrp-700-1avef', NULL, 300, 0, '1', NULL, NULL, 'p-1.png', '1'),
+(2, 6, 1, 'Casio MQ-24-7BUL', 'casio-mq-24-7bul', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>\n\n                                            <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>', 70, 80, '1', '111', '222', 'p-2.png', '1'),
 (3, 6, 1, 'Casio GA-1000-1AER', 'casio-ga-1000-1aer', NULL, 400, 0, '1', NULL, NULL, 'p-3.png', '1'),
-(4, 7, 2, 'Citizen JP1010-00E', 'citizen-jp1010-00e', NULL, 400, 0, '1', NULL, NULL, 'p-4.png', '1'),
+(4, 6, 2, 'Citizen JP1010-00E', 'citizen-jp1010-00e', NULL, 400, 0, '1', NULL, NULL, 'p-4.png', '1'),
 (5, 7, 2, 'Citizen BJ2111-08E', 'citizen-bj2111-08e', NULL, 500, 0, '1', NULL, NULL, 'p-5.png', '1'),
 (6, 7, 2, 'Citizen AT0696-59E', 'citizen-at0696-59e', NULL, 350, 355, '1', NULL, NULL, 'p-6.png', '1'),
 (7, 6, 3, 'Q&Q Q956J302Y', 'q-and-q-q956j302y', NULL, 20, 0, '1', NULL, NULL, 'p-7.png', '1'),
@@ -408,6 +424,15 @@ CREATE TABLE `user` (
   `address` varchar(255) NOT NULL,
   `role` enum('user','admin') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `password`, `email`, `name`, `address`, `role`) VALUES
+(1, 'admin', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'admin@mail.ru', 'Admin', '1', 'admin'),
+(2, 'user1', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'user'),
+(3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -551,13 +576,13 @@ ALTER TABLE `modification`
 -- AUTO_INCREMENT для таблицы `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
@@ -569,7 +594,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

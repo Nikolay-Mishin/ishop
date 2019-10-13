@@ -13,6 +13,7 @@ class CategoryController extends AppController {
 
     public function viewAction(){
         $alias = $this->route['alias']; // алиас запрошенной категории
+        // SELECT `category`.*  FROM `category`  WHERE alias = ? LIMIT 1
         $category = \R::findOne('category', 'alias = ?', [$alias]); // получаем категорию из БД
         // если категория не получаена выбрасываем исключение
         if(!$category){
@@ -30,29 +31,39 @@ class CategoryController extends AppController {
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница
         $perpage = App::$app->getProperty('pagination'); // получаем из контейнера число записей для вывода на 1 странице
         
-        // формируем sql-запрос выборки товаров по фильтрам
+        // простейший вариант фильтрации - когда у товара есть хотя бы 1 из заданных аттрибутов
+        // товар 1-3 имеют 2 аттрибута (1,5) товар 4 имеет 1 аттрибут (5), но не имеет аттрибута (1) => товар 1-4
+        // сложный фильтр - отображает только товары со вмесем фильтрами (1,5) => товар 1-3
+        // формируем sql-запрос выборки товаров по фильтрам, если передан get-параметр 'filter'
         $sql_part = '';
         if(!empty($_GET['filter'])){
             /*
+            // выбираем товары из категории 6 и во 2 выборку IN идет вложенный sql-запрос
+            // для товаров attribute_product мы выбираем те товары, для которых поле attr_id = 1,5
             SELECT `product`.*  FROM `product`  WHERE category_id IN (6) AND id IN
-            (
+            ( // 1,2,3,4
             SELECT product_id FROM attribute_product WHERE attr_id IN (1,5)
             )
             */
             $filter = Filter::getFilter(); // получаем список выбранных фильтров
+            // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1))
             $sql_part = "AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN ($filter))";
         }
 
         // получаем общее число товаров из списка полученных категорий
+        // SELECT COUNT(*) FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
+        // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1))
         $total = \R::count('product', "category_id IN ($ids) $sql_part");
         $pagination = new Pagination($page, $perpage, $total); // объект пагинации
         $start = $pagination->getStart(); // получаем номер записи, с которой необходимо начинать выборку из БД
 
         // товары списка полученных категория (IN ищет совпадение в заданном диапазоне - 4,6,7,5,8,9,10,1)
         // не биндим значение ("category_id IN ?", [$ids]), тк значение для выборки из БД мы формируем сами на основе данных из БД
+        // SELECT `product`.*  FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
+        // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1)) LIMIT 0, 3
         $products = \R::find('product', "category_id IN ($ids) $sql_part LIMIT $start, $perpage");
 
-        // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данный
+        // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данные
         if($this->isAjax()){
             $this->loadView('filter', compact('products', 'total', 'pagination'));
         }

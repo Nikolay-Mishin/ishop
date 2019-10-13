@@ -43,11 +43,12 @@ class Filter{
 
     // получает список групп фильтров
     protected function getGroups(){
-        return \R::getAssoc('SELECT id, title FROM attribute_group');
+        return \R::getAssoc('SELECT id, title FROM attribute_group'); // SELECT id, title FROM attribute_group
     }
 
     // получает спиков аттрибутов фильтров
     protected function getAttrs(){
+        // SELECT * FROM attribute_value
         $data = \R::getAssoc('SELECT * FROM attribute_value'); // получаем ассоциативный массив аттрибутов фильтров
         $attrs = []; // переменная для хранения сформированного списка аттрибутов
         // формируем ассоциативный массив по id группы аттрибутов
@@ -75,8 +76,8 @@ class Filter{
         $filter = null;
         // если в GET-параметрах переданы фильтры, обрабатываем их
         if(!empty($_GET['filter'])){
-            $filter = preg_replace("#[^\d,]+#", '', $_GET['filter']); // 
-            $filter = trim($filter, ','); // убираем ',' с конца строки
+            $filter = preg_replace("#[^\d,]+#", '', $_GET['filter']); // вырезаем из строки все, кроме цифр и ','
+            $filter = trim($filter, ','); // убираем ',' с конца строки (1, => 1)
         }
         return $filter;
     }

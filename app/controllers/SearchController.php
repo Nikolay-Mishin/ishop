@@ -29,7 +29,7 @@ class SearchController extends AppController{
         $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null; // пришедший поисковый запрос
         // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
         if($query){
-            $products = \R::find('product', "title LIKE ?", ["%{$query}%"]);
+            $products = \R::find('product', "title LIKE ?", ["%{$query}%"]); // SELECT `product`.*  FROM `product`  WHERE title LIKE ?
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Поиск по запросу: "' . h($query) . '"'); // хлебные крошки
         $this->setMeta('Поиск по: ' . h($query)); // устанавливаем мета-данные и обрабатываем их от XSS-атак (html-инъекций)

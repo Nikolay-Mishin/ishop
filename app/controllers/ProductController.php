@@ -20,6 +20,7 @@ class ProductController extends AppController {
     public function viewAction(){
         $alias = $this->route['alias']; // получаем алиас текущего продукта
         // получаем по алиасу информацию о текущем продукте из БД
+        // SELECT `product`.*  FROM `product`  WHERE alias = ? AND status = '1' LIMIT 1
         $product = \R::findOne('product', "alias = ? AND status = '1'", [$alias]);
         // если продукт не найден выбрасываем исключение
         if(!$product){
@@ -30,6 +31,7 @@ class ProductController extends AppController {
         $breadcrumbs = Breadcrumbs::getBreadcrumbs($product->category_id, $product->title);
 
         // связанные товары - с этим товаром покупают также
+        // SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?
         $related = \R::getAll("SELECT * FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$product->id]);
 
         // запись в куки запрошенного товара
@@ -44,15 +46,18 @@ class ProductController extends AppController {
         if($r_viewed){
             // find запрос типа IN - ищет совпадение в таблице (по заданному полю) из переданных значений (массива)
             // \R::genSlots - формирует подстановку из '?' по числу элементов массива (?,?,?)
-            // SQL - SELECT column-names FROM table-name WHERE column-name IN (values) 
+            // SQL - SELECT column-names FROM table-name WHERE column-name IN (values)
+            // SELECT `product`.*  FROM `product`  WHERE id IN (?,?,?) LIMIT 3
             $recentlyViewed = \R::find('product', 'id IN (' . \R::genSlots($r_viewed) . ') LIMIT 3', $r_viewed);
         }
 
         // галерея
+        // SELECT `gallery`.*  FROM `gallery`  WHERE product_id = ?
         $gallery = \R::findAll('gallery', 'product_id = ?', [$product->id]);
 
         // модификации - в корзину можно положить 2 вида товара (как базовый, так и его модификацию)
         // часы 1 и часы 1 (silver)
+        // SELECT `modification`.*  FROM `modification`  WHERE product_id = ?
         $mods = \R::findAll('modification', 'product_id = ?', [$product->id]);
 
         $this->setMeta($product->title, $product->description, $product->keywords);

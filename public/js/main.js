@@ -9,29 +9,15 @@ $('body').on('change', '.w_sidebar input', function(){
     });
     // если список фильтров не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
     if(data){
-        ajax(location.href, showFilter, {filter: data}, 'Ошибка!', showPreloader, data);
-        // ajax-запрос
+        ajax(location.href, showFilter, {filter: data}, 'Ошибка!', showPreloader, data); // ajax-запрос
         /* $.ajax({
             url: location.href, // url для отправки на сервер (абсолютный адрес текущей страницы - http://ishop/category/men)
             data: {filter: data}, // данные для отправки на сервер
             type: 'GET',
             // функция, вызываемая перед отправкой запроса
-            beforeSend: function(){
-                // плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (call-back функция)
-                $('.preloader').fadeIn(300, function(){
-                    $('.product-one').hide();
-                });
-            },
+            beforeSend: showPreloader(),
             success: function(res){
-                // плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
-                $('.preloader').delay(500).fadeOut('slow', function(){
-                    $('.product-one').html(res).fadeIn();
-                    var url = location.search.replace(/filter(.+?)(&|$)/g, ''); //$2
-                    var newURL = location.pathname + url + (location.search ? "&" : "?") + "filter=" + data;
-                    newURL = newURL.replace('&&', '&');
-                    newURL = newURL.replace('?&', '?');
-                    history.pushState({}, '', newURL);
-                });
+                showFilter(res, data);
             },
             error: function () {
                 alert('Ошибка!');
@@ -53,11 +39,17 @@ function showPreloader(){
 function showFilter(res, data){
     $('.preloader').delay(500).fadeOut('slow', function(){
         $('.product-one').html(res).fadeIn();
+        // удаляем из строки поиска выражение 'filter=1,' (начиная со слова filter, поле могут идти любые символы (=1,) до знака &)
+        // ?filter=1,&page=2 => ?page=2
         var url = location.search.replace(/filter(.+?)(&|$)/g, ''); //$2
+        // если в объекте location есть search (get-параметр), добавляем & и прибавляем параметр filter к существующим get-параметрам
+        // иначе добавляем ? - формируем get-параметры
+        // /category/men + ?page=2 + &filter=1, или /category/men + ?filter=1,
         var newURL = location.pathname + url + (location.search ? "&" : "?") + "filter=" + data;
-        newURL = newURL.replace('&&', '&');
-        newURL = newURL.replace('?&', '?');
-        history.pushState({}, '', newURL);
+        newURL = newURL.replace('&&', '&'); // заменяем дублирующие & на 1 знак &
+        newURL = newURL.replace('?&', '?'); // символ '?&' заменяем на ?
+        // pushState - отправляет новый url (обновляет состояние url, заменяя то, что в нем хранится на newURL)
+        history.pushState({}, '', newURL); // объект истории браузера (позволяет запоминать состояние строки url)
     });
 }
 /* // Filters */
@@ -246,7 +238,6 @@ $('.available select').on('change', function(){
     }
 });
 
-
 // Ajax-запрос - отправляет стандартный ajax-запрос
 function ajax(url, successFunc, data = {}, errorMsg = 'Ошибка! Попробуйте позже', beforeSend = null, args = [], type = 'GET') {
     $.ajax({
@@ -271,80 +262,3 @@ function ajax(url, successFunc, data = {}, errorMsg = 'Ошибка! Попро�
         }
     });
 }
-
-// передача пользовательской функции (some_func) в качестве аргумента другой функции
-/* function ajaxFormRequest(form_id, url, dataT, some_func) {
-    $.ajax({
-        url: url,
-        type: "POST", // Тип запроса
-        data: jQuery("#"+form_id).serialize(), 
-        dataType: dataT, 
-        success: function(response) {
-            getInfo('alert-'+response.type, response.msg);
-            some_func();
-        },
-        error: function(response) {
-            getInfo('alert-danger', 'Ошибка при отправке формы');
-        }
-    });
-} */
-
-// bind - создаёт "обёртку" над функцией, которая подменяет контекст этой функции. Поведение похоже на call и apply, но, в отличие от них, bind не вызывает функцию, а лишь возвращает "обёртку", которую можно вызвать позже.
-/* function f() {
-    alert(this);
-}
-
-var wrapped = f.bind('abc');
-
-f(); // [object Window]
-wrapped(); // abc */
-
-// call - вызов функции с подменой контекста - this внутри функции.
-/* function f(arg) {
-    console.log(this);
-    console.log(arg);
-}
-
-f('abc'); // abc, [object Window]
-
-f.call('123', 'abc'); // 123 (this), abc */
-
-// apply - вызов функции с переменным количеством аргументов и с подменой контекста.
-/* Пример:
-function f() {
-    console.log(this);
-    console.log(arguments);
-}
-
-f(1, 2, 3); // [object Window], [1, 2, 3]
-
-f.apply('abc', [1, 2, 3, 4]); // abc (this), [1, 2, 3, 4] */
-
-// создание пользовательской функции с передачей аргументов в виде объекта (по типу JQuery Ajax)
-/**
- * This is how to document the shape of the parameter object
- * @param {boolean} [args.arg1 = false] Blah blah blah
- * @param {boolean} [args.notify = false] Blah blah blah
- */
-/* function doSomething(args) {
-    var defaults = {
-        arg1: false,
-        notify: false
-    };
-    args = Object.assign(defaults, args);
-    console.log(args);
-
-    var arg1 = args.arg1 !== undefined ? args.arg1 : false,
-        notify = args.notify !== undefined ? args.notify : false;
-    console.log('arg1 = ' + arg1 + ', notify = ' + notify);
-
-    if (args.hasOwnProperty('arg1')) {
-        // arg1 isset
-    }
-
-    if (args.hasOwnProperty('notify')) {
-        // notify isset
-    }
-}
-
-doSomething({notify: true}); // {arg1: false, notify: true} */

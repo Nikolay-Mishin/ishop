@@ -55,6 +55,91 @@
 #### http://softtime.ru/forum/read.php?id_forum=3&id_theme=88061
 #### https://gist.github.com/greabock/afc4a08577806b60dc61
 
+# передача пользовательской функции (some_func) в качестве аргумента другой функции
+/* function ajaxFormRequest(form_id, url, dataT, some_func) {
+    $.ajax({
+        url: url,
+        type: "POST", // Тип запроса
+        data: jQuery("#"+form_id).serialize(), 
+        dataType: dataT, 
+        success: function(response) {
+            getInfo('alert-'+response.type, response.msg);
+            some_func();
+        },
+        error: function(response) {
+            getInfo('alert-danger', 'Ошибка при отправке формы');
+        }
+    });
+} */
+
+# Bind, Call и Apply - вызов функций с подменой контекста
+
+## bind - создаёт "обёртку" над функцией, которая подменяет контекст этой функции. Поведение похоже на call и apply, но, в отличие от них, bind не вызывает функцию, а лишь возвращает "обёртку", которую можно вызвать позже.
+```JavaScript
+function f() {
+    alert(this);
+}
+
+var wrapped = f.bind('abc');
+
+f(); // [object Window]
+wrapped(); // abc
+```
+## call - вызов функции с подменой контекста - this внутри функции.
+```JavaScript
+function f(arg) {
+    console.log(this);
+    console.log(arg);
+}
+
+f('abc'); // abc, [object Window]
+
+f.call('123', 'abc'); // 123 (this), abc
+```
+## apply - вызов функции с переменным количеством аргументов и с подменой контекста.
+```JavaScript
+Пример:
+function f() {
+    console.log(this);
+    console.log(arguments);
+}
+
+f(1, 2, 3); // [object Window], [1, 2, 3]
+
+f.apply('abc', [1, 2, 3, 4]); // abc (this), [1, 2, 3, 4]
+```
+
+# создание пользовательской функции с передачей аргументов в виде объекта (по типу JQuery Ajax)
+```JavaScript
+/**
+ * This is how to document the shape of the parameter object
+ * @param {boolean} [args.arg1 = false] Blah blah blah
+ * @param {boolean} [args.notify = false] Blah blah blah
+ */
+function doSomething(args) {
+    var defaults = {
+        arg1: false,
+        notify: false
+    };
+    args = Object.assign(defaults, args);
+    console.log(args);
+
+    var arg1 = args.arg1 !== undefined ? args.arg1 : false,
+        notify = args.notify !== undefined ? args.notify : false;
+    console.log('arg1 = ' + arg1 + ', notify = ' + notify);
+
+    if (args.hasOwnProperty('arg1')) {
+        // arg1 isset
+    }
+
+    if (args.hasOwnProperty('notify')) {
+        // notify isset
+    }
+}
+
+doSomething({notify: true}); // {arg1: false, notify: true}
+```
+
 # Передача аргументов по ссылке
 ### https://www.php.net/manual/ru/functions.arguments.php
 ## По умолчанию аргументы в функцию передаются по значению (это означает, что если вы измените значение аргумента внутри функции, то вне ее значение все равно останется прежним). Если вы хотите разрешить функции модифицировать свои аргументы, вы должны передавать их по ссылке.

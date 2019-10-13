@@ -32,7 +32,10 @@
                                         <p>Explore Now</p>
                                         <!-- цена товара -->
                                         <h4>
-                                            <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
+                                            <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a>
+                                            <!-- цена товара -->
+                                            <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
+                                            <!-- выводим старую цену, если такая есть -->
                                             <?php if($product->old_price): ?>
                                                 <small><del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                                             <?php endif; ?>
@@ -48,6 +51,7 @@
                             </div>
                         <?php endforeach; ?>
                         <!-- // выводим отдельно каждый товар -->
+                        <div class="clearfix"></div>
                         <!-- пагинация -->
                         <div class="text-center">
                             <!-- выводим количество товаров из общего числа -->
@@ -59,7 +63,6 @@
                             <?php endif; ?>
                         </div>
                         <!-- // пагинация -->
-                        <div class="clearfix"></div>
                     </div>
                 <?php else: ?>
                     <h3>В этой категории товаров пока нет...</h3>

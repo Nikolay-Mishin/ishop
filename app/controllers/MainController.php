@@ -9,9 +9,11 @@ class MainController extends AppController {
 
     // главная страница
     public function indexAction(){
+        // SELECT `brand`.*  FROM `brand` LIMIT 3
         $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // выбираем 8 записей из таблицы product, которые являются хитами (hit = '1') и имеют статус 'отображать' (status = '1')
         // enum('0','1') - строковый тип
+        // SELECT `product`.*  FROM `product`  WHERE hit = '1' AND status = '1' LIMIT 8
         $hits = \R::find('product', "hit = '1' AND status = '1' LIMIT 8");
         // $posts = \R::findAll('test'); // получаем все статьи из таблицы test
         // биндим данные (защита от sql-инъекций) вместо '?' подставляются указанные данные

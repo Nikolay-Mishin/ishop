@@ -27,6 +27,7 @@ class Currency{
     public static function getCurrencies(){
         // получаем ассоциативный массив, а не объект (для простоты взаимодействия) - массив индексируется по первому элементу (code)
         // сортируем (ORDER BY) по полю base в обратном порядке (DESC), чтобы первым элементом шла базовая валюта (base = 1)
+        // SELECT code, title, symbol_left, symbol_right, value, base FROM currency ORDER BY base DESC
         return \R::getAssoc("SELECT code, title, symbol_left, symbol_right, value, base FROM currency ORDER BY base DESC");
     }
 

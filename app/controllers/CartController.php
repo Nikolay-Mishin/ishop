@@ -70,9 +70,11 @@ class CartController extends AppController {
     }
 
     // статичный метод для пересчета корзины
-    public function recalcAction($qtyChange = 0, $priceChange = 0){
+    public function recalcAction(){
         // $curr - массив новой валюты, в которую нужно пересчитать корзину
         if(isset($_GET['productsChange']) && isset($_SESSION['cart.currency'])){
+            $qtyChange = 0;
+            $priceChange = 0;
             // пересчитываем измененные товары в корзине
             foreach($_GET['productsChange'] as $k => $v){
                 $_SESSION['cart'][$k]['qty'] += $v;
