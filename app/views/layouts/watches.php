@@ -23,6 +23,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--Custom-Theme-files-->
     <!--theme-style-->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
     <!--//theme-style-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -84,7 +85,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <!-- если корзина не пуста, выводим общую сумму заказа -->
                             <?php if(!empty($_SESSION['cart'])): ?>
                                 <span class="simpleCart_total"><?=$_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . $_SESSION['cart.currency']['symbol_right'];?></span>
-                            <!-- если корзина пуста, выводи данноге сообщение -->
+                            <!-- если корзина пуста, выводим данное сообщение -->
                             <?php else: ?>
                                 <span class="simpleCart_total">Empty Cart</span>
                             <?php endif; ?>
@@ -174,6 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
     <? // if(isset($errors)) debug($errors); ?>
+    <? // debug($_SESSION); ?>
     <!-- динамический контент -->
     <?=$content;?>
 </div>
@@ -265,6 +267,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
 </div>
+
+<!-- прелоадер для скрытия контента при ожидании ответа от сервера (ajax-запрос) -->
+<div class="preloader"><img src="images/ring.svg" alt=""></div>
 
 <!-- получаем активную валюту из контейнера -->
 <?php $curr = \ishop\App::$app->getProperty('currency'); ?>

@@ -3220,8 +3220,3 @@ form .has-error .form-control{
 	top:50vh;
 	margin:-100px 0 0 -100px;
 }
-
-/* отменяем перенос слов в таблице корзины */
-#cart table {
-    white-space: nowrap;
-}

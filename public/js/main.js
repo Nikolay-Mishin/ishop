@@ -1,33 +1,65 @@
 /* Filters */
+// делигируем событие изменения от body инпутам в сайдбаре (списке фильтров)
 $('body').on('change', '.w_sidebar input', function(){
-    var checked = $('.w_sidebar input:checked'),
+    var checked = $('.w_sidebar input:checked'), // список выбранных фильтров
         data = '';
+    // проходим в фикле по выбранным фильтрам и формируем строку со списком id фильтров, разделенных ','
     checked.each(function () {
         data += this.value + ',';
     });
+    // если список фильтров не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
     if(data){
-        $.ajax({
-            url: location.href,
-            data: {filter: data},
+        ajax(location.href, showFilter, {filter: data}, 'Ошибка!', showPreloader, data);
+        // ajax-запрос
+        /* $.ajax({
+            url: location.href, // url для отправки на сервер (абсолютный адрес текущей страницы - http://ishop/category/men)
+            data: {filter: data}, // данные для отправки на сервер
             type: 'GET',
+            // функция, вызываемая перед отправкой запроса
             beforeSend: function(){
+                // плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (call-back функция)
                 $('.preloader').fadeIn(300, function(){
                     $('.product-one').hide();
                 });
             },
             success: function(res){
+                // плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
                 $('.preloader').delay(500).fadeOut('slow', function(){
                     $('.product-one').html(res).fadeIn();
+                    var url = location.search.replace(/filter(.+?)(&|$)/g, ''); //$2
+                    var newURL = location.pathname + url + (location.search ? "&" : "?") + "filter=" + data;
+                    newURL = newURL.replace('&&', '&');
+                    newURL = newURL.replace('?&', '?');
+                    history.pushState({}, '', newURL);
                 });
             },
             error: function () {
                 alert('Ошибка!');
             }
-        });
+        }); */
     }else{
-        window.location = location.pathname;
+        window.location = location.pathname; // /category/men
     }
 });
+
+// плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (call-back функция)
+function showPreloader(){
+    $('.preloader').fadeIn(300, function(){
+        $('.product-one').hide();
+    });
+}
+
+// плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
+function showFilter(res, data){
+    $('.preloader').delay(500).fadeOut('slow', function(){
+        $('.product-one').html(res).fadeIn();
+        var url = location.search.replace(/filter(.+?)(&|$)/g, ''); //$2
+        var newURL = location.pathname + url + (location.search ? "&" : "?") + "filter=" + data;
+        newURL = newURL.replace('&&', '&');
+        newURL = newURL.replace('?&', '?');
+        history.pushState({}, '', newURL);
+    });
+}
 /* // Filters */
 
 /* Search */
@@ -162,6 +194,37 @@ function clearCart() {
         }
     }); */
 }
+
+// при изменении инпута корзины
+$('body').on('change', '#cart input', function(){
+    // если кнопка пересчета корзины заблокирована, разблокируем ее
+    if($('#cart-recalc').attr('disabled')){
+        $('#cart-recalc').attr('disabled', false);
+        cartRecalc.productsChange = [];
+    }
+    if (!cartRecalc.productsChange.includes(this)){
+        cartRecalc.productsChange.push(this);
+    }
+});
+
+// пересчитывает корзину при изменении количества товаров
+function cartRecalc(){
+    var productsChange = {}; // количество товара (если нет = 1)
+    cartRecalc.productsChange.forEach(function(item){
+        productsChange[$(item).data('id')] = $(item).val() - $(item).data('qty');
+    });
+    ajax('/cart/recalc', changeCart, {productsChange: productsChange}); // ajax-запрос
+}
+
+/*
+function asdf() {
+    this.dsa = function() {
+        alert(123);
+    }
+}
+let Asdf = new asdf();
+Asdf.dsa();
+*/
 /* // Cart */
 
 // отслеживаем изменение выпадающего списка валют
@@ -185,12 +248,17 @@ $('.available select').on('change', function(){
 
 
 // Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, success, data = {}, errorMsg = 'Ошибка! Попробуйте позже', type = 'GET') {
+function ajax(url, successFunc, data = {}, errorMsg = 'Ошибка! Попробуйте позже', beforeSend = null, args = [], type = 'GET') {
     $.ajax({
         url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
         data: data, // объект с данными для отправки на серевер
         type: type, // метод отправки запроса
-        success: success.bind(this),
+        // функция, вызываемая перед отправкой запроса
+        beforeSend: beforeSend != null ? beforeSend.bind() : function(){},
+        // success: beforeSend == null ? successFunc.bind(this) : function(res){successFunc.call(this, res, data);},
+        success: function(res){
+            successFunc.call(this, res, args, data);
+        },
         /* success: function(res) {
             // res - ответ от сервера
             success(res); // отображаем корзину (showCart())

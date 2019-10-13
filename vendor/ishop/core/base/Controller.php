@@ -47,6 +47,9 @@ abstract class Controller{
     }
 
     // возвращает html-ответ (шаблон/вид) на ajax-запрос
+    // внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu, Filter), где подключается шаблон
+    // в видах, подключаемых через loadView() доступен объект класса, в котором был вызван метод ($this - CartController)
+    // в видах, подключаемых через класс вида доступен объект класса View ($this - View)
     public function loadView($view, $vars = []){
         extract($vars); // извлекаем переменные из массива
         require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид

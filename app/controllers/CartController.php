@@ -69,6 +69,22 @@ class CartController extends AppController {
         $this->showAction(); // отображаем вид корзины
     }
 
+    // статичный метод для пересчета корзины
+    public function recalcAction($qtyChange = 0, $priceChange = 0){
+        // $curr - массив новой валюты, в которую нужно пересчитать корзину
+        if(isset($_GET['productsChange']) && isset($_SESSION['cart.currency'])){
+            // пересчитываем измененные товары в корзине
+            foreach($_GET['productsChange'] as $k => $v){
+                $_SESSION['cart'][$k]['qty'] += $v;
+                $qtyChange += $v;
+                $priceChange += $v * $_SESSION['cart'][$k]['price'];
+            }
+            $_SESSION['cart.qty'] += $qtyChange; // переданное количество товара прибавляем к уже имеющемуся
+            $_SESSION['cart.sum'] += $priceChange; // количесство, умноженное на цену в активной валюте, прибавляем к уже имеющемуся
+        }
+        $this->show(); // отображаем вид корзины
+    }
+
     // отображает вид корзины при переходе к оформлению заказа
     public function viewAction(){
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Корзина'); // хлебные крошки

@@ -1,0 +1,13 @@
+/* отменяем перенос слов в таблице корзины */
+#cart table {
+    white-space: nowrap;
+}
+
+.modal .quantity {
+    margin: 0;
+}
+
+#cart-recalc {
+    /* display: none; */
+    float: right;
+}
