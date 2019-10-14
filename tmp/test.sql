@@ -1,1 +1,1 @@
-SELECT * FROM `ishop`.`order` LIMIT 1000;
+SELECT * FROM `ishop`.`attribute_product` LIMIT 1000;

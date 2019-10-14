@@ -37,6 +37,10 @@ class Filter{
     // получает html-разметку
     protected function getHtml(){
         ob_start(); // включаем буферизацию
+        $filter = self::getFilter();
+        if(!empty($filter)){
+            $filter = explode(',', $filter);
+        }
         require $this->tpl; // подключаем шаблон
         return ob_get_clean(); // получаем контент из буфера и очищаем буфер
     }
@@ -47,7 +51,7 @@ class Filter{
     }
 
     // получает спиков аттрибутов фильтров
-    protected function getAttrs(){
+    protected static function getAttrs(){
         // SELECT * FROM attribute_value
         $data = \R::getAssoc('SELECT * FROM attribute_value'); // получаем ассоциативный массив аттрибутов фильтров
         $attrs = []; // переменная для хранения сформированного списка аттрибутов
@@ -80,6 +84,43 @@ class Filter{
             $filter = trim($filter, ','); // убираем ',' с конца строки (1, => 1)
         }
         return $filter;
+    }
+
+    // получает число групп среди отмеченных фильтров
+    public static function getCountGroups($filter){
+        $filters = explode(',', $filter); // преобразуем строку в массив по разделителю ','
+        $cache = Cache::instance(); // объект кэша
+        $attrs = $cache->get('filter_attrs'); // получаем аттрибуты фильтров из кэша
+        // если аттрибуты не получены из кэша, получаем их из БД
+        if(!$attrs){
+            $attrs = self::getAttrs();
+        }
+        $data = []; // массив для сохранения групп отмеченных оттрибутов
+        // проходим в цикле по всем группам аттрибутов
+        foreach($attrs as $key => $item){
+            // проходим по всем аттрибутам данной группы
+            foreach($item as $k => $v){
+                // если id аттрибута есть в массиве отмеченных аттрибутов, записываем id данной группы в массив и выходим из цикла
+                if(in_array($k, $filters)){
+                    $data[] = $key;
+                    break;
+                }
+            }
+        }
+        return count($data); // возвращаем число элементов массива
+        /*
+        count($data) = 2; // среди фильтров выбраны аттрибуты из 2 групп
+        array
+        (
+            [1] => [
+                [1] => аттрибут 1
+                [2] => аттрибут 2
+            ]
+            [2] => [
+                [3] => аттрибут 3
+            ]
+        )
+        */
     }
 
 }

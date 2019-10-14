@@ -37,17 +37,15 @@ class CategoryController extends AppController {
         // формируем sql-запрос выборки товаров по фильтрам, если передан get-параметр 'filter'
         $sql_part = '';
         if(!empty($_GET['filter'])){
-            /*
             // выбираем товары из категории 6 и во 2 выборку IN идет вложенный sql-запрос
             // для товаров attribute_product мы выбираем те товары, для которых поле attr_id = 1,5
-            SELECT `product`.*  FROM `product`  WHERE category_id IN (6) AND id IN
-            ( // 1,2,3,4
-            SELECT product_id FROM attribute_product WHERE attr_id IN (1,5)
-            )
-            */
             $filter = Filter::getFilter(); // получаем список выбранных фильтров
-            // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1))
-            $sql_part = "AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN ($filter))";
+            if($filter){
+                $cnt = Filter::getCountGroups($filter); // получаем число групп
+                // группируем результат выборки по полю product_id, таким образом получаем
+                // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1) GROUP BY product_id HAVING COUNT(product_id) = 2)
+                $sql_part = "AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN ($filter) GROUP BY product_id HAVING COUNT(product_id) = $cnt)";
+            }
         }
 
         // получаем общее число товаров из списка полученных категорий
@@ -59,8 +57,14 @@ class CategoryController extends AppController {
 
         // товары списка полученных категория (IN ищет совпадение в заданном диапазоне - 4,6,7,5,8,9,10,1)
         // не биндим значение ("category_id IN ?", [$ids]), тк значение для выборки из БД мы формируем сами на основе данных из БД
-        // SELECT `product`.*  FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
-        // AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN (1)) LIMIT 0, 3
+        /*
+        SELECT `product`.*  FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
+        AND id IN
+        (
+        SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) GROUP BY product_id HAVING COUNT(product_id) = 2
+        )
+        LIMIT 0, 3
+        */
         $products = \R::find('product', "category_id IN ($ids) $sql_part LIMIT $start, $perpage");
 
         // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данные

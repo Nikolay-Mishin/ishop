@@ -100,6 +100,12 @@ class Pagination{
     // получает параметры из строки запроса и формирует
     public function getParams(){
         $url = $_SERVER['REQUEST_URI']; // получаем строку запроса (http://ishop/category/casio?page=1&sort=name&filter=1,2,3)
+        // ищем в строке запроса выражения 'filter=1,&'
+        preg_match_all("#filter=[\d,&]#", $url, $matches); // цифры, ',' и &
+        // если в массиве с результатом поиска больше 1 значения, удаляем дубли из строки запроса
+        if(count($matches[0]) > 1){
+            $url = preg_replace("#filter=[\d,&]+#", "", $url, 1); // заменяем выражение пустой строкой и огранициваемся 1 заменой
+        }
         $url = explode('?', $url); // парсим (разбиваем) строку запроса по символу '?'
         /*
             [0] => 'http://ishop/category/casio',

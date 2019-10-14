@@ -55,8 +55,124 @@
 #### http://softtime.ru/forum/read.php?id_forum=3&id_theme=88061
 #### https://gist.github.com/greabock/afc4a08577806b60dc61
 
+# HAVING оператор MySQL
+
+* выбираем товары из категории 6 и во 2 выборку IN идет вложенный sql-запрос
+* для товаров attribute_product мы выбираем те товары, для которых поле attr_id = 1,5
+* 1,2,3,4 - простая выборка (если 1 из фильтров совпадает)
+* 1,2,3 - сложная выборка (если все группы фильтров совпадают) | группа 1 - аттрибут 1, группа 2 - аттрибут 5
+
+* простая выборка
+```sql
+SELECT `product`.*  FROM `product`  WHERE category_id IN (6) AND id IN
+(
+SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) - простая выборка
+)
+```
+* сложная выборка с оператором HAVING
+```sql
+SELECT `product`.*  FROM `product`  WHERE category_id IN (6) AND id IN
+(
+SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) GROUP BY product_id HAVING COUNT(product_id) = 2
+)
+```
+
+* у продукта 1 имеется аттрибут 1 и 5, а у продукта 4 аттрибут 2 и 5, но тк выбран фильтр 1 и 5 - продукт 4 исключается
+* GROUP BY product_id - группировка по product_id (необходима, чтобы сгруппировать данные по данному полю)
+* product_id = 1 => [attr_id = 1, attr_id = 5]
+* product_id = 4 => [attr_id = 2, attr_id = 5]
+* HAVING COUNT(product_id) = 2 - ограничивает
+```php
+/*
+attr_id	product_id
+1	    1
+1	    2
+1	    3
+2	    4
+5	    1
+5	    2
+5	    3
+5	    4
+*/
+```
+
+## Описание
+### MySQL оператор HAVING используется в сочетании с оператором GROUP BY, чтобы ограничить группы возвращаемых строк только тех, чье условие TRUE.
+
+## Синтаксис
+### Синтаксис оператора HAVING в MySQL:
+```sql
+SELECT expression1, expression2, … expression_n,
+
+       aggregate_function (expression)
+
+FROM tables
+
+[WHERE conditions]
+
+GROUP BY expression1, expression2, … expression_n
+
+HAVING condition;
+```
+
+#### Параметры или аргументы
+* aggregate_function — функция, такая как функции SUM, COUNT, MIN, MAX или AVG.
+* expression1, expression2, … expression_n — выражения, которые не заключены в агрегированную функцию и должны быть включены в предложение GROUP BY.
+* WHERE conditions — необязательный. Это условия для выбора записей.
+* HAVING condition — Это дополнительное условие применяется только к агрегированным результатам для ограничения групп возвращаемых строк. В результирующий набор будут включены только те группы, состояние которых соответствует TRUE.
+
+## Пример использования функции SUM
+
+### Рассмотрим пример MySQL оператора HAVING, в котором используется функция SUM.
+### Вы также можете использовать функцию SUM, чтобы вернуть имя product и общее количество (для этого product). MySQL оператор HAVING будет фильтровать результаты так, чтобы возвращались только product с общим количеством больше 10.
+
+```sql
+SELECT product, SUM(quantity) AS "Total quantity"
+FROM order_details
+GROUP BY product
+HAVING SUM(quantity) > 10;
+```
+
+## Пример использования функции COUNT
+
+### Рассмотрим, как мы можем использовать оператор HAVING с функцией COUNT в MySQL.
+### Вы можете использовать функцию COUNT, чтобы вернуть имя product и количество заказов (для этого product), которые находятся в категории ‘produce’. MySQL оператор HAVING будет фильтровать результаты так, чтобы возвращались только product с более чем 20 заказами.
+
+```sql
+SELECT product, COUNT(*) AS "Number of orders"
+FROM order_details
+WHERE category = 'produce'
+GROUP BY product
+HAVING COUNT(*) > 20;
+```
+
+## Пример использования функции MIN
+
+### Рассмотрим, как мы можем использовать оператор HAVING с функцией MIN в MySQL.
+### Вы также можете использовать функцию MIN, чтобы вернуть имя каждого department и минимальную зарплату в department. MySQL оператор HAVING будет возвращать только те department, где минимальная зарплата составляет менее 50000 биткоинов :).
+
+```sql
+SELECT department, MIN(salary) AS "Lowest salary"
+FROM employees
+GROUP BY department
+HAVING MIN(salary) < 50000;
+```
+
+## Пример использования функции MAX
+
+### Наконец, давайте посмотрим, как мы можем использовать оператор HAVING с функцией MAX в MySQL.
+### Например, вы также можете использовать функцию MAX для возврата имени каждого department и максимальной заработной платы в department. Предложение MySQL HAVING будет возвращать только те department, чья максимальная заработная плата превышает 25000 биткоинов :).
+
+```sql
+SELECT department, MAX(salary) AS "Highest salary"
+FROM employees
+GROUP BY department
+HAVING MAX(salary) > 25000;
+```
+
 # передача пользовательской функции (some_func) в качестве аргумента другой функции
-/* function ajaxFormRequest(form_id, url, dataT, some_func) {
+```JavaScript
+function ajaxFormRequest(form_id, url, dataT, some_func) {
     $.ajax({
         url: url,
         type: "POST", // Тип запроса
@@ -70,10 +186,10 @@
             getInfo('alert-danger', 'Ошибка при отправке формы');
         }
     });
-} */
+}
+```
 
 # Bind, Call и Apply - вызов функций с подменой контекста
-
 ## bind - создаёт "обёртку" над функцией, которая подменяет контекст этой функции. Поведение похоже на call и apply, но, в отличие от них, bind не вызывает функцию, а лишь возвращает "обёртку", которую можно вызвать позже.
 ```JavaScript
 function f() {
