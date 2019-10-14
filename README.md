@@ -74,9 +74,11 @@ HAVING COUNT(c.`id`)>3;
 ```
 
 ## Результат
-### id	date	    text	                        COUNT(c.`id`)
-### 1	2010-12-16	Опубликована первая статья	    4
-### 5	2011-01-08	Открыта страница лица expange	4
+```php
+// id	date	    text	                        COUNT(c.`id`)
+// 1	2010-12-16	Опубликована первая статья	    4
+// 5	2011-01-08	Открыта страница лица expange	4
+```
 
 #### https://oracleplsql.ru/having-mysql.html
 
