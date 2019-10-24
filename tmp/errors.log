@@ -206,3 +206,5 @@
 =================
 [2019-10-14 21:21:41] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column '$filter' in 'where clause' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2019-10-24 21:36:36] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================

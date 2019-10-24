@@ -4,23 +4,30 @@ namespace app\controllers\admin;
 
 use app\models\User;
 
+// Контроллер авторизации админа
+
 class UserController extends AppController {
 
-    public function loginAdminAction(){
-        if(!empty($_POST)){
-            $user = new User();
-            if($user->login(true)){
-                $_SESSION['success'] = 'Вы успешно авторизованы';
-            }else{
-                $_SESSION['error'] = 'Логин/пароль введены неверно';
-            }
-            if(User::isAdmin()){
-                redirect(ADMIN);
-            }else{
-                redirect();
-            }
-        }
-        $this->layout = 'login';
-    }
+	// экшен страницы авторизации
+	public function loginAdminAction(){
+		$this->layout = 'login'; // шаблон страницы авторизации в админке
+		// если данные получены методом POST, обрабатываем их
+		if(!empty($_POST)){
+			$user = new User(); // объект пользователя
+			// при авторизации указываем флаг true для проверки роли пользователя (isAdmin)
+			if($user->login(true)){
+				$_SESSION['success'] = 'Вы успешно авторизованы';
+			}else{
+				$_SESSION['error'] = 'Логин/пароль введены неверно';
+			}
+			// если авторизованный пользователь является админом, перенаправляем на гланую админки
+			// иначе направляем на главную сайта
+			if(User::isAdmin()){
+				redirect(ADMIN);
+			}else{
+				redirect();
+			}
+		}
+	}
 
 }
