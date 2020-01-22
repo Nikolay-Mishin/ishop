@@ -57,14 +57,12 @@ class CategoryController extends AppController {
 
         // товары списка полученных категория (IN ищет совпадение в заданном диапазоне - 4,6,7,5,8,9,10,1)
         // не биндим значение ("category_id IN ?", [$ids]), тк значение для выборки из БД мы формируем сами на основе данных из БД
-        /*
-        SELECT `product`.*  FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
-        AND id IN
-        (
-        SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) GROUP BY product_id HAVING COUNT(product_id) = 2
-        )
-        LIMIT 0, 3
-        */
+        // SELECT `product`.*  FROM `product`  WHERE category_id IN (4,6,7,5,8,9,10,1)
+        // AND id IN
+        // (
+        // SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) GROUP BY product_id HAVING COUNT(product_id) = 2
+        // )
+        // LIMIT 0, 3
         $products = \R::find('product', "category_id IN ($ids) $sql_part LIMIT $start, $perpage");
 
         // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данные
