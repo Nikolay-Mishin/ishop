@@ -21,4 +21,22 @@ class AppController extends Controller {
         new AppModel(); // создаем объект базовой модели для доступа к sql
     }
 
+    // получает параметр id из массива get или post
+    // по умолчанию берет значение из массива get
+    // по умолчанию значение берется из параметра id
+    public function getRequestID($get = true, $id = 'id'){
+        if($get){
+            $data = $_GET;
+        }else{
+            $data = $_POST;
+        }
+        // если в массиве есть параметр id, приводим его к числу, иначе записываем null
+        $id = !empty($data[$id]) ? (int)$data[$id] : null;
+        // выбрасываем исключение, если не получен id
+        if(!$id){
+            throw new \Exception('Страница не найдена', 404);
+        }
+        return $id;
+    }
+
 }
