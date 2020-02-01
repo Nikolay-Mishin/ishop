@@ -10,7 +10,6 @@ class UserController extends AppController {
 
 	// экшен страницы авторизации
 	public function loginAdminAction(){
-		$this->layout = 'login'; // шаблон страницы авторизации в админке
 		// если данные получены методом POST, обрабатываем их
 		if(!empty($_POST)){
 			$user = new User(); // объект пользователя
@@ -26,6 +25,7 @@ class UserController extends AppController {
 				redirect();
 			}
 		}
+		$this->layout = 'login'; // шаблон страницы авторизации в админке
 	}
 
 }
