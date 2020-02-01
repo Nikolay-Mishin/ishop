@@ -24,7 +24,7 @@ class AppController extends Controller {
     // получает параметр id из массива get или post
     // по умолчанию берет значение из массива get
     // по умолчанию значение берется из параметра id
-public function getRequestID($get = true, $id = 'id'){
+    public function getRequestID($get = true, $id = 'id'){
         if($get){
             $data = $_GET;
         }else{

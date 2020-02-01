@@ -2,7 +2,13 @@
 ### Часть 3. Написание администраторской части CMS интернет магазина
 
 ##### ДЗ 05 - сделать наименование товара в заказе ссылкой (вытащить алиас через join из таблицы product по product_id)
-` \app\views\admin\Order\view.php`
+```
+app\views\admin\Order\view.php
+app\controllers\admin\OrderController.php
+```
+
+##### ДЗ 06 - сделать проверку сохранены ли изменения
+` app\controllers\admin\OrderController.php => changeAction() `
 
 Урок 1.  Шаблон AdminLTE 
 

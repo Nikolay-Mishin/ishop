@@ -38,26 +38,29 @@ class OrderController extends AppController {
         $this->set(compact('order', 'order_products'));
     }
 
+    // экшен изменения статуса заказа
     public function changeAction(){
-        $order_id = $this->getRequestID();
-        $status = !empty($_GET['status']) ? '1' : '0';
-        $order = \R::load('order', $order_id);
+        $order_id = $this->getRequestID(); // получаем id заказа
+        $status = !empty($_GET['status']) ? '1' : '0'; // если передан статус и он не равен 0 (false), присваием ему 1
+        $order = \R::load('order', $order_id); // получаем данные заказа по его id
+        // если заказ не найден, выбрасываем исключение
         if(!$order){
             throw new \Exception('Страница не найдена', 404);
         }
-        $order->status = $status;
-        $order->update_at = date("Y-m-d H:i:s");
-        \R::store($order);
+        $order->status = $status; // записываем статус заказа
+        $order->update_at = date("Y-m-d H:i:s"); // записываем дату изменения заказа
+        \R::store($order); // сохраняем изменения в БД
         $_SESSION['success'] = 'Изменения сохранены';
-        redirect();
+        redirect(); // перенаправляем на предыдущую страницу
     }
 
+    // экшен удаления заказа
     public function deleteAction(){
-        $order_id = $this->getRequestID();
-        $order = \R::load('order', $order_id);
-        \R::trash($order);
+        $order_id = $this->getRequestID(); // получаем id заказа
+        $order = \R::load('order', $order_id); // получаем данные заказа по его id
+        \R::trash($order); // удаляем заказ
         $_SESSION['success'] = 'Заказ удален';
-        redirect(ADMIN . '/order');
+        redirect(ADMIN . '/order'); // перенаправляем на страницу списка заказов
     }
 
 }
