@@ -14,7 +14,7 @@ class UserController extends AppController {
 		if(!empty($_POST)){
 			$user = new User(); // объект пользователя
 			// при авторизации указываем флаг true для проверки роли пользователя (isAdmin)
-			if($user->login(true)){
+			if(!$user->login(true)){
 				$_SESSION['error'] = 'Логин/пароль введены неверно';
 			}
 			// если авторизованный пользователь является админом, перенаправляем на гланую админки
