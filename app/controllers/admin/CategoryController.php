@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use app\models\Category;
+
 class CategoryController extends AppController {
 
     // экшен для отображения страницы со списком категорий
@@ -29,6 +31,26 @@ class CategoryController extends AppController {
         \R::trash($category); // удаляем категорию
         $_SESSION['success'] = 'Категория удалена';
         redirect();
+    }
+
+    // экшен добавления новой категории
+    public function addAction(){
+        // если данные из формы получены, обрабатываем их
+        if(!empty($_POST)){
+            $category = new Category(); // объект категории
+            $data = $_POST; // данные из формы
+            $category->load($data); // загружаем данные из формы в модель категории
+            // валидируем данные категории
+            if(!$category->validate($data)){
+                $category->getErrors(); // получаем список ошибок
+                redirect();
+            }
+            // сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
+            if($id = $category->save('category')){
+
+            }
+        }
+        $this->setMeta('Новая категория');
     }
 
 }
