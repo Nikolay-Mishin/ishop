@@ -14,7 +14,7 @@ abstract class Model{
 	public $rules = []; // правила валидации данных
 	public $last_insert_id; // id последней сохраненной записи (метод save())
 
-	public function __construct($data = null, $action = 'save', $attrs = []){
+	public function __construct($data = [], $action = 'save', $attrs = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
@@ -24,8 +24,8 @@ abstract class Model{
 				$this->getErrors(); // получаем список ошибок
 				redirect();
 			}
-			// $this->save(); // сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
+			// $this->save();
 			// $this->$action($attrs);
 			// Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`
 			call_user_func_array(array($this, $action), $attrs);
@@ -63,7 +63,8 @@ abstract class Model{
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update($table, $id){
+	public function update($table = null, $id = null){
+		$table = $table ?? $this->getModelName(); // имя таблицы в БД
 		$bean = \R::load($table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
