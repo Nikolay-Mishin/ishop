@@ -36,6 +36,7 @@ class CategoryController extends AppController {
 
     // экшен добавления новой категории
     public function addAction(){
+        $this->setMeta('Новая категория');
         // если данные из формы получены, обрабатываем их
         if(!empty($_POST)){
             $category = new Category(); // объект категории
@@ -48,15 +49,15 @@ class CategoryController extends AppController {
             }
             // сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
             if($id = $category->save('category')){
+                // создаем алиас для категории на основе ее названия и id
                 $alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
-                $cat = \R::load('category', $id);
-                $cat->alias = $alias;
-                \R::store($cat);
+                $cat = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
+                $cat->alias = $alias; // записываем алиас для данной категории
+                \R::store($cat); // сохраняем категорию в БД
                 $_SESSION['success'] = 'Категория добавлена';
             }
             redirect();
         }
-        $this->setMeta('Новая категория');
     }
 
 }
