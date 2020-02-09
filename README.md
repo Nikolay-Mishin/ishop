@@ -10,6 +10,73 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 06 - сделать проверку сохранены ли изменения
 ` app\controllers\admin\OrderController.php => changeAction() `
 
+
+
+### call_user_func_array
+
+https://www.php.net/manual/ru/function.call-user-func-array.php
+
+` call_user_func_array ( callable $callback , array $param_arr ) : mixed `
+
+Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`.
+
+##### Пример #1 Пример использования функции call_user_func_array()
+
+```php
+function foobar($arg, $arg2) {
+    echo __FUNCTION__, " got $arg and $arg2\n";
+}
+class foo {
+    function bar($arg, $arg2) {
+        echo __METHOD__, " got $arg and $arg2\n";
+    }
+}
+
+
+// Вызываем функцию foobar() с 2 аргументами
+call_user_func_array("foobar", array("one", "two"));
+
+// Вызываем метод $foo->bar() с 2 аргументами
+$foo = new foo;
+call_user_func_array(array($foo, "bar"), array("three", "four"));
+```
+
+###### Результатом выполнения данного примера будет что-то подобное:
+
+```
+foobar got one and two
+foo::bar got three and four
+```
+
+##### Пример #2 Пример использования call_user_func_array() c именем пространства имен
+
+```php
+
+namespace Foobar;
+
+class Foo {
+    static public function test($name) {
+        print "Hello {$name}!\n";
+    }
+}
+
+// Начиная с версии PHP 5.3.0
+call_user_func_array(__NAMESPACE__ .'\Foo::test', array('Hannes'));
+
+// Начиная с версии PHP 5.3.0
+call_user_func_array(array(__NAMESPACE__ .'\Foo', 'test'), array('Philip'));
+
+```
+
+###### Результатом выполнения данного примера будет что-то подобное:
+
+```
+Hello Hannes!
+Hello Philip!
+```
+
+
+
 Урок 1.  Шаблон AdminLTE 
 
 Урок 2.  Авторизация администратора 
