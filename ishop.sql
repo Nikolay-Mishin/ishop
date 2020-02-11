@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2019 г., 21:50
+-- Время создания: Фев 11 2020 г., 20:02
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -52,10 +52,9 @@ INSERT INTO `attribute_group` (`id`, `title`) VALUES
 -- Структура таблицы `attribute_product`
 --
 
-CREATE TABLE IF NOT EXISTS `attribute_product` (
-  `attr_id` int(10) unsigned NOT NULL,
-  `product_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`attr_id`,`product_id`)
+CREATE TABLE `attribute_product` (
+  `attr_id` int(10) UNSIGNED NOT NULL,
+  `product_id` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -180,7 +179,9 @@ INSERT INTO `category` (`id`, `title`, `alias`, `parent_id`, `keywords`, `descri
 (11, 'Электронные', 'elektronnye-11', 2, 'Электронные', 'Электронные'),
 (12, 'Механические', 'mehanicheskie-12', 2, 'Механические', 'Механические'),
 (13, 'Adriatica', 'adriatica', 11, 'Adriatica', 'Adriatica'),
-(14, 'Anne Klein', 'anne-klein', 12, 'Anne Klein', 'Anne Klein');
+(14, 'Anne Klein', 'anne-klein', 12, 'Anne Klein', 'Anne Klein'),
+(16, 'Тестовая категория', 'testovaya-kategoriya', 0, '', ''),
+(17, 'Тестовая категория 2', 'testovaya-kategoriya-2', 16, '', '');
 
 -- --------------------------------------------------------
 
@@ -328,25 +329,21 @@ INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `qty`, `title`, `pr
 -- Структура таблицы `product`
 --
 
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `category_id` tinyint(3) unsigned NOT NULL,
-  `brand_id` tinyint(3) unsigned NOT NULL,
+CREATE TABLE `product` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_id` tinyint(3) UNSIGNED NOT NULL,
+  `brand_id` tinyint(3) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
-  `content` text,
-  `price` float NOT NULL DEFAULT '0',
-  `old_price` float NOT NULL DEFAULT '0',
+  `content` text DEFAULT NULL,
+  `price` float NOT NULL DEFAULT 0,
+  `old_price` float NOT NULL DEFAULT 0,
   `status` enum('0','1') NOT NULL DEFAULT '1',
   `keywords` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `img` varchar(255) NOT NULL DEFAULT 'no_image.jpg',
-  `hit` enum('0','1') NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `alias` (`alias`),
-  KEY `category_id` (`category_id`,`brand_id`),
-  KEY `hit` (`hit`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+  `hit` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `product`
@@ -432,7 +429,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `login`, `password`, `email`, `name`, `address`, `role`) VALUES
 (1, 'admin', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'admin@mail.ru', 'Admin', '1', 'admin'),
 (2, 'user1', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'user'),
-(3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'user');
+(3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'user'),
+(4, 'user3', '$2y$10$QkJYBUkwv7RJAbQVZDCIqOuzsOqFKKzr/2P.X5cmhqfuaxntK3lya', '3@3.ru', 'user3', '3', 'user');
 
 --
 -- Индексы сохранённых таблиц
@@ -543,34 +541,10 @@ ALTER TABLE `attribute_value`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT для таблицы `brand`
---
-ALTER TABLE `brand`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT для таблицы `currency`
---
-ALTER TABLE `currency`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT для таблицы `gallery`
---
-ALTER TABLE `gallery`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT для таблицы `modification`
---
-ALTER TABLE `modification`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT для таблицы `order`
@@ -594,17 +568,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `order_product`
---
-ALTER TABLE `order_product`
-  ADD CONSTRAINT `order_product_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

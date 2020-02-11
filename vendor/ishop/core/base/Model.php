@@ -12,7 +12,7 @@ abstract class Model{
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
-	public $last_insert_id; // id последней сохраненной записи (метод save())
+	public $last_insert_id = null; // id последней сохраненной записи (метод save())
 
 	public function __construct($data = [], $action = 'save', $attrs = []){
 		Db::instance(); // создаем объект класса БД
@@ -63,7 +63,8 @@ abstract class Model{
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update($table = null, $id = null){
+	public function update($id, $table = null){
+		// $arg_list = func_get_args(); // Возвращает массив, содержащий аргументы функции
 		$table = $table ?? $this->getModelName(); // имя таблицы в БД
 		$bean = \R::load($table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
