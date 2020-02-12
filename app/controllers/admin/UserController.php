@@ -30,11 +30,6 @@ class UserController extends AppController {
 		$user_id = $this->getRequestID(); // получаем id пользователя
 		$user = \R::load('user', $user_id); // загружаем данные пользователя из БД
 
-		// получаем заказы данного пользователя
-		$orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
-  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
-  WHERE user_id = {$user_id} GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id`");
-
 		// пагинация заказов пользователя
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		$perpage = 3; // число записей на 1 странице
