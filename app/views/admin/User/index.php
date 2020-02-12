@@ -34,7 +34,7 @@
                                     <td><?=$user->email;?></td>
                                     <td><?=$user->name;?></td>
                                     <td><?=$user->role;?></td>
-                                    <td><a href="<?=ADMIN;?>/user/edit?id=<?=$user->id;?>"><i class="fa fa-fw fa-eye"></i></a></td>
+                                    <td><a href="<?=ADMIN;?>/user/view?id=<?=$user->id;?>"><i class="fa fa-fw fa-eye"></i></a></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

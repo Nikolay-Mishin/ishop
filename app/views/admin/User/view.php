@@ -87,6 +87,12 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="text-center">
+                            <p>(<?=count($orders);?> заказа(ов) из <?=$count;?>)</p>
+                            <?php if($pagination->countPages > 1): ?>
+                                <?=$pagination;?>
+                            <?php endif; ?>
+                        </div>
                     <?php else: ?>
                         <p class="text-danger">Пользокатель пока ничего не заказывал...</p>
                     <?php endif; ?>

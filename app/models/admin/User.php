@@ -4,6 +4,7 @@ namespace app\models\admin;
 
 class User extends \app\models\User {
 
+    // переопределяем аттрибуты родительской модели
     public $attributes = [
         'id' => '',
         'login' => '',
@@ -14,6 +15,7 @@ class User extends \app\models\User {
         'role' => '',
     ];
 
+    // переопределяем правила валидации формы родительской модели
     public $rules = [
         'required' => [
             ['login'],
@@ -26,8 +28,11 @@ class User extends \app\models\User {
         ],
     ];
 
+    // переопределяем метод родительской модели для проверки уникальных полей с данными
     public function checkUnique(){
+        // получаем пользователя с соответствующими значениями login или email из аттрибутов
         $user = \R::findOne('user', '(login = ? OR email = ?) AND id <> ?', [$this->attributes['login'], $this->attributes['email'], $this->attributes['id']]);
+        // если пользователь найден, то формируем ошибки проверки уникальности
         if($user){
             if($user->login == $this->attributes['login']){
                 $this->errors['unique'][] = 'Этот логин уже занят';

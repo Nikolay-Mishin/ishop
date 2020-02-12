@@ -10,6 +10,12 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 06 - сделать проверку сохранены ли изменения
 ` app\controllers\admin\OrderController.php => changeAction() `
 
+##### ДЗ 12 - разделить editAction на view и edit
+* view - отображает пользователя, edit - принимает и обрабатывает данные из формы
+* ` app\controllers\admin\UserController.php => editAction() `
+
+##### ДЗ 14 - сделать пагинацию для списка заказов пользователя
+` app\controllers\admin\UserController.php => viewAction() `
 
 
 ### call_user_func_array

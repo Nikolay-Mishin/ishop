@@ -250,3 +250,21 @@
 =================
 [2020-02-11 19:46:04] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'id' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-12 18:08:47] Текст ошибки: Контроллер app\controllers\admin\ProductController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 48
+=================
+[2020-02-12 18:08:47] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-12 18:14:47] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\OrderController.php | Строка: 40
+=================
+[2020-02-12 18:17:19] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\OrderController.php | Строка: 40
+=================
+[2020-02-12 18:18:06] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\OrderController.php | Строка: 40
+=================
+[2020-02-12 18:31:25] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\OrderController.php | Строка: 40
+=================
+[2020-02-12 18:33:49] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.name' in 'field list' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-12 18:37:26] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'order_product.price' in 'field list' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-12 18:41:47] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin\User/edit.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 50
+=================

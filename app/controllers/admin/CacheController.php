@@ -11,8 +11,9 @@ class CacheController extends AppController {
     }
 
     public function deleteAction(){
-        $key = isset($_GET['key']) ? $_GET['key'] : null;
-        $cache = Cache::instance();
+        $key = isset($_GET['key']) ? $_GET['key'] : null; // получаем ключ кэша
+        $cache = Cache::instance(); // инициализируем кэш
+        // проверяем совпадение полученного ключа кэша с ключом имеющегося кэша и удаляем кэш при совпадении
         switch($key){
             case 'category':
                 $cache->delete('cats');
