@@ -10,8 +10,7 @@ class Pagination{
     public $total; // общее число записей
     public $countPages; // число старница для вывода всех записей
     public $uri; // строка запроса
-    private $start; // номер записи, с которой необходимо начинать выборку из БД
-    private $limit; // sql-запрос ограничения выборки из БД
+    public $limit; // sql-запрос ограничения выборки из БД
 
     public function __construct($page, $perpage, $total, $table = ''){
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
@@ -21,23 +20,24 @@ class Pagination{
         $this->currentPage = $this->getCurrentPage($page); // получаем текущую страницу
         // получаем строку запроса, сформированную в нужном формате
         $this->uri = $this->getParams(); // http://ishop/category/casio?sort=name&filter=1,2,3&
-    }
-
-    // магический метод - переводит объект к строке
-    // можем работать с переменной объекта одновременно как с объектом, так и со строкой (echo)
-    public function __toString(){
-        return $this->countPages > 1 ? $this->getHtml() : '';
+        $this->limit = "LIMIT {$this->getStart()}, $this->perpage";
     }
 
     // геттер для получения номера записи, с которого необходимо начинать выборку из БД
     // магический метод - вызывается при попытке получить доступ к приватному/защищенному своству из области, где оно не доступно
     public function __get($property){
         if(property_exists($this, $property) && $property == 'limit'){
-            return "{$this->getStart()}, $this->perpage";
+            return "LIMIT {$this->getStart()}, $this->perpage";
         }
         else{
             throw new \Exception('Oops, there is no such property here!');
         }
+    }
+
+    // магический метод - переводит объект к строке
+    // можем работать с переменной объекта одновременно как с объектом, так и со строкой (echo)
+    public function __toString(){
+        return $this->countPages > 1 ? $this->getHtml() : '';
     }
 
     // расчитывает номер записи, с которого необходимо начинать выборку из БД

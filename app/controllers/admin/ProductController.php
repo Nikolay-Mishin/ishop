@@ -18,7 +18,7 @@ class ProductController extends AppController {
         */
         $pagination = new Pagination(null, 10, null, 'product'); // объект пагинации
         // получаем список продуктов для текущей страницы пагинации
-        $products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT $pagination->limit");
+        $products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title $pagination->limit");
         $this->setMeta('Список товаров'); // устанавливаем мета-данные
         $this->set(compact('products', 'pagination')); // передаем данные в вид
     }
