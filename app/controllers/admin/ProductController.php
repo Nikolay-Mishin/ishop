@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\models\admin\Product;
+use app\models\AppModel;
 use ishop\libs\Pagination;
 
 class ProductController extends AppController {
@@ -45,6 +46,10 @@ class ProductController extends AppController {
 
             // сохраняем продукт в БД
             if($id = $product->save('product')){
+                $alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас продукта
+                $p = \R::load('product', $id); // загружаем данные продукта из БД
+                $p->alias = $alias; // записываем алиас в объект продукта
+                \R::store($p); // сохраняем изменения в БД
                 $_SESSION['success'] = 'Товар добавлен';
             }
             redirect();
