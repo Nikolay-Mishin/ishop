@@ -1,12 +1,15 @@
 <!-- внутри отдельного шаблона доступны переменные метода и объект класса ($this - Filter), в котором подключается шаблон -->
 <!-- в видах, подключаемых через класс view доступен объект класса View ($this) -->
-<div class="nav-tabs-custom">
+<div class="nav-tabs-custom" id="filter">
     <!-- формируем список групп фильтров -->
     <ul class="nav nav-tabs">
         <?php $i = 1; foreach($this->groups as $group_id => $group_item): ?>
             <!-- наименование группы фильтров -->
             <li<?php if($i == 1) echo ' class="active"' ?>><a href="#tab_<?= $group_id ?>" data-toggle="tab" aria-expanded="true"><?= $group_item ?></a></li>
-        <?php $i++; endforeach; ?>
+            <?php $i++; endforeach; ?>
+        <li class="pull-right">
+            <a href="#" id="reset-filter">Сброс</a>
+        </li>
     </ul>
     <div class="tab-content">
         <?php if(!empty($this->attrs[$group_id])): ?>
