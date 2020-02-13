@@ -17,6 +17,8 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 14 - сделать пагинацию для списка заказов пользователя
 ` app\controllers\admin\UserController.php => viewAction() `
 
+##### ДЗ 20 - реализовать удаление фильтров у продукта
+` app\models\admin\Product.php => editFilter() `
 
 ### call_user_func_array
 

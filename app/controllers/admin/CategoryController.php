@@ -57,9 +57,9 @@ class CategoryController extends AppController {
 			if($id = $category->last_insert_id){
 				// создаем алиас для категории на основе ее названия и id
 				$alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
-				$category = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
-				$category->alias = $alias; // записываем алиас для данной категории
-				\R::store($category); // сохраняем категорию в БД
+				$cat = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
+				$cat->alias = $alias; // записываем алиас для данной категории
+				\R::store($cat); // сохраняем категорию в БД
 				$_SESSION['success'] = 'Категория добавлена';
 			}
 			redirect();
@@ -86,13 +86,14 @@ class CategoryController extends AppController {
 			if($id = $category->last_insert_id){
 				// создаем алиас для категории на основе ее названия и id
 				$alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
-				$category = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
-				$category->alias = $alias; // записываем алиас для данной категории
-				\R::store($category); // сохраняем категорию в БД
+				$cat = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
+				$cat->alias = $alias; // записываем алиас для данной категории
+				\R::store($cat); // сохраняем категорию в БД
 				$_SESSION['success'] = 'Изменения сохранены';
 			}
 			redirect();
 		}
+
 		$id = $this->getRequestID(); // получаем id изменяемой категории
 		$category = \R::load('category', $id); // загружаем категорию из БД
 		App::$app->setProperty('parent_id', $category->parent_id); // записываем в реестр id родительской категории
