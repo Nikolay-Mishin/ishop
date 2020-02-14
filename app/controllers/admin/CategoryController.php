@@ -54,7 +54,7 @@ class CategoryController extends AppController {
 			$category = new Category($data); // объект категории
 			// сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
 			// if($id = $category->save('category')){
-			if($id = $category->last_insert_id){
+			if($id = $category->id){
 				// создаем алиас для категории на основе ее названия и id
 				$alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
 				$cat = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
@@ -83,7 +83,7 @@ class CategoryController extends AppController {
 			$data = $_POST; // данные из формы
 			$category = new Category($data, 'update', [$id]); // объект категории
 			// if($category->update('category', $id)){
-			if($id = $category->last_insert_id){
+			if($id = $category->id){
 				// создаем алиас для категории на основе ее названия и id
 				$alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
 				$cat = \R::load('category', $id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории

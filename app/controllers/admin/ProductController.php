@@ -20,17 +20,17 @@ class ProductController extends AppController {
 		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT $start, $perpage");
 		*/
 		$pagination = new Pagination(null, 10, null, 'product'); // объект пагинации
-		// получаем список продуктов для текущей страницы пагинации
+		// получаем список товаров для текущей страницы пагинации
 		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title $pagination->limit");
 		$this->setMeta('Список товаров'); // устанавливаем мета-данные
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
 	}
 
-	// экшен добавления нового продукта
+	// экшен добавления нового товара
 	public function addAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			$product = new Product(); // объект продукта
+			$product = new Product(); // объект товара
 			$data = $_POST; // данные из формы
 			$product->load($data); // загружаем данные в модель
 			// устанавливаем необходимые аттрибуты для модели
@@ -46,12 +46,14 @@ class ProductController extends AppController {
 
 			// сохраняем продукт в БД
 			if($id = $product->save('product')){
-				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас продукта
-				$p = \R::load('product', $id); // загружаем данные продукта из БД
-				$p->alias = $alias; // записываем алиас в объект продукта
+				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
+				$p = \R::load('product', $id); // загружаем данные товара из БД
+				$p->alias = $alias; // записываем алиас в объект товара
 				\R::store($p); // сохраняем изменения в БД
-				$product->editFilter($id, $data); // изменяем фильтры продукта
-				$product->editRelatedProduct($id, $data);
+				// изменяем фильтры товара
+				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'attr_id', 'product_id');
+				// изменяем связанные товары
+				$product->editAttrs($id, $data['related'], 'related_product', 'related_id', 'product_id');
 				$_SESSION['success'] = 'Товар добавлен';
 			}
 			redirect();

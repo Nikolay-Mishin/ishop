@@ -322,3 +322,7 @@
 =================
 [2020-02-14 17:44:18] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-14 18:05:41] Текст ошибки: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ishop.$table' doesn't exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 18:06:53] Текст ошибки: Too few arguments to function app\models\admin\Product::addProduct(), 2 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php on line 48 and exactly 5 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 69
+=================

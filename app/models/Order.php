@@ -21,7 +21,7 @@ class Order extends AppModel {
 
     public function __construct($data){
         parent::__construct($data); // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-        $this->order_id = $this->last_insert_id;
+        $this->order_id = $this->id;
         $this->user_email = $data['user_email'];
         $this->saveOrderProduct(); // сохраняем продукты заказа
         $this->mailOrder(); // отправляем письмо пользователю и администратору/менеджеру
