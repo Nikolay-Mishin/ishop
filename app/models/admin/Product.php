@@ -70,7 +70,7 @@ class Product extends AppModel {
 		$sql_part = ''; // часть sql-запроса
 		// формируем sql-запрос
 		foreach($data as $v){
-			$v = !$isStr ? (int)$v : '$v';
+			$v = !$isStr ? (int)$v : "'$v'";
 			$sql_part .= "($v, $id),";
 		}
 		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','

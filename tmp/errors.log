@@ -326,3 +326,59 @@
 =================
 [2020-02-14 18:06:53] Текст ошибки: Too few arguments to function app\models\admin\Product::addProduct(), 2 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php on line 48 and exactly 5 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 69
 =================
+[2020-02-14 22:10:29] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column '$v' in 'field list' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:10:29] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:11:36] Текст ошибки: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:13:29] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:14:28] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:14:40] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:15:07] Текст ошибки: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:16:34] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:16:49] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:17:12] Текст ошибки: SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:18:29] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:36:03] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:37:34] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:37:39] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 22:46:39] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:50] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:46:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 22:49:40] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
