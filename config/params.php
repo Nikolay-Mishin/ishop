@@ -10,4 +10,8 @@ return [
     'smtp_protocol' => 'ssl',
     'smtp_login' => 'mishin.nikolay.d270893@yandex.ru',
     'smtp_password' => 'Djhr2708rbhbnj321+-+1_01',
+    'img_width' => 125,
+    'img_height' => 200,
+    'gallery_width' => 700,
+    'gallery_height' => 1000,
 ];

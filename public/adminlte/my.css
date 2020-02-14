@@ -37,3 +37,7 @@
     border-color: #d73925;
     color: #fff;
 }
+
+.overlay{
+    display: none;
+}
