@@ -51,6 +51,7 @@ class ProductController extends AppController {
 				$p->alias = $alias; // записываем алиас в объект продукта
 				\R::store($p); // сохраняем изменения в БД
 				$product->editFilter($id, $data); // изменяем фильтры продукта
+				$product->editRelatedProduct($id, $data);
 				$_SESSION['success'] = 'Товар добавлен';
 			}
 			redirect();
