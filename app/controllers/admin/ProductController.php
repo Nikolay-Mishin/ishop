@@ -59,7 +59,7 @@ class ProductController extends AppController {
 		$this->setMeta('Новый товар');
 	}
 
-	// 
+	// экшен получения списка товаров из поискового запроса
 	public function relatedProductAction(){
 		/*$data = [
 			'items' => [
@@ -74,9 +74,11 @@ class ProductController extends AppController {
 			]
 		];*/
 
-		$q = isset($_GET['q']) ? $_GET['q'] : '';
-		$data['items'] = [];
+		$q = isset($_GET['q']) ? $_GET['q'] : ''; // строка запроса
+		$data['items'] = []; // массив данных из запроса
+		// получаем товары совпадающие по названию со строкой запроса
 		$products = \R::getAssoc('SELECT id, title FROM product WHERE title LIKE ? LIMIT 10', ["%{$q}%"]);
+		// если получены товары, формируем массив данных
 		if($products){
 			$i = 0;
 			foreach($products as $id => $title){

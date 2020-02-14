@@ -57,7 +57,7 @@ class Product extends AppModel {
         if(!empty($data['attrs'])){
             $result = array_diff($filter, $data['attrs']); // возвращает разницу между массивами
             // если есть разница между массивами, удаляем имеющиеся фильтры продукта и добавляем новые
-            if(!$result){
+            if(!$result)
                 $this->deleteFilter($id); // удаляем фильтры продукта
                 $this->addFilter($id, $data); // добавляем фильтры в БД
             }

@@ -23,25 +23,29 @@ $('.sidebar-menu a').each(function () {
 // CKEDITOR.replace('editor1');
 $( '#editor1' ).ckeditor();
 
+// сброс фильтров
 $('#reset-filter').click(function(){
-	$('#filter input[type=radio]').prop('checked', false);
+	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров
 	return false;
 });
 
+// 
 $(".select2").select2({
 	placeholder: "Начните вводить наименование товара",
-	//minimumInputLength: 2,
+	//minimumInputLength: 2, // минимальная длина запроса поиска
 	cache: true,
 	ajax: {
 		url: adminpath + "/product/related-product",
-		delay: 250,
-		dataType: 'json',
+		delay: 250, // задержка перед показом результата
+		dataType: 'json', // тип данных
+		// отправляемые данные
 		data: function (params) {
 			return {
-				q: params.term,
+				q: params.term, // строка запроса
 				page: params.page
 			};
 		},
+		// получаемые данные
 		processResults: function (data, params) {
 			return {
 				results: data.items,
