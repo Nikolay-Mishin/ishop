@@ -20,6 +20,9 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 20 - реализовать удаление фильтров у продукта
 ` app\models\admin\Product.php => editFilter() `
 
+##### ДЗ 23 - обрабатывать и выводить ошибки загрузки изображения в js файле
+` public\adminlte\my.js `
+
 ### call_user_func_array
 
 https://www.php.net/manual/ru/function.call-user-func-array.php

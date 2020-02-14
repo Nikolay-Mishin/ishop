@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\models\admin\Product;
 use app\models\AppModel;
+use ishop\App;
 use ishop\libs\Pagination;
 
 class ProductController extends AppController {
@@ -36,6 +37,7 @@ class ProductController extends AppController {
 			// устанавливаем необходимые аттрибуты для модели
 			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
 			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
+			$product->getImg(); // получаем основную картинку
 
 			// валидируем данные
 			if(!$product->validate($data)){
@@ -46,6 +48,7 @@ class ProductController extends AppController {
 
 			// сохраняем продукт в БД
 			if($id = $product->save('product')){
+				$product->saveGallery($id); // сохраняем галлерею
 				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
 				$p = \R::load('product', $id); // загружаем данные товара из БД
 				$p->alias = $alias; // записываем алиас в объект товара
@@ -92,6 +95,26 @@ class ProductController extends AppController {
 		}
 		echo json_encode($data); // переводим данные в формат json
 		die;
+	}
+
+	// экшен загрузки картинок
+	public function addImageAction(){
+		// если есть загружаемые файлы, обрабатываем их
+		if(isset($_GET['upload'])){
+			// устанавливаем max значения ширины и высоты изображений в зависимости от того какие картинки пришли
+			// (основная - 'single' или галлереи)
+			// получаем необходимые значения из контейнера приложения
+			if($_POST['name'] == 'single'){
+				$wmax = App::$app->getProperty('img_width');
+				$hmax = App::$app->getProperty('img_height');
+			}else{
+				$wmax = App::$app->getProperty('gallery_width');
+				$hmax = App::$app->getProperty('gallery_height');
+			}
+			$name = $_POST['name']; // имя файла
+			$product = new Product(); // объект товара
+			$product->uploadImg($name, $wmax, $hmax); // загружаем изображения на сервер
+		}
 	}
 
 }
