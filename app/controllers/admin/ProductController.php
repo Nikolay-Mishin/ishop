@@ -88,7 +88,7 @@ class ProductController extends AppController {
 				$i++;
 			}
 		}
-		echo json_encode($data);
+		echo json_encode($data); // переводим данные в формат json
 		die;
 	}
 

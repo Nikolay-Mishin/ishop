@@ -296,3 +296,29 @@
 =================
 [2020-02-13 19:22:03] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
 =================
+[2020-02-14 17:14:58] Текст ошибки: SQLSTATE[HY000]: General error: 1364 Field 'brand_id' doesn't have a default value | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:14:58] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-14 17:16:01] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:19:33] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:21:16] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:24:14] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:30:02] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:35:24] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:35:41] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:40:21] Текст ошибки: SQLSTATE[HY000]: General error: 1364 Field 'brand_id' doesn't have a default value | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:41:20] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop2`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:41:32] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop2`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-14 17:44:18] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: '' for column `ishop`.`product`.`old_price` at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================

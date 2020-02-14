@@ -32,8 +32,49 @@ class Product extends AppModel {
         ],
     ];
 
-    private $id;
-    private $data;
+    // метод изменения списка связанных товаров продукта
+    public function editRelatedProduct($id, $data){
+        $related_product = \R::getCol('SELECT related_id FROM related_product WHERE product_id = ?', [$id]);
+
+        // если менеджер убрал связанные товары - удаляем их
+        if(empty($data['related']) && !empty($related_product)){
+            $this->deleteRelatedProduct($id); // удаляем связанные товары продукта
+            return;
+        }
+
+        // если добавляются связанные товары
+        if(empty($related_product) && !empty($data['related'])){
+            $this->addRelatedProduct($id, $data); // добавляем связанные товары в БД
+            return;
+        }
+
+        // если изменились связанные товары - удалим и запишем новые
+        if(!empty($data['related'])){
+            $result = array_diff($related_product, $data['related']); // возвращает разницу между массивами
+            // если есть разница между массивами, удаляем имеющиеся фильтры продукта и добавляем новые
+            if(!empty($result) || count($related_product) != count($data['related'])){
+                $this->deleteRelatedProduct($id); // удаляем связанные товары продукта
+                $this->addRelatedProduct($id, $data); // добавляем связанные товары в БД
+            }
+        }
+    }
+
+    // метод удаления связанных товаров
+    private function deleteRelatedProduct($id){
+        \R::exec("DELETE FROM related_product WHERE product_id = ?", [$id]); // выполняем sql-запрос
+    }
+
+    // метод добавления связанных товаров
+    private function addRelatedProduct($id, $data){
+        $sql_part = ''; // часть sql-запроса
+        // формируем sql-запрос
+        foreach($data['related'] as $v){
+            $v = (int)$v;
+            $sql_part .= "($id, $v),";
+        }
+        $sql_part = rtrim($sql_part, ','); // удаляем конечную ','
+        \R::exec("INSERT INTO related_product (product_id, related_id) VALUES $sql_part"); // выполняем sql-запрос
+    }
 
     // экшен изменения фильтров
     // $id - id товара
@@ -57,7 +98,7 @@ class Product extends AppModel {
         if(!empty($data['attrs'])){
             $result = array_diff($filter, $data['attrs']); // возвращает разницу между массивами
             // если есть разница между массивами, удаляем имеющиеся фильтры продукта и добавляем новые
-            if(!$result)
+            if(!$result){
                 $this->deleteFilter($id); // удаляем фильтры продукта
                 $this->addFilter($id, $data); // добавляем фильтры в БД
             }
@@ -78,49 +119,6 @@ class Product extends AppModel {
         }
         $sql_part = rtrim($sql_part, ','); // удаляем конечную ','
         \R::exec("INSERT INTO attribute_product (attr_id, product_id) VALUES $sql_part"); // выполняем sql-запрос
-    }
-
-    // метод изменения списка связанных товаров продукта
-    public function editRelatedProduct($id, $data){
-        $related_product = \R::getCol('SELECT related_id FROM related_product WHERE product_id = ?', [$id]);
-
-        // если менеджер убрал связанные товары - удаляем их
-        if(empty($data['related']) && !empty($related_product)){
-            $this->deleteRelatedProduct($id); // удаляем связанные товары продукта
-            return;
-        }
-
-        // если добавляются связанные товары
-        if(empty($related_product) && !empty($data['related'])){
-            $this->addRelatedProduct($id, $data); // добавляем связанные товары в БД
-            return;
-        }
-
-        // если изменились связанные товары - удалим и запишем новые
-        if(!empty($data['related'])){
-            $result = array_diff($related_product, $data['related']);
-            if(!empty($result) || count($related_product) != count($data['related'])){
-                $this->deleteRelatedProduct($id); // удаляем связанные товары продукта
-                $this->addRelatedProduct($id, $data); // добавляем связанные товары в БД
-            }
-        }
-    }
-
-    // метод удаления связанных товаров
-    private function deleteRelatedProduct($id){
-        \R::exec("DELETE FROM related_product WHERE product_id = ?", [$id]); // выполняем sql-запрос
-    }
-
-    // метод добавления связанных товаров
-    private function addRelatedProduct($id, $data){
-        $sql_part = ''; // часть sql-запроса
-        // формируем sql-запрос
-        foreach($data['related'] as $v){
-            $v = (int)$v;
-            $sql_part .= "($id, $v),";
-        }
-        $sql_part = rtrim($sql_part, ','); // удаляем конечную ','
-        \R::exec("INSERT INTO related_product (product_id, related_id) VALUES $sql_part"); // выполняем sql-запрос
     }
 
 }
