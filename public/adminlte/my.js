@@ -141,6 +141,7 @@ $('.del-item').on('click', function () {
 				if (res == 1) {
 					$this.fadeOut(); // плавно скрываем удаленную картинку
 				}
+				console.log(res);
 			}, 1000);
 		},
 		// ошибка отправки запроса

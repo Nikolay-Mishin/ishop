@@ -139,7 +139,7 @@ class ProductController extends AppController {
 	private function deleteImg($table,$id){
 		$product = new Product(); // объект товара
 		$product = \R::load($table, $id); // загружаем данные товара из БД
-		$product->img = null; // записываем алиас в объект товара
+		$product->img = ''; // записываем алиас в объект товара
 		// удаляем картинку из БД
 		if(\R::store($product)){
 			// @ - заглушка ошибок (с правами и тд)

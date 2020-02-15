@@ -456,3 +456,11 @@
 =================
 [2020-02-16 01:03:14] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-16 01:13:12] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin\Product/delete-image.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 50
+=================
+[2020-02-16 01:14:13] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'img' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 01:14:39] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'img' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 01:16:24] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'img' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
