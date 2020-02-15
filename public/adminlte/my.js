@@ -21,90 +21,93 @@ $('.sidebar-menu a').each(function () {
 
 // CK Editor
 // CKEDITOR.replace('editor1');
-$( '#editor1' ).ckeditor();
+$('#editor1').ckeditor();
 
 // сброс фильтров
-$('#reset-filter').click(function(){
+$('#reset-filter').click(function () {
 	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров
 	return false;
 });
 
-// select adminLte для выбора нескольких пунктов
 $(".select2").select2({
 	placeholder: "Начните вводить наименование товара",
-	//minimumInputLength: 2, // минимальная длина запроса поиска
+	//minimumInputLength: 2,
 	cache: true,
 	ajax: {
 		url: adminpath + "/product/related-product",
-		delay: 250, // задержка перед показом результата
-		dataType: 'json', // тип данных
-		// отправляемые данные
+		delay: 250,
+		dataType: 'json',
 		data: function (params) {
 			return {
-				q: params.term, // строка запроса
+				q: params.term,
 				page: params.page
 			};
 		},
-		// получаемые данные
 		processResults: function (data, params) {
 			return {
-				results: data.items,
+				results: data.items
 			};
-		},
-	},
+		}
+	}
 });
 
 // загрузка картинок
-var buttonSingle = $("#single"),
-	buttonMulti = $("#multi"),
-	file;
+if($('div').is('#single')){
+	var buttonSingle = $("#single"),
+		buttonMulti = $("#multi"),
+		file;
+}
 
 // загрузка основной картинки
-new AjaxUpload(buttonSingle, {
-	action: adminpath + buttonSingle.data('url') + "?upload=1", // адрес запроса
-	data: { name: buttonSingle.data('name') }, // передаваемые данные
-	name: buttonSingle.data('name'), // имя файла
-	// действие при нажатии кнопки
-	onSubmit: function (file, ext) {
-		if (!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))) {
-			alert('Ошибка! Разрешены только картинки');
-			return false;
+if(buttonSingle){
+	new AjaxUpload(buttonSingle, {
+		action: adminpath + buttonSingle.data('url') + "?upload=1", // адрес запроса
+		data: { name: buttonSingle.data('name') }, // передаваемые данные
+		name: buttonSingle.data('name'), // имя файла
+		// действие при нажатии кнопки
+		onSubmit: function (file, ext) {
+			if (!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))) {
+				alert('Ошибка! Разрешены только картинки');
+				return false;
+			}
+			buttonSingle.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
+
+		},
+		// действие после окончания загрузки
+		onComplete: function (file, response) {
+			// устанавливаем задержку для выполнения кода в 1000 мс (1с)
+			setTimeout(function () {
+				buttonSingle.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
+
+				response = JSON.parse(response); // ответ от запроса (парсим json)
+				// отображаем загруженную картинку
+				$('.' + buttonSingle.data('name')).html('<img src="/images/' + response.file + '" style="max-height: 150px;">');
+			}, 1000);
 		}
-		buttonSingle.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
-
-	},
-	// действие после окончания загрузки
-	onComplete: function (file, response) {
-		// устанавливаем задержку для выполнения кода в 1000 мс (1с)
-		setTimeout(function () {
-			buttonSingle.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
-
-			response = JSON.parse(response); // ответ от запроса (парсим json)
-			// отображаем загруженную картинку
-			$('.' + buttonSingle.data('name')).html('<img src="/images/' + response.file + '" style="max-height: 150px;">');
-		}, 1000);
-	}
-});
+	});
+}
 
 // загрузка картинок галлереи
-new AjaxUpload(buttonMulti, {
-	action: adminpath + buttonMulti.data('url') + "?upload=1",
-	data: { name: buttonMulti.data('name') },
-	name: buttonMulti.data('name'),
-	onSubmit: function (file, ext) {
-		if (!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))) {
-			alert('Ошибка! Разрешены только картинки');
-			return false;
+if(buttonMulti){
+	new AjaxUpload(buttonMulti, {
+		action: adminpath + buttonMulti.data('url') + "?upload=1",
+		data: { name: buttonMulti.data('name') },
+		name: buttonMulti.data('name'),
+		onSubmit: function (file, ext) {
+			if (!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))) {
+				alert('Ошибка! Разрешены только картинки');
+				return false;
+			}
+			buttonMulti.closest('.file-upload').find('.overlay').css({ 'display': 'block' });
+
+		},
+		onComplete: function (file, response) {
+			setTimeout(function () {
+				buttonMulti.closest('.file-upload').find('.overlay').css({ 'display': 'none' });
+
+				response = JSON.parse(response);
+				$('.' + buttonMulti.data('name')).append('<img src="/images/' + response.file + '" style="max-height: 150px;">');
+			}, 1000);
 		}
-		buttonMulti.closest('.file-upload').find('.overlay').css({ 'display': 'block' });
-
-	},
-	onComplete: function (file, response) {
-		setTimeout(function () {
-			buttonMulti.closest('.file-upload').find('.overlay').css({ 'display': 'none' });
-
-			response = JSON.parse(response);
-			$('.' + buttonMulti.data('name')).append('<img src="/images/' + response.file + '" style="max-height: 150px;">');
-		}, 1000);
-	}
-});
+	});
+}
