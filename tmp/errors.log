@@ -430,3 +430,29 @@
 =================
 [2020-02-16 00:31:23] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-16 00:35:29] Текст ошибки: Identifier does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 656
+=================
+[2020-02-16 00:43:11] Текст ошибки: Identifier "4" does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 657
+=================
+[2020-02-16 00:45:32] Текст ошибки: Identifier "4" does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 657
+=================
+[2020-02-16 00:50:09] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 00:50:09] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 00:56:22] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 00:56:47] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 00:58:28] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '82-1' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 01:00:50] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 01:01:39] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-16 01:02:49] Текст ошибки: syntax error, unexpected ')', expecting ']' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 39
+=================
+[2020-02-16 01:03:02] Текст ошибки: syntax error, unexpected ']', expecting ',' or ')' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 49
+=================
+[2020-02-16 01:03:14] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-82' for key 'PRIMARY' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================

@@ -67,7 +67,7 @@ class UserController extends AppController {
 				redirect();
 			}
 			// сохраняем изменения в БД
-			if($user->update('user', $id)){
+			if($user->update($id)){
 				$_SESSION['success'] = 'Изменения сохранены';
 			}
 			redirect();

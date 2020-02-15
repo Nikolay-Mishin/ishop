@@ -33,9 +33,10 @@ class Product extends AppModel {
 	];
 
 	// метод изменения товара
-	public function editAttrs($id, $data, $table, $attr_id, $condition){
+	public function editAttrs($id, $data, $table, $condition, $attr_id){
 		// получаем аттрибуты товара
 		$dataAttrs = \R::getCol("SELECT $attr_id FROM $table WHERE $condition = ?", [$id]);
+		// debug(["SELECT $attr_id FROM $table WHERE $condition = ?", [$id]]);
 
 		// если менеджер убрал связанные товары - удаляем их
 		if(empty($data) && !empty($dataAttrs)){
@@ -45,17 +46,19 @@ class Product extends AppModel {
 
 		// если добавляются связанные товары
 		if(empty($dataAttrs) && !empty($data)){
-			$this->addAttrs($id, $data, $table, $attr_id, $condition); // добавляем товар в БД
+			debug([$dataAttrs, $data]);
+			$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
 			return;
 		}
 
 		// если изменились связанные товары - удалим и запишем новые
 		if(!empty($data)){
 			$result = array_diff($dataAttrs, $data); // возвращает разницу между массивами
+			// debug([$result, $dataAttrs, $data]);
 			// если есть разница между массивами, удаляем имеющиеся аттрибуты товара и добавляем новые
 			if(!empty($result) || count($dataAttrs) != count($data)){
 				$this->deleteAttrs($id, $table, $condition); // удаляем аттрибуты товара
-				$this->addAttrs($id, $data, $table, $attr_id, $condition); // добавляем товар в БД
+				$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
 			}
 		}
 	}
@@ -79,6 +82,7 @@ class Product extends AppModel {
 			$sql_part .= "($id, $v),";
 		}
 		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
+		// debug("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part");
 		\R::exec("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part"); // выполняем sql-запрос
 	}
 

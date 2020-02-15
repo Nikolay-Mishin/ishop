@@ -91,7 +91,8 @@ class ProductController extends AppController {
 				// изменяем фильтры товара
 				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
 				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
+				// $product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
+				// debug($product);
 				$product->saveGallery($id); // сохраняем галлерею
 				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
 				$product = \R::load('product', $id); // загружаем данные товара из БД
