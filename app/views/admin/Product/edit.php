@@ -99,7 +99,7 @@
                                         <div id="single" class="btn btn-success" data-url="product/add-image" data-name="single">Выбрать файл</div>
                                         <p><small>Рекомендуемые размеры: 125х200</small></p>
                                         <div class="single">
-                                            <img src="/images/<?=$product->img;?>" alt="" style="max-height: 150px;">
+                                            <img src="/images/<?=$product->img;?>" alt="" style="max-height: 150px;" data-upload="single" class="del-item">
                                         </div>
                                     </div>
                                     <div class="overlay">
@@ -118,7 +118,7 @@
                                         <div class="multi">
                                             <?php if(!empty($gallery)): ?>
                                                 <?php foreach($gallery as $item): ?>
-                                                    <img src="/images/<?=$item;?>" alt="" style="max-height: 150px; cursor: pointer;" data-id="<?=$product->id;?>" data-src="<?=$item;?>" class="del-item">
+                                                    <img src="/images/<?=$item;?>" alt="" style="max-height: 150px; cursor: pointer;" data-id="<?=$product->id;?>" data-src="<?=$item;?>" data-upload="multi" class="del-item">
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </div>

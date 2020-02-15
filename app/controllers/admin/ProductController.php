@@ -113,17 +113,48 @@ class ProductController extends AppController {
 		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
 	}
 
-	public function deleteGalleryAction(){
-		$id = isset($_POST['id']) ? $_POST['id'] : null;
-		$src = isset($_POST['src']) ? $_POST['src'] : null;
-		if(!$id || !$src){
+	// экшен удаления картинок галлереи
+	public function deleteImageAction(){
+		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
+		$src = isset($_POST['src']) ? $_POST['src'] : null; // путь к картинке
+		$upload = isset($_POST['upload']) ? $_POST['upload'] : null; // тип загруженной картинки (single - базовая, multi - галлерея)
+		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
+		if(!$id || !$src || !$upload){
 			return;
 		}
-		if(\R::exec("DELETE FROM gallery WHERE product_id = ? AND img = ?", [$id, $src])){
-			@unlink(WWW . "/images/$src");
-			exit('1');
+		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
+		switch($upload){
+			case 'single':
+				$this->deleteImg('product', $id); // удаляем картинку из БД
+				break;
+			case 'multi':
+				$this->deleteGallery('gallery', 'product_id', 'img', $id, $src); // удаляем картинку из БД
+				break;
 		}
 		return;
+	}
+
+	// метод удаления базовой картинки из БД и с сервера
+	private function deleteImg($table,$id){
+		$product = new Product(); // объект товара
+		$product = \R::load($table, $id); // загружаем данные товара из БД
+		$product->img = null; // записываем алиас в объект товара
+		// удаляем картинку из БД
+		if(\R::store($product)){
+			// @ - заглушка ошибок (с правами и тд)
+			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
+			exit('1'); // в качестве ответа отправляем '1'
+		}
+	}
+
+	// метод удаления картинок галлереи из БД и с сервера
+	private function deleteGallery($table, $idCol, $srcCol, $id, $src){
+		// удаляем картинку из БД
+		if(\R::exec("DELETE FROM $table WHERE product_id = ? AND img = ?", [$id, $src])){
+			// @ - заглушка ошибок (с правами и тд)
+			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
+			exit('1'); // в качестве ответа отправляем '1'
+		}
 	}
 
 	// экшен получения списка товаров из поискового запроса

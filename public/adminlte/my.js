@@ -4,36 +4,6 @@ $('.delete').click(function () {
 	if (!res) return false; // отменяет действие, если получен параметр false (отмена)
 });
 
-$('.del-item').on('click', function () {
-	var res = confirm('Подтвердите действие');
-	if (!res) return false;
-	var $this = $(this),
-		id = $this.data('id'),
-		src = $this.data('src');
-	$.ajax({
-		url: adminpath + '/product/delete-gallery',
-		data: { id: id, src: src },
-		type: 'POST',
-		beforeSend: function () {
-			$this.closest('.file-upload').find('.overlay').css({ 'display': 'block' });
-		},
-		success: function (res) {
-			setTimeout(function () {
-				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' });
-				if (res == 1) {
-					$this.fadeOut();
-				}
-			}, 1000);
-		},
-		error: function () {
-			setTimeout(function () {
-				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' });
-				alert('Ошибка');
-			}, 1000);
-		}
-	});
-});
-
 // подсвечивает активный пункт меню
 $('.sidebar-menu a').each(function () {
 	// текущий запрос (адресная строка) - http://ishop/admin/order
@@ -61,7 +31,7 @@ $('#reset-filter').click(function () {
 
 $(".select2").select2({
 	placeholder: "Начните вводить наименование товара",
-	//minimumInputLength: 2,
+	// minimumInputLength: 2,
 	cache: true,
 	ajax: {
 		url: adminpath + "/product/related-product",
@@ -141,3 +111,44 @@ if(buttonMulti){
 		}
 	});
 }
+
+// удаление картинок галлереи
+$('.del-item').on('click', function () {
+	var res = confirm('Подтвердите действие'); // окно с подтверждением ок/отмена
+	if (!res) return false; // отменяет действие, если получен параметр false (отмена)
+
+	var $this = $(this), // текущий объект, по которому произведен клик
+		id = $this.data('id'), // data-id
+		src = $this.data('src'), // data-id
+		upload = $this.data('upload'); // data-upload
+
+	console.log([$this, id, src, upload]);
+
+	// ajax-запрос
+	$.ajax({
+		url: adminpath + '/product/delete-image', // url запроса
+		data: { id: id, src: src, upload: upload }, // данные для отправки
+		type: 'POST', // метод передачи данных
+		// перед отправкой запроса
+		beforeSend: function () {
+			$this.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
+		},
+		// после успешной откправки запроса
+		success: function (res) {
+			// устанавливаем задержку для выполнения кода в 1000 мс (1с)
+			setTimeout(function () {
+				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
+				if (res == 1) {
+					$this.fadeOut(); // плавно скрываем удаленную картинку
+				}
+			}, 1000);
+		},
+		// ошибка отправки запроса
+		error: function () {
+			setTimeout(function () {
+				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
+				alert('Ошибка'); // отображаем окно с ошибкой
+			}, 1000);
+		}
+	});
+});

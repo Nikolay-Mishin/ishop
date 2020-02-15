@@ -64,13 +64,13 @@ abstract class Model{
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id, $table = null){
-		// $arg_list = func_get_args(); // Возвращает массив, содержащий аргументы функции
 		$table = $table ?? $this->getModelName(); // имя таблицы в БД
 		$bean = \R::load($table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;
 		}
+		debug([$table, $this->attributes, $bean]);
 		// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
 		return $this->id = \R::store($bean);
 	}
