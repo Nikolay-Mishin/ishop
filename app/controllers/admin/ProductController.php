@@ -54,9 +54,9 @@ class ProductController extends AppController {
 				$p->alias = $alias; // записываем алиас в объект товара
 				\R::store($p); // сохраняем изменения в БД
 				// изменяем фильтры товара
-				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'attr_id', 'product_id');
+				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
 				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'], 'related_product', 'related_id', 'product_id');
+				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
 				$_SESSION['success'] = 'Товар добавлен';
 			}
 			redirect();

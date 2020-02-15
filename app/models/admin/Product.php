@@ -66,15 +66,15 @@ class Product extends AppModel {
 	}
 
 	// метод добавления товара
-	private function addAttrs($id, $data, $table, $attr_id, $condition, $isStr = false){
+	private function addAttrs($id, $data, $table, $condition, $attr_id, $isStr = false){
 		$sql_part = ''; // часть sql-запроса
 		// формируем sql-запрос
 		foreach($data as $v){
 			$v = !$isStr ? (int)$v : "'$v'";
-			$sql_part .= "($v, $id),";
+			$sql_part .= "($id, $v),";
 		}
 		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
-		\R::exec("INSERT INTO $table ($attr_id, $condition) VALUES $sql_part"); // выполняем sql-запрос
+		\R::exec("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part"); // выполняем sql-запрос
 	}
 
 	// метод получения основной картинки
@@ -99,7 +99,7 @@ class Product extends AppModel {
 			$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
 			\R::exec("INSERT INTO gallery (img, product_id) VALUES $sql_part"); // выполняем sql-запрос
 			*/
-			$this->addAttrs($id, $_SESSION['multi'], 'gallery', 'img', 'product_id', true);
+			$this->addAttrs($id, $_SESSION['multi'], 'gallery', 'product_id', 'img', true);
 			unset($_SESSION['multi']);
 		}
 	}
