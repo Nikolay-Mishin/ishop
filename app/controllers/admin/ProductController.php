@@ -67,8 +67,39 @@ class ProductController extends AppController {
 
 	// экшен редактирования товара
 	public function editAction(){
+		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
+			$id = $this->getRequestID(false);
+			$product = new Product(); // объект товара
+			$data = $_POST; // данные из формы
+			$product->load($data); // загружаем данные в модель
+			// устанавливаем необходимые аттрибуты для модели
+			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
+			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
+			$product->getImg(); // получаем основную картинку
 
+			// валидируем данные
+			if(!$product->validate($data)){
+				$product->getErrors();
+				redirect();
+			}
+
+			// сохраняем продукт в БД
+			if($product->update($id)){
+				// $product->editFilter($id, $data);
+				// $product->editRelatedProduct($id, $data);
+				// изменяем фильтры товара
+				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
+				// изменяем связанные товары
+				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
+				$product->saveGallery($id); // сохраняем галлерею
+				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
+				$product = \R::load('product', $id); // загружаем данные товара из БД
+				$product->alias = $alias; // записываем алиас в объект товара
+				\R::store($product); // сохраняем изменения в БД
+				$_SESSION['success'] = 'Изменения сохранены';
+				redirect();
+			}
 		}
 
 		$id = $this->getRequestID(); //получем id товара
@@ -80,6 +111,19 @@ class ProductController extends AppController {
 		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
 		$this->setMeta("Редактирование товара {$product->title}");
 		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
+	}
+
+	public function deleteGalleryAction(){
+		$id = isset($_POST['id']) ? $_POST['id'] : null;
+		$src = isset($_POST['src']) ? $_POST['src'] : null;
+		if(!$id || !$src){
+			return;
+		}
+		if(\R::exec("DELETE FROM gallery WHERE product_id = ? AND img = ?", [$id, $src])){
+			@unlink(WWW . "/images/$src");
+			exit('1');
+		}
+		return;
 	}
 
 	// экшен получения списка товаров из поискового запроса
