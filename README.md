@@ -23,6 +23,12 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 23 - обрабатывать и выводить ошибки загрузки изображения в js файле
 ` public\adminlte\my.js `
 
+##### ДЗ 24 - добавить модификаторы товара (таблица - modification)
+` app\controllers\admin\ProductController.php => addAction() `
+
+##### ДЗ 25 - реализовать удаление базовой картинки по аналогии с удалением картинок галлереи (при клике на картинку)
+` app\controllers\admin\ProductController.php => editAction() `
+
 ### call_user_func_array
 
 https://www.php.net/manual/ru/function.call-user-func-array.php
