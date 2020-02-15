@@ -464,3 +464,5 @@
 =================
 [2020-02-16 01:16:24] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'img' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-16 01:30:09] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
