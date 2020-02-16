@@ -112,7 +112,7 @@ if(buttonMulti){
 	});
 }
 
-// удаление картинок галлереи
+// удаление картинок
 $('.del-item').on('click', function () {
 	var res = confirm('Подтвердите действие'); // окно с подтверждением ок/отмена
 	if (!res) return false; // отменяет действие, если получен параметр false (отмена)
@@ -153,3 +153,14 @@ $('.del-item').on('click', function () {
 		}
 	});
 });
+
+$('#add').on('submit', function () {
+	if (!isNumeric($('#category_id').val())) {
+		alert('Выберите категорию');
+		return false;
+	}
+});
+
+function isNumeric(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
