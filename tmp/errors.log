@@ -486,3 +486,11 @@
 =================
 [2020-02-16 18:39:14] Текст ошибки: syntax error, unexpected '}' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php(129) : runtime-created function | Строка: 1
 =================
+[2020-02-16 23:14:36] Текст ошибки: Too few arguments to function app\controllers\admin\CurrencyController::getCourses(), 1 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php on line 62 and exactly 2 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 42
+=================
+[2020-02-16 23:32:12] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 23:32:26] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 23:41:46] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 49
+=================

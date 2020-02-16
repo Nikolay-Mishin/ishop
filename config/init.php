@@ -12,6 +12,9 @@ define("TMP", ROOT . '/tmp'); // папка с временными файлам
 define("CACHE", TMP . '/cache'); // папка кэша
 define("CONF", ROOT . '/config'); // папка конфигурации приложения
 define("LAYOUT", 'watches'); // шаблон (тема) по умолчанию
+// API ЦБ РФ - путь к файлу с курсами валют
+define("API_CB_XML", 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=' . date("d/m/Y")); // xml
+define("API_CB", 'https://www.cbr-xml-daily.ru/daily_json.js'); // json
 
 // http://ishop2.loc/public/index.php
 $app_path = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";

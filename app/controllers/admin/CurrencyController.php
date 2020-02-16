@@ -6,11 +6,87 @@ use app\models\admin\Currency;
 
 class CurrencyController extends AppController{
 
+    public function getUsd(){
+        $courses = json_decode(file_get_contents(API_PB), true);
+        if (!$courses) return false;
+        $cours_curr_usd = false;
+        foreach ($courses as $cours){
+            if ($cours['ccy'] == 'USD'){
+                $cours_curr_usd = $cours['buy'];
+                break;
+            }
+        }
+        return $cours_curr_usd;
+    }
+
+    public function getEur(){
+        $courses = json_decode(file_get_contents(API_PB), true);
+        if (!$courses) return false;
+        $cours_curr_eur = false;
+        foreach ($courses as $cours){
+            if ($cours['ccy'] == 'EUR'){
+                $cours_curr_eur = $cours['buy'];
+                break;
+            }
+        }
+        return $cours_curr_eur;
+    }
+
+    /*
+    $data = ['USD', 'EUR'];
+    return [
+        'USD' => 25.00000,
+        'EUR' => 27.00000,
+    ]
+    */
+    protected function getCourses($data){
+        $xml = simplexml_load_string(file_get_contents(API_CB_XML));
+        $json = json_encode($xml);
+        $courses_xml = json_decode($json, true);
+        $courses_json = json_decode(file_get_contents(API_CB), true);
+
+        $courses = [];
+        foreach ($courses_xml['Valute'] as $cours){
+            $courses[$cours['CharCode']] = $cours;
+        }
+        return ['xml' => $courses, 'json' => $courses_json];
+
+        if (!$courses) return false;
+
+        $courses_curr = [];
+        foreach ($courses as $cours){
+            // если валюта есть в переданном массиве - возьмем ее
+            if(in_array($cours['ccy'], $data)){
+                $courses_curr['ccy'] = $cours['buy'];
+            }
+        }
+        return $courses_curr;
+    }
+
     // экшен просмотра списка валют
     public function indexAction(){
+        $codeList = \R::getCol("SELECT code FROM currency"); // получаем список с кодами валют
+        debug($codeList);
+        debug(API_CB_XML);
+        $courses = $this->getCourses($codeList);
+        debug($courses);
+        
+        /*
+        $cours_curr_usd = $this->getUsd();
+        $cours_curr_eur = $this->getEur();
+        $usd = \R::getRow('select * from currency where code like ?', ['%USD%']);
+        $eur = \R::getRow('select * from currency where code like ?', ['%EUR%']);
+        if ($usd['value'] != $cours_curr_usd){
+            \R::exec("UPDATE currency SET value = ? WHERE code = 'USD'", [$cours_curr_usd]);
+        }
+        debug($cours_curr_usd);
+        debug($cours_curr_eur);
+        debug($usd);
+        debug($eur);
+        */
         $currencies = \R::findAll('currency');// получаем список валют
         $this->setMeta('Валюты магазина'); // устанавливаем мета-данные
-        $this->set(compact('currencies')); // передаем данные в вид
+        $this->set(compact('currencies', 'courses')); // передаем данные в вид
     }
 
     // экшен удаления валют

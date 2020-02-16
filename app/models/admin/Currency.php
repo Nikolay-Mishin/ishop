@@ -6,24 +6,26 @@ use app\models\AppModel;
 
 class Currency extends AppModel{
 
-    public $attributes = [
-        'title' => '',
-        'code' => '',
-        'symbol_left' => '',
-        'symbol_right' => '',
-        'value' => '',
-        'base' => '',
-    ];
+	// переопределяем аттрибуты родительской модели
+	public $attributes = [
+		'title' => '',
+		'code' => '',
+		'symbol_left' => '',
+		'symbol_right' => '',
+		'value' => '',
+		'base' => '',
+	];
 
-    public $rules = [
-        'required' => [
-            ['title'],
-            ['code'],
-            ['value'],
-        ],
-        'numeric' => [
-            ['value'],
-        ],
-    ];
+	// переопределяем правила валидации формы родительской модели
+	public $rules = [
+		'required' => [
+			['title'],
+			['code'],
+			['value'],
+		],
+		'numeric' => [
+			['value'],
+		],
+	];
 
 }
