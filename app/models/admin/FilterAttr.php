@@ -6,19 +6,21 @@ use app\models\AppModel;
 
 class FilterAttr extends AppModel{
 
-    public $attributes = [
-        'value' => '',
-        'attr_group_id' => '',
-    ];
+	// переопределяем аттрибуты родительской модели
+	public $attributes = [
+		'value' => '',
+		'attr_group_id' => '',
+	];
 
-    public $rules = [
-        'required' => [
-            ['value'],
-            ['attr_group_id'],
-        ],
-        'integer' => [
-            ['attr_group_id'],
-        ]
-    ];
+	// переопределяем правила валидации формы родительской модели
+	public $rules = [
+		'required' => [
+			['value'],
+			['attr_group_id'],
+		],
+		'integer' => [
+			['attr_group_id'],
+		]
+	];
 
 }

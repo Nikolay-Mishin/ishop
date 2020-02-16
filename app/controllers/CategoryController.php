@@ -63,7 +63,7 @@ class CategoryController extends AppController {
         // SELECT product_id FROM attribute_product WHERE attr_id IN (1,5) GROUP BY product_id HAVING COUNT(product_id) = 2
         // )
         // LIMIT 0, 3
-        $products = \R::find('product', "category_id IN ($ids) $sql_part LIMIT $start, $perpage");
+        $products = \R::find('product', "status = '1' AND category_id IN ($ids) $sql_part LIMIT $start, $perpage");
 
         // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данные
         if($this->isAjax()){

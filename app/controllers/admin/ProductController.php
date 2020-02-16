@@ -27,6 +27,54 @@ class ProductController extends AppController {
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
 	}
 
+	// экшен редактирования товара
+	public function editAction(){
+		// если данные из формы получены, обрабатываем их
+		if(!empty($_POST)){
+			$id = $this->getRequestID(false);
+			$product = new Product(); // объект товара
+			$data = $_POST; // данные из формы
+			$product->load($data); // загружаем данные в модель
+			// устанавливаем необходимые аттрибуты для модели
+			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
+			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
+			$product->getImg(); // получаем основную картинку
+
+			// валидируем данные
+			if(!$product->validate($data)){
+				$product->getErrors();
+				redirect();
+			}
+
+			// сохраняем продукт в БД
+			if($product->update($id)){
+				// $product->editFilter($id, $data);
+				// $product->editRelatedProduct($id, $data);
+				// изменяем фильтры товара
+				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
+				// изменяем связанные товары
+				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
+				$product->saveGallery($id); // сохраняем галлерею
+				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
+				$product = \R::load('product', $id); // загружаем данные товара из БД
+				$product->alias = $alias; // записываем алиас в объект товара
+				\R::store($product); // сохраняем изменения в БД
+				$_SESSION['success'] = 'Изменения сохранены';
+				redirect();
+			}
+		}
+
+		$id = $this->getRequestID(); //получем id товара
+		$product = \R::load('product', $id); // получаем данные товара из БД
+		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
+		$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
+		// получаем список связанных товаров
+		$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
+		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
+		$this->setMeta("Редактирование товара {$product->title}");
+		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
+	}
+
 	// экшен добавления нового товара
 	public function addAction(){
 		// если данные из формы получены, обрабатываем их
@@ -65,55 +113,6 @@ class ProductController extends AppController {
 		$this->setMeta('Новый товар');
 	}
 
-	// экшен редактирования товара
-	public function editAction(){
-		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
-			$id = $this->getRequestID(false);
-			$product = new Product(); // объект товара
-			$data = $_POST; // данные из формы
-			$product->load($data); // загружаем данные в модель
-			// устанавливаем необходимые аттрибуты для модели
-			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
-			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
-			$product->getImg(); // получаем основную картинку
-
-			// валидируем данные
-			if(!$product->validate($data)){
-				$product->getErrors();
-				redirect();
-			}
-
-			// сохраняем продукт в БД
-			if($product->update($id)){
-				// $product->editFilter($id, $data);
-				// $product->editRelatedProduct($id, $data);
-				// изменяем фильтры товара
-				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
-				// изменяем связанные товары
-				// $product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
-				// debug($product);
-				$product->saveGallery($id); // сохраняем галлерею
-				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
-				$product = \R::load('product', $id); // загружаем данные товара из БД
-				$product->alias = $alias; // записываем алиас в объект товара
-				\R::store($product); // сохраняем изменения в БД
-				$_SESSION['success'] = 'Изменения сохранены';
-				redirect();
-			}
-		}
-
-		$id = $this->getRequestID(); //получем id товара
-		$product = \R::load('product', $id); // получаем данные товара из БД
-		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
-		$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
-		// получаем список связанных товаров
-		$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
-		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
-		$this->setMeta("Редактирование товара {$product->title}");
-		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
-	}
-
 	// экшен удаления картинок галлереи
 	public function deleteImageAction(){
 		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
@@ -133,29 +132,6 @@ class ProductController extends AppController {
 				break;
 		}
 		return;
-	}
-
-	// метод удаления базовой картинки из БД и с сервера
-	private function deleteImg($table,$id){
-		$product = new Product(); // объект товара
-		$product = \R::load($table, $id); // загружаем данные товара из БД
-		$product->img = 'no_image.jpg'; // записываем путь к заглушке
-		// удаляем картинку из БД
-		if(\R::store($product)){
-			// @ - заглушка ошибок (с правами и тд)
-			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
-			exit('1'); // в качестве ответа отправляем '1'
-		}
-	}
-
-	// метод удаления картинок галлереи из БД и с сервера
-	private function deleteGallery($table, $idCol, $srcCol, $id, $src){
-		// удаляем картинку из БД
-		if(\R::exec("DELETE FROM $table WHERE product_id = ? AND img = ?", [$id, $src])){
-			// @ - заглушка ошибок (с правами и тд)
-			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
-			exit('1'); // в качестве ответа отправляем '1'
-		}
 	}
 
 	// экшен получения списка товаров из поискового запроса
@@ -207,6 +183,29 @@ class ProductController extends AppController {
 			$name = $_POST['name']; // имя файла
 			$product = new Product(); // объект товара
 			$product->uploadImg($name, $wmax, $hmax); // загружаем изображения на сервер
+		}
+	}
+
+	// метод удаления базовой картинки из БД и с сервера
+	protected function deleteImg($table,$id){
+		$product = new Product(); // объект товара
+		$product = \R::load($table, $id); // загружаем данные товара из БД
+		$product->img = 'no_image.jpg'; // записываем путь к заглушке
+		// удаляем картинку из БД
+		if(\R::store($product)){
+			// @ - заглушка ошибок (с правами и тд)
+			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
+			exit('1'); // в качестве ответа отправляем '1'
+		}
+	}
+
+	// метод удаления картинок галлереи из БД и с сервера
+	protected function deleteGallery($table, $idCol, $srcCol, $id, $src){
+		// удаляем картинку из БД
+		if(\R::exec("DELETE FROM $table WHERE product_id = ? AND img = ?", [$id, $src])){
+			// @ - заглушка ошибок (с правами и тд)
+			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
+			exit('1'); // в качестве ответа отправляем '1'
 		}
 	}
 

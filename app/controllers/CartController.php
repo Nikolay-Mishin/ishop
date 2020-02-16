@@ -140,7 +140,7 @@ class CartController extends AppController {
     }
 
     // отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
-    private function show(){
+    protected function show(){
         // если запрос пришел асинхронно (ajax), загружаем вид корзины
         if($this->isAjax()){
             $this->showAction();

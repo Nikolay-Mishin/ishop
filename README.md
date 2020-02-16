@@ -29,6 +29,9 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 25 - реализовать удаление базовой картинки по аналогии с удалением картинок галлереи (при клике на картинку)
 ` app\controllers\admin\ProductController.php => editAction() `
 
+##### ДЗ 27 - реализовать удаление товаров (параллельно удалять модификации, фильтры, связанные товары, галлерею, товары заказа (?))
+` app\controllers\admin\ProductController.php => deleteAction() `
+
 ### call_user_func_array
 
 https://www.php.net/manual/ru/function.call-user-func-array.php

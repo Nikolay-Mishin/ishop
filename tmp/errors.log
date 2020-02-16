@@ -466,3 +466,23 @@
 =================
 [2020-02-16 01:30:09] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
 =================
+[2020-02-16 15:48:25] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 15:51:01] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 27
+=================
+[2020-02-16 17:12:36] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 17:52:13] Текст ошибки: Контроллер app/controllers/admin\FilterController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 48
+=================
+[2020-02-16 17:52:13] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-16 18:12:20] Текст ошибки: Call to undefined function ishop\base\upperCamelCase() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 110
+=================
+[2020-02-16 18:31:16] Текст ошибки: Call to undefined function ishop\base\lowerCamelCase() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 110
+=================
+[2020-02-16 18:36:06] Текст ошибки: syntax error, unexpected '}', expecting ';' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php(129) : runtime-created function | Строка: 1
+=================
+[2020-02-16 18:37:04] Текст ошибки: syntax error, unexpected '}', expecting ';' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php(129) : runtime-created function | Строка: 1
+=================
+[2020-02-16 18:39:14] Текст ошибки: syntax error, unexpected '}' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php(129) : runtime-created function | Строка: 1
+=================

@@ -154,6 +154,7 @@ $('.del-item').on('click', function () {
 	});
 });
 
+// блокируем отправку формы, если не выбрана категория
 $('#add').on('submit', function () {
 	if (!isNumeric($('#category_id').val())) {
 		alert('Выберите категорию');
@@ -161,6 +162,7 @@ $('#add').on('submit', function () {
 	}
 });
 
+// проверяет является данное значения числом
 function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }

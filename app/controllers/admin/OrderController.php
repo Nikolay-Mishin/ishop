@@ -51,6 +51,15 @@ class OrderController extends AppController {
         $this->set(compact('order', 'order_products'));
     }
 
+    // экшен удаления заказа
+    public function deleteAction(){
+        $order_id = $this->getRequestID(); // получаем id заказа
+        $order = \R::load('order', $order_id); // получаем данные заказа по его id
+        \R::trash($order); // удаляем заказ
+        $_SESSION['success'] = 'Заказ удален';
+        redirect(ADMIN . '/order'); // перенаправляем на страницу списка заказов
+    }
+
     // экшен изменения статуса заказа
     public function changeAction(){
         $order_id = $this->getRequestID(); // получаем id заказа
@@ -65,15 +74,6 @@ class OrderController extends AppController {
         \R::store($order); // сохраняем изменения в БД
         $_SESSION['success'] = 'Изменения сохранены';
         redirect(); // перенаправляем на предыдущую страницу
-    }
-
-    // экшен удаления заказа
-    public function deleteAction(){
-        $order_id = $this->getRequestID(); // получаем id заказа
-        $order = \R::load('order', $order_id); // получаем данные заказа по его id
-        \R::trash($order); // удаляем заказ
-        $_SESSION['success'] = 'Заказ удален';
-        redirect(ADMIN . '/order'); // перенаправляем на страницу списка заказов
     }
 
 }

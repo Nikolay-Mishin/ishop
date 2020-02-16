@@ -6,14 +6,16 @@ use app\models\AppModel;
 
 class FilterGroup extends AppModel{
 
-    public $attributes = [
-        'title' => '',
-    ];
+	// переопределяем аттрибуты родительской модели
+	public $attributes = [
+		'title' => '',
+	];
 
-    public $rules = [
-        'required' => [
-            ['title'],
-        ],
-    ];
+	// переопределяем правила валидации формы родительской модели
+	public $rules = [
+		'required' => [
+			['title'],
+		],
+	];
 
 }

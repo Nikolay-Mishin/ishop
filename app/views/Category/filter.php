@@ -22,7 +22,7 @@
                     </h4>
                 </div>
                 <!-- рассчет размера скидки (при наличии старой цены) -->
-                <?php if($hit->old_price > 0): ?>
+                <?php if($product->old_price > 0): ?>
                     <div class="srch">
                         <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
                     </div>

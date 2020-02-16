@@ -10,7 +10,7 @@ class UserController extends AppController {
 
     // регистрция пользователя
     public function signupAction(){
-        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
+        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенаправляем на главную
         if(empty($_POST)) $_SESSION['redirect'] = referer_url();
         // если получены данные методом POST, обрабатываем их и регистрируем пользователя
         if(!empty($_POST)){
@@ -22,7 +22,8 @@ class UserController extends AppController {
             if(!$user->validate($data) || !$user->checkUnique()){
                 $user->getErrors(); // получаем список ошибок
                 $_SESSION['form_data'] = $data; // записываем в сессию данные, чтобы значения заполненных полей не сбрасывались
-            }else{
+            }
+            else{
                 // хэшируем пароль
                 // password_hash - хэширует пароль с учетом временной метки (текущей даты)
                 $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
@@ -47,7 +48,7 @@ class UserController extends AppController {
 
     // авторизация пользователя
     public function loginAction(){
-        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенапрвляем на главную
+        if(User::checkAuth()) redirect(PATH); // если пользователь уже авторизован перенаправляем на главную
         if(empty($_POST)) $_SESSION['redirect'] = referer_url();
         // если получены данные методом POST, обрабатываем их и регистрируем пользователя
         if(!empty($_POST)){

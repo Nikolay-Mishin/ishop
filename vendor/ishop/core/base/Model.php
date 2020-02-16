@@ -50,10 +50,13 @@ abstract class Model{
 	}
 
 	// сохраняем данные в таблицу в БД
-	public function save($table = null){
-		$table = $table ?? $this->getModelName(); // имя таблицы в БД
+	public function save($table = null, $valid = true){
+		$table = $table ?? $this->getTabelName(); // имя таблицы в БД
+		// если имя таблицы валидно, используем метод dispense, иначе xdispense
+		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
-		$tbl = \R::dispense($table); // создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
+		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
+		$tbl = $valid ? \R::dispense($table) : \R::xdispense($table);
 		// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
 		foreach($this->attributes as $name => $value){
 			$tbl->$name = $value;
@@ -64,14 +67,12 @@ abstract class Model{
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id, $table = null){
-		$table = $table ?? $this->getModelName(); // имя таблицы в БД
-		// debug([$id, $table, $this->attributes]);
+		$table = $table ?? $this->getTabelName(); // имя таблицы в БД
 		$bean = \R::load($table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;
 		}
-		// debug($bean);
 		// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
 		return $this->id = \R::store($bean);
 	}
@@ -105,7 +106,23 @@ abstract class Model{
 
 	// возвращает короткое имя класса (app\models\User => User)
 	protected function getModelName(){
-		return lcfirst((new \ReflectionClass($this))->getShortName());
+		return (new \ReflectionClass($this))->getShortName();
+	}
+
+	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
+	protected function getTabelName(){
+		return $this->lowerCamelCase($this->getModelName());
+	}
+
+	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
+	protected static function lowerCamelCase($name){
+		// ThisMethodName => this_method_name
+		return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
+	}
+
+	protected static function upperCamelCase($name){
+		// this_method_name => ThisMethodName
+		return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
 	}
 
 }

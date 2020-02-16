@@ -17,7 +17,7 @@ class SearchController extends AppController{
                 // LIKE - сравниваемое выражение похоже на 'title'
                 // %{$query}% - слева и справа от выражения в запросе могут быть любые символы
                 // возвращаем данные на 1 больше, чем мы хотим увидеть (10)
-                $products = \R::getAll('SELECT id, title FROM product WHERE title LIKE ? LIMIT 11', ["%{$query}%"]);
+                $products = \R::getAll("SELECT id, title FROM product WHERE title LIKE ? AND status = '1' LIMIT 11", ["%{$query}%"]);
                 echo json_encode($products); // выводим полученные товары в виде json (кодируем массив в json)
             }
         }
@@ -29,7 +29,8 @@ class SearchController extends AppController{
         $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null; // пришедший поисковый запрос
         // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
         if($query){
-            $products = \R::find('product', "title LIKE ?", ["%{$query}%"]); // SELECT `product`.*  FROM `product`  WHERE title LIKE ?
+            // SELECT `product`.*  FROM `product`  WHERE title LIKE ?
+            $products = \R::find('product', "title LIKE ? AND status = '1'", ["%{$query}%"]);
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Поиск по запросу: "' . h($query) . '"'); // хлебные крошки
         $this->setMeta('Поиск по: ' . h($query)); // устанавливаем мета-данные и обрабатываем их от XSS-атак (html-инъекций)

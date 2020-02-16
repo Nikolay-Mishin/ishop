@@ -26,7 +26,7 @@
                             <label for="category_id">Группа</label>
                             <select name="attr_group_id" id="category_id" class="form-control">
                                 <option>Выберите группу</option>
-                                <?php foreach($group as $item): ?>
+                                <?php foreach($groups as $item): ?>
                                     <option value="<?=$item->id;?>"><?=$item->title;?></option>
                                 <?php endforeach; ?>
                             </select>

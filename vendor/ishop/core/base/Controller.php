@@ -36,9 +36,9 @@ abstract class Controller{
 
     // задает массив мета-данных
     public function setMeta($title = '', $desc = '', $keywords = ''){
-        $this->meta['title'] = $title; // заголовок
-        $this->meta['desc'] = $desc; // описание
-        $this->meta['keywords'] = $keywords; // ключевые слова
+        $this->meta['title'] = h($title); // заголовок
+        $this->meta['desc'] = h($desc); // описание
+        $this->meta['keywords'] = h($keywords); // ключевые слова
     }
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)

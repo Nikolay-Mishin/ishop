@@ -36,7 +36,6 @@ class Product extends AppModel {
 	public function editAttrs($id, $data, $table, $condition, $attr_id){
 		// получаем аттрибуты товара
 		$dataAttrs = \R::getCol("SELECT $attr_id FROM $table WHERE $condition = ?", [$id]);
-		// debug(["SELECT $attr_id FROM $table WHERE $condition = ?", [$id]]);
 
 		// если менеджер убрал связанные товары - удаляем их
 		if(empty($data) && !empty($dataAttrs)){
@@ -54,36 +53,12 @@ class Product extends AppModel {
 		// если изменились связанные товары - удалим и запишем новые
 		if(!empty($data)){
 			$result = array_diff($dataAttrs, $data); // возвращает разницу между массивами
-			// debug([$result, $dataAttrs, $data]);
 			// если есть разница между массивами, удаляем имеющиеся аттрибуты товара и добавляем новые
 			if(!empty($result) || count($dataAttrs) != count($data)){
 				$this->deleteAttrs($id, $table, $condition); // удаляем аттрибуты товара
 				$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
 			}
 		}
-	}
-
-	// метод удаления товара
-	private function deleteAttrs($id, $table, $condition){
-		\R::exec("DELETE FROM $table WHERE $condition = ?", [$id]); // выполняем sql-запрос
-	}
-
-	// метод добавления товара
-	private function addAttrs($id, $data, $table, $condition, $attr_id){
-		// если $attr_id - массив, преобразуем его в строку по разделителю
-		$attr_id = is_array($attr_id) ? implode(', ', $attr_id) : $attr_id; // [attr_id, title] => 'attr_id, title'
-
-		$sql_part = ''; // часть sql-запроса
-		// формируем sql-запрос
-		foreach($data as $v){
-			// если строка со значением является числом, приводим ее к числу
-			// иначе оборачиваем строку в '' для корректности sql-запроса
-			$v = ($v === (string)(int)$v) ? (int)$v : "'$v'";
-			$sql_part .= "($id, $v),";
-		}
-		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
-		// debug("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part");
-		\R::exec("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part"); // выполняем sql-запрос
 	}
 
 	// метод получения основной картинки
@@ -111,6 +86,29 @@ class Product extends AppModel {
 			$this->addAttrs($id, $_SESSION['multi'], 'gallery', 'product_id', 'img');
 			unset($_SESSION['multi']);
 		}
+	}
+
+	// метод удаления товара
+	protected function deleteAttrs($id, $table, $condition){
+		\R::exec("DELETE FROM $table WHERE $condition = ?", [$id]); // выполняем sql-запрос
+	}
+
+	// метод добавления товара
+	protected function addAttrs($id, $data, $table, $condition, $attr_id){
+		// если $attr_id - массив, преобразуем его в строку по разделителю
+		$attr_id = is_array($attr_id) ? implode(', ', $attr_id) : $attr_id; // [attr_id, title] => 'attr_id, title'
+
+		$sql_part = ''; // часть sql-запроса
+		// формируем sql-запрос
+		foreach($data as $v){
+			// если строка со значением является числом, приводим ее к числу
+			// иначе оборачиваем строку в '' для корректности sql-запроса
+			$v = ($v === (string)(int)$v) ? (int)$v : "'$v'";
+			$sql_part .= "($id, $v),";
+		}
+		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
+		// debug("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part");
+		\R::exec("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part"); // выполняем sql-запрос
 	}
 
 	public function uploadImg($name, $wmax, $hmax){
