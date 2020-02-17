@@ -21,6 +21,8 @@
                     </div>
                     <br><br>
                     <?php if(!empty($_SESSION['cart'])):?>
+                        <!-- получаем активную валюту из контейнера (реестра) -->
+                        <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -38,7 +40,7 @@
                                         <td><a href="product/<?=$item['alias'] ?>"><img src="images/<?= $item['img'] ?>" alt="<?=$item['title'] ?>"></a></td>
                                         <td><a href="product/<?=$item['alias'] ?>"><?=$item['title'] ?></a></td>
                                         <td><?=$item['qty'] ?></td>
-                                        <td><?=$item['price'] ?></td>
+                                        <td><?=$_SESSION['cart.currency']['symbol_left'] . price_format($item['price']) . $_SESSION['cart.currency']['symbol_right'] ?></td>
                                         <td><a href="/cart/delete/?id=<?=$id ?>"><span data-id="<?=$id ?>" class="glyphicon glyphicon-remove text-danger del-item" aria-hidden="true"></span></a></td>
                                     </tr>
                                 <?php endforeach;?>

@@ -34,8 +34,8 @@
                             <input type="text" name="symbol_right" class="form-control" id="symbol_right" placeholder="Символ справа" value="<?= h($currency->symbol_right) ?>">
                         </div>
                         <div class="form-group has-feedback">
-                            <label for="value">Значение</label>
-                            <input type="text" name="value" class="form-control" id="value" placeholder="Значение" pattern="^[0-9.]{1,}$" required data-error="Допускаются цифры и десятичная точка" value="<?= $currency->value ?>">
+                            <label for="course">Курс</label>
+                            <input type="text" name="course" class="form-control" id="course" placeholder="Курс" pattern="^[0-9.]{1,}$" required data-error="Допускаются цифры и десятичная точка" value="<?= $currency->course ?>">
                             <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">

@@ -3,7 +3,7 @@
 
 namespace app\widgets\currency;
 
-use ishop\App;
+use ishop\App; // подключаем класс базовый приложения
 
 class Currency{
 
@@ -43,6 +43,13 @@ class Currency{
         $currency = $currencies[$key]; // текущая валюта из списка доступных (по коду выбранной валюты)
         $currency['code'] = $key; // записываем код текущей валюты в отдельный элемент массива (code)
         return $currency;
+    }
+
+    // метод для определения изменения текущей валюты
+    public static function checkChangeCurrency($curr){
+        if(isset($_SESSION['cart.currency'])){
+            return $curr['value'] !== $_SESSION['cart.currency']['value'];
+        }
     }
 
     // формирует html-разметку

@@ -60,7 +60,7 @@ class UserController extends AppController {
                 $_SESSION['error'] = 'Логин/пароль введены неверно';
             }
             $_SESSION['user.errors'] = $user->errors; // ошибки при авторизации (выводить под полями формы)
-            redirect($_SESSION['redirect']); // перезапрашиваем страницу
+            redirect(); // перезапрашиваем страницу
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
         $errors = $_SESSION['user.errors'] ?? []; // записываем ошибки авторизации в переменную и передаем ее в вид

@@ -494,3 +494,35 @@
 =================
 [2020-02-16 23:41:46] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 49
 =================
+[2020-02-17 14:11:31] Текст ошибки: Call to undefined function app\controllers\admin\newArray() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 34
+=================
+[2020-02-17 14:28:22] Текст ошибки: Call to undefined function app\controllers\admin\replace() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 14
+=================
+[2020-02-17 14:44:26] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-17 16:20:01] Текст ошибки: Call to undefined function app\controllers\admin\isRegex() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 31
+=================
+[2020-02-17 16:20:43] Текст ошибки: Call to undefined function app\controllers\admin\dubug() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 32
+=================
+[2020-02-17 18:14:00] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'value' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-17 18:15:28] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'value' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-17 18:16:13] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'value' cannot be null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-17 18:23:01] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-17 19:13:28] Текст ошибки: Class 'app\controllers\admin\DateTime' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 109
+=================
+[2020-02-17 19:13:29] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-17 19:26:41] Текст ошибки: Access to undeclared static property: DateTime::$date | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 111
+=================
+[2020-02-17 19:26:59] Текст ошибки: Cannot use object of type DateTime as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 111
+=================
+[2020-02-17 19:34:06] Текст ошибки: DateTime::__construct(): Failed to parse time string (2020/18/02) at position 4 (/): Unexpected character | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 111
+=================
+[2020-02-17 20:04:41] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-17 22:18:29] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================

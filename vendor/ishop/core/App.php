@@ -25,6 +25,14 @@ class App{
         Router::dispatch($query); // передаем в маршрутизатор для обработки запрошенный url адрес
     }
 
+    // метод для преобразования массива в объект (stdClass Object)
+    public static function arrayToObject($data){
+        $data_type = gettype($data); // получаем тип переданных данных
+        $isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
+        $json = json_encode($data); // кодируем данные в json
+        return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
+    }
+
     protected function getParams(){
         $params = require_once CONF . '/params.php'; // массив параметров (настроек) приложения
         // записываем каждый из параметров в реестр

@@ -23,6 +23,7 @@
                                 <th>Наименование</th>
                                 <th>Код</th>
                                 <th>Значение</th>
+                                <th>Курс</th>
                                 <th>Действия</th>
                             </tr>
                             </thead>
@@ -33,6 +34,7 @@
                                     <td><?=$currency->title;?></td>
                                     <td><?=$currency->code;?></td>
                                     <td><?=$currency->value;?></td>
+                                    <td><?=$currency->base == '0' ? $currency->course : '-';?></td>
                                     <td>
                                         <a href="<?=ADMIN;?>/currency/edit?id=<?=$currency->id;?>"><i class="fa fa-fw fa-pencil"></i></a>
                                         <a class="delete" href="<?=ADMIN;?>/currency/delete?id=<?=$currency->id;?>"><i class="fa fa-fw fa-close text-danger"></i></a>

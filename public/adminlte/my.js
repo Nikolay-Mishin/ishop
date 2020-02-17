@@ -166,3 +166,20 @@ $('#add').on('submit', function () {
 function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+// заполниет поля формы данными при выборе валюты из выпадающего списка
+var form = $('#course-form'); // форма добавления валюты
+if (form) {
+	var title = form.find('#title'), // input названия валюты
+		code = form.find('#code'), // input кода валюты
+		course = form.find('#course'); // input курса валюты
+	$('#courses').on('change', function () {
+		var selected = $(this).find('option:selected'), // текущий объект, по которому произведен клик
+			codeCurr = selected.data('code'), // data-code
+			courseVal = selected.data('course'), // data-course
+			name = selected.data('title'); // data-title
+		title.val(name);
+		code.val(codeCurr);
+		course.val(courseVal);
+	});
+}

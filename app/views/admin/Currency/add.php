@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box">
-                <form action="<?=ADMIN;?>/currency/add" method="post" data-toggle="validator">
+                <form id="course-form" action="<?=ADMIN;?>/currency/add" method="post" data-toggle="validator">
                     <div class="box-body">
                         <div class="form-group has-feedback">
                             <label for="title">Наименование валюты</label>
@@ -28,6 +28,15 @@
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <div class="form-group">
+                            <label for="courses">Коды валют</label>
+                            <select name="courses" id="courses" class="form-control">
+                                <option>Выберите код валюты</option>
+                                <?php foreach($courses as $code => $course): ?>
+                                    <option value="<?=$course['CharCode'];?>" <?=in_array($course['CharCode'], $codeList) ? ' disabled' : '';?> data-code="<?=$code;?>" data-course="<?=$course['Value'];?>" data-title="<?=$course['Name'];?>"><?=$code;?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="symbol_left">Символ слева</label>
                             <input type="text" name="symbol_left" class="form-control" id="symbol_left" placeholder="Символ слева">
                         </div>
@@ -36,8 +45,8 @@
                             <input type="text" name="symbol_right" class="form-control" id="symbol_right" placeholder="Символ справа">
                         </div>
                         <div class="form-group has-feedback">
-                            <label for="value">Значение</label>
-                            <input type="text" name="value" class="form-control" id="value" placeholder="Значение" required data-error="Допускаются цифры и десятичная точка" pattern="^[0-9.]{1,}$">
+                            <label for="course">Курс</label>
+                            <input type="text" name="course" class="form-control" id="course" placeholder="Курс" required data-error="Допускаются цифры и десятичная точка" pattern="^[0-9.]{1,}$">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                             <div class="help-block with-errors"></div>
                         </div>

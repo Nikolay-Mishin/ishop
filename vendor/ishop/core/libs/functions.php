@@ -18,6 +18,7 @@ function redirect($http = false){
 		// если в массиве $_SERVER есть страница, с которой пришел пользователь (предыдущая страница), то берем ее, иначе главную
 		$redirect = referer_url();
 	}
+	$redirect = $redirect !== true ? $redirect : PATH . $_SERVER['REQUEST_URI'];
 	if(isset($_SESSION['redirect'])) unset($_SESSION['redirect']);
 	header("Location: $redirect"); // перенаправляем на сформированный адрес
 	exit; // завершаем скрипт

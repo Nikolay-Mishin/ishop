@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 use app\models\AppModel; // подключаем базовый класс Моделей приложения
+use app\models\Cart; // модель корзины
 use app\widgets\currency\Currency; // подключаем виджет валюты
 use ishop\App; // подключаем класс базовый приложения
 use ishop\base\Controller; // подключаем базовый класс Контроллера фреймворка
@@ -17,9 +18,14 @@ class AppController extends Controller{
         new AppModel(); // создаем объект базовой модели приложения
         // записываем в контейнер (реестр) список доступных валют и текущую валюту
         App::$app->setProperty('currencies', Currency::getCurrencies());
-        App::$app->setProperty('currency', Currency::getCurrency(App::$app->getProperty('currencies')));
-        // debug(App::$app->getProperties()); // распечатываем список параметров из реестра
+        $curr = Currency::getCurrency(App::$app->getProperty('currencies')); // получаем текущую валюту из реестра
+        App::$app->setProperty('currency', $curr);
         App::$app->setProperty('cats', self::cacheCategory()); // записываем категории в контейнер
+        // проверем изменение текущей валюты
+        if(Currency::checkChangeCurrency($curr)){
+            Cart::recalc($curr); // вызываем метод пересчита корзины
+        }
+
     }
 
     // метод для кэширования массива категорий

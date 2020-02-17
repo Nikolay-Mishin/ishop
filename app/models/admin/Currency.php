@@ -13,6 +13,7 @@ class Currency extends AppModel{
 		'symbol_left' => '',
 		'symbol_right' => '',
 		'value' => '',
+		'course' => '',
 		'base' => '',
 	];
 
@@ -21,10 +22,10 @@ class Currency extends AppModel{
 		'required' => [
 			['title'],
 			['code'],
-			['value'],
+			['course'],
 		],
 		'numeric' => [
-			['value'],
+			['course'],
 		],
 	];
 
