@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box">
-                <form method="post" action="<?= ADMIN ?>/currency/edit" role="form" data-toggle="validator">
+                <form id="course-form" method="post" action="<?= ADMIN ?>/currency/edit" role="form" data-toggle="validator">
                     <div class="box-body">
                         <div class="form-group has-feedback">
                             <label for="title">Наименование валюты</label>
@@ -22,8 +22,17 @@
                         </div>
                         <div class="form-group has-feedback">
                             <label for="code">Код валюты</label>
-                            <input type="text" name="code" class="form-control" id="code" placeholder="Код валюты" required value="<?= h($currency->code) ?>">
+                            <input type="text" name="code" class="form-control" id="code" placeholder="Код валюты" required value="<?= h($currency->code); ?>">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="courses">Коды валют</label>
+                            <select name="courses" id="courses" class="form-control">
+                                <option data-code="<?= h($currency->code); ?>" data-course="<?= h($currency->course); ?>" data-title="<?= h($currency->title); ?>">Выберите код валюты</option>
+                                <?php foreach($courses as $code => $course): ?>
+                                    <option value="<?=$course['CharCode'];?>" <?=in_array($course['CharCode'], $codeList) ? ' disabled' : '';?> data-code="<?=$code;?>" data-course="<?=$course['Value'];?>" data-title="<?=$course['Name'];?>"><?=$code;?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="symbol_left">Символ слева</label>

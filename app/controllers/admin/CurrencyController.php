@@ -109,7 +109,8 @@ class CurrencyController extends AppController{
     protected function getCourses($date = null){
         // если дата передана, форматируем ее
         $date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
-        $xml = simplexml_load_string(file_get_contents(CURRENCY_API . $date)); // получаем xml файл
+        if(!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл
+        if(!$xml = simplexml_load_string($file)) return false; // получаем содержимое файла в формате xml
         $courses = App::arrayToObject($xml); // декодируем xml объект в массив
         $courses = $this->newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']], 'key');
         return $courses ?: false;
@@ -225,8 +226,10 @@ class CurrencyController extends AppController{
 
         $id = $this->getRequestID(); // получаем id валюты
         $currency = \R::load('currency', $id); // получаем валюту из БД
+        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
+        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
         $this->setMeta("Редактирование валюты {$currency->title}"); // устанавливаем мета-данные
-        $this->set(compact('currency')); // передаем данные в вид
+        $this->set(compact('currency', 'courses', 'codeList')); // передаем данные в вид
     }
 
     // экшен добавления валют
@@ -239,10 +242,11 @@ class CurrencyController extends AppController{
             // конвертируем значения флага базовой валюты для записи в БД
             $currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
             // вычисляем значение курса валюта для пересчета цен
-            $currency->attributes['value'] = $this->getValue($data['course']); // значение курса валюты для пересчета цен
+            $currency->attributes['value'] = $this->getValue($data['course']);
             // валидируем данные
             if(!$currency->validate($data)){
                 $currency->getErrors();
+                $_SESSION['form_data'] = $data;
                 redirect();
             }
             // сохраняем валюту в БД

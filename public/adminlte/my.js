@@ -168,11 +168,13 @@ function isNumeric(n) {
 }
 
 // заполниет поля формы данными при выборе валюты из выпадающего списка
-var form = $('#course-form'); // форма добавления валюты
-if (form) {
-	var title = form.find('#title'), // input названия валюты
+if ($('form').is('#course-form')) {
+	var form = $('#course-form'), // форма добавления валюты
+		title = form.find('#title'), // input названия валюты
 		code = form.find('#code'), // input кода валюты
-		course = form.find('#course'); // input курса валюты
+		course = form.find('#course'), // input курса валюты
+		base = form.find('[type=checkbox]'); // checkbox базовой валюты
+
 	$('#courses').on('change', function () {
 		var selected = $(this).find('option:selected'), // текущий объект, по которому произведен клик
 			codeCurr = selected.data('code'), // data-code
@@ -180,6 +182,26 @@ if (form) {
 			name = selected.data('title'); // data-title
 		title.val(name);
 		code.val(codeCurr);
-		course.val(courseVal);
+		course.val(!isChecked(base) ? courseVal : 1);
+		course.data('value', courseVal);
 	});
+
+	base.on('change', function () {
+		changeInput(course, isChecked(base));
+	});
+}
+
+function isChecked(target) {
+	return target.prop('checked'); // значение checkbox
+}
+
+function changeInput(target, change = true, value = 1) {
+	target.prop('disabled', change);
+	if (change) {
+		target.data('value', target.val());
+		target.val(value);
+	}
+	else {
+		target.val(target.data('value'));
+	}
 }

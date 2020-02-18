@@ -19,7 +19,7 @@
                     <div class="box-body">
                         <div class="form-group has-feedback">
                             <label for="title">Наименование товара</label>
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Наименование товара" value="<?php isset($_SESSION['form_data']['title']) ? h($_SESSION['form_data']['title']) : null; ?>" required>
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Наименование товара" value="<?= isset($_SESSION['form_data']['title']) ? h($_SESSION['form_data']['title']) : null; ?>" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
 
@@ -41,29 +41,29 @@
 
                         <div class="form-group">
                             <label for="keywords">Ключевые слова</label>
-                            <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Ключевые слова" value="<?php isset($_SESSION['form_data']['keywords']) ? h($_SESSION['form_data']['keywords']) : null; ?>">
+                            <input type="text" name="keywords" class="form-control" id="keywords" placeholder="Ключевые слова" value="<?= isset($_SESSION['form_data']['keywords']) ? h($_SESSION['form_data']['keywords']) : null; ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="description">Описание</label>
-                            <input type="text" name="description" class="form-control" id="description" placeholder="Описание" value="<?php isset($_SESSION['form_data']['description']) ? h($_SESSION['form_data']['description']) : null; ?>">
+                            <input type="text" name="description" class="form-control" id="description" placeholder="Описание" value="<?= isset($_SESSION['form_data']['description']) ? h($_SESSION['form_data']['description']) : null; ?>">
                         </div>
 
                         <div class="form-group has-feedback">
                             <label for="price">Цена</label>
-                            <input type="text" name="price" class="form-control" id="description" placeholder="Цена" pattern="^[0-9.]{1,}$" value="<?php isset($_SESSION['form_data']['price']) ? h($_SESSION['form_data']['price']) : null; ?>" required data-error="Допускаются цифры и десятичная точка">
+                            <input type="text" name="price" class="form-control" id="description" placeholder="Цена" pattern="^[0-9.]{1,}$" value="<?= isset($_SESSION['form_data']['price']) ? h($_SESSION['form_data']['price']) : null; ?>" required data-error="Допускаются цифры и десятичная точка">
                             <div class="help-block with-errors"></div>
                         </div>
 
                         <div class="form-group has-feedback">
                             <label for="old_price">Старая цена</label>
-                            <input type="text" name="old_price" class="form-control" id="description" placeholder="Старая цена" pattern="^[0-9.]{1,}$" value="<?php isset($_SESSION['form_data']['old_price']) ? h($_SESSION['form_data']['old_price']) : null; ?>" data-error="Допускаются цифры и десятичная точка">
+                            <input type="text" name="old_price" class="form-control" id="description" placeholder="Старая цена" pattern="^[0-9.]{1,}$" value="<?= isset($_SESSION['form_data']['old_price']) ? h($_SESSION['form_data']['old_price']) : null; ?>" data-error="Допускаются цифры и десятичная точка">
                             <div class="help-block with-errors"></div>
                         </div>
 
                         <div class="form-group has-feedback">
                             <label for="content">Контент</label>
-                            <textarea name="content" id="editor1" cols="80" rows="10"><?php isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null; ?></textarea>
+                            <textarea name="content" id="editor1" cols="80" rows="10"><?= isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null; ?></textarea>
                         </div>
 
                         <div class="form-group">
