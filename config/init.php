@@ -17,7 +17,7 @@ define("CURRENCY_API", 'http://www.cbr.ru/scripts/XML_daily.asp'); // xml
 define("CURRENCY_ROUND", 4); // предел округления конвертированных значений курса валюты для пересчета цен
 
 // http://ishop2.loc/public/index.php
-$app_path = "http://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";
+$app_path = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}{$_SERVER['PHP_SELF']}";
 // http://ishop2.loc/public/
 $app_path = preg_replace("#[^/]+$#", '', $app_path);
 // http://ishop2.loc
