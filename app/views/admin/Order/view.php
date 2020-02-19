@@ -2,7 +2,7 @@
 <section class="content-header">
     <h1>
         Заказ №<?=$order['id'];?>
-        <?php if(!$order['status']): ?>
+        <?php if($order['status'] != '1'): ?>
             <a href="<?=ADMIN;?>/order/change?id=<?=$order['id'];?>&status=1" class="btn btn-success btn-xs">Одобрить</a>
         <?php else: ?>
             <a href="<?=ADMIN;?>/order/change?id=<?=$order['id'];?>&status=0" class="btn btn-default btn-xs">Вернуть на доработку</a>
@@ -51,7 +51,18 @@
                                 </tr>
                                 <tr>
                                     <td>Статус</td>
-                                    <td><?=$order['status'] ? 'Завершен' : 'Новый';?></td>
+                                    <td>
+                                        <?//=$order['status'] ? 'Завершен' : 'Новый';?>
+                                        <?php
+                                        if($order['status'] == '1'){
+                                            echo 'Завершен';
+                                        }elseif($order['status'] == '2'){
+                                            echo 'Оплачен';
+                                        }else{
+                                            echo 'Новый';
+                                        }
+                                        ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Комментарий</td>

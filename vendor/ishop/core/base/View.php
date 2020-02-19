@@ -40,6 +40,7 @@ class View {
         // prefix - имя префикса (админки)
         // controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
         // view - имя вида, который должен быть отображен
+        $this->prefix = str_replace('\\', '/', $this->prefix);
         $viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
         // если такой файл существует - подключаем его, иначе выбрасываем исключение - такой вид не найден
         if(is_file($viewFile)){

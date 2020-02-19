@@ -7,10 +7,160 @@ use ishop\App; // подключаем класс базовый приложе�
 
 class CurrencyController extends AppController{
 
-    // определяет является ли переданная строка регулярным выраженияем
-    // This doesn't test validity; but it looks like the question is Is there a good way of test if a string is a regex or normal string in PHP? and it does do that.
-    protected function isRegex($str){
-        return preg_match("/^\/[\s\S]+\/$/", $str);
+    // экшен просмотра списка валют
+    public function indexAction(){
+        $currencies = $this->checkChangeCourse(); // получаем список валют
+        $this->setMeta('Валюты магазина'); // устанавливаем мета-данные
+        $this->set(compact('currencies')); // передаем данные в вид
+    }
+
+    // экшен удаления валют
+    public function deleteAction(){
+        $id = $this->getRequestID(); // получаем id фильтра
+        $currency = \R::load('currency', $id); // получаем валюту из БД
+        \R::trash($currency); // удаляем валюту из БД
+        $_SESSION['success'] = "Изменения сохранены";
+        redirect();
+    }
+
+    // экшен редактирования валют
+    public function editAction(){
+        // если получены данные из формы, обрабатываем их
+        if(!empty($_POST)){
+            $id = $this->getRequestID(false); // получаем id валюты
+            $currency = new Currency(); // объект модели валют
+            $data = $_POST; // данные из формы
+            $currency->load($data); // загружаем данные в модель
+            // конвертируем значения флага базовой валюты для записи в БД
+            $currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
+            // вычисляем значение курса валюта для пересчета цен
+            $currency->attributes['value'] = $this->getValue($data['course']); // значение курса валюты для пересчета цен
+            // валидируем данные
+            if(!$currency->validate($data)){
+                $currency->getErrors();
+                redirect();
+            }
+            // сохраняем валюту в БД
+            if($currency->update($id)){
+                $_SESSION['success'] = "Изменения сохранены";
+                redirect();
+            }
+        }
+
+        $id = $this->getRequestID(); // получаем id валюты
+        $currency = \R::load('currency', $id); // получаем валюту из БД
+        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
+        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
+        $this->setMeta("Редактирование валюты {$currency->title}"); // устанавливаем мета-данные
+        $this->set(compact('currency', 'courses', 'codeList')); // передаем данные в вид
+    }
+
+    // экшен добавления валют
+    public function addAction(){
+        // если получены данные из формы, обрабатываем их
+        if(!empty($_POST)){
+            $currency = new Currency(); // объект модели валют
+            $data = $_POST; // данные из формы
+            $currency->load($data); // загружаем данные в модель
+            // конвертируем значения флага базовой валюты для записи в БД
+            $currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
+            // вычисляем значение курса валюта для пересчета цен
+            $currency->attributes['value'] = $this->getValue($data['course']);
+            // валидируем данные
+            if(!$currency->validate($data)){
+                $currency->getErrors();
+                $_SESSION['form_data'] = $data;
+                redirect();
+            }
+            // сохраняем валюту в БД
+            if($currency->save('currency')){
+                $_SESSION['success'] = 'Валюта добавлена';
+                redirect();
+            }
+        }
+        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
+        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
+        $this->setMeta('Новая валюта'); // устанавливаем мета-данные
+        $this->set(compact('courses', 'codeList')); // передаем данные в вид
+    }
+
+    // возвращает список курсов по кодам переданных валют
+    protected function checkChangeCourse($changeTitle = false){
+        $currencies = \R::findAll('currency');// получаем список валют
+        $change = false;
+        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
+        $courses = $this->getCoursesByCode($codeList); // получаем список курсов для активных валют
+        foreach ($currencies as $currency){
+            // array_key_exists - Проверяет, присутствует ли в массиве указанный ключ или индекс
+            // if (array_key_exists($currency->code, $courses)){
+            // если валюта является небазовой, сравниваем ее значение с текущим курсом
+            if ($currency->base == '0'){
+                $course = $courses[$currency->code]['Value']; // текущий курс данной валюты
+                $value = $this->getValue($course); // значение курса валюты для пересчета цен
+                // для небазовых валют, присутствующих в списке курсов валют (code является одним из ключей массива $courses)
+                // приверяем разницу между текущим курсом валюты и данным значением в БД
+                if ($course != $currency->course || $value != $currency->value){
+                    $change = true;
+                    $sql_part = 'value = ?, course = ?';
+                    $arr = [$value, $course, $currency->code];
+                    if($changeTitle && $courses[$currency->code]['Name'] != $currency->title){
+                        $sql_part = 'value = ?, course = ?, title = ?';
+                        $arr = [$value, $course, $courses[$currency->code]['Name'], $currency->code];
+                    }
+                    $this->updateCourse($arr, $sql_part);
+                }
+            }
+        }
+        if($change) redirect(true);
+        return $currencies;
+    }
+
+    // возвращает список всех курсов на текущую дату (если дата не передана)
+    protected function getCourses($date = null){
+        // если дата передана, форматируем ее
+        $date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
+        if(!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл
+        if(!$xml = simplexml_load_string($file)) return false; // получаем содержимое файла в формате xml
+        $courses = App::dataDecode($xml); // декодируем xml объект в массив
+        $courses = $this->newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']], 'key');
+        return $courses ?: false;
+    }
+
+    /*
+    $data = ['USD', 'EUR'];
+    return [
+        'USD' => 25.00000,
+        'EUR' => 27.00000,
+    ]
+    */
+    // возвращает список курсов по кодам переданных валют
+    protected function getCoursesByCode($codeList){
+        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
+        if (!$courses) return false;
+
+        $courses_curr = [];
+        foreach ($courses as $code => $cours){
+            // если валюта есть в переданном массиве - возьмем ее
+            if(in_array($code, $codeList)){
+                $courses_curr[$code] = $cours;
+            }
+        }
+        return $courses_curr;
+    }
+
+    // метод получения списка с кодами активных валют
+    protected function getCodeList(){
+        return \R::getCol("SELECT code FROM currency");
+    }
+
+    // метод вычисления значения курса валюты для пересчета цен
+    protected function getValue($course){
+        return round(1 / $course, CURRENCY_ROUND);
+    }
+
+    // возвращает список курсов по кодам переданных валют
+    protected function updateCourse($arr, $sql_part = 'value = ?, course = ?'){
+        \R::exec("UPDATE currency SET $sql_part WHERE code = ?", $arr);
     }
 
     // создает новый массив на из переданного ассоциативного массива и ключа, по значению которого необходимо сформировать новые ключи
@@ -104,160 +254,10 @@ class CurrencyController extends AppController{
         */
     }
 
-    // возвращает список всех курсов на текущую дату (если дата не передана)
-    protected function getCourses($date = null){
-        // если дата передана, форматируем ее
-        $date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
-        if(!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл
-        if(!$xml = simplexml_load_string($file)) return false; // получаем содержимое файла в формате xml
-        $courses = App::dataDecode($xml); // декодируем xml объект в массив
-        $courses = $this->newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']], 'key');
-        return $courses ?: false;
-    }
-
-    /*
-    $data = ['USD', 'EUR'];
-    return [
-        'USD' => 25.00000,
-        'EUR' => 27.00000,
-    ]
-    */
-    // возвращает список курсов по кодам переданных валют
-    protected function getCoursesByCode($codeList){
-        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
-        if (!$courses) return false;
-
-        $courses_curr = [];
-        foreach ($courses as $code => $cours){
-            // если валюта есть в переданном массиве - возьмем ее
-            if(in_array($code, $codeList)){
-                $courses_curr[$code] = $cours;
-            }
-        }
-        return $courses_curr;
-    }
-
-    // метод получения списка с кодами активных валют
-    protected function getCodeList(){
-        return \R::getCol("SELECT code FROM currency");
-    }
-
-    // метод вычисления значения курса валюты для пересчета цен
-    protected function getValue($course){
-        return round(1 / $course, CURRENCY_ROUND);
-    }
-
-    // возвращает список курсов по кодам переданных валют
-    protected function updateCourse($arr, $sql_part = 'value = ?, course = ?'){
-        \R::exec("UPDATE currency SET $sql_part WHERE code = ?", $arr);
-    }
-
-    // возвращает список курсов по кодам переданных валют
-    protected function checkChangeCourse($changeTitle = false){
-        $currencies = \R::findAll('currency');// получаем список валют
-        $change = false;
-        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
-        $courses = $this->getCoursesByCode($codeList); // получаем список курсов для активных валют
-        foreach ($currencies as $currency){
-            // array_key_exists - Проверяет, присутствует ли в массиве указанный ключ или индекс
-            // if (array_key_exists($currency->code, $courses)){
-            // если валюта является небазовой, сравниваем ее значение с текущим курсом
-            if ($currency->base == '0'){
-                $course = $courses[$currency->code]['Value']; // текущий курс данной валюты
-                $value = $this->getValue($course); // значение курса валюты для пересчета цен
-                // для небазовых валют, присутствующих в списке курсов валют (code является одним из ключей массива $courses)
-                // приверяем разницу между текущим курсом валюты и данным значением в БД
-                if ($course != $currency->course || $value != $currency->value){
-                    $change = true;
-                    $sql_part = 'value = ?, course = ?';
-                    $arr = [$value, $course, $currency->code];
-                    if($changeTitle && $courses[$currency->code]['Name'] != $currency->title){
-                        $sql_part = 'value = ?, course = ?, title = ?';
-                        $arr = [$value, $course, $courses[$currency->code]['Name'], $currency->code];
-                    }
-                    $this->updateCourse($arr, $sql_part);
-                }
-            }
-        }
-        if($change) redirect(true);
-        return $currencies;
-    }
-
-    // экшен просмотра списка валют
-    public function indexAction(){
-        $currencies = $this->checkChangeCourse(); // получаем список валют
-        $this->setMeta('Валюты магазина'); // устанавливаем мета-данные
-        $this->set(compact('currencies')); // передаем данные в вид
-    }
-
-    // экшен удаления валют
-    public function deleteAction(){
-        $id = $this->getRequestID(); // получаем id фильтра
-        $currency = \R::load('currency', $id); // получаем валюту из БД
-        \R::trash($currency); // удаляем валюту из БД
-        $_SESSION['success'] = "Изменения сохранены";
-        redirect();
-    }
-
-    // экшен редактирования валют
-    public function editAction(){
-        // если получены данные из формы, обрабатываем их
-        if(!empty($_POST)){
-            $id = $this->getRequestID(false); // получаем id валюты
-            $currency = new Currency(); // объект модели валют
-            $data = $_POST; // данные из формы
-            $currency->load($data); // загружаем данные в модель
-            // конвертируем значения флага базовой валюты для записи в БД
-            $currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
-            // вычисляем значение курса валюта для пересчета цен
-            $currency->attributes['value'] = $this->getValue($data['course']); // значение курса валюты для пересчета цен
-            // валидируем данные
-            if(!$currency->validate($data)){
-                $currency->getErrors();
-                redirect();
-            }
-            // сохраняем валюту в БД
-            if($currency->update($id)){
-                $_SESSION['success'] = "Изменения сохранены";
-                redirect();
-            }
-        }
-
-        $id = $this->getRequestID(); // получаем id валюты
-        $currency = \R::load('currency', $id); // получаем валюту из БД
-        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
-        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
-        $this->setMeta("Редактирование валюты {$currency->title}"); // устанавливаем мета-данные
-        $this->set(compact('currency', 'courses', 'codeList')); // передаем данные в вид
-    }
-
-    // экшен добавления валют
-    public function addAction(){
-        // если получены данные из формы, обрабатываем их
-        if(!empty($_POST)){
-            $currency = new Currency(); // объект модели валют
-            $data = $_POST; // данные из формы
-            $currency->load($data); // загружаем данные в модель
-            // конвертируем значения флага базовой валюты для записи в БД
-            $currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
-            // вычисляем значение курса валюта для пересчета цен
-            $currency->attributes['value'] = $this->getValue($data['course']);
-            // валидируем данные
-            if(!$currency->validate($data)){
-                $currency->getErrors();
-                $_SESSION['form_data'] = $data;
-                redirect();
-            }
-            // сохраняем валюту в БД
-            if($currency->save('currency')){
-                $_SESSION['success'] = 'Валюта добавлена';
-                redirect();
-            }
-        }
-        $courses = $this->getCourses(); // получаем список всех курсов на текущую дату
-        $codeList = $this->getCodeList(); // получаем список с кодами активных валют
-        $this->setMeta('Новая валюта'); // устанавливаем мета-данные
-        $this->set(compact('courses', 'codeList')); // передаем данные в вид
+    // определяет является ли переданная строка регулярным выраженияем
+    // This doesn't test validity; but it looks like the question is Is there a good way of test if a string is a regex or normal string in PHP? and it does do that.
+    protected function isRegex($str){
+        return preg_match("/^\/[\s\S]+\/$/", $str);
     }
 
 }

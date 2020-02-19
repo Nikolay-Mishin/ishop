@@ -30,22 +30,27 @@
                             </thead>
                             <tbody>
                             <?php foreach($orders as $order): ?>
-                                <?php $class = $order['status'] ? 'success' : ''; ?>
+                                <?php
+                                if($order['status'] == '1'){
+                                    $class = 'success';
+                                    $text = 'Завершен';
+                                }elseif($order['status'] == '2'){
+                                    $class = 'info';
+                                    $text = 'Оплачен';
+                                }else{
+                                    $class = '';
+                                    $text = 'Новый';
+                                }
+                                //$class = $order['status'] ? 'success' : '';
+                                ?>
                                 <tr class="<?=$class;?>">
                                     <td><?=$order['id'];?></td>
                                     <td><?=$order['name'];?></td>
-                                    <td><?=$order['status'] ? 'Завершен' : 'Новый';?></td>
+                                    <td><?=$text?></td>
                                     <td><?=$order['sum'];?> <?=$order['currency'];?></td>
                                     <td><?=$order['date'];?></td>
                                     <td><?=$order['update_at'];?></td>
-                                    <td>
-                                        <a href="<?=ADMIN;?>/order/view?id=<?=$order['id'];?>">
-                                            <i class="fa fa-fw fa-eye"></i>
-                                        </a>
-                                        <a class="delete" href="<?=ADMIN;?>/order/delete?id=<?=$order['id'];?>">
-                                            <i class="fa fa-fw fa-close text-danger"></i>
-                                        </a>
-                                    </td>
+                                    <td><a href="<?=ADMIN;?>/order/view?id=<?=$order['id'];?>"><i class="fa fa-fw fa-eye"></i></a> <a class="delete" href="<?=ADMIN;?>/order/delete?id=<?=$order['id'];?>"><i class="fa fa-fw fa-close text-danger"></i></a></td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

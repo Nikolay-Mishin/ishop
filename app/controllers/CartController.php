@@ -16,136 +16,165 @@ use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Cart; // модель корзины
 use app\models\Order; // модель заказов
 use app\models\User; // модель пользователя
+use ishop\App;
 
 class CartController extends AppController {
 
-    // добавляет товары в корзину
-    public function addAction(){
-        // (int) - приводим к числу
-        $id = !empty($_GET['id']) ? (int)$_GET['id'] : null; // id товара
-        $qty = !empty($_GET['qty']) ? (int)$_GET['qty'] : null; // количество товара
-        $mod_id = !empty($_GET['mod']) ? (int)$_GET['mod'] : null; // id модификатора товара
-        // если модификатор не получен - переменная будет инициализирована (значение задано), но пуста
-        $mod = null; // переменная для хранения модификатора товара
-        // если id получен, получаем товар
-        if($id){
-            $product = \R::findOne('product', 'id = ?', [$id]); // получаем товар
-            // если товар не получен, возвращаем false
-            if(!$product){
-                return false;
-            }
-            // если передан id модификатора, получаем информацию по данному модификатору
-            if($mod_id){
-                $mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
-            }
-        }
-        $cart = new Cart(); // объект корзины
-        $cart->addToCart($product, $qty, $mod); // вызываем метод для добавления в корзину
-        $this->show(); // отображаем вид корзины
-    }
+	// отображает вид корзины при переходе к оформлению заказа
+	public function viewAction(){
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Корзина'); // хлебные крошки
+		$this->setMeta('Корзина');
+		$this->set(compact('breadcrumbs'));
+	}
 
-    // отображает вид корзины
-    public function showAction(){
-        $this->loadView('cart_modal'); // метод фреймворка (Controller) для загрузки отдельного вида
-    }
+	// отображает вид корзины
+	public function showAction(){
+		$this->loadView('cart_modal'); // метод фреймворка (Controller) для загрузки отдельного вида
+	}
 
-    // удаляет товар из корзины
-    public function deleteAction(){
-        $id = !empty($_GET['id']) ? $_GET['id'] : null; // id удаляемого товара
-        if(isset($_SESSION['cart'][$id])){
-            $cart = new Cart(); // объект корзины
-            $cart->deleteItem($id); // удаляем данный элемент из корзины
-        }
-        $this->show(); // отображаем вид корзины
-    }
+	// добавляет товары в корзину
+	public function addAction(){
+		// (int) - приводим к числу
+		$id = !empty($_GET['id']) ? (int)$_GET['id'] : null; // id товара
+		$qty = !empty($_GET['qty']) ? (int)$_GET['qty'] : null; // количество товара
+		$mod_id = !empty($_GET['mod']) ? (int)$_GET['mod'] : null; // id модификатора товара
+		// если модификатор не получен - переменная будет инициализирована (значение задано), но пуста
+		$mod = null; // переменная для хранения модификатора товара
+		// если id получен, получаем товар
+		if($id){
+			$product = \R::findOne('product', 'id = ?', [$id]); // получаем товар
+			// если товар не получен, возвращаем false
+			if(!$product){
+				return false;
+			}
+			// если передан id модификатора, получаем информацию по данному модификатору
+			if($mod_id){
+				$mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
+			}
+		}
+		$cart = new Cart(); // объект корзины
+		$cart->addToCart($product, $qty, $mod); // вызываем метод для добавления в корзину
+		$this->show(); // отображаем вид корзины
+	}
 
-    // очищает корзину
-    public function clearAction(){
-        // удаляем элементы корзины из сессии
-        unset($_SESSION['cart']);
-        unset($_SESSION['cart.qty']);
-        unset($_SESSION['cart.sum']);
-        unset($_SESSION['cart.currency']);
-        $this->showAction(); // отображаем вид корзины
-    }
+	// удаляет товар из корзины
+	public function deleteAction(){
+		$id = !empty($_GET['id']) ? $_GET['id'] : null; // id удаляемого товара
+		if(isset($_SESSION['cart'][$id])){
+			$cart = new Cart(); // объект корзины
+			$cart->deleteItem($id); // удаляем данный элемент из корзины
+		}
+		$this->show(); // отображаем вид корзины
+	}
 
-    // статичный метод для пересчета корзины
-    public function recalcAction(){
-        // $curr - массив новой валюты, в которую нужно пересчитать корзину
-        if(isset($_GET['productsChange']) && isset($_SESSION['cart.currency'])){
-            $qtyChange = 0;
-            $priceChange = 0;
-            // пересчитываем измененные товары в корзине
-            foreach($_GET['productsChange'] as $k => $v){
-                $_SESSION['cart'][$k]['qty'] += $v;
-                $qtyChange += $v;
-                $priceChange += $v * $_SESSION['cart'][$k]['price'];
-            }
-            $_SESSION['cart.qty'] += $qtyChange; // переданное количество товара прибавляем к уже имеющемуся
-            $_SESSION['cart.sum'] += $priceChange; // количесство, умноженное на цену в активной валюте, прибавляем к уже имеющемуся
-        }
-        $this->show(); // отображаем вид корзины
-    }
+	// очищает корзину
+	public function clearAction(){
+		// удаляем элементы корзины из сессии
+		unset($_SESSION['cart']);
+		unset($_SESSION['cart.qty']);
+		unset($_SESSION['cart.sum']);
+		unset($_SESSION['cart.currency']);
+		$this->showAction(); // отображаем вид корзины
+	}
 
-    // отображает вид корзины при переходе к оформлению заказа
-    public function viewAction(){
-        $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Корзина'); // хлебные крошки
-        $this->setMeta('Корзина');
-        $this->set(compact('breadcrumbs'));
-    }
+	// статичный метод для пересчета корзины
+	public function recalcAction(){
+		// $curr - массив новой валюты, в которую нужно пересчитать корзину
+		if(isset($_GET['productsChange']) && isset($_SESSION['cart.currency'])){
+			$qtyChange = 0;
+			$priceChange = 0;
+			// пересчитываем измененные товары в корзине
+			foreach($_GET['productsChange'] as $k => $v){
+				$_SESSION['cart'][$k]['qty'] += $v;
+				$qtyChange += $v;
+				$priceChange += $v * $_SESSION['cart'][$k]['price'];
+			}
+			$_SESSION['cart.qty'] += $qtyChange; // переданное количество товара прибавляем к уже имеющемуся
+			$_SESSION['cart.sum'] += $priceChange; // количесство, умноженное на цену в активной валюте, прибавляем к уже имеющемуся
+		}
+		$this->show(); // отображаем вид корзины
+	}
 
-    // обрабатывает данные формы офрмления заказа
-    public function checkoutAction(){
-        if(!empty($_POST)){
-            // регистрация пользователя
-            if(!User::checkAuth()){
-                $user = new User(); // объект пользователя
-                $data = $_POST; // массив полученных данных
-                $user->load($data); // загружаем полученные данные в модель
-                // если валидация и проверка на уникальность не пройдена
-                if(!$user->validate($data) || !$user->checkUnique()){
-                    $user->getErrors(); // получаем ошибоки
-                    $_SESSION['form_data'] = $data; // запоминаем данные формы
-                    redirect(); // перезапрашиваем страницу
-                }else{
-                    // хэшируем пароль
-                    $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-                    // сохраняем пользователя и получаем id нового пользователя
-                    if(!$user_id = $user->save('user')){
-                        $_SESSION['error'] = 'Ошибка!';
-                        redirect(); // перезапрашиваем страницу
-                    }
-                }
-            }
+	// отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
+	protected function show(){
+		// если запрос пришел асинхронно (ajax), загружаем вид корзины
+		if($this->isAjax()){
+			$this->showAction();
+		}
+		redirect(); // перезапрашиваем страницу, если данные пришли не ajax
+	}
 
-            // сохранение заказа
-            // сохраняем id пользователя (только что зарегистрированного или авторизованного)
-            $data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
-            $data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
-            $data['currency'] = $_SESSION['cart.currency']['code']; // валюта заказа
-            // email пользователя получаем из сессии (для авторизованного) или из данных формы регистрации
-            // $user_email = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
-            $data['user_email'] = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
-            new Order($data); // если в конструктор переданы данные, загружаем их в свойство $attributes и сохраняем в БД
-            // вариант 1 - статичные методы
-            /* $order_id = Order::saveOrder($data); // сохраняем заказ и получаем его id
-            Order::saveOrderProduct($order_id); // сохраняет продукты данного заказа
-            Order::mailOrder($order_id, $user_email); // отправляем письмо с информацией о заказе клиенту и администратору */
-            // вариант 2 - создание объекта и использование методов загрузки и созранения базовой модели
-            /* $order = new Order(); // объект заказа
-            $order->load($data); // загружаем полученные данные в модель
-            $order_id = $order->save(); // сохраняем заказ и получаем его id */
-        }
-        redirect(); // перезапрашиваем страницу
-    }
+	// обрабатывает данные формы офрмления заказа
+	public function checkoutAction(){
+		if(!empty($_POST)){
+			// регистрация пользователя
+			if(!User::checkAuth()){
+				$user = new User(); // объект пользователя
+				$data = $_POST; // массив полученных данных
+				$user->load($data); // загружаем полученные данные в модель
+				// если валидация и проверка на уникальность не пройдена
+				if(!$user->validate($data) || !$user->checkUnique()){
+					$user->getErrors(); // получаем ошибоки
+					$_SESSION['form_data'] = $data; // запоминаем данные формы
+					redirect(); // перезапрашиваем страницу
+				}else{
+					// хэшируем пароль
+					$user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+					// сохраняем пользователя и получаем id нового пользователя
+					if(!$user_id = $user->save()){
+						$_SESSION['error'] = 'Ошибка!';
+						redirect(); // перезапрашиваем страницу
+					}
+					$user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
+				}
+			}
 
-    // отображает вид корзины, если запрос пришел через ajax, или перенаправляет пользователя на предыдущую страницу
-    protected function show(){
-        // если запрос пришел асинхронно (ajax), загружаем вид корзины
-        if($this->isAjax()){
-            $this->showAction();
-        }
-        redirect(); // перезапрашиваем страницу, если данные пришли не ajax
-    }
+			// сохранение заказа
+			// сохраняем id пользователя (только что зарегистрированного или авторизованного)
+			$data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
+			$data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
+			$data['currency'] = $_SESSION['cart.currency']['code']; // валюта заказа
+			$data['sum'] = $_SESSION['cart.sum']; // сумма заказа
+			// email пользователя получаем из сессии (для авторизованного) или из данных формы регистрации
+			// $user_email = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
+			$data['user_email'] = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
+			new Order($data); // если в конструктор переданы данные, загружаем их в свойство $attributes и сохраняем в БД
+			// вариант 1 - статичные методы
+			/* $order_id = Order::saveOrder($data); // сохраняем заказ и получаем его id
+			Order::saveOrderProduct($order_id); // сохраняет продукты данного заказа
+			Order::mailOrder($order_id, $user_email); // отправляем письмо с информацией о заказе клиенту и администратору */
+			// вариант 2 - создание объекта и использование методов загрузки и созранения базовой модели
+			/* $order = new Order(); // объект заказа
+			$order->load($data); // загружаем полученные данные в модель
+			$order_id = $order->save(); // сохраняем заказ и получаем его id */
+		}
+		redirect(); // перезапрашиваем страницу
+	}
+
+	// экшен оплаты заказа
+	public function paymentAction(){
+		if(empty($_POST)){
+			die;
+		}
+
+		$dataSet = $_POST;
+
+		unset($dataSet['ik_sign']);
+		ksort($dataSet, SORT_STRING);
+		array_push($dataSet, App::$app->getProperty('ik_key'));
+		$signString = implode(':', $dataSet);
+		$sign = base64_encode(md5($signString, true));
+
+		$order = \R::load('order', (int)$dataSet['ik_pm_no']);
+		if(!$order) die;
+
+		if($dataSet['ik_co_id'] != App::$app->getProperty('ik_id') || $dataSet['ik_inv_st'] != 'success' || $dataSet['ik_am'] != $order->sum || $sign != $_POST['ik_sign']){
+			die;
+		}
+
+		$order->status = '2';
+		\R::store($order);
+		die;
+	}
 
 }
