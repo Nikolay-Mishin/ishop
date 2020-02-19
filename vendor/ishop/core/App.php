@@ -26,8 +26,9 @@ class App{
     }
 
     // метод для преобразования массива в объект (stdClass Object)
-    public static function arrayToObject($data){
+    public static function dataDecode($data, $output = null){
         $data_type = gettype($data); // получаем тип переданных данных
+        if($data_type == $output) return $data;
         $isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
         $json = json_encode($data); // кодируем данные в json
         return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)

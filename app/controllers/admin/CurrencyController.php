@@ -111,7 +111,7 @@ class CurrencyController extends AppController{
         $date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
         if(!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл
         if(!$xml = simplexml_load_string($file)) return false; // получаем содержимое файла в формате xml
-        $courses = App::arrayToObject($xml); // декодируем xml объект в массив
+        $courses = App::dataDecode($xml); // декодируем xml объект в массив
         $courses = $this->newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']], 'key');
         return $courses ?: false;
     }
