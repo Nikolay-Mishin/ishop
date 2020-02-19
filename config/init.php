@@ -1,7 +1,13 @@
 <?php
+
+class Init {
+    const DB_NAME = 'ishop';
+}
+
 // константы проекта
 
 define("DEBUG", 1); // режим отладки вкл/откл
+define("DB_NAME", 'ishop'); // имя базы данных
 define("ROOT", dirname(__DIR__)); // корень проекта
 define("WWW", ROOT . '/public'); // публичная папка доступная пользователю (все запросы перенаправляем на данную папку)
 define("APP", ROOT . '/app'); // папка проекта

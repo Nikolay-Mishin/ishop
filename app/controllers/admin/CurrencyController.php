@@ -105,7 +105,6 @@ class CurrencyController extends AppController{
     }
 
     // возвращает список всех курсов на текущую дату (если дата не передана)
-    // $date - '18.02.2020' или '18/02/2020'
     protected function getCourses($date = null){
         // если дата передана, форматируем ее
         $date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
