@@ -27,7 +27,7 @@ class OrderController extends AppController {
         $orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   JOIN `user` ON `order`.`user_id` = `user`.`id`
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
-  GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT $start, $perpage");
+  GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` LIMIT $start, $perpage");
 
         $this->setMeta('Список заказов');
         $this->set(compact('orders', 'pagination', 'count'));

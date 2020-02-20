@@ -125,16 +125,17 @@ class CartController extends AppController {
 						$_SESSION['error'] = 'Ошибка!';
 						redirect(); // перезапрашиваем страницу
 					}
-					$user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
+					// $user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
 				}
 			}
 
 			// сохранение заказа
 			// сохраняем id пользователя (только что зарегистрированного или авторизованного)
 			$data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
-			$data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
 			$data['currency'] = $_SESSION['cart.currency']['code']; // валюта заказа
 			$data['sum'] = $_SESSION['cart.sum']; // сумма заказа
+			$data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
+			$data['pay'] = !empty($_POST['pay']) ? $_POST['pay'] : false; // checkbox хочет ли пользователь сразу оплатить заказ
 			// email пользователя получаем из сессии (для авторизованного) или из данных формы регистрации
 			// $user_email = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
 			$data['user_email'] = isset($_SESSION['user']['email']) ? $_SESSION['user']['email'] : $_POST['email'];
@@ -153,28 +154,34 @@ class CartController extends AppController {
 
 	// экшен оплаты заказа
 	public function paymentAction(){
+		// если данные не пришли, прекращаем работу скрипта
 		if(empty($_POST)){
 			die;
 		}
 
-		$dataSet = $_POST;
+		$dataSet = $_POST; // записываем в переменную массив полученных данных
 
-		unset($dataSet['ik_sign']);
-		ksort($dataSet, SORT_STRING);
-		array_push($dataSet, App::$app->getProperty('ik_key'));
-		$signString = implode(':', $dataSet);
-		$sign = base64_encode(md5($signString, true));
+		unset($dataSet['ik_sign']); // удаляем из данных строку подписи
+		ksort($dataSet, SORT_STRING); // сортируем по ключам в алфавитном порядке элементы массива
+		array_push($dataSet, App::$app->getProperty('ik_key')); // добавляем в конец массива 'секретный ключ'
+		$signString = implode(':', $dataSet); // конкатенируем значения через символ ':'
+		$sign = base64_encode(md5($signString, true)); // берем MD5 хэш в бинарном виде и по сформированной строке и кодирем в BASE64
 
-		$order = \R::load('order', (int)$dataSet['ik_pm_no']);
-		if(!$order) die;
+		$order = \R::load('order', (int)$dataSet['ik_pm_no']); // получаем данные заказа по его номеру
+		if(!$order) die; // если заказ не получе, завершаем работу скрипта
 
-		if($dataSet['ik_co_id'] != App::$app->getProperty('ik_id') || $dataSet['ik_inv_st'] != 'success' || $dataSet['ik_am'] != $order->sum || $sign != $_POST['ik_sign']){
+		// валидируем полученные данные
+		// ik_co_id - id кассы
+		// ik_inv_st - состояние платежа
+		// ik_am - сумма заказа
+		// ik_sign - цифровая подпись
+		if($dataSet['ik_co_id'] != App::$app->getProperty('ik_id') || $dataSet['ik_inv_st'] != 'success' || $dataSet['ik_am'] != $order->sum || $_POST['ik_sign'] != $sign){
 			die;
 		}
 
-		$order->status = '2';
-		\R::store($order);
-		die;
+		$order->status = '2'; // меняем статус заказа на 'Оплачен'
+		\R::store($order); // сохраняем заказ
+		die; // прекращаем работу скрипта
 	}
 
 }

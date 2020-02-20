@@ -10,28 +10,23 @@ use Swift_SmtpTransport; // класс smtp-сервера
 
 class Order extends AppModel {
 
-	public $order_id; // id заказа
-	public $user_email; // email пользователя
-	public $sum; // сумма заказа
+	public $pay_form = '/payment/form.php'; // форма оплаты заказа
 
 	// аттрибуты модели (параметры/поля формы)
 	public $attributes = [
 		'user_id' => '',
 		'note' => '',
-		'currency' => ''
+		'currency' => '',
+		'sum' => ''
 	];
 
 	public function __construct($data){
 		parent::__construct($data); // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		$this->order_id = $this->id;
-		$this->user_email = $data['user_email'];
-		$this->sum = $data['sum'];
-		debug($data);
-		debug($_POST);
-		debug($this, 1);
+		// если заказ не сохранен, прекращаем работу метода
+		if(!$this->id) return false; // id сохраненного заказа
 		$this->saveOrderProduct(); // сохраняем продукты заказа
-		$this->paymentOrder(); // сохраняем продукты заказа
-		$this->mailOrder(); // отправляем письмо пользователю и администратору/менеджеру
+		// устанавливаем данные для оплаты заказа и отправляем письмо пользователю и администратору/менеджеру
+		$this->mailOrder($data['user_email'], $this->setPaymentData($data['pay']));
 	}
 
 	// сохраняет оформленный заказ
@@ -55,34 +50,31 @@ class Order extends AppModel {
 		foreach($_SESSION['cart'] as $product_id => $product){
 			$product_id = (int)$product_id; // приводим id товара к числу
 			// берем выражение в фигурные скобки {}, чтобы можно было в строке использовать элементы массив и свойства объекта
-			$sql_part .= "({$this->order_id}, $product_id, {$product['qty']}, '{$product['title']}', {$product['price']}),";
+			$sql_part .= "({$this->id}, $product_id, {$product['qty']}, '{$product['title']}', {$product['price']}),";
 		}
 		$sql_part = rtrim($sql_part, ','); // удаляем запятую справа - в конце строки (',')
 		// выполняем sql запрос
 		\R::exec("INSERT INTO order_product (order_id, product_id, qty, title, price) VALUES $sql_part");
 	}
 
-	// экшен оплаты заказа
-	public function paymentOrder(){
-		// данные для оплаты
-		if(!empty($_POST['pay'])){
-			$this->setPaymentData();
-			redirect(PATH . '/payment/form.php');
-		}
-		return false;
-	}
-
 	// метод устанавливает данные для оплаты заказа
-	protected function setPaymentData(){
-		if(isset($_SESSION['payment'])) unset($_SESSION['payment']);
-		$_SESSION['payment']['id'] = $this->order_id;
-		$_SESSION['payment']['curr'] = $_SESSION['cart.currency']['code'];
-		$_SESSION['payment']['sum'] = $_SESSION['cart.sum'];
+	protected function setPaymentData($pay){
+		// $pay - checkbox хочет ли пользователь сразу оплатить заказ
+		// данные для оплаты
+		if($pay){
+			if(isset($_SESSION['payment'])) unset($_SESSION['payment']);
+			$_SESSION['payment']['id'] = $this->id;
+			$_SESSION['payment']['curr'] = $_SESSION['cart.currency']['code'];
+			$_SESSION['payment']['sum'] = $_SESSION['cart.sum'];
+		}
+		return $pay;
 	}
 
 	// отправляет письмо с информацией о заказе клиенту и администратору/менеджеру
-	// public static function mailOrder($order_id, $user_email)
-	public function mailOrder(){
+	public function mailOrder($user_email, $pay){
+		// $user_email - почта пользователя для отправки письма
+		// $pay - checkbox хочет ли пользователь сразу оплатить заказ
+		if($pay) redirect(PATH . $this->pay_form); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
 		try{
 			// Create the Transport
 			// создаем объект smtp и передаем параметры для настройки smtp-сервера
@@ -102,14 +94,14 @@ class Order extends AppModel {
 
 			// письмо для клиента
 			// setFrom должно совпадать с setUsername в настройках smtp
-			$message_client = (new Swift_Message("Вы совершили заказ №{$this->order_id} на сайте " . App::$app->getProperty('shop_name')))
+			$message_client = (new Swift_Message("Вы совершили заказ №{$this->id} на сайте " . App::$app->getProperty('shop_name')))
 				->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')]) // от кого
-				->setTo($this->user_email) // кому
+				->setTo($user_email) // кому
 				->setBody($body, 'text/html') // тема
 			;
 
 			// письмо для администратора
-			$message_admin = (new Swift_Message("Сделан заказ №{$this->order_id}"))
+			$message_admin = (new Swift_Message("Сделан заказ №{$this->id}"))
 				->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
 				->setTo(App::$app->getProperty('admin_email'))
 				->setBody($body, 'text/html')
@@ -126,6 +118,8 @@ class Order extends AppModel {
 		Cart::clean(); // очищаем корзину
 		// выводим сообщение об успешном офрмлении заказа
 		$_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
+
+		if($pay) redirect(PATH . $this->pay_form); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
 	}
 
 }
