@@ -1,13 +1,17 @@
 /* отменяем перенос слов в таблице корзины */
 #cart table {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 .modal .quantity {
-    margin: 0;
+	margin: 0;
 }
 
 #cart-recalc {
-    /* display: none; */
-    float: right;
+	/* display: none; */
+	float: right;
+}
+
+.fa-eye {
+	color: #337ab7;
 }

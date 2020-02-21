@@ -35,8 +35,18 @@ class CategoryController extends AppController {
 		redirect();
 	}
 
+	// экшен отображения данных категории
+	public function viewAction(){
+		$id = $this->getRequestID(); // получаем id изменяемой категории
+		$category = \R::load('category', $id); // загружаем категорию из БД
+		App::$app->setProperty('parent_id', $category->parent_id); // записываем в реестр id родительской категории
+		$this->setMeta("Редактирование категории {$category->title}"); // устанавливаем мета-данные
+		$this->set(compact('category')); // передаем данные в вид
+	}
+
 	// экшен редактирования категории
 	public function editAction(){
+		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
 			$id = $this->getRequestID(false); // получаем id категории для редактирования
 			/*
@@ -62,12 +72,6 @@ class CategoryController extends AppController {
 			}
 			redirect();
 		}
-
-		$id = $this->getRequestID(); // получаем id изменяемой категории
-		$category = \R::load('category', $id); // загружаем категорию из БД
-		App::$app->setProperty('parent_id', $category->parent_id); // записываем в реестр id родительской категории
-		$this->setMeta("Редактирование категории {$category->title}"); // устанавливаем мета-данные
-		$this->set(compact('category')); // передаем данные в вид
 	}
 
 	// экшен добавления новой категории

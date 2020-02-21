@@ -175,7 +175,7 @@ class CartController extends AppController {
 		// ik_inv_st - состояние платежа
 		// ik_am - сумма заказа
 		// ik_sign - цифровая подпись
-		if($dataSet['ik_co_id'] != App::$app->getProperty('ik_id') || $dataSet['ik_inv_st'] != 'success' || $dataSet['ik_am'] != $order->sum || $_POST['ik_sign'] != $sign){
+		if($dataSet['ik_co_id'] != App::$app->getProperty('ik_id') || $dataSet['ik_inv_st'] != 'success' || $dataSet['ik_am'] != $order->sum || $dataSet['ik_cur'] != $order->currency || $_POST['ik_sign'] != $sign){
 			die;
 		}
 

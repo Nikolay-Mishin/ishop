@@ -74,10 +74,23 @@
                                 </thead>
                                 <tbody>
                                 <?php foreach($orders as $order): ?>
-                                    <?php $class = $order['status'] ? 'success' : ''; ?>
+                                    <?php
+                                    if($order['status'] == '1'){
+                                        $class = 'success';
+                                        $text = 'Завершен';
+                                    }elseif($order['status'] == '2'){
+                                        $class = 'info';
+                                        $text = 'Оплачен';
+                                    }else{
+                                        $class = '';
+                                        $text = 'Новый';
+                                    }
+                                    ?>
                                     <tr class="<?=$class;?>">
                                         <td><?=$order['id'];?></td>
-                                        <td><?=$order['status'] ? 'Завершен' : 'Новый';?></td>
+                                        <td>
+                                            <?=$text;?>
+                                        </td>
                                         <td><?=$order['sum'];?> <?=$order['currency'];?></td>
                                         <td><?=$order['date'];?></td>
                                         <td><?=$order['update_at'];?></td>

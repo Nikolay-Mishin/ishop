@@ -3,14 +3,13 @@
 
 namespace app\models;
 
+use app\models\Payment; // модель оплаты
 use ishop\App;
 use Swift_Mailer; // класс отправки писем
 use Swift_Message; // класс формирования писем
 use Swift_SmtpTransport; // класс smtp-сервера
 
 class Order extends AppModel {
-
-	public $pay_form = '/payment/form.php'; // форма оплаты заказа
 
 	// аттрибуты модели (параметры/поля формы)
 	public $attributes = [
@@ -26,7 +25,7 @@ class Order extends AppModel {
 		if(!$this->id) return false; // id сохраненного заказа
 		$this->saveOrderProduct(); // сохраняем продукты заказа
 		// устанавливаем данные для оплаты заказа и отправляем письмо пользователю и администратору/менеджеру
-		$this->mailOrder($data['user_email'], $this->setPaymentData($data['pay']));
+		$this->mailOrder($data['user_email'], Payment::setData($this->id, $data['pay']));
 	}
 
 	// сохраняет оформленный заказ
@@ -57,24 +56,11 @@ class Order extends AppModel {
 		\R::exec("INSERT INTO order_product (order_id, product_id, qty, title, price) VALUES $sql_part");
 	}
 
-	// метод устанавливает данные для оплаты заказа
-	protected function setPaymentData($pay){
-		// $pay - checkbox хочет ли пользователь сразу оплатить заказ
-		// данные для оплаты
-		if($pay){
-			if(isset($_SESSION['payment'])) unset($_SESSION['payment']);
-			$_SESSION['payment']['id'] = $this->id;
-			$_SESSION['payment']['curr'] = $_SESSION['cart.currency']['code'];
-			$_SESSION['payment']['sum'] = $_SESSION['cart.sum'];
-		}
-		return $pay;
-	}
-
 	// отправляет письмо с информацией о заказе клиенту и администратору/менеджеру
 	public function mailOrder($user_email, $pay){
 		// $user_email - почта пользователя для отправки письма
 		// $pay - checkbox хочет ли пользователь сразу оплатить заказ
-		if($pay) redirect(PATH . $this->pay_form); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
+		if($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
 		try{
 			// Create the Transport
 			// создаем объект smtp и передаем параметры для настройки smtp-сервера
@@ -119,7 +105,7 @@ class Order extends AppModel {
 		// выводим сообщение об успешном офрмлении заказа
 		$_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
 
-		if($pay) redirect(PATH . $this->pay_form); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
+		if($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
 	}
 
 }

@@ -27,6 +27,19 @@ class ProductController extends AppController {
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
 	}
 
+	// экшен отображения данных товара
+	public function viewAction(){
+		$id = $this->getRequestID(); //получем id товара
+		$product = \R::load('product', $id); // получаем данные товара из БД
+		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
+		$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
+		// получаем список связанных товаров
+		$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
+		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
+		$this->setMeta("Редактирование товара {$product->title}");
+		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
+	}
+
 	// экшен редактирования товара
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
@@ -51,6 +64,8 @@ class ProductController extends AppController {
 				// $product->editFilter($id, $data);
 				// $product->editRelatedProduct($id, $data);
 				// изменяем фильтры товара
+				$data['attrs'] = !empty($data['attrs']) ? $data['attrs'] : [];
+				$data['related'] = !empty($data['related']) ? $data['related'] : [];
 				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
 				// изменяем связанные товары
 				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
@@ -63,16 +78,6 @@ class ProductController extends AppController {
 				redirect();
 			}
 		}
-
-		$id = $this->getRequestID(); //получем id товара
-		$product = \R::load('product', $id); // получаем данные товара из БД
-		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
-		$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
-		// получаем список связанных товаров
-		$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
-		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
-		$this->setMeta("Редактирование товара {$product->title}");
-		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
 	}
 
 	// экшен добавления нового товара

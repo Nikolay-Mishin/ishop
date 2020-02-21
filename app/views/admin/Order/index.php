@@ -41,7 +41,6 @@
                                     $class = '';
                                     $text = 'Новый';
                                 }
-                                //$class = $order['status'] ? 'success' : '';
                                 ?>
                                 <tr class="<?=$class;?>">
                                     <td><?=$order['id'];?></td>

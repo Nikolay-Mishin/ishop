@@ -9,7 +9,7 @@ if(!$parent){
 ?>
 <!-- формируем ссылку с категорией -->
 <p class="item-p">
-    <a class="list-group-item" href="<?=ADMIN;?>/category/edit?id=<?=$id;?>"><?=$category['title'];?></a>
+    <a class="list-group-item" href="<?=ADMIN;?>/category/view?id=<?=$id;?>"><?=$category['title'];?></a>
     <span><?=$delete;?></span>
 </p>
 <!-- если есть потомки у данной категории, рекурсивно вызываем метод getMenuHtml и передаем ему параметром дерево потомков -->

@@ -15,11 +15,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <?=$this->getMeta();?>
     <!-- Vendor-Theme-files -->
     <!-- theme-style -->
+
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
     <!-- //theme-style -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
     <!--Custom-Theme-files-->
     <!--theme-style-->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -62,7 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <a class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php if(!empty($_SESSION['user'])): ?>
-                                <li><a href="#">Добро пожаловать, <?=h($_SESSION['user']['name']);?></a></li>
+                                <li><a href="user/cabinet">Добро пожаловать, <?=h($_SESSION['user']['name']);?></a></li>
                                 <li><a href="user/logout">Выход</a></li>
                             <?php else: ?>
                                 <li><a href="user/login">Вход</a></li>

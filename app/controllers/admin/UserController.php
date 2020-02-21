@@ -25,7 +25,7 @@ class UserController extends AppController {
 		$this->setMeta('Новый пользователь');
 	}
 
-	// экшен редактирования пользователя
+	// экшен отображения данных пользователя
 	public function viewAction(){
 		$user_id = $this->getRequestID(); // получаем id пользователя
 		$user = \R::load('user', $user_id); // загружаем данные пользователя из БД
@@ -40,7 +40,7 @@ class UserController extends AppController {
 		// получаем заказы данного пользователя
 		$orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
-  WHERE user_id = {$user_id} GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT $start, $perpage");
+  WHERE user_id = {$user_id} GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage");
 		
 		$this->setMeta('Редактирование профиля пользователя');
 		$this->set(compact('user', 'orders', 'pagination', 'count'));
