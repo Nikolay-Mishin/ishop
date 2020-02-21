@@ -11,7 +11,6 @@ class PaymentController extends AppController {
 		if(!empty($_POST)) Payment::setData($_POST);
 		$pay = Payment::getData();
 		if(!$pay) redirect('/payment/error');
-		Payment::deleteData();
 		$this->setMeta("Оплата заказа №{$pay['id']}"); // устанавливаем мета-данные
 		$this->set(compact('pay')); // передаем данные в вид
 	}

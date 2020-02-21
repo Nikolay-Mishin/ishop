@@ -14,6 +14,7 @@ return [
 	'img_height' => 200,
 	'gallery_width' => 700,
 	'gallery_height' => 1000,
+	'ik_url' => '/payment/success', // url для отправки запроса для оплаты https://sci.interkassa.com/
 	'ik_key' => 'uc18larViw9UYbsa', // секретный ключ
 	'ik_id' => '59bf6fc03d1eaf2e638b4569', // id кассы
 ];
