@@ -14,8 +14,9 @@ class View {
     public $layout;
     public $data = [];
     public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
+    public $canonical;
 
-    public function __construct($route, $layout = '', $view = '', $meta){
+    public function __construct($route, $layout = '', $view = '', $meta, $canonical){
         // $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
         // $view - вид для отображения
         $this->route = $route;
@@ -24,6 +25,7 @@ class View {
         $this->model = $route['controller'];
         $this->prefix = $route['prefix'];
         $this->meta = $meta;
+        $this->canonical = $canonical;
         // если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
         if($layout === false){
             $this->layout = false;
@@ -69,6 +71,13 @@ class View {
         $output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
         $output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
         return $output;
+    }
+
+    // возвращает готовую разметку с канонической ссылкой
+    public function getCanonical(){
+        // разметку для вывода в шаблон запишем в переменную и вернем ее
+        // PHP_EOL - перенос строк
+        return $this->canonical ? '<link rel="canonical" href="' . $this->canonical . '">' : '';
     }
 
 }

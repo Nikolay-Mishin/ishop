@@ -25,6 +25,7 @@ class MainController extends AppController {
         // заполняем мета-данные для данного контроллера
         // 'Главная страница' - можно использовать App::$app->getProperty('shop_name') | use ishop\App
         $this->setMeta('Главная страница', 'Описание...', 'Ключевики...');
+        $this->setCanonical(PATH);
         
         // заполняем данные для данного контроллера (передаем массив с данными)
         // ['name' => 'John', 'age' => 30, 'names' => ['Andrey', 'Jane',]]

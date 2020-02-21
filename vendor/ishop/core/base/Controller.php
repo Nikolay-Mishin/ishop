@@ -14,6 +14,7 @@ abstract class Controller{
     public $layout; // шаблон
     public $data = []; // обычные данные (контент)
     public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (задаем по умолчанию пустые значения для индексов)
+    public $canonical = ''; // каноническая ссылка
 
     public function __construct($route){
         $this->route = $route;
@@ -25,7 +26,7 @@ abstract class Controller{
 
     // получает объект вида и вызывает рендер
     public function getView(){
-        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta); // объект класса Вида
+        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta, $this->canonical); // объект класса Вида
         $viewObject->render($this->data); // вызов метода для рендера и передаем данные из контроллера в вид
     }
 
@@ -39,6 +40,11 @@ abstract class Controller{
         $this->meta['title'] = h($title); // заголовок
         $this->meta['desc'] = h($desc); // описание
         $this->meta['keywords'] = h($keywords); // ключевые слова
+    }
+
+    // задает каноническую ссылку
+    public function setCanonical($url = ''){
+        $this->canonical = h($url); // каноническая ссылка
     }
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)

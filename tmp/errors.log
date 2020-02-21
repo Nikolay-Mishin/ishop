@@ -616,3 +616,5 @@
 =================
 [2020-02-21 21:57:39] Текст ошибки: Class 'App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\views\Payment\pay.php | Строка: 4
 =================
+[2020-02-21 22:38:18] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
