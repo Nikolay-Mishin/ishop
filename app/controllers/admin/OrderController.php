@@ -55,7 +55,11 @@ class OrderController extends AppController {
     public function deleteAction(){
         $order_id = $this->getRequestID(); // получаем id заказа
         $order = \R::load('order', $order_id); // получаем данные заказа по его id
+        $order_products = \R::findAll('order_product', 'order_id = ?', [$order_id]); // получаем данные товаров заказа по его id
         \R::trash($order); // удаляем заказ
+        foreach($order_products as $order_product){
+            \R::trash($order_product); // удаляем товары заказа
+        }
         $_SESSION['success'] = 'Заказ удален';
         redirect(ADMIN . '/order'); // перенаправляем на страницу списка заказов
     }
