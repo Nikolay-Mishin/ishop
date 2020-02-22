@@ -652,3 +652,21 @@
 =================
 [2020-02-22 21:34:05] Текст ошибки: Class 'app\models\admin\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Currency.php | Строка: 70
 =================
+[2020-02-23 00:01:03] Текст ошибки: Too few arguments to function app\models\admin\Currency::__construct(), 0 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php on line 38 and at least 1 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Currency.php | Строка: 33
+=================
+[2020-02-23 00:01:03] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-23 00:01:28] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin/Currency/edit.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
+=================
+[2020-02-23 00:04:04] Текст ошибки: SQLSTATE[01000]: Warning: 1265 Data truncated for column 'base' at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-23 00:05:57] Текст ошибки: SQLSTATE[01000]: Warning: 1265 Data truncated for column 'base' at row 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-23 00:09:02] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: 'INF' for column `ishop`.`currency`.`value` at row 4 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-23 00:09:20] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: 'INF' for column `ishop`.`currency`.`value` at row 4 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-23 00:09:36] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect double value: 'INF' for column `ishop`.`currency`.`value` at row 4 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-23 00:38:51] Текст ошибки: Call to protected method app\models\admin\Currency::checkChangeCourse() from context 'app\controllers\admin\CurrencyController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 11
+=================

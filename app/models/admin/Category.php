@@ -6,9 +6,9 @@ use app\models\Category as Cat;
 
 class Category extends Cat{
 
-	public function __construct($data, $attrs, $action = 'save', $actionAttrs = []){
+	public function __construct($data, $action = 'save', $attrs = []){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $action, $actionAttrs);
+		parent::__construct($data, $action, $attrs);
 		/*
 		$this->load($data); // загружаем категорию из БД
 		// валидируем данные из формы
@@ -17,29 +17,14 @@ class Category extends Cat{
 			redirect();
 		}
 		*/
-		// Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`
-		call_user_func_array(array($this, $action.'Data'), $attrs);
-	}
-
-	// обновляет данные категории
-	public function updateData($title){
-		// if($this->update('category', $id)){
-		if($id = $this->id){
-			self::updateAlias($title, $id); // создаем алиас для категории на основе ее названия и id
-			$_SESSION['success'] = 'Изменения сохранены';
-		}
-		redirect();
-	}
-
-	// добавляет данные категории
-	public function saveData($title){
 		// сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
-	    // if($id = $this->save('category')){
-	    if($id = $this->id){
-		    self::updateAlias($title, $id); // создаем алиас для категории на основе ее названия и id
-		    $_SESSION['success'] = 'Категория добавлена';
-	    }
-	    redirect();
+		// if($this->update('save')){
+		// if($this->update('category', $id)){
+		if($this->id){
+			self::updateAlias($data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
+			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Категория добавлена';
+			redirect();
+		}
 	}
 
 	// получаем из БД категорию по id

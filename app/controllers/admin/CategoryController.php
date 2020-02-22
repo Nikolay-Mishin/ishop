@@ -2,7 +2,6 @@
 
 namespace app\controllers\admin;
 
-use app\models\AppModel;
 use app\models\admin\Category;
 use ishop\App;
 
@@ -30,7 +29,7 @@ class CategoryController extends AppController {
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			new Category($_POST, [$_POST['title']], 'update', [$this->getRequestID(false)]); // объект категории
+			new Category($_POST, 'update', [$this->getRequestID(false)]); // объект категории
 		}
 	}
 
@@ -38,7 +37,7 @@ class CategoryController extends AppController {
 	public function addAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			new Category($_POST, [$_POST['title']]); // объект категории
+			new Category($_POST); // объект категории
 		}
 		$this->setMeta('Новая категория');
 	}

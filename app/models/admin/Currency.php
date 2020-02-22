@@ -30,6 +30,18 @@ class Currency extends AppModel{
 		],
 	];
 
+	public function __construct($data, $action = 'save', $attrs = []){
+		$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
+		$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
+		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+		parent::__construct($data, $action, $attrs);
+		// сохраняем валюту в БД
+		if($this->id){
+			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Валюта добавлена';
+			redirect();
+		}
+	}
+
 	// получаем список валют
 	public static function getAll(){
 		return \R::findAll('currency');
@@ -47,6 +59,35 @@ class Currency extends AppModel{
 		redirect();
 	}
 
+	// возвращает список курсов по кодам переданных валют
+	public static function updateCourse($changeTitle = false){
+		$currencies = self::getAll();// получаем список валют
+		$courses = self::getCoursesByCode(self::getCodeList()); // получаем список курсов для активных валют
+		foreach ($currencies as $currency){
+			// если валюта является небазовой, сравниваем ее значение с текущим курсом
+			if ($currency->base == '0'){
+				$course = $courses[$currency->code]; // текущий курс данной валюты
+				$value = self::getValue($course['Value']); // значение курса валюты для пересчета цен
+				// для небазовых валют, присутствующих в списке курсов валют (code является одним из ключей массива $courses)
+				// приверяем разницу между текущим курсом валюты и данным значением в БД
+				if ($course['Value'] != $currency->course || $value != $currency->value){
+					$sql_part = 'value = ?, course = ?';
+					$arr = [$value, $course['Value'], $currency->code];
+					if($changeTitle && $course['Name'] != $currency->title){
+						$sql_part = 'value = ?, course = ?, title = ?';
+						$arr = [$value, $course['Value'], $course['Name'], $currency->code];
+					}
+					if(\R::exec("UPDATE currency SET $sql_part WHERE code = ?", $arr)){
+						$change = true;
+					}
+				}
+			}
+			if(!($change ?? false)) $currency->update_at = (new \DateTime($currency->update_at))->format('d-m-Y');
+		}
+		if($change ?? false) redirect(true);
+		return $currencies;
+	}
+
 	// метод получения списка с кодами активных валют
 	public static function getCodeList(){
 		return \R::getCol("SELECT code FROM currency");
@@ -55,22 +96,6 @@ class Currency extends AppModel{
 	// метод вычисления значения курса валюты для пересчета цен
 	public static function getValue($course){
 		return round(1 / $course, CURRENCY_ROUND);
-	}
-
-	// возвращает список курсов по кодам переданных валют
-	public static function updateCourse($course, $value, $currency){
-		// для небазовых валют, присутствующих в списке курсов валют (code является одним из ключей массива $courses)
-		// приверяем разницу между текущим курсом валюты и данным значением в БД
-		if ($course != $currency->course || $value != $currency->value){
-			$change = true;
-			$sql_part = 'value = ?, course = ?';
-			$arr = [$value, $course, $currency->code];
-			if($changeTitle && $courses[$currency->code]['Name'] != $currency->title){
-				$sql_part = 'value = ?, course = ?, title = ?';
-				$arr = [$value, $course, $courses[$currency->code]['Name'], $currency->code];
-			}
-			\R::exec("UPDATE currency SET $sql_part WHERE code = ?", $arr);
-		}
 	}
 
 	// возвращает список всех курсов на текущую дату (если дата не передана)
@@ -109,7 +134,7 @@ class Currency extends AppModel{
 	// создает новый массив на из переданного ассоциативного массива и ключа, по значению которого необходимо сформировать новые ключи
 	// сортирует массив в по ключам/значениям в зависимости от переданного типа $sort_key ('key'/'value')
 	// $sort_flag - флаги сортировки
-	public static  function newArray($array, $key = '', $patterns = [], $sort_key = '', $sort_flag = SORT_NATURAL){
+	public static function newArray($array, $key = '', $patterns = [], $sort_key = '', $sort_flag = SORT_NATURAL){
 		// формируем массив
 		$newArray = []; // новый массив
 		foreach ($array as $k => $v){
