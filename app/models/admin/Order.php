@@ -10,6 +10,10 @@ class Order extends AppModel {
 
 	public static $pagination; // пагинация
 	public static $count; // число заказов
+	private static $sql_part = "SELECT `order`*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  JOIN `user` ON `order`.`user_id` = `user`.`id`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`";
+	private static $where = "";
 
 	// получает заказы
 	public static function getAll($pagination = true, $perpage = 3){
@@ -18,6 +22,11 @@ class Order extends AppModel {
 		self::$count = \R::count('order'); // число заказов
 		self::$pagination = new Pagination($page, $perpage, self::$count); // пагинация
 		$start = self::$pagination->getStart(); // номер записи, с которого начинать выборку
+		debug("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  JOIN `user` ON `order`.`user_id` = `user`.`id`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
+  GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage");
+		debug(self::$sql_part . self::$where . self::getSqlGroup('DESC') . " LIMIT $start, $perpage");
 
 		// `order` - обрамляем обратными кавычками, чтобы избежать проблем с совпадением со служебными словами
 		// ROUND(SUM(`order_product`.`price`), 2) - округляем сумму до 2 знаков после запятой
@@ -31,6 +40,7 @@ class Order extends AppModel {
   JOIN `user` ON `order`.`user_id` = `user`.`id`
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage");
+		return \R::getAll(self::$sql_part . self::$where . self::getSqlGroup('DESC') . " LIMIT $start, $perpage");
 	}
 
 	// получает заказ
@@ -41,11 +51,23 @@ class Order extends AppModel {
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   WHERE `order`.`id` = ?
   GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1", [$order_id]);
+		self::$where = " WHERE `order`.`id` = ?";
+		// $order2 = \R::getRow(self::$sql_part . self::$where . self::getSqlGroup('DESC') . " LIMIT 1", [$order_id]);
+		debug("SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  JOIN `user` ON `order`.`user_id` = `user`.`id`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
+  WHERE `order`.`id` = ?
+  GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1");
+		debug(self::$sql_part . self::$where . self::getSqlGroup('DESC') . " LIMIT 1");
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);
 		}
 		return $order;
+	}
+
+	private static function getSqlGroup($sort = ''){
+		return " GROUP BY `order`.`id` ORDER BY `order`.`status` $sort, `order`.`id` $sort";
 	}
 
 	// удаляет заказ

@@ -670,3 +670,6 @@
 =================
 [2020-02-23 00:38:51] Текст ошибки: Call to protected method app\models\admin\Currency::checkChangeCourse() from context 'app\controllers\admin\CurrencyController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CurrencyController.php | Строка: 11
 =================
+[2020-02-23 01:13:45] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  ' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
