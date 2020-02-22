@@ -11,6 +11,9 @@ use Swift_SmtpTransport; // класс smtp-сервера
 
 class Order extends AppModel {
 
+	public static $pagination; // пагинация
+	public static $count; // число заказов
+
 	// аттрибуты модели (параметры/поля формы)
 	public $attributes = [
 		'user_id' => '',

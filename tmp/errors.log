@@ -622,3 +622,33 @@
 =================
 [2020-02-21 22:56:08] Текст ошибки: OODB Store requires a bean, got: array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\OODB.php | Строка: 119
 =================
+[2020-02-22 14:22:37] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\UserController.php | Строка: 145
+=================
+[2020-02-22 14:22:45] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\UserController.php | Строка: 145
+=================
+[2020-02-22 14:22:54] Текст ошибки: Метод app\controllers\UserController::ordesAction не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 45
+=================
+[2020-02-22 19:30:55] Текст ошибки: Class 'app\models\Pagination' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\Order.php | Строка: 39
+=================
+[2020-02-22 19:46:05] Текст ошибки: Class 'app\models\admin\Order' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\OrderController.php | Строка: 12
+=================
+[2020-02-22 20:56:45] Текст ошибки: Call to undefined method app\models\Category::getById() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\CategoryController.php | Строка: 23
+=================
+[2020-02-22 21:08:34] Текст ошибки: Invalid type: Тестовая категория 3 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Util\DispenseHelper.php | Строка: 37
+=================
+[2020-02-22 21:09:55] Текст ошибки: Class 'app\models\admin\adminCategory' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Category.php | Строка: 39
+=================
+[2020-02-22 21:10:47] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-22 21:11:57] Текст ошибки: Class 'app\models\admin\AppModel' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Category.php | Строка: 53
+=================
+[2020-02-22 21:13:47] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '' for key 'alias' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-22 21:14:15] Текст ошибки: Identifier "22" does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 657
+=================
+[2020-02-22 21:14:41] Текст ошибки: Identifier "22" does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 657
+=================
+[2020-02-22 21:33:39] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Currency.php | Строка: 84
+=================
+[2020-02-22 21:34:05] Текст ошибки: Class 'app\models\admin\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Currency.php | Строка: 70
+=================
