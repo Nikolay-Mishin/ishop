@@ -8,7 +8,7 @@ use app\models\AppModel;
 class OrderProduct extends AppModel {
 
 	// получает товары заказа
-	public static function getByOrder($order_id){
+	public static function getByOrderId($order_id){
 		return \R::findAll('order_product', "order_id = ?", [$order_id]); // получаем данные товаров заказа по его id
 	}
 

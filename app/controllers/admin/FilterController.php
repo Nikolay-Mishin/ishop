@@ -57,8 +57,7 @@ class FilterController extends AppController{
 
     // экшен редактирования аттрибутов фильтров
     public function attributeViewAction(){
-        $attr = FilterAttr::getById($this->getRequestID()); // получаем данные фильтра из БД
-        $groups = FilterGroup::getAll(); // получаем данные групп фильтров из БД
+        list($attr, $groups) = [FilterAttr::getById($this->getRequestID()), FilterGroup::getAll()];
         $this->setMeta('Редактирование аттрибута'); // устанавливаем мета-данные
         $this->set(compact('attr', 'groups')); // передаем данные в вид
     }

@@ -20,9 +20,7 @@ class CurrencyController extends AppController{
 
     // экшен редактирования валют
     public function viewAction(){
-        $currency = Currency::getById($this->getRequestID()); // получаем валюту из БД
-        $courses = Currency::getCourses(); // получаем список всех курсов на текущую дату
-        $codeList = Currency::getCodeList(); // получаем список с кодами активных валют
+        list($currency, $courses, $codeList) = [Currency::getById($this->getRequestID()), Currency::getCourses(), Currency::getCodeList()];
         $this->setMeta("Редактирование валюты {$currency->title}"); // устанавливаем мета-данные
         $this->set(compact('currency', 'courses', 'codeList')); // передаем данные в вид
     }
@@ -41,8 +39,7 @@ class CurrencyController extends AppController{
         if(!empty($_POST)){
             new Currency($_POST); // объект модели валют
         }
-        $courses = Currency::getCourses(); // получаем список всех курсов на текущую дату
-        $codeList = Currency::getCodeList(); // получаем список с кодами активных валют
+        list($courses, $codeList) = [Currency::getCourses(), Currency::getCodeList()];
         $this->setMeta('Новая валюта'); // устанавливаем мета-данные
         $this->set(compact('courses', 'codeList')); // передаем данные в вид
     }

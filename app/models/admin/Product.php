@@ -50,11 +50,6 @@ class Product extends AppModel {
 	}
 
 	// получает общее число товаров
-	public static function getProps($id){
-		return [self::getById($id), self::$filter, self::$related_product, self::$gallery];
-	}
-
-	// получает общее число товаров
 	public static function getCount(){
 		return \R::count('product');
 	}

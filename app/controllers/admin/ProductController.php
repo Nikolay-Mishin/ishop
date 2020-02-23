@@ -10,16 +10,15 @@ class ProductController extends AppController {
 
 	// экшен отображения списка продуктов
 	public function indexAction(){
-		$products = Product::getAll(); // получаем список товаров
-		$pagination = Product::$pagination; // пагинация
+		// list — Присваивает переменным из списка значения подобно массиву
+		list($products, $pagination) = [Product::getAll(), Product::$pagination];
 		$this->setMeta('Список товаров'); // устанавливаем мета-данные
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
 	}
 
 	// экшен отображения данных товара
 	public function viewAction(){
-		// list — Присваивает переменным из списка значения подобно массиву
-		list($product, $filter, $related_product, $gallery) = Product::getProps($this->getRequestID());
+		list($product, $filter, $related_product, $gallery) = [Product::getById($this->getRequestID()), Product::$filter, Product::$related_product, Product::$gallery];
 		$this->setMeta("Редактирование товара {$product->title}");
 		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
 	}

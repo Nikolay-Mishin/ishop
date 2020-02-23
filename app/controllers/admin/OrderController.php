@@ -9,9 +9,7 @@ class OrderController extends AppController {
 
     // экшен просмотра страницы с заказами
     public function indexAction(){
-        $orders = Order::getAll(); // получаем заказы
-        $pagination = Order::$pagination; // пагинация
-        $count = Order::$count; // число заказов
+        list($orders, $pagination, $count) = [Order::getAll(), Order::$pagination, Order::$count];
         $this->setMeta('Список заказов');
         $this->set(compact('orders', 'pagination', 'count'));
     }
@@ -19,8 +17,7 @@ class OrderController extends AppController {
     // экшен для отображения вида отдельного заказа
     public function viewAction(){
         $order_id = $this->getRequestID(); // получаем id заказа
-        $order = Order::getById($order_id); // получаем данные заказа
-        $order_products = OrderProduct::getByOrder($order_id); // получаем данные товаров заказа по его id
+        list($order, $order_products) = [Order::getById($order_id), OrderProduct::getByOrderId($order_id)];
         $this->setMeta("Заказ №{$order_id}");
         $this->set(compact('order', 'order_products'));
     }

@@ -701,3 +701,5 @@
 =================
 [2020-02-23 19:53:46] Текст ошибки: Class 'app\models\admin\App' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 75
 =================
+[2020-02-23 20:14:26] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Order.php | Строка: 70
+=================
