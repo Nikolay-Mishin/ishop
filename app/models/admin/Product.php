@@ -39,13 +39,22 @@ class Product extends AppModel {
 		],
 	];
 
-	public function __construct($data, $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
+		// устанавливаем необходимые аттрибуты для модели
+		$data['status'] = $data['status'] ? '1' : '0';
+		$data['hit'] = $data['hit'] ? '1' : '0';
+		$this->getImg(); // получаем основную картинку
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
-		// сохраняем валюту в БД
-		if($this->id){
-			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Аттрибут добавлена';
-			redirect();
+		// сохраняем товар в БД
+		if($id = $this->id){
+			self::updateAlias('product', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
+			$this->saveGallery($id); // сохраняем галлерею
+			// изменяем фильтры товара
+			$this->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
+			// изменяем связанные товары
+			$this->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
+			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Товар добавлен';
 		}
 	}
 

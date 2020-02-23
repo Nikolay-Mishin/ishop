@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\models\admin\Product;
+use app\models\admin\Gallery;
 use app\models\AppModel;
 use ishop\App;
 
@@ -27,7 +28,10 @@ class ProductController extends AppController {
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			$id = $this->getRequestID(false);
+			new Product($_POST, [$this->getRequestID()], 'update'); // объект товара
+			redirect();
+			/*
+			$id = $this->getRequestID();
 			$product = new Product(); // объект товара
 			$data = $_POST; // данные из формы
 			$product->load($data); // загружаем данные в модель
@@ -44,22 +48,21 @@ class ProductController extends AppController {
 
 			// сохраняем продукт в БД
 			if($product->update($id)){
-				// $product->editFilter($id, $data);
-				// $product->editRelatedProduct($id, $data);
-				// изменяем фильтры товара
-				$data['attrs'] = !empty($data['attrs']) ? $data['attrs'] : [];
-				$data['related'] = !empty($data['related']) ? $data['related'] : [];
-				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
-				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
-				$product->saveGallery($id); // сохраняем галлерею
 				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
 				$product = \R::load('product', $id); // загружаем данные товара из БД
 				$product->alias = $alias; // записываем алиас в объект товара
 				\R::store($product); // сохраняем изменения в БД
+				$product->saveGallery($id); // сохраняем галлерею
+				// $product->editFilter($id, $data);
+				// $product->editRelatedProduct($id, $data);
+				// изменяем фильтры товара
+				$product->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
+				// изменяем связанные товары
+				$product->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
 				$_SESSION['success'] = 'Изменения сохранены';
-				redirect();
 			}
+			redirect();
+			*/
 		}
 	}
 
@@ -67,6 +70,9 @@ class ProductController extends AppController {
 	public function addAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
+			new Product($_POST); // объект товара
+			redirect();
+			/*
 			$product = new Product(); // объект товара
 			$data = $_POST; // данные из формы
 			$product->load($data); // загружаем данные в модель
@@ -84,42 +90,23 @@ class ProductController extends AppController {
 
 			// сохраняем продукт в БД
 			if($id = $product->save('product')){
-				$product->saveGallery($id); // сохраняем галлерею
 				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
 				$p = \R::load('product', $id); // загружаем данные товара из БД
 				$p->alias = $alias; // записываем алиас в объект товара
 				\R::store($p); // сохраняем изменения в БД
+				$product->saveGallery($id); // сохраняем галлерею
 				// изменяем фильтры товара
-				$product->editAttrs($id, $data['attrs'], 'attribute_product', 'product_id', 'attr_id');
+				debug($data['attrs']);
+				debug($data['related']);
+				$product->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
 				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'], 'related_product', 'product_id', 'related_id');
+				$product->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
 				$_SESSION['success'] = 'Товар добавлен';
 			}
 			redirect();
+			*/
 		}
-
 		$this->setMeta('Новый товар');
-	}
-
-	// экшен удаления картинок галлереи
-	public function deleteImageAction(){
-		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
-		$src = isset($_POST['src']) ? $_POST['src'] : null; // путь к картинке
-		$upload = isset($_POST['upload']) ? $_POST['upload'] : null; // тип загруженной картинки (single - базовая, multi - галлерея)
-		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
-		if(!$id || !$src || !$upload){
-			return;
-		}
-		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
-		switch($upload){
-			case 'single':
-				$this->deleteImg('product', $id); // удаляем картинку из БД
-				break;
-			case 'multi':
-				$this->deleteGallery('gallery', 'product_id', 'img', $id, $src); // удаляем картинку из БД
-				break;
-		}
-		return;
 	}
 
 	// экшен получения списка товаров из поискового запроса
@@ -174,27 +161,18 @@ class ProductController extends AppController {
 		}
 	}
 
-	// метод удаления базовой картинки из БД и с сервера
-	protected function deleteImg($table,$id){
-		$product = new Product(); // объект товара
-		$product = \R::load($table, $id); // загружаем данные товара из БД
-		$product->img = 'no_image.jpg'; // записываем путь к заглушке
-		// удаляем картинку из БД
-		if(\R::store($product)){
-			// @ - заглушка ошибок (с правами и тд)
-			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
-			exit('1'); // в качестве ответа отправляем '1'
+	// экшен удаления картинок галлереи
+	public function deleteImageAction(){
+		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
+		$src = isset($_POST['src']) ? $_POST['src'] : null; // путь к картинке
+		$upload = isset($_POST['upload']) ? $_POST['upload'] : null; // тип загруженной картинки (single - базовая, gallery - галлерея)
+		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
+		if(!$src || !$upload){
+			return;
 		}
-	}
-
-	// метод удаления картинок галлереи из БД и с сервера
-	protected function deleteGallery($table, $idCol, $srcCol, $id, $src){
-		// удаляем картинку из БД
-		if(\R::exec("DELETE FROM $table WHERE product_id = ? AND img = ?", [$id, $src])){
-			// @ - заглушка ошибок (с правами и тд)
-			@unlink(WWW . "/images/$src"); // удаляем картинку с сервера
-			exit('1'); // в качестве ответа отправляем '1'
-		}
+		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
+		$result = $id ? Gallery::{'delete'.AppModel::upperCamelCase($upload)}($id, $src) : Gallery::deleteImg($src);
+		exit("$result");
 	}
 
 }

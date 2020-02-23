@@ -6,6 +6,8 @@ use app\models\AppModel;
 
 class FilterAttr extends AppModel{
 
+	public $table = 'attribute_value';
+
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
 		'value' => '',
@@ -23,13 +25,12 @@ class FilterAttr extends AppModel{
 		]
 	];
 
-	public function __construct($data, $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем валюту в БД
 		if($this->id){
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Аттрибут добавлена';
-			redirect();
 		}
 	}
 

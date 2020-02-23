@@ -9,6 +9,7 @@ use Valitron\Validator; // класс Валидатора
 
 abstract class Model{
 
+	public $table = null;
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
@@ -22,6 +23,7 @@ abstract class Model{
 			// валидируем данные
 			if(!$this->validate($data)){
 				$this->getErrors(); // получаем список ошибок
+				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
 			}
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
@@ -50,13 +52,13 @@ abstract class Model{
 	}
 
 	// сохраняем данные в таблицу в БД
-	public function save($table = null, $valid = true){
-		$table = $table ?? $this->getTabelName(); // имя таблицы в БД
+	public function save(){
+		$this->table = $this->table ?? $this->getTabelName(); // имя таблицы в БД
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
-		$tbl = $valid ? \R::dispense($table) : \R::xdispense($table);
+		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
 		// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
 		foreach($this->attributes as $name => $value){
 			$tbl->$name = $value;
@@ -66,9 +68,9 @@ abstract class Model{
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update($id, $table = null){
-		$table = $table ?? $this->getTabelName(); // имя таблицы в БД
-		$bean = \R::load($table, $id); // получаем бин записи из БД (структуру объекта)
+	public function update($id){
+		$this->table = $this->table ?? $this->getTabelName(); // имя таблицы в БД
+		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;
@@ -105,22 +107,22 @@ abstract class Model{
 	}
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	protected function getTabelName(){
+	public function getTabelName(){
 		return self::lowerCamelCase($this->getModelName());
 	}
 
 	// возвращает короткое имя класса (app\models\User => User)
-	protected function getModelName(){
+	public function getModelName(){
 		return (new \ReflectionClass($this))->getShortName();
 	}
 
 	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
-	protected static function lowerCamelCase($name){
+	public static function lowerCamelCase($name){
 		// ThisMethodName => this_method_name
 		return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
 	}
 
-	protected static function upperCamelCase($name){
+	public static function upperCamelCase($name){
 		// this_method_name => ThisMethodName
 		return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
 	}

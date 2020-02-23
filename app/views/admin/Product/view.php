@@ -113,12 +113,12 @@
                                         <h3 class="box-title">Картинки галереи</h3>
                                     </div>
                                     <div class="box-body">
-                                        <div id="multi" class="btn btn-success" data-url="product/add-image" data-name="multi">Выбрать файл</div>
+                                        <div id="gallery" class="btn btn-success" data-url="product/add-image" data-name="gallery">Выбрать файл</div>
                                         <p><small>Рекомендуемые размеры: 700х1000</small></p>
-                                        <div class="multi">
+                                        <div class="gallery">
                                             <?php if(!empty($gallery)): ?>
                                                 <?php foreach($gallery as $item): ?>
-                                                    <img src="/images/<?=$item;?>" alt="" style="max-height: 150px; cursor: pointer;" data-id="<?=$product->id;?>" data-src="<?=$item;?>" data-upload="multi" class="del-item">
+                                                    <img src="/images/<?=$item;?>" alt="" style="max-height: 150px; cursor: pointer;" data-id="<?=$product->id;?>" data-src="<?=$item;?>" data-upload="gallery" class="del-item">
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </div>

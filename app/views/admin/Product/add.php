@@ -107,9 +107,9 @@
                                         <h3 class="box-title">Картинки галереи</h3>
                                     </div>
                                     <div class="box-body">
-                                        <div id="multi" class="btn btn-success" data-url="product/add-image" data-name="multi">Выбрать файл</div>
+                                        <div id="gallery" class="btn btn-success" data-url="product/add-image" data-name="gallery">Выбрать файл</div>
                                         <p><small>Рекомендуемые размеры: 700х1000</small></p>
-                                        <div class="multi"></div>
+                                        <div class="gallery"></div>
                                     </div>
                                     <div class="overlay">
                                         <i class="fa fa-refresh fa-spin"></i>

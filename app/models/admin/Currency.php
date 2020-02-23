@@ -30,7 +30,7 @@ class Currency extends AppModel{
 		],
 	];
 
-	public function __construct($data, $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
 		$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
 		$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
@@ -38,7 +38,6 @@ class Currency extends AppModel{
 		// сохраняем валюту в БД
 		if($this->id){
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Валюта добавлена';
-			redirect();
 		}
 	}
 

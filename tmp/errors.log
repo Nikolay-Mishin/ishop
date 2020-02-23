@@ -703,3 +703,23 @@
 =================
 [2020-02-23 20:14:26] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Order.php | Строка: 70
 =================
+[2020-02-23 21:29:41] Текст ошибки: Identifier "" does not conform to RedBeanPHP security policies. | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\QueryWriter\AQueryWriter.php | Строка: 657
+=================
+[2020-02-23 21:31:10] Текст ошибки: Invalid type: attribute_group | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Util\DispenseHelper.php | Строка: 37
+=================
+[2020-02-23 21:54:28] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\AppController.php | Строка: 34
+=================
+[2020-02-23 22:57:12] Текст ошибки: Too few arguments to function app\models\admin\Product::__construct(), 0 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\ProductController.php on line 152 and at least 1 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 42
+=================
+[2020-02-23 22:59:33] Текст ошибки: Too few arguments to function app\models\admin\Product::__construct(), 0 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\ProductController.php on line 152 and at least 1 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Product.php | Строка: 42
+=================
+[2020-02-23 23:09:30] Текст ошибки: Call to protected method ishop\base\Model::upperCamelCase() from context 'app\controllers\admin\ProductController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\ProductController.php | Строка: 101
+=================
+[2020-02-23 23:09:30] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-24 00:00:24] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin/Product/delete-image.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
+=================
+[2020-02-24 00:02:42] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin/Product/delete-image.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
+=================
+[2020-02-24 00:03:49] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin/Product/delete-image.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
+=================

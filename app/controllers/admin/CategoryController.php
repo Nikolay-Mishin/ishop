@@ -29,7 +29,8 @@ class CategoryController extends AppController {
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			new Category($_POST, [$this->getRequestID(false)], 'update'); // объект категории
+			new Category($_POST, [$this->getRequestID()], 'update'); // объект категории
+			redirect();
 		}
 	}
 
@@ -38,6 +39,7 @@ class CategoryController extends AppController {
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
 			new Category($_POST); // объект категории
+			redirect();
 		}
 		$this->setMeta('Новая категория');
 	}

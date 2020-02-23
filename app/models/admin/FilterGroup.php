@@ -6,6 +6,8 @@ use app\models\AppModel;
 
 class FilterGroup extends AppModel{
 
+	public $table = 'attribute_group';
+
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
 		'title' => '',
@@ -18,13 +20,12 @@ class FilterGroup extends AppModel{
 		],
 	];
 
-	public function __construct($data, $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем группу фильтров в БД
 		if($this->id){
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Группа добавлена';
-			redirect();
 		}
 	}
 

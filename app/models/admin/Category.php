@@ -6,7 +6,7 @@ use app\models\Category as Cat;
 
 class Category extends Cat{
 
-	public function __construct($data, $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		/*
@@ -21,9 +21,8 @@ class Category extends Cat{
 		// if($this->update('save')){
 		// if($this->update('category', $id)){
 		if($this->id){
-			self::updateAlias($data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
+			self::updateAlias('category', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Категория добавлена';
-			redirect();
 		}
 	}
 
@@ -35,15 +34,6 @@ class Category extends Cat{
 	// получаем из БД категорию по id
 	public static function getById($id){
 		return \R::load('category', $id); // получаем данную категорию из БД
-	}
-
-	// обновляет алиас категории
-	public static function updateAlias($title, $id, $col = 'alias'){
-		// создаем алиас для категории на основе ее названия и id
-		$alias = self::createAlias('category', $col, $title, $id);
-		$cat = self::getById($id); // загружаем из БД бин (bean - структура/свойства объекта) сохраненной категории
-		$cat->alias = $alias; // записываем алиас для данной категории
-		\R::store($cat); // сохраняем категорию в БД
 	}
 
 	// удаляет категорию
