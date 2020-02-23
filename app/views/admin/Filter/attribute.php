@@ -32,7 +32,7 @@
                                     <td><?=$item['value'];?></td>
                                     <td><?=$item['title'];?></td>
                                     <td>
-                                        <a href="<?=ADMIN;?>/filter/attribute-edit?id=<?=$id;?>"><i class="fa fa-fw fa-pencil"></i></a>
+                                        <a href="<?=ADMIN;?>/filter/attribute-view?id=<?=$id;?>"><i class="fa fa-fw fa-pencil"></i></a>
                                         <a class="delete text-danger" href="<?=ADMIN;?>/filter/attribute-delete?id=<?=$id;?>"><i class="fa fa-fw fa-close text-danger"></i></a>
                                     </td>
                                 </tr>

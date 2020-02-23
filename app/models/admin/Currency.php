@@ -30,16 +30,21 @@ class Currency extends AppModel{
 		],
 	];
 
-	public function __construct($data, $action = 'save', $attrs = []){
+	public function __construct($data, $attrs = [], $action = 'save'){
 		$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
 		$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $action, $attrs);
+		parent::__construct($data, $attrs, $action);
 		// сохраняем валюту в БД
 		if($this->id){
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Валюта добавлена';
 			redirect();
 		}
+	}
+
+	// получает общее число валют
+	public static function getCount(){
+		return \R::count('currency');
 	}
 
 	// получаем список валют

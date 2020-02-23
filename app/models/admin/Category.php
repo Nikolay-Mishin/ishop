@@ -6,9 +6,9 @@ use app\models\Category as Cat;
 
 class Category extends Cat{
 
-	public function __construct($data, $action = 'save', $attrs = []){
+	public function __construct($data, $attrs = [], $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $action, $attrs);
+		parent::__construct($data, $attrs, $action);
 		/*
 		$this->load($data); // загружаем категорию из БД
 		// валидируем данные из формы
@@ -25,6 +25,11 @@ class Category extends Cat{
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Категория добавлена';
 			redirect();
 		}
+	}
+
+	// получает общее число категорий
+	public static function getCount(){
+		return \R::count('category');
 	}
 
 	// получаем из БД категорию по id

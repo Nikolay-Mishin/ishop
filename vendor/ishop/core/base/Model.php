@@ -14,7 +14,7 @@ abstract class Model{
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
 
-	public function __construct($data = [], $action = 'save', $attrs = []){
+	public function __construct($data = [], $attrs = [], $action = 'save'){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
@@ -104,14 +104,14 @@ abstract class Model{
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
 	}
 
+	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
+	protected function getTabelName(){
+		return self::lowerCamelCase($this->getModelName());
+	}
+
 	// возвращает короткое имя класса (app\models\User => User)
 	protected function getModelName(){
 		return (new \ReflectionClass($this))->getShortName();
-	}
-
-	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	protected function getTabelName(){
-		return $this->lowerCamelCase($this->getModelName());
 	}
 
 	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)

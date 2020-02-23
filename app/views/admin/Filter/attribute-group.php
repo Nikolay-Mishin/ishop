@@ -29,7 +29,7 @@
                             <tr>
                                 <td><?=$item->title;?></td>
                                 <td>
-                                    <a href="<?=ADMIN;?>/filter/group-edit?id=<?=$item->id;?>"><i class="fa fa-fw fa-pencil"></i></a>
+                                    <a href="<?=ADMIN;?>/filter/group-view?id=<?=$item->id;?>"><i class="fa fa-fw fa-pencil"></i></a>
                                     <a class="delete text-danger" href="<?=ADMIN;?>/filter/group-delete?id=<?=$item->id;?>"><i class="fa fa-fw fa-close text-danger"></i></a>
                                 </td>
                             </tr>

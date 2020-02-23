@@ -31,7 +31,7 @@ class CurrencyController extends AppController{
     public function editAction(){
         // если получены данные из формы, обрабатываем их
         if(!empty($_POST)){
-            new Currency($_POST, 'update', [$this->getRequestID(false)]); // объект модели валют
+            new Currency($_POST, [$this->getRequestID(false)], 'update'); // объект модели валют
         }
     }
 

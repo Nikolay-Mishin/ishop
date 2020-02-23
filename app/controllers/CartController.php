@@ -125,7 +125,7 @@ class CartController extends AppController {
 						$_SESSION['error'] = 'Ошибка!';
 						redirect(); // перезапрашиваем страницу
 					}
-					// $user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
+					$user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
 				}
 			}
 

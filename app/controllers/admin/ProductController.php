@@ -5,37 +5,21 @@ namespace app\controllers\admin;
 use app\models\admin\Product;
 use app\models\AppModel;
 use ishop\App;
-use ishop\libs\Pagination;
 
 class ProductController extends AppController {
 
 	// экшен отображения списка продуктов
 	public function indexAction(){
-		/*
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
-		$perpage = 10; // число записей на 1 странице
-		$count = \R::count('product'); // число продуктов
-		$pagination = new Pagination($page, $perpage, $count, 'product'); // объект пагинации
-		$start = $pagination->getStart(); // иницилизируем объект пагинации
-		// получаем список продуктов для текущей страницы пагинации
-		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT $start, $perpage");
-		*/
-		$pagination = new Pagination(null, 10, null, 'product'); // объект пагинации
-		// получаем список товаров для текущей страницы пагинации
-		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title $pagination->limit");
+		$products = Product::getAll(); // получаем список товаров
+		$pagination = Product::$pagination; // пагинация
 		$this->setMeta('Список товаров'); // устанавливаем мета-данные
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
 	}
 
 	// экшен отображения данных товара
 	public function viewAction(){
-		$id = $this->getRequestID(); //получем id товара
-		$product = \R::load('product', $id); // получаем данные товара из БД
-		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
-		$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
-		// получаем список связанных товаров
-		$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
-		$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
+		// list — Присваивает переменным из списка значения подобно массиву
+		list($product, $filter, $related_product, $gallery) = Product::getProps($this->getRequestID());
 		$this->setMeta("Редактирование товара {$product->title}");
 		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
 	}

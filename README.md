@@ -71,7 +71,6 @@ foo::bar got three and four
 ##### Пример #2 Пример использования call_user_func_array() c именем пространства имен
 
 ```php
-
 namespace Foobar;
 
 class Foo {
@@ -85,17 +84,95 @@ call_user_func_array(__NAMESPACE__ .'\Foo::test', array('Hannes'));
 
 // Начиная с версии PHP 5.3.0
 call_user_func_array(array(__NAMESPACE__ .'\Foo', 'test'), array('Philip'));
-
 ```
 
-###### Результатом выполнения данного примера будет что-то подобное:
+###### Результатом выполнения данного примера будет:
 
 ```
 Hello Hannes!
 Hello Philip!
 ```
 
+### list
 
+https://www.php.net/manual/ru/function.list.php
+
+` list ( mixed $var1 [, mixed $... ] ) : array `
+
+`list` — Присваивает переменным из списка значения подобно массиву
+
+Подобно `array()`, это не функция, а языковая конструкция. `list()` используется для того, чтобы присвоить списку переменных значения за одну операцию.
+
+##### Пример #1 Примеры использования list()
+
+```php
+$info = array('кофе', 'коричневый', 'кофеин');
+
+// Составить список всех переменных
+list($drink, $color, $power) = $info;
+echo "$drink - $color, а $power делает его особенным.\n";
+
+// Составить список только некоторых из них
+list($drink, , $power) = $info;
+echo "В $drink есть $power.\n";
+
+// Или пропустить все, кроме третьей
+list( , , $power) = $info;
+echo "Мне нужен $power!\n";
+
+// list() не работает со строками
+list($bar) = "abcde";
+var_dump($bar); // NULL
+```
+
+##### Пример #2 Пример использования list()
+
+```php
+<table>
+ <tr>
+  <th>Имя работника</th>
+  <th>Зарплата</th>
+ </tr>
+
+<?php
+$result = $pdo->query("SELECT id, name, salary FROM employees");
+while (list($id, $name, $salary) = $result->fetch(PDO::FETCH_NUM)) {
+    echo " <tr>\n" .
+          "  <td><a href=\"info.php?id=$id\">$name</a></td>\n" .
+          "  <td>$salary</td>\n" .
+          " </tr>\n";
+}
+?>
+
+</table>
+```
+
+##### Пример #3 Использование list() с индексами массивов
+
+```php
+list($a, list($b, $c)) = array(1, array(2, 3));
+
+var_dump($a, $b, $c);
+```
+
+###### Результатом выполнения данного примера будет:
+```
+int(1)
+int(2)
+int(3)
+```
+
+##### Пример #4 Использование list() с индексами массива
+
+```php
+$info = array('кофе', 'коричневый', 'кофеин');
+
+list($a[0], $a[1], $a[2]) = $info;
+
+var_dump($a);
+```
+
+### Оглавление
 
 Урок 1.  Шаблон AdminLTE 
 

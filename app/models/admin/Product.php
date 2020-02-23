@@ -3,8 +3,15 @@
 namespace app\models\admin;
 
 use app\models\AppModel;
+use ishop\App;
+use ishop\libs\Pagination;
 
 class Product extends AppModel {
+
+	public static $pagination; // пагинация
+	public static $filter; // фильтры
+	public static $related_product; // связанные товары
+	public static $gallery; // галлерея
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
@@ -31,6 +38,61 @@ class Product extends AppModel {
 			['category_id'],
 		],
 	];
+
+	public function __construct($data, $attrs = [], $action = 'save'){
+		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+		parent::__construct($data, $attrs, $action);
+		// сохраняем валюту в БД
+		if($this->id){
+			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Аттрибут добавлена';
+			redirect();
+		}
+	}
+
+	// получает общее число товаров
+	public static function getProps($id){
+		return [self::getById($id), self::$filter, self::$related_product, self::$gallery];
+	}
+
+	// получает общее число товаров
+	public static function getCount(){
+		return \R::count('product');
+	}
+
+	// получаем список товаров
+	public static function getAll($pagination = true, $perpage = 10){
+		/*
+		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
+		$perpage = 10; // число записей на 1 странице
+		$count = \R::count('product'); // число продуктов
+		$pagination = new Pagination($page, $perpage, $count, 'product'); // объект пагинации
+		$start = $pagination->getStart(); // иницилизируем объект пагинации
+		// получаем список продуктов для текущей страницы пагинации
+		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT $start, $perpage");
+		*/
+		self::$pagination = new Pagination(null, $perpage, null, 'product'); // объект пагинации
+		// получаем список товаров для текущей страницы пагинации
+		return \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title " . self::$pagination->limit);
+	}
+
+	// получаем данные товара из БД
+	public static function getById($id){
+		$product = \R::load('product', $id); // получаем данные товара из БД
+		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
+		self::$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара
+		// получаем список связанных товаров
+		self::$related_product = \R::getAll("SELECT related_product.related_id, product.title FROM related_product JOIN product ON product.id = related_product.related_id WHERE related_product.product_id = ?", [$id]);
+		self::$gallery = \R::getCol('SELECT img FROM gallery WHERE product_id = ?', [$id]); // получаем галлерею
+		return $product;
+	}
+
+	// удаляет товар
+	public static function delete($id){
+		\R::exec("DELETE FROM attribute_product WHERE attr_id = ?", [$id]); // удаляем фильтр из списка фильтров товаров
+		\R::exec("DELETE FROM attribute_value WHERE id = ?", [$id]); // удаляем фильтр из БД
+		$_SESSION['success'] = 'Удалено';
+		redirect();
+	}
 
 	// метод изменения товара
 	public function editAttrs($id, $data, $table, $condition, $attr_id){
