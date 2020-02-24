@@ -10,12 +10,12 @@ class Order extends AppModel {
 
 	public static $pagination; // пагинация
 	public static $count; // число заказов
-	private static $sql_part = "SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
-  JOIN `user` ON `order`.`user_id` = `user`.`id`
-  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`";
+	private static $sql_part = 'SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`';
+	private static $join = 'JOIN `user` ON `order`.`user_id` = `user`.`id`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`';
 	private static $where = '';
 	private static $sort = '';
-	private static $limit = 1;
+	private static $limit = ' LIMIT 1';
 
 	// получает общее число заказов
 	public static function getCount(){
@@ -29,12 +29,6 @@ class Order extends AppModel {
 
 	// получает заказы
 	public static function getAll($pagination = true, $perpage = 3){
-		// $perpage - число записей на 1 странице
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // номер текущей страницы
-		self::$count = \R::count('order'); // число заказов
-		self::$pagination = new Pagination($page, $perpage, self::$count); // пагинация
-		$start = self::$pagination->getStart(); // номер записи, с которого начинать выборку
-
 		// `order`* => `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`
 		/* "SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   JOIN `user` ON `order`.`user_id` = `user`.`id`
@@ -51,20 +45,22 @@ class Order extends AppModel {
 		// GROUP BY `order`.`id` - группируем по id заказа
 		// ORDER BY `order`.`status`, `order`.`id` - сортируем по статусу и id заказа
 		// LIMIT $start, $perpage - ограничиваем выборку для вывода пагинации
-		return \R::getAll(self::getSql('', 'DESC', "$start, $perpage"));
+		self::$pagination = new Pagination(null, $perpage, null, 'order'); // объект пагинации
+		self::$sort = 'DESC';
+		self::$limit = self::$pagination->limit;
+		return \R::getAll(self::getSql());
 	}
 
 	// получает заказ
-	public static function getById($order_id){
-		// получаем данные заказа
+	public static function getById($id){
 		// `order`* => `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`
 		/* "SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   JOIN `user` ON `order`.`user_id` = `user`.`id`
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   WHERE `order`.`id` = ?
   GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1"; */
-		// self::$where = 'WHERE `order`.`id` = ?';
-		$order = \R::getRow(self::getSql('WHERE `order`.`id` = ?'), [$order_id]);
+		self::$where = 'WHERE `order`.`id` = ?';
+		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);
@@ -72,29 +68,44 @@ class Order extends AppModel {
 		return $order;
 	}
 
-	private static function getSql($where = '', $sort = '', $limit = 1){
-		$where = $where ? PHP_EOL . $where : '';
-		return "SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
-  JOIN `user` ON `order`.`user_id` = `user`.`id`
-  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id` $where
-  GROUP BY `order`.`id` ORDER BY `order`.`status` $sort, `order`.`id` $sort LIMIT $limit";
+	// получает заказы пользователя
+	public static function getByUserId($id, $limit = ''){
+		/*
+		"SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
+  WHERE user_id = {$id} GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage"
+		*/
+		self::$join = 'JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`';
+		self::$where = "WHERE user_id = {$id}";
+		self::$sort = 'DESC';
+		self::$limit = $limit ? $limit : self::$limit;
+		return \R::getAll(self::getSql());
 	}
 
-	private static function getSql2(){
+	private static function getSql(){
+		/*
+		"SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  JOIN `user` ON `order`.`user_id` = `user`.`id`
+  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id` $where
+  GROUP BY `order`.`id` ORDER BY `order`.`status` $sort, `order`.`id` $sort LIMIT $limit"
+		*/
+		self::$join = self::$join ? PHP_EOL . self::$join : '';
 		self::$where = self::$where ? PHP_EOL . self::$where . PHP_EOL : PHP_EOL;
-		return self::$sql_part . self::$where.
-  "GROUP BY `order`.`id` ORDER BY `order`.`status` ".self::$sort.", `order`.`id` ".self::$sort." LIMIT ".self::$limit;
+		$sql = self::$sql_part . self::$join . self::$where.
+  "GROUP BY `order`.`id` ORDER BY `order`.`status` ".self::$sort.", `order`.`id`".self::$sort.self::$limit;
+		debug($sql);
+		return $sql;
 	}
 
 	// удаляет заказ
-	public static function delete($order_id){
-		\R::trash(\R::load('order', $order_id)); // получаем данные заказа по его id и удаляем заказ
+	public static function delete($id){
+		\R::trash(\R::load('order', $id)); // получаем данные заказа по его id и удаляем заказ
 		$_SESSION['success'] = 'Заказ удален';
 	}
 
 	// экшен изменения статуса заказа
-	public static function updateStatus($order_id, $status){
-		$order = \R::load('order', $order_id); // получаем данные заказа по его id
+	public static function updateStatus($id, $status){
+		$order = \R::load('order', $id); // получаем данные заказа по его id
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);

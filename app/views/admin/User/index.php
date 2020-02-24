@@ -41,10 +41,8 @@
                         </table>
                     </div>
                     <div class="text-center">
-                        <p>(<?=count($users);?> пользователей из <?=$count;?>)</p>
-                        <?php if($pagination->countPages > 1): ?>
-                            <?=$pagination;?>
-                        <?php endif; ?>
+                        <p>(<?=count($users);?> пользователей из <?=$pagination->total;?>)</p>
+                        <?=$pagination;?>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,6 @@ class ProductController extends AppController {
 
 	// экшен отображения списка продуктов
 	public function indexAction(){
-		// list — Присваивает переменным из списка значения подобно массиву
 		list($products, $pagination) = [Product::getAll(), Product::$pagination];
 		$this->setMeta('Список товаров'); // устанавливаем мета-данные
 		$this->set(compact('products', 'pagination')); // передаем данные в вид
@@ -30,39 +29,6 @@ class ProductController extends AppController {
 		if(!empty($_POST)){
 			new Product($_POST, [$this->getRequestID()], 'update'); // объект товара
 			redirect();
-			/*
-			$id = $this->getRequestID();
-			$product = new Product(); // объект товара
-			$data = $_POST; // данные из формы
-			$product->load($data); // загружаем данные в модель
-			// устанавливаем необходимые аттрибуты для модели
-			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
-			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
-			$product->getImg(); // получаем основную картинку
-
-			// валидируем данные
-			if(!$product->validate($data)){
-				$product->getErrors();
-				redirect();
-			}
-
-			// сохраняем продукт в БД
-			if($product->update($id)){
-				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
-				$product = \R::load('product', $id); // загружаем данные товара из БД
-				$product->alias = $alias; // записываем алиас в объект товара
-				\R::store($product); // сохраняем изменения в БД
-				$product->saveGallery($id); // сохраняем галлерею
-				// $product->editFilter($id, $data);
-				// $product->editRelatedProduct($id, $data);
-				// изменяем фильтры товара
-				$product->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
-				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
-				$_SESSION['success'] = 'Изменения сохранены';
-			}
-			redirect();
-			*/
 		}
 	}
 
@@ -72,39 +38,6 @@ class ProductController extends AppController {
 		if(!empty($_POST)){
 			new Product($_POST); // объект товара
 			redirect();
-			/*
-			$product = new Product(); // объект товара
-			$data = $_POST; // данные из формы
-			$product->load($data); // загружаем данные в модель
-			// устанавливаем необходимые аттрибуты для модели
-			$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
-			$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
-			$product->getImg(); // получаем основную картинку
-
-			// валидируем данные
-			if(!$product->validate($data)){
-				$product->getErrors();
-				$_SESSION['form_data'] = $data;
-				redirect();
-			}
-
-			// сохраняем продукт в БД
-			if($id = $product->save('product')){
-				$alias = AppModel::createAlias('product', 'alias', $data['title'], $id); // создаем алиас товара
-				$p = \R::load('product', $id); // загружаем данные товара из БД
-				$p->alias = $alias; // записываем алиас в объект товара
-				\R::store($p); // сохраняем изменения в БД
-				$product->saveGallery($id); // сохраняем галлерею
-				// изменяем фильтры товара
-				debug($data['attrs']);
-				debug($data['related']);
-				$product->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
-				// изменяем связанные товары
-				$product->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
-				$_SESSION['success'] = 'Товар добавлен';
-			}
-			redirect();
-			*/
 		}
 		$this->setMeta('Новый товар');
 	}
@@ -149,15 +82,6 @@ class ProductController extends AppController {
 			// получаем необходимые значения из контейнера приложения
 			$wmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_width' : 'gallery_width');
 			$hmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_height' : 'gallery_height');
-			/*
-			if($_POST['name'] == 'single'){
-				$wmax = App::$app->getProperty('img_width');
-				$hmax = App::$app->getProperty('img_height');
-			}else{
-				$wmax = App::$app->getProperty('gallery_width');
-				$hmax = App::$app->getProperty('gallery_height');
-			}
-			*/
 			Gallery::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
 		}
 	}

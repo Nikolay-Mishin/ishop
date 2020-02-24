@@ -2,7 +2,14 @@
 
 namespace app\models\admin;
 
-class User extends \app\models\User {
+use app\models\User as baseUser;
+use app\models\admin\Order; // модель заказа
+use ishop\libs\Pagination;
+
+class User extends baseUser {
+
+	public static $pagination; // пагинация
+	public static $orders; // заказы пользователя
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
@@ -31,6 +38,35 @@ class User extends \app\models\User {
 	// получает общее число пользователей
 	public static function getCount(){
 		return \R::count('user');
+	}
+
+	// получаем список пользователей
+	public static function getAll($pagination = true, $perpage = 3){
+		/*
+		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
+		$perpage = 3; // число записей на 1 странице
+		$count = \R::count('user'); // число пользователей
+		$pagination = new Pagination($page, $perpage, $count); // объект пагинации
+		$start = $pagination->getStart(); // иницилизируем объект пагинации
+		$users = \R::findAll('user', "LIMIT $start, $perpage"); // получаем список пользователей для текущей страницы пагинации
+		*/
+		self::$pagination = new Pagination(null, $perpage, null, 'user'); // объект пагинации
+		return \R::findAll('user', self::$pagination->limit); // получаем список пользователей для текущей страницы пагинации
+	}
+
+	// получаем данные пользователя из БД
+	public static function getById($id, $pagination = true, $perpage = 3){
+		/*
+		// пагинация заказов пользователя
+		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
+		$perpage = 3; // число записей на 1 странице
+		$count = \R::count('order', 'user_id = ?', [$user_id]); // считаем число заказов данного пользователя
+		$pagination = new Pagination($page, $perpage, $count); // объект пагинации
+		$start = $pagination->getStart(); // иницилизируем объект пагинации
+		*/
+		self::$pagination = new Pagination(null, $perpage, null, 'user'); // объект пагинации
+		self::$orders = Order::getByUserId($id, self::$pagination->limit); // получаем заказы данного пользователя
+		return \R::load('user', $id); // загружаем данные пользователя из БД
 	}
 
 	// переопределяем метод родительской модели для проверки уникальных полей с данными

@@ -9,9 +9,9 @@ class OrderController extends AppController {
 
     // экшен просмотра страницы с заказами
     public function indexAction(){
-        list($orders, $pagination, $count) = [Order::getAll(), Order::$pagination, Order::$count];
+        list($orders, $pagination) = [Order::getAll(), Order::$pagination];
         $this->setMeta('Список заказов');
-        $this->set(compact('orders', 'pagination', 'count'));
+        $this->set(compact('orders', 'pagination'));
     }
 
     // экшен для отображения вида отдельного заказа

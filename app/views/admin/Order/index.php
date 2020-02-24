@@ -56,10 +56,8 @@
                         </table>
                     </div>
                     <div class="text-center">
-                        <p>(<?=count($orders);?> заказа(ов) из <?=$count;?>)</p>
-                        <?php if($pagination->countPages > 1): ?>
-                            <?=$pagination;?>
-                        <?php endif; ?>
+                        <p>(<?=count($orders);?> заказа(ов) из <?=$pagination->total;?>)</p>
+                        <?=$pagination;?>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,8 @@
 
 namespace app\controllers\admin;
 
-use app\models\User;
+use app\models\admin\User;
+use app\models\User as baseUser;
 use ishop\libs\Pagination;
 
 // Контроллер авторизации админа
@@ -10,14 +11,10 @@ class UserController extends AppController {
 
 	// экшен просмотра списка пользователей
 	public function indexAction(){
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
-		$perpage = 3; // число записей на 1 странице
-		$count = \R::count('user'); // число пользователей
-		$pagination = new Pagination($page, $perpage, $count); // объект пагинации
-		$start = $pagination->getStart(); // иницилизируем объект пагинации
-		$users = \R::findAll('user', "LIMIT $start, $perpage"); // получаем список пользователей для текущей страницы пагинации
+		// list — Присваивает переменным из списка значения подобно массиву
+		list($users, $pagination) = [User::getAll(), User::$pagination];
 		$this->setMeta('Список пользователей'); // устанавливаем мета-данные
-		$this->set(compact('users', 'pagination', 'count')); // передаем данные в вид
+		$this->set(compact('users', 'pagination')); // передаем данные в вид
 	}
 
 	// экшен добавления нового пользователя
@@ -27,23 +24,9 @@ class UserController extends AppController {
 
 	// экшен отображения данных пользователя
 	public function viewAction(){
-		$user_id = $this->getRequestID(); // получаем id пользователя
-		$user = \R::load('user', $user_id); // загружаем данные пользователя из БД
-
-		// пагинация заказов пользователя
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
-		$perpage = 3; // число записей на 1 странице
-		$count = \R::count('order', 'user_id = ?', [$user_id]); // считаем число заказов данного пользователя
-		$pagination = new Pagination($page, $perpage, $count); // объект пагинации
-		$start = $pagination->getStart(); // иницилизируем объект пагинации
-
-		// получаем заказы данного пользователя
-		$orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
-  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
-  WHERE user_id = {$user_id} GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage");
-		
+		list($user, $orders, $pagination) = [User::getById($this->getRequestID()), User::$orders, User::$pagination];
 		$this->setMeta('Редактирование профиля пользователя');
-		$this->set(compact('user', 'orders', 'pagination', 'count'));
+		$this->set(compact('user', 'orders', 'pagination'));
 	}
 
 	// экшен редактирования пользователя
@@ -51,7 +34,7 @@ class UserController extends AppController {
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
 			$id = $this->getRequestID(false); // получаем id пользователя
-			$user = new \app\models\admin\User(); // объект пользователя
+			$user = new User(); // объект пользователя
 			$data = $_POST; // даные из формы
 			$user->load($data); // загружаем данные из формы в объект
 			// если пароль не изменен, удаляем его из списка аттрибутов
@@ -78,7 +61,7 @@ class UserController extends AppController {
 	public function loginAdminAction(){
 		// если данные получены методом POST, обрабатываем их
 		if(!empty($_POST)){
-			$user = new User(); // объект пользователя
+			$user = new baseUser(); // объект пользователя
 			// при авторизации указываем флаг true для проверки роли пользователя (isAdmin)
 			if(!$user->login(true)){
 				$_SESSION['error'] = 'Логин/пароль введены неверно';

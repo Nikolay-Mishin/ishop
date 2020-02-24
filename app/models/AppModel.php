@@ -11,8 +11,7 @@ class AppModel extends Model{
 	public static function updateAlias($table, $title, $id, $col = 'alias'){
 		$alias = self::createAlias($table, $col, $title, $id); // создаем алиас на основе ее названия и id
 		// get_called_class — Имя класса, полученное с помощью позднего статического связывания
-		debug(get_called_class());
-		$model = self::getById($id); // загружаем из БД бин (bean - структура/свойства объекта)
+		$model = (get_called_class())::getById($id); // загружаем из БД бин (bean - структура/свойства объекта)
 		$model->alias = $alias; // записываем алиас для данной модели
 		\R::store($model); // сохраняем алиас в БД
 	}

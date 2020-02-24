@@ -65,15 +65,6 @@ class Product extends AppModel {
 
 	// получаем список товаров
 	public static function getAll($pagination = true, $perpage = 10){
-		/*
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
-		$perpage = 10; // число записей на 1 странице
-		$count = \R::count('product'); // число продуктов
-		$pagination = new Pagination($page, $perpage, $count, 'product'); // объект пагинации
-		$start = $pagination->getStart(); // иницилизируем объект пагинации
-		// получаем список продуктов для текущей страницы пагинации
-		$products = \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT $start, $perpage");
-		*/
 		self::$pagination = new Pagination(null, $perpage, null, 'product'); // объект пагинации
 		// получаем список товаров для текущей страницы пагинации
 		return \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title " . self::$pagination->limit);
