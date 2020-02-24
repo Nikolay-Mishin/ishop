@@ -774,3 +774,7 @@
 [2020-02-24 21:48:40] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'JOIN `user` ON `order`.`user_id` = `user`.`id`
 JOIN `order_product` ON `order`.' at line 2 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-24 23:39:06] Текст ошибки: Class 'app\controllers\admin\Product' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\UserController.php | Строка: 35
+=================
+[2020-02-24 23:43:03] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'user2' for key 'login' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================

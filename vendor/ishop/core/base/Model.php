@@ -15,13 +15,15 @@ abstract class Model{
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
 
-	public function __construct($data = [], $attrs = [], $action = 'save'){
+	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
-			if(!$this->validate($data)){
+			// in_array(,,true) - при поиске будет использовано строгое сравнение (проверит соответствие типов)
+			debug([$this->checkUnique(), !$this->validate($data) || in_array(false, toArray($valid), true), !$this->validate($data), in_array(false, toArray($valid), true), $valid, toArray($valid), validateAttrs($this, $valid), $attrs, $data], 1);
+			if(!$this->validate($data) || in_array(false, toArray($valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();

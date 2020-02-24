@@ -71,8 +71,7 @@ class User extends AppModel {
             if($user){
                 // password_verify - сравнивает хэш пароля (1 - из формы, 2 - из БД)
                 if(password_verify($password, $user->password)){
-                    $this->saveSession($user); // записываем в сессиию все данные пользователя, кроме пароля
-                    return true;
+                    return $this->saveSession($user); // записываем в сессиию все данные пользователя, кроме пароля
                 }
             }
         }
@@ -85,6 +84,7 @@ class User extends AppModel {
         foreach($user as $k => $v){
             if($k != 'password') $_SESSION['user'][$k] = $v;
         }
+        return true;
     }
 
     // проверяет авторизован ли пользователь

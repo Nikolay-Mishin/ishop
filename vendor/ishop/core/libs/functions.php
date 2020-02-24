@@ -8,6 +8,21 @@ function debug($arr, $die = false){
 	if($die) die;
 }
 
+// если получен массив, возвращает его
+// иначе возвращает полученное значение в виде массива
+function toArray($attrs){
+	return is_array($attrs) ? $attrs : toArray([$attrs]);
+}
+
+function validateAttrs($class, $attrs){
+	$attrs = toArray($attrs);
+	foreach($attrs as $key => $attr){
+		debug([$class, $attr, method_exists($class, $attr)]);
+		$attrs[$key] = method_exists($class, $attr) ? $class->$attr() : $attr;
+	}
+	return $attrs;
+}
+
 // перенаправляет на указанную страницу
 function redirect($http = false){
 	// $http - адрес перенаправления

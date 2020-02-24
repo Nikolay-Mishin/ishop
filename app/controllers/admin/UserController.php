@@ -4,7 +4,6 @@ namespace app\controllers\admin;
 
 use app\models\admin\User;
 use app\models\User as baseUser;
-use ishop\libs\Pagination;
 
 // Контроллер авторизации админа
 class UserController extends AppController {
@@ -33,6 +32,9 @@ class UserController extends AppController {
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
+			new User($_POST, [$this->getRequestID()], 'update'); // объект пользователя
+			redirect();
+			/*
 			$id = $this->getRequestID(false); // получаем id пользователя
 			$user = new User(); // объект пользователя
 			$data = $_POST; // даные из формы
@@ -54,6 +56,7 @@ class UserController extends AppController {
 				$_SESSION['success'] = 'Изменения сохранены';
 			}
 			redirect();
+			*/
 		}
 	}
 

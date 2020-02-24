@@ -43,13 +43,9 @@ class User extends baseUser {
 		}else{
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 		}
-		// валидируем данные
-		if(!$this->validate($data) || !$this->checkUnique()){
-			$this->getErrors();
-			redirect();
-		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $attrs, $action);
+		// $this->checkUnique()
+		parent::__construct($data, $attrs, $action, 'checkUnique');
 		// сохраняем изменения в БД
 		if($this->id){
 			$_SESSION['success'] = 'Изменения сохранены';
@@ -94,8 +90,10 @@ class User extends baseUser {
 	public function checkUnique(){
 		// получаем пользователя с соответствующими значениями login или email из аттрибутов
 		$user = \R::findOne('user', '(login = ? OR email = ?) AND id <> ?', [$this->attributes['login'], $this->attributes['email'], $this->attributes['id']]);
+		debug([$this->attributes['login'], $this->attributes['email'], $this->attributes['id'], $user]);
 		// если пользователь найден, то формируем ошибки проверки уникальности
 		if($user){
+			debug([$user->login == $this->attributes['login'], $user->email == $this->attributes['email']]);
 			if($user->login == $this->attributes['login']){
 				$this->errors['unique'][] = 'Этот логин уже занят';
 			}
