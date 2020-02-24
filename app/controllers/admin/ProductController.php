@@ -109,21 +109,20 @@ class ProductController extends AppController {
 		$this->setMeta('Новый товар');
 	}
 
+	/*$data = [
+		'items' => [
+			[
+				'id' => 1,
+				'text' => 'Товар 1',
+			],
+			[
+				'id' => 2,
+				'text' => 'Товар 2',
+			],
+		]
+	];*/
 	// экшен получения списка товаров из поискового запроса
 	public function relatedProductAction(){
-		/*$data = [
-			'items' => [
-				[
-					'id' => 1,
-					'text' => 'Товар 1',
-				],
-				[
-					'id' => 2,
-					'text' => 'Товар 2',
-				],
-			]
-		];*/
-
 		$q = isset($_GET['q']) ? $_GET['q'] : ''; // строка запроса
 		$data['items'] = []; // массив данных из запроса
 		// получаем товары совпадающие по названию со строкой запроса
@@ -148,6 +147,9 @@ class ProductController extends AppController {
 			// устанавливаем max значения ширины и высоты изображений в зависимости от того какие картинки пришли
 			// (основная - 'single' или галлереи)
 			// получаем необходимые значения из контейнера приложения
+			$wmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_width' : 'gallery_width');
+			$hmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_height' : 'gallery_height');
+			/*
 			if($_POST['name'] == 'single'){
 				$wmax = App::$app->getProperty('img_width');
 				$hmax = App::$app->getProperty('img_height');
@@ -155,9 +157,8 @@ class ProductController extends AppController {
 				$wmax = App::$app->getProperty('gallery_width');
 				$hmax = App::$app->getProperty('gallery_height');
 			}
-			$name = $_POST['name']; // имя файла
-			$product = new Product(); // объект товара
-			$product->uploadImg($name, $wmax, $hmax); // загружаем изображения на сервер
+			*/
+			Gallery::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
 		}
 	}
 

@@ -723,3 +723,13 @@
 =================
 [2020-02-24 00:03:49] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/admin/Product/delete-image.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
 =================
+[2020-02-24 16:07:28] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-24 16:07:41] Текст ошибки: Call to undefined method app\models\AppModel::getById() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\AppModel.php | Строка: 13
+=================
+[2020-02-24 16:09:02] Текст ошибки: Call to undefined method app\models\AppModel::getById() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\AppModel.php | Строка: 14
+=================
+[2020-02-24 16:09:26] Текст ошибки: Call to undefined method app\models\AppModel::getById() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\AppModel.php | Строка: 14
+=================
+[2020-02-24 16:17:18] Текст ошибки: Call to undefined method app\models\AppModel::getById() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\AppModel.php | Строка: 16
+=================

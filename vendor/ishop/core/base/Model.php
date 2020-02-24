@@ -108,12 +108,17 @@ abstract class Model{
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
 	public function getTabelName(){
-		return self::lowerCamelCase($this->getModelName());
+		return self::lowerCamelCase($this->getClassShortName());
 	}
 
 	// возвращает короткое имя класса (app\models\User => User)
-	public function getModelName(){
+	public function getClassShortName(){
 		return (new \ReflectionClass($this))->getShortName();
+	}
+
+	// возвращает короткое имя класса (app\models\User)
+	public function getClassName(){
+		return (new \ReflectionClass($this))->getName();
 	}
 
 	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
