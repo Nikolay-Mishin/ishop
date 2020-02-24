@@ -32,6 +32,8 @@ app\controllers\admin\OrderController.php
 ##### ДЗ 27 - реализовать удаление товаров (параллельно удалять модификации, фильтры, связанные товары, галлерею, товары заказа (?))
 ` app\controllers\admin\ProductController.php => deleteAction() `
 
+
+
 ### call_user_func_array
 
 https://www.php.net/manual/ru/function.call-user-func-array.php
@@ -92,6 +94,8 @@ call_user_func_array(array(__NAMESPACE__ .'\Foo', 'test'), array('Philip'));
 Hello Hannes!
 Hello Philip!
 ```
+
+
 
 ### list
 
@@ -171,6 +175,419 @@ list($a[0], $a[1], $a[2]) = $info;
 
 var_dump($a);
 ```
+
+
+
+### get_called_class
+
+https://www.php.net/manual/ru/function.get-called-class.php
+
+`get_called_class` — Имя класса, полученное с помощью позднего статического связывания
+
+```php
+get_called_class ( void ) : string
+```
+
+Возвращает имя класса, из которого был вызван статический метод.
+
+##### Пример #1 Пример использования get_called_class()
+
+```php
+class foo {
+    static public function test() {
+        var_dump(get_called_class());
+    }
+}
+
+class bar extends foo {
+}
+
+foo::test();
+bar::test();
+```
+
+###### Результат выполнения данного примера:
+```
+string(3) "foo"
+string(3) "bar"
+```
+
+
+
+### get_parent_class
+
+https://www.php.net/manual/ru/function.get-parent-class.php
+
+`get_parent_class` — Возвращает имя родительского класса для объекта или класса
+
+```php
+get_parent_class ([ mixed $object ] ) : string
+```
+
+Возвращает имя родительского класса для объекта или класса.
+
+##### Список параметров
+`object`
+Тестируемый объект или имя класса. Если вызывается из метода объекта, то этот параметр не обязателен.
+
+##### Пример #1 Пример использования get_parent_class()
+
+```php
+class dad {
+    function dad()
+    {
+    // реализация какой-нибудь логики
+    }
+}
+
+class child extends dad {
+    function child()
+    {
+        echo "I'm " , get_parent_class($this) , "'s son\n";
+    }
+}
+
+class child2 extends dad {
+    function child2()
+    {
+        echo "I'm " , get_parent_class('child2') , "'s son too\n";
+    }
+}
+
+$foo = new child();
+$bar = new child2();
+```
+
+###### Результат выполнения данного примера:
+```
+I'm dad's son
+I'm dad's son too
+```
+
+
+
+### is_subclass_of
+
+https://www.php.net/manual/ru/function.is-subclass-of.php
+
+`is_subclass_of` — Проверяет, содержит ли объект в своем дереве предков указанный класс либо прямо реализует его
+
+```php
+is_subclass_of ( mixed $object , string $class_name [, bool $allow_string = TRUE ] ) : bool
+```
+
+Проверяет, содержит ли объект object в своем дереве предков класс class_name либо прямо реализует его.
+
+##### Список параметров
+`object`
+Имя класса или экземпляр объекта. В случае отсутствия такого класса никакой ошибки сгенерировано не будет.
+
+`class_name`
+Имя класса
+
+`allow_string`
+Если параметр установлен в false, то не допускается имя класса в виде строки в качестве параметра object. Это также предотвращает вызов автозагрузчика, если класс не существует.
+
+##### Пример #1 Пример использования is_subclass_of()
+
+```php
+// объявляем класс
+class WidgetFactory
+{
+  var $oink = 'moo';
+}
+
+// объявляем наследника
+class WidgetFactory_Child extends WidgetFactory
+{
+  var $oink = 'oink';
+}
+
+// создаем новый объект
+$WF = new WidgetFactory();
+$WFC = new WidgetFactory_Child();
+
+if (is_subclass_of($WFC, 'WidgetFactory')) {
+  echo "да, \$WFC наследует WidgetFactory\n";
+} else {
+  echo "нет, \$WFC не наследует WidgetFactory\n";
+}
+
+
+if (is_subclass_of($WF, 'WidgetFactory')) {
+  echo "да, \$WF наследует WidgetFactory\n";
+} else {
+  echo "нет, \$WF не наследует WidgetFactory\n";
+}
+
+
+// применимо только с версии PHP 5.0.3
+if (is_subclass_of('WidgetFactory_Child', 'WidgetFactory')) {
+  echo "да, WidgetFactory_Child наследует WidgetFactory\n";
+} else {
+  echo "нет, WidgetFactory_Child не наследует WidgetFactory\n";
+}
+```
+
+###### Результат выполнения данного примера:
+
+```
+да, $WFC наследует WidgetFactory
+нет, $WF не наследует WidgetFactory
+да, WidgetFactory_Child наследует WidgetFactory
+```
+
+### ReflectionClass::getShortName
+
+https://www.php.net/manual/ru/reflectionclass.getshortname.php
+
+`ReflectionClass::getShortName` — Возвращает короткое имя
+
+```php
+public ReflectionClass::getShortName ( void ) : string
+```
+
+Возвращает короткое имя класса, часть, которая не относится к названию пространства имён.
+
+##### Пример #1 Пример использования ReflectionClass::getShortName()
+
+```php
+namespace A\B;
+
+class Foo { }
+
+$function = new \ReflectionClass('stdClass');
+
+var_dump($function->inNamespace());
+var_dump($function->getName());
+var_dump($function->getNamespaceName());
+var_dump($function->getShortName());
+
+$function = new \ReflectionClass('A\\B\\Foo');
+
+var_dump($function->inNamespace());
+var_dump($function->getName());
+var_dump($function->getNamespaceName());
+var_dump($function->getShortName());
+```
+
+###### Результат выполнения данного примера:
+
+```
+bool(false)
+string(8) "stdClass"
+string(0) ""
+string(8) "stdClass"
+
+bool(true)
+string(7) "A\B\Foo"
+string(3) "A\B"
+string(3) "Foo"
+```
+
+
+
+### Класс ReflectionClass
+
+https://www.php.net/manual/ru/class.reflectionclass.php
+
+Класс ReflectionClass сообщает информацию о классе.
+
+##### Обзор классов
+
+```php
+ReflectionClass implements Reflector {
+/* Константы */
+const integer IS_IMPLICIT_ABSTRACT = 16 ;
+const integer IS_EXPLICIT_ABSTRACT = 32 ;
+const integer IS_FINAL = 64 ;
+/* Свойства */
+public $name ;
+/* Методы */
+public __construct ( mixed $argument )
+public static export ( mixed $argument [, bool $return = FALSE ] ) : string
+public getConstant ( string $name ) : mixed
+public getConstants ( void ) : array
+public getConstructor ( void ) : ReflectionMethod
+public getDefaultProperties ( void ) : array
+public getDocComment ( void ) : string
+public getEndLine ( void ) : int
+public getExtension ( void ) : ReflectionExtension
+public getExtensionName ( void ) : string
+public getFileName ( void ) : string
+public getInterfaceNames ( void ) : array
+public getInterfaces ( void ) : array
+public getMethod ( string $name ) : ReflectionMethod
+public getMethods ([ int $filter ] ) : array
+public getModifiers ( void ) : int
+public getName ( void ) : string
+public getNamespaceName ( void ) : string
+public getParentClass ( void ) : ReflectionClass
+public getProperties ([ int $filter ] ) : array
+public getProperty ( string $name ) : ReflectionProperty
+public getReflectionConstant ( string $name ) : ReflectionClassConstant
+public getReflectionConstants ( void ) : array
+public getShortName ( void ) : string
+public getStartLine ( void ) : int
+public getStaticProperties ( void ) : array
+public getStaticPropertyValue ( string $name [, mixed &$def_value ] ) : mixed
+public getTraitAliases ( void ) : array
+public getTraitNames ( void ) : array
+public getTraits ( void ) : array
+public hasConstant ( string $name ) : bool
+public hasMethod ( string $name ) : bool
+public hasProperty ( string $name ) : bool
+public implementsInterface ( string $interface ) : bool
+public inNamespace ( void ) : bool
+public isAbstract ( void ) : bool
+public isAnonymous ( void ) : bool
+public isCloneable ( void ) : bool
+public isFinal ( void ) : bool
+public isInstance ( object $object ) : bool
+public isInstantiable ( void ) : bool
+public isInterface ( void ) : bool
+public isInternal ( void ) : bool
+public isIterable ( void ) : bool
+public isSubclassOf ( mixed $class ) : bool
+public isTrait ( void ) : bool
+public isUserDefined ( void ) : bool
+public newInstance ([ mixed $... ] ) : object
+public newInstanceArgs ([ array $args ] ) : object
+public newInstanceWithoutConstructor ( void ) : object
+public setStaticPropertyValue ( string $name , mixed $value ) : void
+public __toString ( void ) : string
+}
+```
+
+##### Свойства
+
+`name`
+Имя класса. Доступно только для чтения и выбрасывает исключение ReflectionException при попытке записи.
+
+##### Модификаторы ReflectionClass
+
+```php
+ReflectionClass::IS_IMPLICIT_ABSTRACT
+```
+Указывает, что класс является абстрактным, потому что он содержит абстрактные методы.
+
+```php
+ReflectionClass::IS_EXPLICIT_ABSTRACT
+```
+Указывает, что класс является абстрактным, потому что так указано при его описании.
+
+```php
+ReflectionClass::IS_FINAL
+```
+Указывает, что класс является окончательным (final)
+
+##### Содержание
+
+```php
+ReflectionClass::__construct — Создаёт объект класса ReflectionClass
+ReflectionClass::export — Экспортирует класс
+ReflectionClass::getConstant — Возвращает определенную константу
+ReflectionClass::getConstants — Возвращает константы
+ReflectionClass::getConstructor — Возвращает конструктор класса
+ReflectionClass::getDefaultProperties — Возвращает свойства по умолчанию
+ReflectionClass::getDocComment — Возвращает doc-блоки комментариев
+ReflectionClass::getEndLine — Возвращает номер последней строки
+ReflectionClass::getExtension — Возвращает объект класса ReflectionExtension для расширения, определяющего класс
+ReflectionClass::getExtensionName — Возвращает имя расширения, определяющее класс
+ReflectionClass::getFileName — Возвращает имя файла, в котором определен класс
+ReflectionClass::getInterfaceNames — Возвращает имена интерфейсов
+ReflectionClass::getInterfaces — Возвращает интерфейсы
+ReflectionClass::getMethod — Возвращает экземпляр ReflectionMethod для метода класса
+ReflectionClass::getMethods — Возвращает список методов в виде массива
+ReflectionClass::getModifiers — Возвращает информацию о модификаторах класса
+ReflectionClass::getName — Возвращает имя класса
+ReflectionClass::getNamespaceName — Возвращает название пространства имён
+ReflectionClass::getParentClass — Возвращает родительский класс
+ReflectionClass::getProperties — Возвращает свойства
+ReflectionClass::getProperty — Возвращает экземпляр ReflectionProperty для свойства класса
+ReflectionClass::getReflectionConstant — Получает ReflectionClassConstant для константы класса
+ReflectionClass::getReflectionConstants — Получает константы класса
+ReflectionClass::getShortName — Возвращает короткое имя
+ReflectionClass::getStartLine — Возвращает номер начальной строки
+ReflectionClass::getStaticProperties — Возвращает статические свойства
+ReflectionClass::getStaticPropertyValue — Возвращает значение статического свойства
+ReflectionClass::getTraitAliases — Возвращает массив псевдонимов трейтов
+ReflectionClass::getTraitNames — Возвращает массив имён трейтов, используемых в этом классе
+ReflectionClass::getTraits — Возвращает массив трейтов, используемых в этом классе
+ReflectionClass::hasConstant — Проверяет, определена ли константа
+ReflectionClass::hasMethod — Проверяет, задан ли метод
+ReflectionClass::hasProperty — Проверяет, определено ли свойство
+ReflectionClass::implementsInterface — Проверяет, реализуется ли интерфейс
+ReflectionClass::inNamespace — Проверяет, определён ли класс в пространстве имён
+ReflectionClass::isAbstract — Проверяет, является ли класс абстрактным
+ReflectionClass::isAnonymous — Проверяет, является класс анонимным
+ReflectionClass::isCloneable — Проверяет, можно ли клонировать этот класс
+ReflectionClass::isFinal — Проверяет, является ли класс окончательным (final)
+ReflectionClass::isInstance — Проверяет, принадлежит ли объект классу
+ReflectionClass::isInstantiable — Проверяет, можно ли создать экземпляр класса
+ReflectionClass::isInterface — Проверяет, является ли класс интерфейсом
+ReflectionClass::isInternal — Проверяет, является ли класс встроенным в расширение или в ядро
+ReflectionClass::isIterable — Проверить, является ли класс итерируемым
+ReflectionClass::isIterateable — Псевдоним ReflectionClass::isIterable
+ReflectionClass::isSubclassOf — Проверяет, является ли класс подклассом
+ReflectionClass::isTrait — Проверяет, является ли это трейтом
+ReflectionClass::isUserDefined — Проверяет, является ли класс пользовательским
+ReflectionClass::newInstance — Создаёт экземпляр класса с переданными аргументами
+ReflectionClass::newInstanceArgs — Создаёт экземпляр класса с переданными параметрами
+ReflectionClass::newInstanceWithoutConstructor — Создаёт новый экземпляр класса без вызова конструктора
+ReflectionClass::setStaticPropertyValue — Устанавливает значение статического свойства
+ReflectionClass::__toString — Возвращает строковое представление объекта класса ReflectionClass
+```
+
+##### To reflect on a namespaced class in PHP 5.3, you must always specify the fully qualified name of the class - even if you've aliased the containing namespace using a "use" statement.
+
+```php
+// So instead of:
+
+use App\Core as Core;
+$oReflectionClass = new ReflectionClass('Core\Singleton');
+
+// You would type:
+
+use App\Core as Core;
+$oReflectionClass = new ReflectionClass('App\Core\Singleton');
+```
+
+##### Reflecting an alias will give you a reflection of the resolved class.
+
+```php
+class X {
+   
+}
+
+class_alias('X','Y');
+class_alias('Y','Z');
+$z = new ReflectionClass('Z');
+echo $z->getName(); // X
+```
+
+##### Unserialized reflection class cause error.
+
+```php
+/**
+* abc
+*/
+class a{}
+
+$ref = new ReflectionClass('a');
+$ref = unserialize(serialize($ref));
+var_dump($ref);
+var_dump($ref->getDocComment());
+
+// object(ReflectionClass)#2 (1) {
+//   ["name"]=>
+//   string(1) "a"
+// }
+// PHP Fatal error:  ReflectionClass::getDocComment():
+// Internal error: Failed to retrieve the reflection object
+```
+
+
 
 ### Оглавление
 
