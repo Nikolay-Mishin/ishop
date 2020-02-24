@@ -53,7 +53,7 @@ abstract class Model{
 
 	// сохраняем данные в таблицу в БД
 	public function save(){
-		$this->table = $this->table ?? $this->getTabelName(); // имя таблицы в БД
+		$this->table = $this->table ?? self::getTabelName(); // имя таблицы в БД
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
@@ -69,7 +69,7 @@ abstract class Model{
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id){
-		$this->table = $this->table ?? $this->getTabelName(); // имя таблицы в БД
+		$this->table = $this->table ?? self::getTabelName(); // имя таблицы в БД
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
@@ -107,18 +107,23 @@ abstract class Model{
 	}
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	public function getTabelName(){
-		return self::lowerCamelCase($this->getClassShortName());
+	public static function getTabelName(){
+		return self::lowerCamelCase(self::getClassShortName());
 	}
 
 	// возвращает короткое имя класса (app\models\User => User)
-	public function getClassShortName(){
-		return (new \ReflectionClass($this))->getShortName();
+	public static function getClassShortName(){
+		return self::getClassInfo()->getShortName();
 	}
 
 	// возвращает короткое имя класса (app\models\User)
-	public function getClassName(){
-		return (new \ReflectionClass($this))->getName();
+	public static function getClassName(){
+		return self::getClassInfo()->getName();
+	}
+
+	// возвращает короткое имя класса (app\models\User)
+	public static function getClassInfo($class = null){
+		return new \ReflectionClass($class ?? get_called_class());
 	}
 
 	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)

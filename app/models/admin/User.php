@@ -35,6 +35,27 @@ class User extends baseUser {
 		],
 	];
 
+	public function __construct($data = [], $attrs = [], $action = 'save'){
+		// если пароль не изменен, удаляем его из списка аттрибутов
+		// иначе хэшируем полученный пароль
+		if(!$data['password']){
+			unset($data['password']);
+		}else{
+			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+		}
+		// валидируем данные
+		if(!$user->validate($data) || !$user->checkUnique()){
+			$user->getErrors();
+			redirect();
+		}
+		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+		parent::__construct($data, $attrs, $action);
+		// сохраняем изменения в БД
+		if($id = $this->id){
+			$_SESSION['success'] = 'Изменения сохранены';
+		}
+	}
+
 	// получает общее число пользователей
 	public static function getCount(){
 		return \R::count('user');

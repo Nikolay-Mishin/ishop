@@ -759,3 +759,18 @@
 =================
 [2020-02-24 19:03:50] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 3 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-24 20:18:33] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.name' in 'field list' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-24 20:18:35] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-24 21:14:42] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 132
+=================
+[2020-02-24 21:14:58] Текст ошибки: Cannot instantiate abstract class ishop\base\Model | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 132
+=================
+[2020-02-24 21:16:45] Текст ошибки: Class self does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 134
+=================
+[2020-02-24 21:24:56] Текст ошибки: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ishop.{self::gettabelname()}' doesn't exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-24 21:48:40] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'JOIN `user` ON `order`.`user_id` = `user`.`id`
+JOIN `order_product` ON `order`.' at line 2 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
