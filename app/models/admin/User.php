@@ -44,14 +44,14 @@ class User extends baseUser {
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 		}
 		// валидируем данные
-		if(!$user->validate($data) || !$user->checkUnique()){
-			$user->getErrors();
+		if(!$this->validate($data) || !$this->checkUnique()){
+			$this->getErrors();
 			redirect();
 		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем изменения в БД
-		if($id = $this->id){
+		if($this->id){
 			$_SESSION['success'] = 'Изменения сохранены';
 		}
 	}
