@@ -3,7 +3,6 @@
 namespace app\models\admin;
 
 use app\models\AppModel;
-use ishop\App; // подключаем класс базовый приложения
 
 class Currency extends AppModel{
 
@@ -108,8 +107,8 @@ class Currency extends AppModel{
 		$date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
 		if(!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл
 		if(!$xml = simplexml_load_string($file)) return false; // получаем содержимое файла в формате xml
-		$courses = App::dataDecode($xml); // декодируем xml объект в массив
-		$courses = self::newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']], 'key');
+		$courses = dataDecode($xml); // декодируем xml объект в массив
+		$courses = newArray($courses['Valute'], 'CharCode', ['Value' => [',', '.', 'floatval']]);
 		return $courses ?: false;
 	}
 
@@ -133,103 +132,6 @@ class Currency extends AppModel{
 			}
 		}
 		return $courses_curr;
-	}
-
-	// создает новый массив на из переданного ассоциативного массива и ключа, по значению которого необходимо сформировать новые ключи
-	// сортирует массив в по ключам/значениям в зависимости от переданного типа $sort_key ('key'/'value')
-	// $sort_flag - флаги сортировки
-	public static function newArray($array, $key = '', $patterns = [], $sort_key = '', $sort_flag = SORT_NATURAL){
-		// формируем массив
-		$newArray = []; // новый массив
-		foreach ($array as $k => $v){
-			// если переданы паттерны для замены значений, производим замену для каждого переданного паттерна
-			if($patterns){
-				foreach ($patterns as $key_p => $pattern){
-					// если передан массив паттернов, работаем с ним
-					if(is_array($patterns)){
-						// $pattern[0] - паттерн для поиска совпадения
-						// $pattern[1] - паттерн для замены совпадения
-						// $pattern[2] - если передана не пустая строка, вызывает указанную пользовательскую функцию
-						// опеределяем вызываемую функцию на основе типа паттерна (regExp/string)
-						$func = self::isRegex($pattern[0]) ? 'preg_replace' : 'str_replace';
-						// call_user_func_array - Вызывает callback-функцию с массивом параметров
-						$value = call_user_func_array($func, [$pattern[0], $pattern[1], $v[$key_p]]);
-						// call_user_func - Вызывает callback-функцию, заданную в первом параметре
-						$value = !isset($pattern[2]) ? $value : call_user_func($pattern[2], $value);
-					}
-					elseif(is_string($pattern)){
-						$value = call_user_func($pattern, $value);
-					}
-					$v[$key_p] = $value;
-				}
-			}
-			// если передан ключ для задания новых значений ключей для исходного массива массива, берем эти значения
-			// иначе используем ключи из исходного массива
-			$newArray[$key ? $v[$key] : $k] = $v;
-		}
-
-		// сортируем массив
-		switch($sort_key){
-			case 'key':
-				ksort($newArray, $sort_flag); // Сортирует массив по ключам
-			break;
-			case 'value':
-				sort($newArray, $sort_flag); // Сортирует массив
-			break;
-		}
-
-		return $newArray;
-
-		/* $key = 'CharCode'
-		Исходный массив
-		[0] => Array
-		(
-			[CharCode] => EUR
-			[Value] => 68.7710
-		)
-
-		Массив с новыми ключами
-		[EUR] => Array
-		(
-			[CharCode] => EUR
-			[Value] => 68.7710
-		)
-		*/
-		
-		/* флаги сортировки
-		 * SORT_REGULAR - обычное сравнение элементов;
-		 * SORT_NUMERIC - числовое сравнение элементов
-		 * SORT_STRING - строковое сравнение элементов
-		 * SORT_LOCALE_STRING - сравнивает элементы как строки с учетом текущей локали. Используется локаль, которую можно изменять с помощью функции setlocale()
-		 * SORT_NATURAL - сравнение элементов как строк, используя естественное упорядочение, как в функции natsort()
-		 * SORT_FLAG_CASE - может быть объединен (побитовое ИЛИ) с SORT_STRING или SORT_NATURAL для сортировки строк без учета регистра.
-		 */
-		// natsort() - Эта функция реализует алгоритм сортировки, при котором порядок буквенно-цифровых строк будет привычным для человека. Такой алгоритм называется "natural ordering"
-		/*
-		Обычная сортировка
-		Array
-		(
-			[3] => img1.png
-			[1] => img10.png
-			[0] => img12.png
-			[2] => img2.png
-		)
-
-		Сортировка natural order
-		Array
-		(
-			[3] => img1.png
-			[2] => img2.png
-			[1] => img10.png
-			[0] => img12.png
-		)
-		*/
-	}
-
-	// определяет является ли переданная строка регулярным выраженияем
-	// This doesn't test validity; but it looks like the question is Is there a good way of test if a string is a regex or normal string in PHP? and it does do that.
-	public static  function isRegex($str){
-		return preg_match("/^\/[\s\S]+\/$/", $str);
 	}
 
 }

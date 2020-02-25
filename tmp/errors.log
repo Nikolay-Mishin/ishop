@@ -788,3 +788,29 @@ JOIN `order_product` ON `order`.' at line 2 | Файл: D:\YandexDisk\__Web_dev\
 =================
 [2020-02-25 18:36:47] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 98
 =================
+[2020-02-25 21:18:31] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 92
+=================
+[2020-02-25 21:20:56] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 92
+=================
+[2020-02-25 21:21:32] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 92
+=================
+[2020-02-25 21:21:45] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 92
+=================
+[2020-02-25 21:22:14] Текст ошибки: Using $this when not in object context | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 92
+=================
+[2020-02-25 21:45:11] Текст ошибки: Access to undeclared static property: app\models\admin\User::$checkUnique | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 145
+=================
+[2020-02-25 22:26:13] Текст ошибки: Cannot use object of type ReflectionProperty as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 193
+=================
+[2020-02-25 22:31:09] Текст ошибки: Cannot use object of type ReflectionProperty as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 202
+=================
+[2020-02-25 22:32:12] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 203
+=================
+[2020-02-25 22:33:51] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 204
+=================
+[2020-02-25 22:34:08] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 204
+=================
+[2020-02-25 22:34:31] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 204
+=================
+[2020-02-25 22:56:17] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 145
+=================

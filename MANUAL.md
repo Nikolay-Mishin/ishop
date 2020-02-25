@@ -712,3 +712,136 @@ if (class_exists('MyClass')) {
     $myclass = new MyClass();
 }
 ```
+
+
+
+### is_callable
+
+https://www.php.net/manual/ru/function.is-callable.php
+
+`is_callable` — Проверяет, может ли значение переменной быть вызвано в качестве функции
+
+```php
+is_callable ( mixed $var [, bool $syntax_only = FALSE [, string &$callable_name ]] ) : bool
+```
+
+Проверяет, может ли значение переменной быть вызвано в качестве функции. С помощью данной функции можно проверить, что простая переменная содержит корректное имя функции, или что массив содержит правильно заданный объект и имя метода.
+
+##### Список параметров
+`var`
+Значение для проверки
+
+`syntax_only`
+Если равен TRUE, функция только проверяет, что var может быть функцией или методом. В этом случае будут отклоняться переменные, которые не являются ни строкой, ни массивом c корректной структурой для использования в качестве callback-функции. Корректная структура массива предполагает наличие только двух элементов, первый из которых - объект или строка, а второй - только строка.
+
+`callable_name`
+Получает "вызываемое имя". В примере ниже это "someClass::someMethod". Следует иметь в виду, что хотя запись someClass::SomeMethod() означает вызываемый статический метод, это не так.
+
+##### Пример #1 Пример использования is_callable()
+
+```php
+//  Как проверить переменную, чтобы узнать, может ли она быть вызвана
+//  как функция.
+
+//
+//  Простая переменная, содержащая имя функции
+//
+
+function someFunction() 
+{
+}
+
+$functionVariable = 'someFunction';
+
+var_dump(is_callable($functionVariable, false, $callable_name));  // bool(true)
+
+echo $callable_name, "\n";  // someFunction
+
+//
+//  Массив, содержащий метод класса
+//
+
+class someClass {
+
+  function someMethod() 
+  {
+  }
+
+}
+
+$anObject = new someClass();
+
+$methodVariable = array($anObject, 'someMethod');
+
+var_dump(is_callable($methodVariable, true, $callable_name));  //  bool(true)
+
+echo $callable_name, "\n";  //  someClass::someMethod
+```
+
+##### Пример #2 is_callable() и конструкторы
+
+Начиная с PHP 5.3.0, функция is_callable() не считает конструкторы за callable. Это относится как к конструкторам в стиле PHP 5 (__construct), так и к конструкторам в стиле PHP 4 (то есть методам с таким же именем, как и сам класс). В более ранних версиях, конструкторы считались как callable.
+
+```php
+class Foo
+{
+    public function __construct() {}
+    public function foo() {}
+}
+
+var_dump(
+    is_callable(array('Foo', '__construct')),
+    is_callable(array('Foo', 'foo'))
+);
+```
+
+##### Результат выполнения данного примера:
+
+```
+bool(false)
+bool(false)
+```
+
+`is_callable()` получает на вход  `callback` как первый аргумент, который, в нашем случае, является массивом и содержит два занчения: первое из которых - это объект (ну или название класса в виде строки), а второй содержит имя метода. `is_callable()` вернет TRUE когда метод будет доступен в данном контексте
+
+```php
+if (is_callable(array($object, 'SomeMethod'))){
+  $object->SomeMethod($this, TRUE);
+}
+```
+
+Следующий кусок кода илюстрирует разницу между работой двух функций `method_exists()` и `is_callable()` в действии:
+
+```php
+class Foo {
+  public function PublicMethod() {}
+  private function PrivateMethod() {}
+  public static function PublicStaticMethod() {}
+  private static function PrivateStaticMethod() {}
+}
+  
+$foo = new Foo();
+  
+$callbacks = array(
+  array($foo, 'PublicMethod'),
+  array($foo, 'PrivateMethod'),
+  array($foo, 'PublicStaticMethod'),
+  array($foo, 'PrivateStaticMethod'),
+  array('Foo', 'PublicMethod'),
+  array('Foo', 'PrivateMethod'),
+  array('Foo', 'PublicStaticMethod'),
+  array('Foo', 'PrivateStaticMethod'),
+);
+  
+foreach ($callbacks as $callback) {
+  var_dump($callback);
+  var_dump(method_exists($callback[0], $callback[1])); // 0: object / class name, 1: method name
+  var_dump(is_callable($callback));
+  echo str_repeat('-', 40), "\n";
+}
+```
+
+Запустите это, и вы увидите, что все тесты вернули true при использовании `method_exists()`, даже private методы, тогда как `is_callable()` вернул FALSE
+
+`is_callable()` нужно использовать, когда нужно проверить - может ли быть вызван тот или иной метод в данном контексте, и совершенно ничего не говорит, о том, есть ли такой метод в определении класса
+кроме того, если проверяемый класс, имеет реализацию метода  `__call()` тогда `is_callable()`  вернет true для любых, даже не существующих методов. А `method_exists()` вернет false;

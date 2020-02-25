@@ -83,6 +83,15 @@ function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
 	return $result . $postfix;
 }
 
+// метод для преобразования массива в объект (stdClass Object)
+function dataDecode($data, $output = null){
+	$data_type = gettype($data); // получаем тип переданных данных
+	if($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данных
+	$isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
+	$json = json_encode($data); // кодируем данные в json
+	return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
+}
+
 // возвращает короткое имя класса (app\models\User => User)
 function getClassShortName($class){
 	return getClassInfo($class)->getShortName();
@@ -122,8 +131,122 @@ function toArray($attrs, $attrToArray = true){
 }
 
 function validateAttrs($class, $attrs){
+	$class2 = 'app\models\admin\User';
 	foreach($attrs as $key => $attr){
-		$attrs[$key] = method_exists($class, $attr) ? $class->$attr() : (property_exists($class, $attr) ? $class->$attr : $attr);
+		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
 	}
 	return $attrs;
+}
+
+function callMethod($class, $attr){
+	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func([$class, $attr]) : $attr;
+}
+
+function getProp($class, $attr){
+	if(property_exists($class, $attr)){
+		$isStatic = array_key_exists($attr, getClassInfo($class)->getStaticProperties());
+		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::$$attr;
+	}
+	return $attr;
+}
+
+// определяет является ли переданная строка регулярным выраженияем
+	// This doesn't test validity; but it looks like the question is Is there a good way of test if a string is a regex or normal string in PHP? and it does do that.
+function isRegex($str){
+	return preg_match("/^\/[\s\S]+\/$/", $str);
+}
+
+// создает новый массив на из переданного ассоциативного массива и ключа, по значению которого необходимо сформировать новые ключи
+// сортирует массив в по ключам/значениям в зависимости от переданного типа $sort_key ('key'/'value')
+// $sort_flag - флаги сортировки
+// newArray($info->getProperties(), 'name', ['Value' => [',', '.', 'floatval']])
+function newArray($array, $key = '', $patterns = [], $sort_key = 'key', $sort_flag = SORT_NATURAL){
+	// формируем массив
+	$newArray = []; // новый массив
+	foreach ($array as $k => $v){
+		// если переданы паттерны для замены значений, производим замену для каждого переданного паттерна
+		if($patterns){
+			foreach ($patterns as $key_p => $pattern){
+				$value = is_array($v) ? $v[$key_p] : $v->$key_p;
+				// если передан массив паттернов, работаем с ним
+				if(is_array($pattern)){
+					// $pattern[0] - паттерн для поиска совпадения
+					// $pattern[1] - паттерн для замены совпадения
+					// $pattern[2] - если передана не пустая строка, вызывает указанную пользовательскую функцию
+					// опеределяем вызываемую функцию на основе типа паттерна (regExp/string)
+					$func = isRegex($pattern[0]) ? 'preg_replace' : 'str_replace';
+					// call_user_func_array - Вызывает callback-функцию с массивом параметров
+					$val = call_user_func_array($func, [$pattern[0], $pattern[1], $value]);
+					// call_user_func - Вызывает callback-функцию, заданную в первом параметре
+					$val = !isset($pattern[2]) ? $value : call_user_func($pattern[2], $val);
+				}
+				elseif(is_string($pattern)){
+					$val = call_user_func($pattern, $value);
+				}
+				debug($value);
+				$v[$key_p] = $val;
+			}
+		}
+		// если передан ключ для задания новых значений ключей для исходного массива массива, берем эти значения
+		// иначе используем ключи из исходного массива
+		$newKey = is_array($v) ? $v[$key] : $v->$key;
+		$newArray[$key ? $newKey : $k] = $v;
+	}
+
+	// сортируем массив
+	switch($sort_key){
+		case 'key':
+			ksort($newArray, $sort_flag); // Сортирует массив по ключам
+		break;
+		case 'value':
+			sort($newArray, $sort_flag); // Сортирует массив
+		break;
+	}
+
+	return $newArray;
+
+	/* $key = 'CharCode'
+	Исходный массив
+	[0] => Array
+	(
+		[CharCode] => EUR
+		[Value] => 68.7710
+	)
+
+	Массив с новыми ключами
+	[EUR] => Array
+	(
+		[CharCode] => EUR
+		[Value] => 68.7710
+	)
+	*/
+		
+	/* флаги сортировки
+		* SORT_REGULAR - обычное сравнение элементов;
+		* SORT_NUMERIC - числовое сравнение элементов
+		* SORT_STRING - строковое сравнение элементов
+		* SORT_LOCALE_STRING - сравнивает элементы как строки с учетом текущей локали. Используется локаль, которую можно изменять с помощью функции setlocale()
+		* SORT_NATURAL - сравнение элементов как строк, используя естественное упорядочение, как в функции natsort()
+		* SORT_FLAG_CASE - может быть объединен (побитовое ИЛИ) с SORT_STRING или SORT_NATURAL для сортировки строк без учета регистра.
+		*/
+	// natsort() - Эта функция реализует алгоритм сортировки, при котором порядок буквенно-цифровых строк будет привычным для человека. Такой алгоритм называется "natural ordering"
+	/*
+	Обычная сортировка
+	Array
+	(
+		[3] => img1.png
+		[1] => img10.png
+		[0] => img12.png
+		[2] => img2.png
+	)
+
+	Сортировка natural order
+	Array
+	(
+		[3] => img1.png
+		[2] => img2.png
+		[1] => img10.png
+		[0] => img12.png
+	)
+	*/
 }

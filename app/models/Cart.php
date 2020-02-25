@@ -88,7 +88,7 @@ class Cart extends AppModel {
     // статичный метод для пересчета корзины
     public static function recalc($curr){
         // $curr - массив новой валюты, в которую нужно пересчитать корзину
-        $curr = App::dataDecode($curr, 'object'); // если пришел массив, преобразуем его в объект
+        $curr = dataDecode($curr, 'object'); // если пришел массив, преобразуем его в объект
         if(isset($_SESSION['cart.currency'])){
             $unbaseCurr = $curr->value / $_SESSION['cart.currency']['value']; // коэффициент для пересчета из небазовой валюты
             // пересчитываем конечную сумму корзины
