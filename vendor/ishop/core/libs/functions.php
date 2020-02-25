@@ -8,21 +8,6 @@ function debug($arr, $die = false){
 	if($die) die;
 }
 
-// если получен массив, возвращает его
-// иначе возвращает полученное значение в виде массива
-function toArray($attrs){
-	return is_array($attrs) ? $attrs : toArray([$attrs]);
-}
-
-function validateAttrs($class, $attrs){
-	$attrs = toArray($attrs);
-	foreach($attrs as $key => $attr){
-		debug([$class, $attr, method_exists($class, $attr)]);
-		$attrs[$key] = method_exists($class, $attr) ? $class->$attr() : $attr;
-	}
-	return $attrs;
-}
-
 // перенаправляет на указанную страницу
 function redirect($http = false){
 	// $http - адрес перенаправления
@@ -96,4 +81,49 @@ function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
 	$result = mb_substr($temp, 0, $spacePosition, $encoding); // обрезка до целого слова
 
 	return $result . $postfix;
+}
+
+// возвращает короткое имя класса (app\models\User => User)
+function getClassShortName($class){
+	return getClassInfo($class)->getShortName();
+}
+
+// возвращает короткое имя класса (app\models\User)
+function getClassName($class){
+	return getClassInfo($class)->getName();
+}
+
+// возвращает короткое имя класса (app\models\User)
+function getClassInfo($class){
+	return new \ReflectionClass($class);
+}
+
+// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
+function lowerCamelCase($name){
+	// ThisMethodName => this_method_name
+	return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
+}
+
+function upperCamelCase($name){
+	// this_method_name => ThisMethodName
+	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
+}
+
+// если получен массив, возвращает его
+// иначе возвращает полученное значение в виде массива
+function toArray($attrs, $attrToArray = true){
+	$attrs = is_array($attrs) ? $attrs : toArray([$attrs]);
+	if($attrToArray){
+		foreach($attrs as $key => $attr){
+			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr], false);
+		}
+	}
+	return $attrs;
+}
+
+function validateAttrs($class, $attrs){
+	foreach($attrs as $key => $attr){
+		$attrs[$key] = method_exists($class, $attr) ? $class->$attr() : (property_exists($class, $attr) ? $class->$attr : $attr);
+	}
+	return $attrs;
 }

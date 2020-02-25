@@ -32,31 +32,8 @@ class UserController extends AppController {
 	public function editAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			new User($_POST, [$this->getRequestID()], 'update'); // объект пользователя
+			new User($_POST, $this->getRequestID(), 'update'); // объект пользователя
 			redirect();
-			/*
-			$id = $this->getRequestID(false); // получаем id пользователя
-			$user = new User(); // объект пользователя
-			$data = $_POST; // даные из формы
-			$user->load($data); // загружаем данные из формы в объект
-			// если пароль не изменен, удаляем его из списка аттрибутов
-			// иначе хэшируем полученный пароль
-			if(!$user->attributes['password']){
-				unset($user->attributes['password']);
-			}else{
-				$user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-			}
-			// валидируем данные
-			if(!$user->validate($data) || !$user->checkUnique()){
-				$user->getErrors();
-				redirect();
-			}
-			// сохраняем изменения в БД
-			if($user->update($id)){
-				$_SESSION['success'] = 'Изменения сохранены';
-			}
-			redirect();
-			*/
 		}
 	}
 

@@ -22,8 +22,8 @@ abstract class Model{
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
 			// in_array(,,true) - при поиске будет использовано строгое сравнение (проверит соответствие типов)
-			debug([$this->checkUnique(), !$this->validate($data) || in_array(false, toArray($valid), true), !$this->validate($data), in_array(false, toArray($valid), true), $valid, toArray($valid), validateAttrs($this, $valid), $attrs, $data], 1);
-			if(!$this->validate($data) || in_array(false, toArray($valid), true)){
+			list($attrs, $valid) = toArray([$attrs, $valid]);
+			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
@@ -110,33 +110,7 @@ abstract class Model{
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
 	public static function getTabelName(){
-		return self::lowerCamelCase(self::getClassShortName());
-	}
-
-	// возвращает короткое имя класса (app\models\User => User)
-	public static function getClassShortName(){
-		return self::getClassInfo()->getShortName();
-	}
-
-	// возвращает короткое имя класса (app\models\User)
-	public static function getClassName(){
-		return self::getClassInfo()->getName();
-	}
-
-	// возвращает короткое имя класса (app\models\User)
-	public static function getClassInfo($class = null){
-		return new \ReflectionClass($class ?? get_called_class());
-	}
-
-	// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
-	public static function lowerCamelCase($name){
-		// ThisMethodName => this_method_name
-		return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
-	}
-
-	public static function upperCamelCase($name){
-		// this_method_name => ThisMethodName
-		return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
+		return lowerCamelCase(getClassShortName(get_called_class()));
 	}
 
 }

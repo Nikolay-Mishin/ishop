@@ -39,7 +39,7 @@ class User extends baseUser {
 		// если пароль не изменен, удаляем его из списка аттрибутов
 		// иначе хэшируем полученный пароль
 		if(!$data['password']){
-			unset($data['password']);
+			unset($this->attributes['password']);
 		}else{
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 		}
@@ -90,10 +90,8 @@ class User extends baseUser {
 	public function checkUnique(){
 		// получаем пользователя с соответствующими значениями login или email из аттрибутов
 		$user = \R::findOne('user', '(login = ? OR email = ?) AND id <> ?', [$this->attributes['login'], $this->attributes['email'], $this->attributes['id']]);
-		debug([$this->attributes['login'], $this->attributes['email'], $this->attributes['id'], $user]);
 		// если пользователь найден, то формируем ошибки проверки уникальности
 		if($user){
-			debug([$user->login == $this->attributes['login'], $user->email == $this->attributes['email']]);
 			if($user->login == $this->attributes['login']){
 				$this->errors['unique'][] = 'Этот логин уже занят';
 			}

@@ -81,7 +81,7 @@ class Currency extends AppModel{
 						$sql_part = 'value = ?, course = ?, title = ?';
 						$arr = [$value, $course['Value'], $course['Name'], $currency->code];
 					}
-					if(\R::exec("UPDATE currency SET $sql_part WHERE code = ?", $arr)){
+					if(\R::exec("UPDATE currency SET $sql_part, update_at = NOW() WHERE code = ?", $arr)){
 						$change = true;
 					}
 				}

@@ -778,3 +778,13 @@ JOIN `order_product` ON `order`.' at line 2 | Файл: D:\YandexDisk\__Web_dev\
 =================
 [2020-02-24 23:43:03] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'user2' for key 'login' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-02-25 17:02:01] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-25 17:36:58] Текст ошибки: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-25 17:40:44] Текст ошибки: SQLSTATE[22007]: Invalid datetime format: 1292 Truncated incorrect DOUBLE value: 'UAH' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-02-25 18:28:34] Текст ошибки: syntax error, unexpected ',' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\User.php | Строка: 48
+=================
+[2020-02-25 18:36:47] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 98
+=================
