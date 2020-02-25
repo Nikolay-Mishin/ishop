@@ -131,7 +131,6 @@ function toArray($attrs, $attrToArray = true){
 }
 
 function validateAttrs($class, $attrs){
-	$class2 = 'app\models\admin\User';
 	foreach($attrs as $key => $attr){
 		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
 	}
@@ -139,13 +138,13 @@ function validateAttrs($class, $attrs){
 }
 
 function callMethod($class, $attr){
-	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func([$class, $attr]) : $attr;
+	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func([$class, $attr]) : false;
 }
 
 function getProp($class, $attr){
 	if(property_exists($class, $attr)){
 		$isStatic = array_key_exists($attr, getClassInfo($class)->getStaticProperties());
-		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::$$attr;
+		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::${$attr};
 	}
 	return $attr;
 }
