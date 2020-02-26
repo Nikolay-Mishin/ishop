@@ -32,7 +32,7 @@ abstract class Model{
 			// $this->save();
 			// $this->$action($attrs);
 			// Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`
-			call_user_func_array(array($this, $action), $attrs);
+			call_user_func_array([$this, $action], $attrs);
 		}
 	}
 

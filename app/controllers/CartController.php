@@ -14,6 +14,8 @@ namespace app\controllers;
 
 use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Cart; // модель корзины
+use app\models\Modification; // модель модификаторов товара
+use app\models\Product; // модель модификаторов товара
 use app\models\Order; // модель заказов
 use app\models\User; // модель пользователя
 use ishop\App;
@@ -38,22 +40,17 @@ class CartController extends AppController {
 		$id = !empty($_GET['id']) ? (int)$_GET['id'] : null; // id товара
 		$qty = !empty($_GET['qty']) ? (int)$_GET['qty'] : null; // количество товара
 		$mod_id = !empty($_GET['mod']) ? (int)$_GET['mod'] : null; // id модификатора товара
-		// если модификатор не получен - переменная будет инициализирована (значение задано), но пуста
-		$mod = null; // переменная для хранения модификатора товара
 		// если id получен, получаем товар
 		if($id){
-			$product = \R::findOne('product', 'id = ?', [$id]); // получаем товар
 			// если товар не получен, возвращаем false
-			if(!$product){
+			if(!$product = Product::getById($id)){
 				return false;
 			}
 			// если передан id модификатора, получаем информацию по данному модификатору
-			if($mod_id){
-				$mod = \R::findOne('modification', 'id = ? AND product_id = ?', [$mod_id, $id]);
-			}
+			$mod = Modification::getModByProductId($mod_id, $id);
+			$cart = new Cart(); // объект корзины
+			$cart->addToCart($product, $qty, $mod); // вызываем метод для добавления в корзину
 		}
-		$cart = new Cart(); // объект корзины
-		$cart->addToCart($product, $qty, $mod); // вызываем метод для добавления в корзину
 		$this->show(); // отображаем вид корзины
 	}
 
@@ -109,29 +106,11 @@ class CartController extends AppController {
 		if(!empty($_POST)){
 			// регистрация пользователя
 			if(!User::checkAuth()){
-				$user = new User(); // объект пользователя
-				$data = $_POST; // массив полученных данных
-				$user->load($data); // загружаем полученные данные в модель
-				// если валидация и проверка на уникальность не пройдена
-				if(!$user->validate($data) || !$user->checkUnique()){
-					$user->getErrors(); // получаем ошибоки
-					$_SESSION['form_data'] = $data; // запоминаем данные формы
-					redirect(); // перезапрашиваем страницу
-				}else{
-					// хэшируем пароль
-					$user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-					// сохраняем пользователя и получаем id нового пользователя
-					if(!$user_id = $user->save()){
-						$_SESSION['error'] = 'Ошибка!';
-						redirect(); // перезапрашиваем страницу
-					}
-					$user->saveSession(); // записываем в сессиию все данные пользователя, кроме пароля
-				}
+				$user = new User('signup', $_POST); // объект модели пользователя
 			}
-
 			// сохранение заказа
 			// сохраняем id пользователя (только что зарегистрированного или авторизованного)
-			$data['user_id'] = isset($user_id) ? $user_id : $_SESSION['user']['id'];
+			$data['user_id'] = isset($user->id) ? $user->id : $_SESSION['user']['id'];
 			$data['currency'] = $_SESSION['cart.currency']['code']; // валюта заказа
 			$data['sum'] = $_SESSION['cart.sum']; // сумма заказа
 			$data['note'] = !empty($_POST['note']) ? $_POST['note'] : ''; // примечание к заказу
@@ -167,7 +146,7 @@ class CartController extends AppController {
 		$signString = implode(':', $dataSet); // конкатенируем значения через символ ':'
 		$sign = base64_encode(md5($signString, true)); // берем MD5 хэш в бинарном виде и по сформированной строке и кодирем в BASE64
 
-		$order = \R::load('order', (int)$dataSet['ik_pm_no']); // получаем данные заказа по его номеру
+		$order = Order::getById($dataSet['ik_pm_no']); // получаем данные заказа по его номеру
 		if(!$order) die; // если заказ не получе, завершаем работу скрипта
 
 		// валидируем полученные данные

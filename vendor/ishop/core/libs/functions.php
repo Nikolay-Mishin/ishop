@@ -137,8 +137,8 @@ function validateAttrs($class, $attrs){
 	return $attrs;
 }
 
-function callMethod($class, $attr){
-	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func([$class, $attr]) : false;
+function callMethod($class, $attr, $attrs = []){
+	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func_array([$class, $attr], $attrs) : false;
 }
 
 function getProp($class, $attr){

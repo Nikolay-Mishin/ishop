@@ -31,6 +31,11 @@ class Order extends AppModel {
 		$this->mailOrder($data['user_email'], Payment::setData($this->id, $data['pay']));
 	}
 
+	// получает заказ
+	public static function getById($id){
+		return \R::load('order', (int)$id);
+	}
+
 	// сохраняет оформленный заказ
 	// ДЗ - сделать правильное сохранение заказа (с помощью метода save в базовой модели)
 	/* public static function saveOrder($data){
