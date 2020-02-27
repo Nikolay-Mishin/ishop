@@ -18,11 +18,14 @@ abstract class Model{
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
+		//debug(['__construct', get_called_class(), $data, $attrs, $action, $valid]);
 		if($data){
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
 			// in_array(,,true) - при поиске будет использовано строгое сравнение (проверит соответствие типов)
-			list($attrs, $valid) = toArray([$attrs, $valid]);
+			//debug(['__construct [$attrs, $valid]', get_called_class(), $attrs, $valid]);
+			list($attrs, $valid) = toArray([$attrs, $valid], true);
+			//debug(['__construct [$attrs, $valid]', get_called_class(), $attrs, $valid]);
 			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;

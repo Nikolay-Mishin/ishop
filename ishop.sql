@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 17 2020 г., 17:27
+-- Время создания: Фев 28 2020 г., 00:23
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -45,7 +45,7 @@ INSERT INTO `attribute_group` (`id`, `title`) VALUES
 (3, 'Ремешок'),
 (4, 'Корпус'),
 (5, 'Индикация'),
-(6, 'Тестовая группа');
+(7, 'Тестовая группа');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ INSERT INTO `attribute_value` (`id`, `value`, `attr_group_id`) VALUES
 (17, 'Алюминий', 4),
 (18, 'Аналоговые', 5),
 (19, 'Цифровые', 5),
-(20, 'Тестовый аттрибут', 6);
+(21, 'Тестовый аттрибут', 7);
 
 -- --------------------------------------------------------
 
@@ -218,18 +218,21 @@ CREATE TABLE `currency` (
   `code` varchar(3) NOT NULL,
   `symbol_left` varchar(10) NOT NULL,
   `symbol_right` varchar(10) NOT NULL,
-  `value` float(15,2) NOT NULL,
-  `base` enum('0','1') NOT NULL
+  `value` float(15,4) NOT NULL,
+  `course` float(15,4) NOT NULL,
+  `base` enum('0','1') NOT NULL,
+  `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `currency`
 --
 
-INSERT INTO `currency` (`id`, `title`, `code`, `symbol_left`, `symbol_right`, `value`, `base`) VALUES
-(1, 'гривна', 'UAH', '', ' грн.', 25.80, '0'),
-(2, 'доллар', 'USD', '$ ', '', 1.00, '1'),
-(3, 'Евро', 'EUR', '€ ', '', 0.88, '0');
+INSERT INTO `currency` (`id`, `title`, `code`, `symbol_left`, `symbol_right`, `value`, `course`, `base`, `update_at`) VALUES
+(1, 'гривна', 'UAH', '', ' грн.', 0.0375, 26.6909, '0', '2020-02-27 19:42:42'),
+(2, 'доллар', 'USD', '$ ', '', 0.0152, 65.6097, '0', '2020-02-27 19:42:42'),
+(3, 'Евро', 'EUR', '€ ', '', 0.0140, 71.6458, '0', '2020-02-27 19:42:42'),
+(4, 'Рубль', 'RUR', '', ' руб.', 1.0000, 1.0000, '1', '2020-02-22 18:36:55');
 
 -- --------------------------------------------------------
 
@@ -297,10 +300,11 @@ INSERT INTO `modification` (`id`, `product_id`, `title`, `price`) VALUES
 CREATE TABLE `order` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '0',
+  `status` enum('0','1','2') NOT NULL DEFAULT '0',
   `date` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_at` timestamp NULL DEFAULT NULL,
-  `currency` varchar(10) NOT NULL,
+  `currency` varchar(3) NOT NULL,
+  `sum` float NOT NULL,
   `note` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -308,14 +312,14 @@ CREATE TABLE `order` (
 -- Дамп данных таблицы `order`
 --
 
-INSERT INTO `order` (`id`, `user_id`, `status`, `date`, `update_at`, `currency`, `note`) VALUES
-(6, 2, '0', '2019-10-11 17:59:21', NULL, 'EUR', ''),
-(9, 2, '0', '2019-10-11 18:03:07', NULL, 'EUR', ''),
-(10, 2, '0', '2019-10-11 18:06:57', NULL, 'USD', ''),
-(11, 2, '0', '2019-10-12 15:47:59', NULL, 'USD', ''),
-(12, 2, '0', '2019-10-12 15:52:22', NULL, 'USD', 'Test'),
-(13, 2, '0', '2019-10-12 15:54:03', NULL, 'EUR', 'Test 2'),
-(14, 2, '0', '2019-10-12 16:01:29', NULL, 'EUR', '');
+INSERT INTO `order` (`id`, `user_id`, `status`, `date`, `update_at`, `currency`, `sum`, `note`) VALUES
+(6, 2, '0', '2019-10-11 17:59:21', NULL, 'EUR', 484, ''),
+(9, 2, '0', '2019-10-11 18:03:07', NULL, 'EUR', 352, ''),
+(10, 2, '0', '2019-10-11 18:06:57', NULL, 'USD', 400, ''),
+(11, 2, '0', '2019-10-12 15:47:59', '2020-02-22 16:32:05', 'USD', 400, ''),
+(12, 2, '0', '2019-10-12 15:52:22', '2020-02-22 16:32:29', 'USD', 150, 'Test'),
+(13, 2, '1', '2019-10-12 15:54:03', '2020-02-22 16:32:42', 'EUR', 484, 'Test 2'),
+(14, 1, '2', '2019-10-12 16:01:29', NULL, 'EUR', 352, '');
 
 -- --------------------------------------------------------
 
@@ -358,8 +362,8 @@ INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `qty`, `title`, `pr
 
 CREATE TABLE `product` (
   `id` int(10) UNSIGNED NOT NULL,
-  `category_id` tinyint(3) UNSIGNED NOT NULL,
-  `brand_id` tinyint(3) UNSIGNED DEFAULT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `brand_id` int(10) UNSIGNED DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `alias` varchar(255) NOT NULL,
   `content` text DEFAULT NULL,
@@ -379,7 +383,7 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`id`, `category_id`, `brand_id`, `title`, `alias`, `content`, `price`, `old_price`, `status`, `keywords`, `description`, `img`, `hit`) VALUES
 (1, 6, 1, 'Casio MRP-700-1AVEF', 'casio-mrp-700-1avef', '', 300, 0, '1', '', '', 'p-1.png', '1'),
 (2, 6, 1, 'Casio MQ-24-7BUL', 'casio-mq-24-7bul', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. In varius lorem lorem, semper bibendum lectus lobortis ac.</p>\n\n                                            <p>Mauris placerat vitae lorem gravida viverra. Mauris in fringilla ex. Nulla facilisi. Etiam scelerisque tincidunt quam facilisis lobortis. In malesuada pulvinar neque a consectetur. Nunc aliquam gravida purus, non malesuada sem accumsan in. Morbi vel sodales libero.</p>', 70, 80, '1', '111', '222', 'p-2.png', '1'),
-(3, 6, 1, 'Casio GA-1000-1AER', 'casio-ga-1000-1aer', NULL, 400, 0, '1', NULL, NULL, 'p-3.png', '1'),
+(3, 6, 1, 'Casio GA-1000-1AER', 'casio-ga-1000-1aer', '', 400, 0, '1', '', '', 'p-3.png', '1'),
 (4, 6, 2, 'Citizen JP1010-00E', 'citizen-jp1010-00e', NULL, 400, 0, '1', NULL, NULL, 'p-4.png', '1'),
 (5, 7, 2, 'Citizen BJ2111-08E', 'citizen-bj2111-08e', NULL, 500, 0, '1', NULL, NULL, 'p-5.png', '1'),
 (6, 7, 2, 'Citizen AT0696-59E', 'citizen-at0696-59e', NULL, 350, 355, '1', NULL, NULL, 'p-6.png', '1'),
@@ -476,7 +480,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `login`, `password`, `email`, `name`, `address`, `role`) VALUES
 (1, 'admin', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'admin@mail.ru', 'Admin', '1', 'admin'),
-(2, 'user1', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'user'),
+(2, 'user1', '$2y$10$7QvD9AiyE4SS0EVwsFyv3OvQqJpDfFs7Z6TF5cAI5Vb51KRIcEUcK', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'user'),
 (3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'user'),
 (4, 'user3', '$2y$10$QkJYBUkwv7RJAbQVZDCIqOuzsOqFKKzr/2P.X5cmhqfuaxntK3lya', '3@3.ru', 'user3', '3', 'user');
 
@@ -522,7 +526,8 @@ ALTER TABLE `category`
 -- Индексы таблицы `currency`
 --
 ALTER TABLE `currency`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `code` (`code`);
 
 --
 -- Индексы таблицы `gallery`
@@ -534,20 +539,24 @@ ALTER TABLE `gallery`
 -- Индексы таблицы `modification`
 --
 ALTER TABLE `modification`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Индексы таблицы `order`
 --
 ALTER TABLE `order`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `currency` (`currency`);
 
 --
 -- Индексы таблицы `order_product`
 --
 ALTER TABLE `order_product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`);
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Индексы таблицы `product`
@@ -556,13 +565,16 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `alias` (`alias`),
   ADD KEY `category_id` (`category_id`,`brand_id`),
-  ADD KEY `hit` (`hit`);
+  ADD KEY `hit` (`hit`),
+  ADD KEY `brand_id` (`brand_id`);
 
 --
 -- Индексы таблицы `related_product`
 --
 ALTER TABLE `related_product`
-  ADD PRIMARY KEY (`product_id`,`related_id`);
+  ADD PRIMARY KEY (`product_id`,`related_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `related_id` (`related_id`);
 
 --
 -- Индексы таблицы `user`
@@ -580,13 +592,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `attribute_group`
 --
 ALTER TABLE `attribute_group`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблицы `brand`
@@ -598,13 +610,13 @@ ALTER TABLE `brand`
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `currency`
 --
 ALTER TABLE `currency`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `gallery`
@@ -622,13 +634,13 @@ ALTER TABLE `modification`
 -- AUTO_INCREMENT для таблицы `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT для таблицы `order_product`
 --
 ALTER TABLE `order_product`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
@@ -641,6 +653,56 @@ ALTER TABLE `product`
 --
 ALTER TABLE `user`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `attribute_product`
+--
+ALTER TABLE `attribute_product`
+  ADD CONSTRAINT `attr_id` FOREIGN KEY (`attr_id`) REFERENCES `attribute_value` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `attribute_value`
+--
+ALTER TABLE `attribute_value`
+  ADD CONSTRAINT `attr_group_id` FOREIGN KEY (`attr_group_id`) REFERENCES `attribute_group` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `modification`
+--
+ALTER TABLE `modification`
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `currency` FOREIGN KEY (`currency`) REFERENCES `currency` (`code`),
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `order_product`
+--
+ALTER TABLE `order_product`
+  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `brand_id` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
+  ADD CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `related_product`
+--
+ALTER TABLE `related_product`
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `related_id` FOREIGN KEY (`related_id`) REFERENCES `attribute_value` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

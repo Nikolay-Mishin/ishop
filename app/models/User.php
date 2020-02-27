@@ -35,19 +35,21 @@ class User extends AppModel {
 		]
 	];
 
-	public function __construct($userAction = 'login', $data = [], $attrs = [], $action = 'save'){
-		if($userAction == 'signup'){
+	public function __construct($userAction = 'login', $data = [], $attrs = [], $action = 'save', $valid = []){
+		if($userAction == 'login' || $userAction == 'signup'){
 			// хэшируем пароль
-		    // password_hash - хэширует пароль с учетом временной метки (текущей даты)
-		    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-		    // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		    // $this->checkUnique()
-		    // сохраняем нового пользователя в БД
-		    // $user->save('user') - благодаря методу getModelName() имя Модели используется в качестве имени таблицы в БД
-		    // если имя таблицы не передано, ModelName = TableName в БД (User => user)
-		    parent::__construct($data, $attrs, $action, 'checkUnique');
+			// password_hash - хэширует пароль с учетом временной метки (текущей даты)
+			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+			// $this->checkUnique()
+			// сохраняем нового пользователя в БД
+			// $user->save('user') - благодаря методу getModelName() имя Модели используется в качестве имени таблицы в БД
+			// если имя таблицы не передано, ModelName = TableName в БД (User => user)
+			parent::__construct($data, $attrs, $action, 'checkUnique');
+			return callMethod($this, $userAction, $attrs);
 		}
-		callMethod($this, $userAction, $attrs);
+		//debug($userAction);
+		parent::__construct($data, $attrs, $action, $valid);
 	}
 
 	// проверяем роль пользователя и получаем из БД пользователя с соответствующей ролью (admin/user)

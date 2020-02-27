@@ -4,8 +4,11 @@
 namespace app\controllers;
 
 use app\models\User; // модель пользователя
+use app\models\Order; // модель заказа
+use app\models\OrderProduct; // модель товаров заказа
 use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\admin\User as adminUser; // админская модель пользователя
+use app\models\admin\Order as adminOrder; // админская модель заказа
 
 class UserController extends AppController {
 
@@ -64,31 +67,10 @@ class UserController extends AppController {
 	public function editAction(){
 		// если получены данные, обрабатываем их
 		if(!empty($_POST)){
-			$user = new adminUser(); // админская модель пользователя
 			$data = $_POST; // данные, пришедшие от пользователя
 			$data['id'] = $_SESSION['user']['id']; // id пользователя
 			$data['role'] = $_SESSION['user']['role']; // роль пользователя
-			$user->load($data); // загружаем данные в модель
-			// если поле с паролем не заполнено, удаляем его из аттрибутов модели
-			// иначе хэшируем пароль
-			if(!$user->attributes['password']){
-				unset($user->attributes['password']);
-			}else{
-				$user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-			}
-			// валидируем данные
-			if(!$user->validate($data) || !$user->checkUnique()){
-				$user->getErrors();
-				redirect();
-			}
-			// сохраняем изменения данных пользователя в БД
-			if($user->update('user', $_SESSION['user']['id'])){
-				// перезаписываем данные пользователя в сессии
-				foreach($user->attributes as $k => $v){
-					if($k != 'password') $_SESSION['user'][$k] = $v;
-				}
-				$_SESSION['success'] = 'Изменения сохранены';
-			}
+			$user = new adminUser($data, $data['id'], 'update', 'saveSession'); // админская модель пользователя
 			redirect();
 		}
 	}
@@ -97,7 +79,7 @@ class UserController extends AppController {
 	public function ordersAction(){
 		if(!User::checkAuth()) redirect('user/login'); // если пользователь не авторизован, перенаправляем на страницу авторизации
 		// получаем заказы пользователя
-		$orders = \R::findAll('order', 'user_id = ? ORDER BY status DESC, id DESC', [$_SESSION['user']['id']]);
+		$orders = Order::getByCurrentUserId();
 		$this->setMeta('История заказов'); // устанавливаем мета-данные
 		$this->set(compact('orders')); // передаем данные в вид
 	}
@@ -106,16 +88,17 @@ class UserController extends AppController {
 	public function orderAction(){
 		$order_id = !empty($_GET['id']) ? (int)$_GET['id'] : null; // получаем id заказа
 		// получаем данные заказа
-		$order = \R::getRow("SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
-  JOIN `user` ON `order`.`user_id` = `user`.`id`
-  JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
-  WHERE `order`.`id` = ?
-  GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1", [$order_id]);
+  //      $order = \R::getRow("SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
+  //JOIN `user` ON `order`.`user_id` = `user`.`id`
+  //JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
+  //WHERE `order`.`id` = ?
+  //GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1", [$order_id]);
+		$order = adminOrder::getById($order_id); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);
 		}
-		$order_products = \R::findAll('order_product', "order_id = ?", [$order_id]);
+		$order_products = OrderProduct::getByOrderId($order_id); // получаем данные товаров заказа
 		$this->setMeta("Заказ №{$order_id}");
 		$this->set(compact('order', 'order_products'));
 	}

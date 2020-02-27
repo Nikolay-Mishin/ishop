@@ -9,7 +9,7 @@
                 <a href="product/<?=$product->alias;?>" class="mask"><img class="img-responsive zoom-img" src="images/<?=$product->img;?>" alt="" /></a>
                 <div class="product-bottom">
                     <!-- наименование -->
-                    <h3><?=$product->title;?></h3>
+                    <h3><a href="product/<?=$product->alias;?>"><?=$product->title;?></a></h3>
                     <p>Explore Now</p>
                     <h4>
                         <!-- ссылка для добавления товара в корзину (текущая цена) -->
@@ -24,7 +24,7 @@
                 <!-- рассчет размера скидки (при наличии старой цены) -->
                 <?php if($product->old_price > 0): ?>
                     <div class="srch">
-                        <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
+                        <span>-<?=number_round((1 - $product->price / $product->old_price) * 100);?>%</span>
                     </div>
                 <?php endif; ?>
             </div>

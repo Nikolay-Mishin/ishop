@@ -36,6 +36,11 @@ class Order extends AppModel {
 		return \R::load('order', (int)$id);
 	}
 
+	// получает заказы пользователя
+	public static function getByCurrentUserId(){
+		return \R::findAll('order', 'user_id = ? ORDER BY status DESC, id DESC', [$_SESSION['user']['id']]);
+	}
+
 	// сохраняет оформленный заказ
 	// ДЗ - сделать правильное сохранение заказа (с помощью метода save в базовой модели)
 	/* public static function saveOrder($data){

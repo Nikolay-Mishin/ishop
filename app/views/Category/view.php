@@ -28,7 +28,7 @@
                                     <a href="product/<?=$product->alias;?>" class="mask"><img class="img-responsive zoom-img" src="images/<?=$product->img;?>" alt="" /></a>
                                     <div class="product-bottom">
                                         <!-- наименование -->
-                                        <h3><?=$product->title;?></h3>
+                                        <h3><a href="product/<?=$product->alias;?>"><?=$product->title;?></a></h3>
                                         <p>Explore Now</p>
                                         <!-- цена товара -->
                                         <h4>

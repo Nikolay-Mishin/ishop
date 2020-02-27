@@ -814,3 +814,7 @@ JOIN `order_product` ON `order`.' at line 2 | Файл: D:\YandexDisk\__Web_dev\
 =================
 [2020-02-25 22:56:17] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 145
 =================
+[2020-02-27 22:42:43] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-02-28 00:31:23] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================

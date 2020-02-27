@@ -3,18 +3,13 @@
 
 namespace app\models\admin;
 
-use app\models\AppModel;
+use app\models\OrderProduct as baseOrderProduct;
 
-class OrderProduct extends AppModel {
-
-	// получает товары заказа
-	public static function getByOrderId($id){
-		return \R::findAll('order_product', "order_id = ?", [$id]); // получаем данные товаров заказа по его id
-	}
+class OrderProduct extends baseOrderProduct {
 
 	// удаляет товары заказа
 	public static function delete($id){
-		$order_products = self::getByOrder($id); // получаем данные товаров заказа по его id
+		$order_products = self::getByOrderId($id); // получаем данные товаров заказа по его id
 		// удаляем товары заказа
 		foreach($order_products as $order_product){
 			\R::trash($order_product);

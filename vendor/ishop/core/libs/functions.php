@@ -120,24 +120,36 @@ function upperCamelCase($name){
 
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
-function toArray($attrs, $attrToArray = true){
-	$attrs = is_array($attrs) ? $attrs : toArray([$attrs]);
-	if($attrToArray){
-		foreach($attrs as $key => $attr){
-			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr], false);
+function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
+	//debug(['Start', $attrs, $attrToArray, $data]);
+	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
+	//debug(['$attrs toArray', $attrs, $attrToArray, $data]);
+	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
+	//debug(['$data toArray', $attrs, $attrToArray, $data]);
+	if($data){
+		foreach($data as $item){
+			if(!in_array($item, $attrs)) $attrs[] = $item;
 		}
 	}
-	return $attrs;
+	if($attrToArray){
+		foreach($attrs as $key => $attr){
+			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr]);
+		}
+	}
+	return ${$result};
 }
 
 function validateAttrs($class, $attrs){
+	//debug(['validateAttrs', $attrs]);
 	foreach($attrs as $key => $attr){
 		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
 	}
+	//debug(['validateAttrs', $attrs]);
 	return $attrs;
 }
 
 function callMethod($class, $attr, $attrs = []){
+	//debug(['callMethod', $attr, $attrs]);
 	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func_array([$class, $attr], $attrs) : false;
 }
 
@@ -182,7 +194,6 @@ function newArray($array, $key = '', $patterns = [], $sort_key = 'key', $sort_fl
 				elseif(is_string($pattern)){
 					$val = call_user_func($pattern, $value);
 				}
-				debug($value);
 				$v[$key_p] = $val;
 			}
 		}
