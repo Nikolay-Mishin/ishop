@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 28 2020 г., 00:23
+-- Время создания: Фев 28 2020 г., 00:51
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -55,7 +55,7 @@ INSERT INTO `attribute_group` (`id`, `title`) VALUES
 
 CREATE TABLE `attribute_product` (
   `attr_id` int(10) UNSIGNED NOT NULL,
-  `product_id` int(11) UNSIGNED NOT NULL
+  `product_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -533,7 +533,8 @@ ALTER TABLE `currency`
 -- Индексы таблицы `gallery`
 --
 ALTER TABLE `gallery`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Индексы таблицы `modification`
@@ -671,12 +672,6 @@ ALTER TABLE `attribute_value`
   ADD CONSTRAINT `attr_group_id` FOREIGN KEY (`attr_group_id`) REFERENCES `attribute_group` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `modification`
---
-ALTER TABLE `modification`
-  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
-
---
 -- Ограничения внешнего ключа таблицы `order`
 --
 ALTER TABLE `order`
@@ -687,8 +682,7 @@ ALTER TABLE `order`
 -- Ограничения внешнего ключа таблицы `order_product`
 --
 ALTER TABLE `order_product`
-  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `product`
@@ -701,7 +695,6 @@ ALTER TABLE `product`
 -- Ограничения внешнего ключа таблицы `related_product`
 --
 ALTER TABLE `related_product`
-  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `related_id` FOREIGN KEY (`related_id`) REFERENCES `attribute_value` (`id`);
 COMMIT;
 
