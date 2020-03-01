@@ -71,7 +71,7 @@ class User extends baseUser {
 		$users = \R::findAll('user', "LIMIT $start, $perpage"); // получаем список пользователей для текущей страницы пагинации
 		*/
 		self::$pagination = new Pagination(null, $perpage, null, 'user'); // объект пагинации
-		return \R::findAll('user', self::$pagination->limit); // получаем список пользователей для текущей страницы пагинации
+		return \R::findAll('user', 'LIMIT '.self::$pagination->limit); // получаем список пользователей для текущей страницы пагинации
 	}
 
 	// получаем данные пользователя из БД

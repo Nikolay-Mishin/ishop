@@ -4,7 +4,7 @@ namespace app\models\admin;
 
 use app\models\AppModel;
 
-class FilterGroup extends AppModel{
+class FilterGroup extends AppModel {
 
 	public $table = 'attribute_group';
 

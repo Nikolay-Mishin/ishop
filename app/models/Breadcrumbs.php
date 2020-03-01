@@ -5,7 +5,7 @@ namespace app\models;
 
 use ishop\App;
 
-class Breadcrumbs{
+class Breadcrumbs {
 
     // получаем хлебные крошки - строит хлебные крошки
     public static function getBreadcrumbs($category_id = null, $name = ''){

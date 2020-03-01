@@ -3,7 +3,7 @@
 
 namespace ishop\libs;
 
-class Pagination{
+class Pagination {
 
     public $currentPage; // текущая страница
     public $perpage; // число записей на 1 странице
@@ -20,7 +20,7 @@ class Pagination{
         $this->currentPage = $this->getCurrentPage($page); // получаем текущую страницу
         // получаем строку запроса, сформированную в нужном формате
         $this->uri = $this->getParams(); // http://ishop/category/casio?sort=name&filter=1,2,3&
-        $this->limit = " LIMIT {$this->getStart()}, $this->perpage";
+        $this->limit = "{$this->getStart()}, $this->perpage";
     }
 
     // геттер для получения номера записи, с которого необходимо начинать выборку из БД

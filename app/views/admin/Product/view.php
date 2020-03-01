@@ -60,6 +60,36 @@
                             <div class="help-block with-errors"></div>
                         </div>
 
+                        <div id="mod-list">
+                            <?php if(!empty($modifications)): ?>
+                                <?php $i = 1; foreach($modifications as $mod): ?>
+                                    <div class="row mod-item">
+                                        <div class="col-sm-7">
+                                            <div class="form-group">
+                                                <label for="modification">Модификация <?=$i++;?></label>
+                                                <input type="text" name="modification[]" class="form-control" id="modification" placeholder="Название модификации" value="<?=$mod->title;?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="mod_price">Цена</label>
+                                                <input type="text" name="mod_price[]" class="form-control" id="mod_price" placeholder="Цена модификации" pattern="^[0-9.]{1,}$" value="<?=$mod->price;?>" required data-error="Допускаются цифры и десятичная точка">
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-1">
+                                            <div class="form-group">
+                                                <a class="btn btn-default mod-add">+</a>
+                                                <a class="btn btn-default mod-del">-</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="form-group has-feedback">
                             <label for="content">Контент</label>
                             <textarea name="content" id="editor1" cols="80" rows="10"><?=$product->content;?></textarea>
@@ -89,6 +119,7 @@
                         </div>
 
                         <?php new \app\widgets\filter\Filter($filter, WWW . '/filter/admin_filter_tpl.php'); ?>
+
                         <div class="form-group">
                             <div class="col-md-4">
                                 <div class="box box-danger box-solid file-upload">

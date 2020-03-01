@@ -6,7 +6,7 @@
 
 namespace ishop;
 
-class Cache{
+class Cache {
 
     use TSingletone; // шаблон Одининочка
 

@@ -4,7 +4,7 @@
 
 namespace ishop;
 
-class Db{
+class Db {
 
 	use TSingletone;
 

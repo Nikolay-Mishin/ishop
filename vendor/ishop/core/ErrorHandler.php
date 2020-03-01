@@ -4,7 +4,7 @@
 
 namespace ishop;
 
-class ErrorHandler{
+class ErrorHandler {
 
     public function __construct(){
         // уровень вывода ошибок устанавливаем в зависимости от значения констатнты дебага

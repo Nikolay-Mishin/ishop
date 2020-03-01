@@ -4,7 +4,7 @@ namespace app\models\admin;
 
 use app\models\AppModel;
 
-class Currency extends AppModel{
+class Currency extends AppModel {
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
@@ -41,19 +41,19 @@ class Currency extends AppModel{
 	}
 
 	// получает общее число валют
-	public static function getCount(){
-		return \R::count('currency');
-	}
+	//public static function getCount(){
+	//    return \R::count('currency');
+	//}
 
 	// получаем список валют
-	public static function getAll(){
-		return \R::findAll('currency');
-	}
+	//public static function getAll(){
+	//    return \R::findAll('currency');
+	//}
 
 	// получаем из БД валюту по id
-	public static function getById($id){
-		return \R::load('currency', $id);
-	}
+	//public static function getById($id){
+	//    return \R::load('currency', $id);
+	//}
 
 	// удаляет категорию
 	public static function delete($id){

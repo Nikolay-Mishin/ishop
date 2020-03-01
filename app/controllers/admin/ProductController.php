@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\models\admin\Product;
 use app\models\admin\Gallery;
+use app\models\admin\Modification;
 use app\models\AppModel;
 use ishop\App;
 
@@ -18,9 +19,11 @@ class ProductController extends AppController {
 
 	// экшен отображения данных товара
 	public function viewAction(){
-		list($product, $filter, $related_product, $gallery) = [Product::getById($this->getRequestID()), Product::$filter, Product::$related_product, Product::$gallery];
+		$values = [Product::getById($this->getRequestID()), Product::$filter, Product::$related_product, Product::$gallery];
+		list($product, $filter, $related_product, $gallery) = $values;
+		$modifications = Modification::getByProductId($product->id);
 		$this->setMeta("Редактирование товара {$product->title}");
-		$this->set(compact('product', 'filter', 'related_product', 'gallery'));
+		$this->set(compact('product', 'filter', 'related_product', 'gallery', 'modifications'));
 	}
 
 	// экшен редактирования товара

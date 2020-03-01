@@ -4,7 +4,7 @@ namespace app\models\admin;
 
 use app\models\Category as Cat;
 
-class Category extends Cat{
+class Category extends Cat {
 
 	public function __construct($data = [], $attrs = [], $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)

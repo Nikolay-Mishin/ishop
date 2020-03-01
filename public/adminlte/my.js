@@ -98,7 +98,12 @@ function uploadImg(target, upload = 'single'){
 				var img = `<img src="/images/${response.file}" style="max-height: 150px; cursor: pointer;" data-src="${response.file}" data-upload="${upload}" class="del-item">`;
 				console.log(img);
 				// отображаем загруженную картинку
-				$('.' + target.data('name')).html(img);
+				if (upload == 'gallery') {
+					$('.' + target.data('name')).append(img);
+				}
+				else {
+					$('.' + target.data('name')).html(img);
+				}
 			}, 1000);
 		}
 	});
@@ -195,5 +200,50 @@ function changeInput(target, change = true, value = 1){
 	}
 	else {
 		target.val(target.data('value'));
+	}
+}
+
+function getItems(target, item) {
+	return target.find(item);
+}
+
+if ($('div').is('#mod-list')) {
+	var mod_list = $('#mod-list'),
+		mod_items = getItems(mod_list, '.mod-item');
+}
+
+if (mod_items) {
+	$(document).on('click touchstart', '.mod-add', function (e) {
+		e.preventDefault();
+		var mod_item = $(this).closest('.mod-item').clone();
+		resetInputs(mod_item);
+		mod_item.find('[for=modification]').text('Модификация ' + (getModItems().length + 1));
+		mod_list.append(mod_item);
+	});
+
+	$(document).on('click touchstart', '.mod-del', function (e) {
+		e.preventDefault();
+		if (getModItems().length > 1) {
+			$(this).closest('.mod-item').remove();
+			resetLabels(getModItems(), '[for=modification]');
+		}
+	});
+}
+
+function getModItems() {
+	return getItems(mod_list, '.mod-item');
+}
+
+function resetInputs(target) {
+	for (var input of target.find('input')) {
+		$(input).val('');
+	}
+}
+
+function resetLabels(target, find) {
+	target = target.find(find);
+	var i = 1;
+	for (var label of target) {
+		$(label).text('Модификация ' + i++);
 	}
 }

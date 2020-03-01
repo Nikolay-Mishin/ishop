@@ -4,7 +4,7 @@ namespace app\models\admin;
 
 use app\models\AppModel;
 
-class FilterAttr extends AppModel{
+class FilterAttr extends AppModel {
 
 	public $table = 'attribute_value';
 

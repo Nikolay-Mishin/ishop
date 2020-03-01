@@ -5,7 +5,7 @@ namespace app\controllers;
 
 use app\models\Breadcrumbs; // модель хлебных крошек
 
-class SearchController extends AppController{
+class SearchController extends AppController {
 
     // обрабатывает поисковый ajax-запрос
     public function typeaheadAction(){

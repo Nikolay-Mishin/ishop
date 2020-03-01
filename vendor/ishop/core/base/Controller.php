@@ -4,7 +4,7 @@
 
 namespace ishop\base;
 
-abstract class Controller{
+abstract class Controller {
     
     public $route; // массив с маршрутами
     public $controller; // контроллер

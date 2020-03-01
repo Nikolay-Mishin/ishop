@@ -3,6 +3,8 @@
 
 namespace app\models;
 
+use ishop\App;
+
 // пример вида корзины (будет храница в сессии - $_SESSION['cart'])
 // базовый вариант (без модификаторов)
 /*Array
@@ -35,8 +37,6 @@ namespace app\models;
     [qty] => QTY, // общее количество
     [sum] => SUM // конечная цена в выбранной пользователем валюте (сумма qty * price)
 */
-
-use ishop\App;
 
 class Cart extends AppModel {
 

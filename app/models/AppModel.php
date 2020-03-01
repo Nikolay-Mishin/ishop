@@ -5,7 +5,7 @@ namespace app\models;
 
 use ishop\base\Model;
 
-class AppModel extends Model{
+class AppModel extends Model {
 
 	// обновляет алиас
 	public static function updateAlias($table, $title, $id, $col = 'alias'){

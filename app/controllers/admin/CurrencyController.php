@@ -4,7 +4,7 @@ namespace app\controllers\admin;
 
 use app\models\admin\Currency;
 
-class CurrencyController extends AppController{
+class CurrencyController extends AppController {
 
 	// экшен просмотра списка валют
 	public function indexAction(){

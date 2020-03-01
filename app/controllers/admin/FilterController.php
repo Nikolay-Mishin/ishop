@@ -5,7 +5,7 @@ namespace app\controllers\admin;
 use app\models\admin\FilterAttr;
 use app\models\admin\FilterGroup;
 
-class FilterController extends AppController{
+class FilterController extends AppController {
 
 	// экшен просмотра списка групп фильтров
 	public function attributeGroupAction(){

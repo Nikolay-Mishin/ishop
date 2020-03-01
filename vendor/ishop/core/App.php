@@ -11,7 +11,7 @@
 
 namespace ishop;
 
-class App{
+class App {
 
     public static $app; // контейнер (реестр) для приложения (хранение свойств/объектов)
 

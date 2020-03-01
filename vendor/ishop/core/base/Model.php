@@ -7,9 +7,8 @@ namespace ishop\base;
 use ishop\Db; // класс БД
 use Valitron\Validator; // класс Валидатора
 
-abstract class Model{
+abstract class Model extends Select {
 
-	public $table = null;
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
@@ -31,6 +30,7 @@ abstract class Model{
 				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
 			}
+			self::$table = self::$table ?? self::getTabelName(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
 			// $this->save();
 			// $this->$action($attrs);
@@ -58,12 +58,11 @@ abstract class Model{
 
 	// сохраняем данные в таблицу в БД
 	public function save(){
-		$this->table = $this->table ?? self::getTabelName(); // имя таблицы в БД
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
-		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
+		$tbl = !preg_match('/_/', self::$table) ? \R::dispense(self::$table) : \R::xdispense($self::$table);
 		// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
 		foreach($this->attributes as $name => $value){
 			$tbl->$name = $value;
@@ -74,8 +73,7 @@ abstract class Model{
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id){
-		$this->table = $this->table ?? self::getTabelName(); // имя таблицы в БД
-		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
+		$bean = \R::load(self::$table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;
@@ -109,11 +107,6 @@ abstract class Model{
 		}
 		$errors .= '</ul>';
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
-	}
-
-	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	public static function getTabelName(){
-		return lowerCamelCase(getClassShortName(get_called_class()));
 	}
 
 }

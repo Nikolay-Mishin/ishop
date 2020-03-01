@@ -3,7 +3,7 @@
 
 namespace ishop;
 
-class Router{
+class Router {
     // таблица марштуров
     protected static $routes = [];
     // текущий маршрут - если найдено соответствие с адресом в маршрутах

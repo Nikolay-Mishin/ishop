@@ -61,6 +61,32 @@
                             <div class="help-block with-errors"></div>
                         </div>
 
+                        <div id="mod-list">
+                            <div class="row mod-item">
+                                <div class="col-sm-7">
+                                    <div class="form-group">
+                                        <label for="modification">Модификация 1</label>
+                                        <input type="text" name="modification[]" class="form-control" id="modification" placeholder="Название модификации">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="mod_price">Цена</label>
+                                        <input type="text" name="mod_price[]" class="form-control" id="mod_price" placeholder="Цена модификации" pattern="^[0-9.]{1,}$" required data-error="Допускаются цифры и десятичная точка">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <a class="btn btn-default mod-add">+</a>
+                                        <a class="btn btn-default mod-del">-</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group has-feedback">
                             <label for="content">Контент</label>
                             <textarea name="content" id="editor1" cols="80" rows="10"><?= isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null; ?></textarea>

@@ -43,6 +43,11 @@ class Product extends AppModel {
 		// устанавливаем необходимые аттрибуты для модели
 		$data['status'] = $data['status'] ? '1' : '0';
 		$data['hit'] = $data['hit'] ? '1' : '0';
+		if(!empty($data['modification']) && !empty($data['mod_price']) && count($data['modification']) == count($data['mod_price'])){
+			foreach($data['modification'] as $key => $mod){
+				$data['mod'][] = ['title' => $data['modification'][$key], 'price' => $data['mod_price'][$key]];
+			}
+		}
 		$this->getImg(); // получаем основную картинку
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
@@ -50,6 +55,8 @@ class Product extends AppModel {
 		if($id = $this->id){
 			self::updateAlias('product', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
 			$this->saveGallery($id); // сохраняем галлерею
+			// изменяем модификации товара
+			$this->editAttrs($id, $data['mod'] ?? [], 'modification', 'product_id', ['title', 'price']);
 			// изменяем фильтры товара
 			$this->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
 			// изменяем связанные товары
@@ -67,7 +74,7 @@ class Product extends AppModel {
 	public static function getAll($pagination = true, $perpage = 10){
 		self::$pagination = new Pagination(null, $perpage, null, 'product'); // объект пагинации
 		// получаем список товаров для текущей страницы пагинации
-		return \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title " . self::$pagination->limit);
+		return \R::getAll("SELECT product.*, category.title AS cat FROM product JOIN category ON category.id = product.category_id ORDER BY product.title LIMIT " . self::$pagination->limit);
 	}
 
 	// получаем данные товара из БД
@@ -87,35 +94,6 @@ class Product extends AppModel {
 		\R::exec("DELETE FROM attribute_value WHERE id = ?", [$id]); // удаляем фильтр из БД
 		$_SESSION['success'] = 'Удалено';
 		redirect();
-	}
-
-	// метод изменения товара
-	public function editAttrs($id, $data, $table, $condition, $attr_id){
-		// получаем аттрибуты товара
-		$dataAttrs = \R::getCol("SELECT $attr_id FROM $table WHERE $condition = ?", [$id]);
-
-		// если менеджер убрал связанные товары - удаляем их
-		if(empty($data) && !empty($dataAttrs)){
-			$this->deleteAttrs($id, $table, $condition); // удаляем связанные товары продукта
-			return;
-		}
-
-		// если добавляются связанные товары
-		if(empty($dataAttrs) && !empty($data)){
-			debug([$dataAttrs, $data]);
-			$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
-			return;
-		}
-
-		// если изменились связанные товары - удалим и запишем новые
-		if(!empty($data)){
-			$result = array_diff($dataAttrs, $data); // возвращает разницу между массивами
-			// если есть разница между массивами, удаляем имеющиеся аттрибуты товара и добавляем новые
-			if(!empty($result) || count($dataAttrs) != count($data)){
-				$this->deleteAttrs($id, $table, $condition); // удаляем аттрибуты товара
-				$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
-			}
-		}
 	}
 
 	// метод получения основной картинки
@@ -145,6 +123,54 @@ class Product extends AppModel {
 		}
 	}
 
+	// метод изменения товара
+	public function editAttrs($id, $data, $table, $condition, $attr_id){
+		$attr_is_array = is_array($attr_id);
+		// получаем аттрибуты товара
+		if($attr_is_array){
+			foreach($attr_id as $attr_name){
+				$attrs = \R::getCol("SELECT $attr_name FROM $table WHERE $condition = ?", [$id]);
+				foreach($attrs as $key => $attr){
+					$dataAttrs[$key][$attr_name] = $attr;
+				}
+			}
+		}
+		else{
+			$dataAttrs = \R::getCol("SELECT $attr_id FROM $table WHERE $condition = ?", [$id]);
+		}
+
+		// если менеджер убрал связанные товары - удаляем их
+		if(empty($data) && !empty($dataAttrs)){
+			$this->deleteAttrs($id, $table, $condition); // удаляем связанные товары продукта
+			return;
+		}
+
+		// если добавляются связанные товары
+		if(empty($dataAttrs) && !empty($data)){
+			$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
+			return;
+		}
+
+		// если изменились связанные товары - удалим и запишем новые
+		if(!empty($data)){
+			if($attr_is_array){
+				$target = count($dataAttrs) > count($data) || count($dataAttrs) == count($data) ? $dataAttrs : $data;
+				$compare = count($dataAttrs) < count($data) ? $dataAttrs : $data;
+				foreach($target as $key => $item){
+					$result = !empty($result) ? $result : array_diff($item, $compare[$key]); // возвращает разницу между массивами
+				}
+			}
+			else{
+				$result = array_diff($dataAttrs, $data); // возвращает разницу между массивами
+			}
+			// если есть разница между массивами, удаляем имеющиеся аттрибуты товара и добавляем новые
+			if(!empty($result) || count($dataAttrs) != count($data)){
+				$this->deleteAttrs($id, $table, $condition); // удаляем аттрибуты товара
+				$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
+			}
+		}
+	}
+
 	// метод удаления товара
 	protected function deleteAttrs($id, $table, $condition){
 		\R::exec("DELETE FROM $table WHERE $condition = ?", [$id]); // выполняем sql-запрос
@@ -157,14 +183,24 @@ class Product extends AppModel {
 
 		$sql_part = ''; // часть sql-запроса
 		// формируем sql-запрос
-		foreach($data as $v){
+		foreach($data as $val){
 			// если строка со значением является числом, приводим ее к числу
 			// иначе оборачиваем строку в '' для корректности sql-запроса
-			$v = ($v === (string)(int)$v) ? (int)$v : "'$v'";
-			$sql_part .= "($id, $v),";
+			if(is_array($val)){
+				$value = '';
+				foreach($val as $v){
+					$v = ($v === (string)(int)$v) ? (int)$v : "'$v'";
+					$value .= "$v, ";
+				}
+				$value = rtrim($value, ', '); // удаляем конечную ', '
+				$sql_part .= "($id, $value), ";
+			}
+			else{
+				$val = ($val === (string)(int)$val) ? (int)$val : "'$val'";
+				$sql_part .= "($id, $val), ";
+			}
 		}
-		$sql_part = rtrim($sql_part, ','); // удаляем конечную ','
-		// debug("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part");
+		$sql_part = rtrim($sql_part, ', '); // удаляем конечную ', '
 		\R::exec("INSERT INTO $table ($condition, $attr_id) VALUES $sql_part"); // выполняем sql-запрос
 	}
 

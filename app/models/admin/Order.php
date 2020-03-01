@@ -9,11 +9,13 @@ use ishop\libs\Pagination; // класс пагинации
 class Order extends AppModel {
 
 	public static $pagination; // пагинация
-	private static $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
-	private static $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
-	private static $where = '';
-	private static $sort = '';
-	private static $limit = ' LIMIT 1';
+	protected static $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
+	protected static $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
+	protected static $where = '';
+	protected static $group = '`order`.`id`';
+	protected static $sort = '';
+	protected static $order = '`order`.`status`, `order`.`id`';
+	protected static $limit = '1';
 
 	// получает общее число заказов
 	public static function getCount(){
@@ -45,6 +47,19 @@ class Order extends AppModel {
 		// LIMIT $start, $perpage - ограничиваем выборку для вывода пагинации
 		self::$pagination = new Pagination(null, $perpage, null, 'order'); // объект пагинации
 		list(self::$select, self::$sort, self::$limit) = [self::$select . ', `user`.`name`', 'DESC', self::$pagination->limit];
+		$orders = \R::getAll(self::getSql());
+		debug(self::$sql);
+
+		// "UPDATE currency SET 'sql_part', update_at = NOW() WHERE code = ?"
+		// debug(self::$update);
+
+		// "INSERT INTO '$table' ('condition', 'attr_id') VALUES ('sql_part', 'sql_part')"
+		// debug(self::$insert);
+
+		// "DELETE FROM 'table' WHERE 'condition' = ?"
+		// debug(self::$delete);
+
+		return $orders;
 		return \R::getAll(self::getSql());
 	}
 
@@ -58,6 +73,7 @@ class Order extends AppModel {
   GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1"; */
 		list(self::$select, self::$where) = [self::$select . ', `user`.`name`', '`order`.`id` = ?'];
 		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
+		debug(self::$sql);
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);
@@ -75,19 +91,10 @@ class Order extends AppModel {
 		*/
 		$values = ['`order_product` ON `order`.`id` = `order_product`.`order_id`', 'user_id = ?', 'DESC', $limit ? $limit : self::$limit];
 		list(self::$join, self::$where, self::$sort, self::$limit) = $values;
+		$orders = \R::getAll(self::getSql(), [$id]);
+		debug(self::$sql);
+		return $orders;
 		return \R::getAll(self::getSql(), [$id]);
-	}
-
-	private static function getSql(){
-		self::$join = explode(', ', self::$join);
-		$join = '';
-		foreach(self::$join as $joinItem){
-			$join .= 'JOIN ' . $joinItem . PHP_EOL;
-		}
-		self::$join = rtrim($join, PHP_EOL);
-		self::$where = self::$where ? PHP_EOL . 'WHERE ' . self::$where . PHP_EOL : PHP_EOL;
-		return 'SELECT ' . self::$select . ' FROM `' . self::getTabelName() . '`' . PHP_EOL . self::$join . self::$where.
-  'GROUP BY `order`.`id` ORDER BY `order`.`status` '.self::$sort.", `order`.`id`".self::$sort.self::$limit;
 	}
 
 	// удаляет заказ
