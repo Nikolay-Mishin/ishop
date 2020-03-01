@@ -18,13 +18,13 @@ class Order extends AppModel {
 	protected static $limit = '1';
 
 	// получает общее число заказов
-	public static function getCount(){
-		return \R::count('order');
-	}
+	//public static function getCount(){
+	//    return \R::count('order');
+	//}
 
 	// получает число новых заказов
 	public static function getCountNew(){
-		return \R::count('order', "status = '0'");
+		return self::getCount("status = '0'");
 	}
 
 	// получает заказы

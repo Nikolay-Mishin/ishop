@@ -6,7 +6,7 @@ use app\models\AppModel;
 
 class FilterGroup extends AppModel {
 
-	public $table = 'attribute_group';
+	protected static $table = 'attribute_group';
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
@@ -30,9 +30,9 @@ class FilterGroup extends AppModel {
 	}
 
 	// получает общее число групп фильтров
-	public static function getCount(){
-		return \R::count('attribute_group');
-	}
+	//public static function getCount(){
+	//    return \R::count('attribute_group');
+	//}
 
 	// считаем число аттрибутов в данной группе фильтров
 	public static function getAttrsInGroup($id){
@@ -40,14 +40,14 @@ class FilterGroup extends AppModel {
 	}
 
 	// получаем список групп фильтров
-	public static function getAll(){
-		return \R::findAll('attribute_group');
-	}
+	//public static function getAll(){
+	//    return \R::findAll('attribute_group');
+	//}
 
 	// получаем данные группы фильтров из БД
-	public static function getById($id){
-		return \R::load('attribute_group', $id);
-	}
+	//public static function getById($id){
+	//    return \R::load('attribute_group', $id);
+	//}
 
 	// удаляет группу фильтров
 	public static function delete($id){

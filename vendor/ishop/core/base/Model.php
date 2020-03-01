@@ -7,7 +7,7 @@ namespace ishop\base;
 use ishop\Db; // класс БД
 use Valitron\Validator; // класс Валидатора
 
-abstract class Model extends Select {
+abstract class Model extends Sql {
 
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
@@ -30,7 +30,7 @@ abstract class Model extends Select {
 				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
 			}
-			self::$table = self::$table ?? self::getTabelName(); // имя таблицы в БД
+			self::$table = self::getTable(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
 			// $this->save();
 			// $this->$action($attrs);

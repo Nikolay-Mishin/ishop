@@ -920,3 +920,5 @@ LIMIT 0, 3' at line 6 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\O
 =================
 [2020-03-02 00:45:33] Текст ошибки: Access to undeclared static property: ishop\base\Model::$table | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 76
 =================
+[2020-03-02 01:27:54] Текст ошибки: Call to protected method ishop\base\Sql::getCount() from context 'app\controllers\admin\MainController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\MainController.php | Строка: 19
+=================

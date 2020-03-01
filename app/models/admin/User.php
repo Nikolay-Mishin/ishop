@@ -56,9 +56,9 @@ class User extends baseUser {
 	}
 
 	// получает общее число пользователей
-	public static function getCount(){
-		return \R::count('user');
-	}
+	//public static function getCount(){
+	//    return \R::count('user');
+	//}
 
 	// получаем список пользователей
 	public static function getAll($pagination = true, $perpage = 3){

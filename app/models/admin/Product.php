@@ -66,9 +66,9 @@ class Product extends AppModel {
 	}
 
 	// получает общее число товаров
-	public static function getCount(){
-		return \R::count('product');
-	}
+	//public static function getCount(){
+	//    return \R::count('product');
+	//}
 
 	// получаем список товаров
 	public static function getAll($pagination = true, $perpage = 10){

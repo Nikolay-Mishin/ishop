@@ -6,7 +6,7 @@ use app\models\AppModel;
 
 class FilterAttr extends AppModel {
 
-	public $table = 'attribute_value';
+	protected static $table = 'attribute_value';
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
@@ -35,9 +35,9 @@ class FilterAttr extends AppModel {
 	}
 
 	// получает общее число аттрибутов фильтров
-	public static function getCount(){
-		return \R::count('attribute_value');
-	}
+	//public static function getCount(){
+	//    return \R::count('attribute_value');
+	//}
 
 	// получаем список аттрибутов фильтров
 	public static function getAll(){
@@ -45,9 +45,9 @@ class FilterAttr extends AppModel {
 	}
 
 	// получаем данные аттрибутов фильтров из БД
-	public static function getById($id){
-		return \R::load('attribute_value', $id);
-	}
+	//public static function getById($id){
+	//    return \R::load('attribute_value', $id);
+	//}
 
 	// удаляет аттрибут фильтров
 	public static function delete($id){

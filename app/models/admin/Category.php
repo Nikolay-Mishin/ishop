@@ -27,14 +27,14 @@ class Category extends Cat {
 	}
 
 	// получает общее число категорий
-	public static function getCount(){
-		return \R::count('category');
-	}
+	//public static function getCount(){
+	//    return \R::count('category');
+	//}
 
 	// получаем из БД категорию по id
-	public static function getById($id){
-		return \R::load('category', $id); // получаем данную категорию из БД
-	}
+	//public static function getById($id){
+	//    return \R::load('category', $id); // получаем данную категорию из БД
+	//}
 
 	// удаляет категорию
 	public static function delete($id){
