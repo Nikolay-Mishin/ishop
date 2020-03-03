@@ -4,6 +4,14 @@ namespace ishop\base;
 
 abstract class Query {
 
+	protected $table2 = null;
+
+	protected static $table = null;
+	protected static $class = null;
+	protected static $model = null;
+
+	protected static $models = [];
+
 	protected static $query = '';
 
 	protected static $from = '';
@@ -24,12 +32,31 @@ abstract class Query {
 
 	protected static $delete = '';
 
+	protected static function init(){
+		static::$class = static::$class == static::class ? static::$class : static::class;
+		if(!array_key_exists(static::$class, static::$models)){
+			static::$models[static::$class] = new static::$class;
+		}
+		return self::getModel();
+	}
+
+	protected static function getModel(){
+		return static::$model = static::$model instanceof static::$class ? static::$model : static::$models[static::$class];
+	}
+
+	protected static function getTable(){
+		self::init()::$table = static::$table == self::getTableName() ? static::$table : self::getTableName();
+		self::init()->table2 = static::$table;
+		return static::$table;
+	}
+
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	public static function getTabelName(){
-		return lowerCamelCase(getClassShortName(get_called_class()));
+	public static function getTableName($class = null){
+		return lowerCamelCase(getClassShortName($class ?? get_called_class()));
 	}
 
 	protected static function getSql($action = 'select'){
+		self::init();
 		if(static::$select){
 			static::select()::from()::join()::where()::group()::order()::limit();
 			static::$query = static::$select . static::$from . static::$join . static::$where . static::$group . static::$order . static::$limit;
@@ -46,6 +73,10 @@ abstract class Query {
 			static::delete_sql()::where();
 			static::$query = static::$delete . static::$where;
 		}
+		debug(self::$query);
+		debug(static::$query);
+		debug(static::$class);
+		debug(getClassInfo(static::$class)->getStaticProperties());
 		return static::$query;
 	}
 
@@ -55,7 +86,7 @@ abstract class Query {
 	}
 
 	protected static function from($from = ''){
-		static::$from = PHP_EOL . "FROM `" . ($from ?: (static::$from ?: self::getTabelName())) . '`';
+		static::$from = PHP_EOL . "FROM `" . ($from ?: (static::$from ?: self::getTable())) . '`';
 		return static::class;
 	}
 
@@ -95,7 +126,7 @@ abstract class Query {
 	}
 
 	protected static function update_sql($update = ''){
-		static::$update = "UPDATE `" . ($update ?: (static::$update ?: self::getTabelName())) . '`';
+		static::$update = "UPDATE `" . ($update ?: (static::$update ?: self::getTable())) . '`';
 		return static::class;
 	}
 
@@ -105,7 +136,7 @@ abstract class Query {
 	}
 
 	protected static function insert($insert = ''){
-		static::$insert = "INSERT INTO `" . ($insert ?: (static::$insert ?: self::getTabelName())) . '`';
+		static::$insert = "INSERT INTO `" . ($insert ?: (static::$insert ?: self::getTable())) . '`';
 		return static::class;
 	}
 
@@ -120,7 +151,7 @@ abstract class Query {
 	}
 
 	protected static function delete_sql($delete = ''){
-		static::$delete = "DELETE FROM `" . ($delete ?: (static::$delete ?: self::getTabelName())) . '`';
+		static::$delete = "DELETE FROM `" . ($delete ?: (static::$delete ?: self::getTable())) . '`';
 		return static::class;
 	}
 

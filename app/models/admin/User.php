@@ -36,6 +36,7 @@ class User extends baseUser {
 	];
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = 'checkUnique'){
+		if(!$data) return false;
 		$valid = toArray($valid, false, 'checkUnique');
 		// если пароль не изменен, удаляем его из списка аттрибутов
 		// иначе хэшируем полученный пароль

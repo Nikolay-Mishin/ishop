@@ -40,6 +40,7 @@ class Product extends AppModel {
 	];
 
 	public function __construct($data = [], $attrs = [], $action = 'save'){
+		if(!$data) return false;
 		// устанавливаем необходимые аттрибуты для модели
 		$data['status'] = $data['status'] ? '1' : '0';
 		$data['hit'] = $data['hit'] ? '1' : '0';

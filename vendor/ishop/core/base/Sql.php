@@ -3,16 +3,13 @@
 namespace ishop\base;
 
 abstract class Sql extends Query {
-
-	protected static $table = null;
-
-	protected static function getTable(){
-		return static::$table = self::getTabelName();
-	}
-
+	
 	// получает общее записей
 	public static function getCount($where = ''){
 		debug(self::getTable());
+		debug(static::$class);
+		debug(static::$model);
+		debug(static::$models);
 		return \R::count(self::getTable(), $where);
 	}
 

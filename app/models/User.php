@@ -48,7 +48,6 @@ class User extends AppModel {
 			parent::__construct($data, $attrs, $action, 'checkUnique');
 			return callMethod($this, $userAction, $attrs);
 		}
-		//debug($userAction);
 		parent::__construct($data, $attrs, $action, $valid);
 	}
 

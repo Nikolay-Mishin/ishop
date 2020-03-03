@@ -48,7 +48,6 @@ class Order extends AppModel {
 		self::$pagination = new Pagination(null, $perpage, null, 'order'); // объект пагинации
 		list(self::$select, self::$sort, self::$limit) = [self::$select . ', `user`.`name`', 'DESC', self::$pagination->limit];
 		$orders = \R::getAll(self::getSql());
-		debug(self::$sql);
 
 		// "UPDATE currency SET 'sql_part', update_at = NOW() WHERE code = ?"
 		// debug(self::$update);
@@ -73,7 +72,6 @@ class Order extends AppModel {
   GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1"; */
 		list(self::$select, self::$where) = [self::$select . ', `user`.`name`', '`order`.`id` = ?'];
 		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
-		debug(self::$sql);
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
 			throw new \Exception('Страница не найдена', 404);
@@ -92,7 +90,6 @@ class Order extends AppModel {
 		$values = ['`order_product` ON `order`.`id` = `order_product`.`order_id`', 'user_id = ?', 'DESC', $limit ? $limit : self::$limit];
 		list(self::$join, self::$where, self::$sort, self::$limit) = $values;
 		$orders = \R::getAll(self::getSql(), [$id]);
-		debug(self::$sql);
 		return $orders;
 		return \R::getAll(self::getSql(), [$id]);
 	}

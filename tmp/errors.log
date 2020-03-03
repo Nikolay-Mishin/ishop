@@ -922,3 +922,17 @@ LIMIT 0, 3' at line 6 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\O
 =================
 [2020-03-02 01:27:54] Текст ошибки: Call to protected method ishop\base\Sql::getCount() from context 'app\controllers\admin\MainController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\admin\MainController.php | Строка: 19
 =================
+[2020-03-02 16:01:07] Текст ошибки: Cannot access  property app\models\admin\Order::$table | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Sql.php | Строка: 10
+=================
+[2020-03-02 16:21:41] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 51
+=================
+[2020-03-02 18:46:08] Текст ошибки: Cannot access  property app\models\admin\Order::$table | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Sql.php | Строка: 13
+=================
+[2020-03-03 18:12:22] Текст ошибки: Access to undeclared static property: app\models\admin\Order::$sql | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\models\admin\Order.php | Строка: 95
+=================
+[2020-03-03 18:34:47] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-03 18:37:04] Текст ошибки: Call to undefined method ishop\base\Query::getTabel() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 86
+=================
+[2020-03-03 18:40:10] Текст ошибки: Call to undefined method ishop\base\Query::getTabelName() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 48
+=================
