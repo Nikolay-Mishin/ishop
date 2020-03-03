@@ -6,7 +6,7 @@ use app\models\AppModel;
 
 class FilterAttr extends AppModel {
 
-	protected static $table = 'attribute_value';
+	protected $table2 = 'attribute_value';
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [

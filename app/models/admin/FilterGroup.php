@@ -6,7 +6,7 @@ use app\models\AppModel;
 
 class FilterGroup extends AppModel {
 
-	protected static $table = 'attribute_group';
+	protected $table2 = 'attribute_group';
 
 	// переопределяем аттрибуты родительской модели
 	public $attributes = [
