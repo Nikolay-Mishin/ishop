@@ -13,7 +13,7 @@ use ishop\App;
 use ishop\Cache;
 use RedUNIT\Base\Threeway;
 
-class Menu{
+class Menu {
 
     protected $data; // данные для меню
     protected $tree; // массив (дерево), который строится из данных

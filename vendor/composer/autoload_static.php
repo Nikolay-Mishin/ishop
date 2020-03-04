@@ -19,6 +19,10 @@ class ComposerStaticInit0dabf51485c17910d99e5a88c66a2ed6
         array (
             'app\\' => 4,
         ),
+        'W' => 
+        array (
+            'Workerman\\' => 10,
+        ),
         'R' => 
         array (
             'RedBeanPHP\\' => 11,
@@ -33,6 +37,10 @@ class ComposerStaticInit0dabf51485c17910d99e5a88c66a2ed6
         'app\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+        ),
+        'Workerman\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/workerman/workerman',
         ),
         'RedBeanPHP\\' => 
         array (

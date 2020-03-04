@@ -56,25 +56,21 @@ abstract class Query {
 
 	protected static function getSql(){
 		self::init();
+		self::$query = '';
 		if(static::$select){
 			self::select()::from()::join()::where()::group()::order()::limit();
-			//self::$query = static::$select . static::$from . static::$join . static::$where . static::$group . static::$order . static::$limit;
 		}
 		elseif(static::$set){
 			self::update_sql()::set()::where();
-			//self::$query = static::$update . static::$set . static::$where;
 		}
 		elseif(static::$into && static::$values){
 			self::insert()::into()::values();
-			//self::$query = static::$insert . static::$into . static::$values;
 		}
 		elseif(static::$delete){
 			self::delete_sql()::where();
-			//self::$query = static::$delete . static::$where;
 		}
 		debug(self::$query);
 		debug(self::$class);
-		//debug(getClassInfo(static::$class)->getStaticProperties());
 		return self::$query;
 	}
 

@@ -5,7 +5,7 @@ namespace app\widgets\currency;
 
 use ishop\App; // подключаем класс базовый приложения
 
-class Currency{
+class Currency {
 
     protected $tpl; // шаблон валюты
     protected $currencies; // список всех доступных валют

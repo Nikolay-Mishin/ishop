@@ -4,7 +4,7 @@ namespace app\widgets\filter;
 
 use ishop\Cache;
 
-class Filter{
+class Filter {
 
 	public $groups; // группы фильтров
 	public $attrs; // аттрибуты групп фильтров

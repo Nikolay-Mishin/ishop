@@ -939,3 +939,9 @@ LIMIT 0, 3' at line 6 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\O
 [2020-03-03 19:33:37] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `order`
 JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
 =================
+[2020-03-04 23:07:07] Текст ошибки: Контроллер app\controllers\ChatController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 48
+=================
+[2020-03-04 23:15:32] Текст ошибки: Метод app\controllers\ChatController::indexAction не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 45
+=================
+[2020-03-04 23:15:44] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views/Chat/index.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 53
+=================
