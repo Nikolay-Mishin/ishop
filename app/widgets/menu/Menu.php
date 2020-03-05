@@ -92,7 +92,7 @@ class Menu {
     protected function getTree(){
         $tree = []; // массив для хранения дерева
         $data = $this->data; // получаем массив данных
-        foreach ($data as $id=>&$node) {
+        foreach ($data as $id => &$node) {
             // если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень
             if (!$node['parent_id']){
                 $tree[$id] = &$node;

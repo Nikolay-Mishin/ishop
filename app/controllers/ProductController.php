@@ -13,6 +13,7 @@ namespace app\controllers;
 
 use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Product; // модель продукта
+use app\models\Comment; // модель комментариев
 
 class ProductController extends AppController {
 
@@ -60,9 +61,11 @@ class ProductController extends AppController {
         // SELECT `modification`.*  FROM `modification`  WHERE product_id = ?
         $mods = \R::findAll('modification', 'product_id = ?', [$product->id]);
 
+        $comments = Comment::getByProductId($product->id);
+
         $this->setMeta($product->title, $product->description, $product->keywords);
         // передаем данные в вид карточки товара
-        $this->set(compact('product', 'related', 'gallery', 'recentlyViewed', 'breadcrumbs', 'mods'));
+        $this->set(compact('product', 'related', 'gallery', 'recentlyViewed', 'breadcrumbs', 'mods', 'comments'));
     }
 
 }

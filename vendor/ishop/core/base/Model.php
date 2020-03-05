@@ -30,7 +30,7 @@ abstract class Model extends Sql {
 				if($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
 			}
-			self::$table = self::getTable(); // имя таблицы в БД
+			$this->table = self::getTable(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
 			// $this->save();
 			// $this->$action($attrs);
@@ -62,7 +62,7 @@ abstract class Model extends Sql {
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
-		$tbl = !preg_match('/_/', self::$table) ? \R::dispense(self::$table) : \R::xdispense($self::$table);
+		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
 		// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
 		foreach($this->attributes as $name => $value){
 			$tbl->$name = $value;
@@ -73,7 +73,7 @@ abstract class Model extends Sql {
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id){
-		$bean = \R::load(self::$table, $id); // получаем бин записи из БД (структуру объекта)
+		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;

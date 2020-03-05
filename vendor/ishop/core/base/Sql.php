@@ -6,10 +6,6 @@ abstract class Sql extends Query {
 	
 	// получает общее записей
 	public static function getCount($where = ''){
-		debug(self::getTable());
-		debug(static::$class);
-		debug(static::$model);
-		debug(static::$models);
 		return \R::count(self::getTable(), $where);
 	}
 

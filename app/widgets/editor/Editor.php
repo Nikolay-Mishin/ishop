@@ -4,7 +4,7 @@ namespace app\widgets\editor;
 
 class Editor {
 
-	public $tpl; // шаблон для формирования списка фильтров
+	public $tpl; // шаблон
 	public $data; // массив данных
 	public $label; // наименование поля
 	public $isRequired;
@@ -16,7 +16,10 @@ class Editor {
 		$values = [$data, $label, $isRequired, $id ?: 'editor', $cols, $rows];
 		list($this->data, $this->label, $this->isRequired, $this->id, $this->cols, $this->rows) = $values;
 		$this->tpl = $tpl ?: __DIR__ . '/editor_tpl.php'; // подключаем шаблон виджета фильтров
-		echo $this->getHtml(); // выводим редактор текста - получаем html-разметку
+	}
+
+	public function __toString(){
+		return $this->getHtml();
 	}
 
 	// получает html-разметку

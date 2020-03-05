@@ -9,8 +9,7 @@ class CommentController extends AppController {
 
     // метод добавления комментария
     public function addAction(){
-        debug($_POST);
-        debug(Comment::getByAlias($_POST['alias']));
+        new Comment($_POST);
         redirect(); // перезапрашиваем текущую страницу
     }
 

@@ -234,13 +234,7 @@
                 <!-- // выводим просмотренные товары -->
 
                 <!-- выводим комментарии -->
-                <div>
-                    <form method="post" action="comment/add" id="comment" role="form" data-toggle="validator">
-                        <?php new \app\widgets\editor\Editor(null, 'Новый комментарий', true); ?>
-                        <input type="hidden" name="alias" value="<?=$product->alias;?>">
-                        <button type="submit" class="btn btn-default">Добавить</button>
-                    </form>
-                </div>
+                <?= new \app\widgets\comment\Comment($comments, $product->id); ?>
                 <!-- // выводим комментарии -->
             </div>
 

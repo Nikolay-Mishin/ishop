@@ -67,8 +67,6 @@ abstract class Query {
 		elseif(self::init()->delete){
 			self::init()->delete_sql()->where();
 		}
-		debug(self::$query);
-		debug(self::$class);
 		return self::$query;
 	}
 
