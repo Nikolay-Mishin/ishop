@@ -29,8 +29,7 @@ function editorOnChange(target, callback = function(){}){
 	if(!editor) return false;
 	editor.on('change', function(){
 		this.updateElement();
-		callback(this._.data);
-		console.log(this, this._.data);
+		callback(this._.data, $(this.element.$), this);
 	});
 	return value;
 }

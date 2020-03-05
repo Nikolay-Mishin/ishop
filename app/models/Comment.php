@@ -2,11 +2,11 @@
 
 namespace app\models;
 
-class Comments extends AppModel {
+class Comment extends AppModel {
 
 	// получаем информацию по модификатору данного товара
-	public static function getByProductId($id){
-		return \R::getAll('comments', 'product_id = ?', [$id]);
+	public static function getByAlias($alias){
+		return \R::getAll('comment', 'alias = ?', [$alias]);
 	}
 
 }

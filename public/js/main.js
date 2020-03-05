@@ -1,25 +1,17 @@
 /* Comments */
 var comment = $('#comment');
 if(comment){
-	var btn = comment.find('button'),
-		value = editorOnChange(comment, function (value){
-			if (value) {
-				btn.prop('disabled', false);
-			}
-			else {
-				btn.prop('disabled', true);
-			}
-			console.log(value);
-		});
-
-	btn.prop('disabled', true);
-
-	comment.on('submit', function(){
-		if (value){
-			console.log(value);
+	var btn = comment.find('button');
+	editorOnChange(comment, function(value, element, editor){
+		if(value){
+			btn.prop('disabled', false);
 		}
-		return false;
+		else{
+			btn.prop('disabled', true);
+		}
+		console.log(value);
 	});
+	btn.prop('disabled', true);
 }
 
 /* Filters */
