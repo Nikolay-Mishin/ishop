@@ -90,10 +90,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <div class="form-group has-feedback">
-                            <label for="content">Контент</label>
-                            <textarea name="content" id="editor1" cols="80" rows="10"><?=$product->content;?></textarea>
-                        </div>
+                        <?php new \app\widgets\editor\Editor($product->content); ?>
 
                         <div class="form-group">
                             <label>
@@ -138,6 +135,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-8">
                                 <div class="box box-primary box-solid file-upload">
                                     <div class="box-header">
@@ -160,8 +158,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="box-footer">
                         <input type="hidden" name="id" value="<?=$product->id;?>">
                         <button type="submit" class="btn btn-success">Сохранить</button>

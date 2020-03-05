@@ -349,6 +349,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     });
 </script>
+<script src="adminlte/bower_components/ckeditor/ckeditor.js"></script>
+<script src="adminlte/bower_components/ckeditor/adapters/jquery.js"></script>
+<script src="js/editor.js"></script>
 <script src="js/main.js"></script>
 <!--End-slider-script-->
 

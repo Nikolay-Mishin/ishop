@@ -1,7 +1,7 @@
-$(function () {
-	$(document).on('click touchstart', '.selector', function () {
-		console.log($(this));
-	});
+// сброс фильтров
+$('#reset-filter').click(function () {
+	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров
+	return false;
 });
 
 // при нажатии на ссылку с классом 'delete' происходит переход по ссылке либо отмена действия (в зависимости от выбранного действия)
@@ -23,16 +23,6 @@ $('.sidebar-menu a').each(function () {
 		$(this).parent().addClass('active'); // непосредственный родитель ссылки (подпункт меню)
 		$(this).closest('.treeview').addClass('active'); // родитель категории меню (пункт меню - родитель списка подпугктов меню)
 	}
-});
-
-// CK Editor
-// CKEDITOR.replace('editor1');
-$('#editor1').ckeditor();
-
-// сброс фильтров
-$('#reset-filter').click(function () {
-	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров
-	return false;
 });
 
 $(".select2").select2({

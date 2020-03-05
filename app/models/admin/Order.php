@@ -9,13 +9,13 @@ use ishop\libs\Pagination; // класс пагинации
 class Order extends AppModel {
 
 	public static $pagination; // пагинация
-	protected static $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
-	protected static $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
-	protected static $where = '';
-	protected static $group = '`order`.`id`';
-	protected static $sort = '';
-	protected static $order = '`order`.`status`, `order`.`id`';
-	protected static $limit = '1';
+	protected $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
+	protected $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
+	protected $where = '';
+	protected $group = '`order`.`id`';
+	protected $sort = '';
+	protected $order = '`order`.`status`, `order`.`id`';
+	protected $limit = '1';
 
 	// получает общее число заказов
 	//public static function getCount(){
@@ -46,7 +46,7 @@ class Order extends AppModel {
 		// ORDER BY `order`.`status`, `order`.`id` - сортируем по статусу и id заказа
 		// LIMIT $start, $perpage - ограничиваем выборку для вывода пагинации
 		self::$pagination = new Pagination(null, $perpage, null, 'order'); // объект пагинации
-		list(self::$select, self::$sort, self::$limit) = [self::$select . ', `user`.`name`', 'DESC', self::$pagination->limit];
+		list(self::init()->select, self::init()->sort, self::init()->limit) = [self::init()->select . ', `user`.`name`', 'DESC', self::$pagination->limit];
 		$orders = \R::getAll(self::getSql());
 
 		// "UPDATE currency SET 'sql_part', update_at = NOW() WHERE code = ?"
@@ -70,7 +70,7 @@ class Order extends AppModel {
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   WHERE `order`.`id` = ?
   GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1"; */
-		list(self::$select, self::$where) = [self::$select . ', `user`.`name`', '`order`.`id` = ?'];
+		list(self::init()->select, self::init()->where) = [self::init()->select . ', `user`.`name`', '`order`.`id` = ?'];
 		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
@@ -87,10 +87,8 @@ class Order extends AppModel {
   JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   WHERE user_id = {$id} GROUP BY `order`.`id` ORDER BY `order`.`status` DESC, `order`.`id` DESC LIMIT $start, $perpage"
 		*/
-		$values = ['`order_product` ON `order`.`id` = `order_product`.`order_id`', 'user_id = ?', 'DESC', $limit ? $limit : self::$limit];
-		list(self::$join, self::$where, self::$sort, self::$limit) = $values;
-		$orders = \R::getAll(self::getSql(), [$id]);
-		return $orders;
+		$values = ['`order_product` ON `order`.`id` = `order_product`.`order_id`', 'user_id = ?', 'DESC', $limit ? $limit : self::init()->limit];
+		list(self::init()->join, self::init()->where, self::init()->sort, self::init()->limit) = $values;
 		return \R::getAll(self::getSql(), [$id]);
 	}
 

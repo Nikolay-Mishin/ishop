@@ -87,10 +87,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group has-feedback">
-                            <label for="content">Контент</label>
-                            <textarea name="content" id="editor1" cols="80" rows="10"><?= isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null; ?></textarea>
-                        </div>
+                        <?php new \app\widgets\editor\Editor(isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null); ?>
 
                         <div class="form-group">
                             <label>
@@ -110,7 +107,9 @@
                         </div>
 
                         <?php new \app\widgets\filter\Filter(null, WWW . '/filter/admin_filter_tpl.php'); ?>
-<!--https://dcrazed.com/html5-jquery-file-upload-scripts/-->
+
+                        <!--https://dcrazed.com/html5-jquery-file-upload-scripts/-->
+
                         <div class="form-group">
                             <div class="col-md-4">
                                 <div class="box box-danger box-solid file-upload">
@@ -127,6 +126,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-8">
                                 <div class="box box-primary box-solid file-upload">
                                     <div class="box-header">
@@ -145,10 +145,12 @@
                         </div>
 
                     </div>
+
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success">Добавить</button>
                     </div>
                 </form>
+
                 <?php if(isset($_SESSION['form_data'])) unset($_SESSION['form_data']); ?>
             </div>
         </div>

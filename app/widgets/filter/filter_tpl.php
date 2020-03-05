@@ -2,7 +2,7 @@
 <!-- в видах, подключаемых через класс view доступен объект класса View ($this) -->
 <!-- формируем список групп фильтров -->
 <?php foreach($this->groups as $group_id => $group_item): ?>
-    <section  class="sky-form">
+    <section class="sky-form">
         <!-- наименование группы фильтров -->
         <h4><?=$group_item;?></h4>
         <div class="row1 scroll-pane">

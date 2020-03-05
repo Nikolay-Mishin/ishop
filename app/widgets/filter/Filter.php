@@ -32,8 +32,7 @@ class Filter {
 			$this->attrs = $this->getAttrs(); // получаем аттрибуты групп фильтров
 			$cache->set('filter_attrs', $this->attrs, 30); // кэшируем полученные аттрибуты групп
 		}
-		$filters = $this->getHtml(); // получаем html-разметку фильтров
-		echo $filters; // выводим фильтры
+		echo $this->getHtml(); // выводим фильтры - получаем html-разметку фильтров
 	}
 
 	// получает html-разметку

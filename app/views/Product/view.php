@@ -233,7 +233,18 @@
                 <?php endif; ?>
                 <!-- // выводим просмотренные товары -->
 
+                <!-- выводим комментарии -->
+                <div>
+                    <form method="post" action="comment/add" id="comment" role="form" data-toggle="validator">
+                        <?php new \app\widgets\editor\Editor(null, 'Новый комментарий', true); ?>
+                        <button type="submit" class="btn btn-default">Добавить</button>
+                    </form>
+                </div>
+
+                <?php new \app\widgets\editor\Editor(null, 'Новый комментарий', true); ?>
+                <!-- // выводим комментарии -->
             </div>
+
             <div class="col-md-3 single-right">
                 <div class="w_sidebar">
                     <section  class="sky-form">

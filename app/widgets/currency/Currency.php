@@ -11,8 +11,8 @@ class Currency {
     protected $currencies; // список всех доступных валют
     protected $currency; // текущая валюта
 
-    public function __construct(){
-        $this->tpl = __DIR__ . '/currency_tpl/currency.php'; // путь к шаблону
+    public function __construct($tpl = ''){
+        $this->tpl = $tpl ?: __DIR__ . '/currency_tpl.php'; // путь к шаблону
         $this->run(); // запуск виджета
     }
 

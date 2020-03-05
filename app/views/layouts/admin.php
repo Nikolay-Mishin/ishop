@@ -608,7 +608,8 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/ckeditor/ckeditor.js"></script>
 <script src="bower_components/ckeditor/adapters/jquery.js"></script>
-<script src="/js/jquery.textchange.min.js"></script>
+<!--<script src="/js/jquery.textchange.min.js"></script>-->
+<script src="/js/editor.js"></script>
 <script src="my.js"></script>
 
 <?php
