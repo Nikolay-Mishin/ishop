@@ -1,42 +1,47 @@
-<!-- Комментарий -->
-<div class="media-left">
-	<a href="#">
-		<img class="media-object img-rounded" src="/images/avatar1.jpg" alt="...">
-	</a>
-</div>
-
-<div class="media-body">
-	<div class="media-heading">
-		<div class="author">Дима</div>
-		<div class="metadata">
-			<span class="date">16 ноября 2015, 13:43</span>
+<?php if(isset($item)): ?>
+	<?php //debug(['$item', $item]); ?>
+	<!-- Комментарий -->
+	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media">
+		<div class="media-left">
+			<a href="#">
+				<img class="media-object img-rounded" src="/images/<?=$item['avatar'];?>" alt="<?=$item['name'];?>">
+			</a>
 		</div>
-	</div>
 
-	<div class="media-text text-justify">Lorem ipsum dolor sit amet. Blanditiis praesentium voluptatum
-		deleniti atque. Autem vel illum, qui blanditiis praesentium voluptatum deleniti atque corrupti.
-		Dolor repellendus cum soluta nobis. Corporis suscipit laboriosam, nisi ut enim. Debitis aut
-		perferendis doloribus asperiores repellat. sint, obcaecati cupiditate non numquam eius. Itaque
-		earum rerum facilis. Similique sunt in ea commodi. Dolor repellendus numquam eius modi. Quam
-		nihil molestiae consequatur, vel illum, qui ratione voluptatem accusantium doloremque.
-	</div>
+		<div class="media-body">
+			<div class="media-heading">
+				<div class="author"><?=ucfirst($item['name']);?></div>
+				<div class="metadata">
+					<?php
+						setlocale(LC_TIME, 'ru_RU.UTF-8');
+						$date = strftime('%d %B %Y, %H:%M', strtotime($item['update_at'] ?: $item['date']));
+						$date = mb_convert_case($date, MB_CASE_LOWER, "UTF-8");
+					?>
+					<span class="date"><?=$date;?></span>
+				</div>
+			</div>
+			<div class="media-text text-justify"><?=$item['content'];?></div>
+			<div class="footer-comment">
+				<span class="vote plus" title="Нравится">
+					<i class="fa fa-thumbs-up"></i>
+				</span>
+				<span class="rating"><?=($item['rate'] > 0 ? '+' : '') . $item['rate'];?></span>
+				<span class="vote minus" title="Не нравится">
+					<i class="fa fa-thumbs-down"></i>
+				</span>
+				<span class="devide">
+					|
+				</span>
+				<span class="comment-reply">
+					<a href="#" class="reply">ответить</a>
+				</span>
+			</div>
 
-	<div class="footer-comment">
-		<span class="vote plus" title="Нравится">
-			<i class="fa fa-thumbs-up"></i>
-		</span>
-		<span class="rating">
-			+1
-		</span>
-		<span class="vote minus" title="Не нравится">
-			<i class="fa fa-thumbs-down"></i>
-		</span>
-		<span class="devide">
-			|
-		</span>
-		<span class="comment-reply">
-			<a href="#" class="reply">ответить</a>
-		</span>
-	</div>
-</div>
-<!-- Конец комментария -->
+			<?php if(isset($item['childs'])): ?>
+				<?php //debug(['$child', $item['childs']]); ?>
+				<?=$this->getTreeHtml($item['childs']);?>
+			<?php endif; ?>
+		</div>
+	</<?=!$item['parent_id'] ? 'li' : 'div';?>>
+	<!-- Конец комментария -->
+<?php endif; ?>

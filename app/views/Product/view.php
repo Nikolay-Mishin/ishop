@@ -234,7 +234,10 @@
                 <!-- // выводим просмотренные товары -->
 
                 <!-- выводим комментарии -->
-                <?= new \app\widgets\comment\Comment($comments, $product->id); ?>
+                <?= new \app\widgets\comment\Comment([
+                    'data' => $comments,
+                    'id' => $product->id
+                ]); ?>
                 <!-- // выводим комментарии -->
             </div>
 

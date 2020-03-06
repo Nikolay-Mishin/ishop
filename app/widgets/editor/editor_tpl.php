@@ -5,6 +5,6 @@
 <div class="form-group has-feedback">
     <label for="content"><?=$this->label;?></label>
     <textarea name="content" id="<?=$this->id;?>" class="editor" cols="<?=$this->cols;?>" rows="<?=$this->rows;?>" data-required="<?=$this->isRequired;?>">
-        <?=$this->data;?>
+        <?=$item;?>
     </textarea>
 </div>

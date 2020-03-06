@@ -1,9 +1,9 @@
 <?php //$parent = isset($category['childs']); ?>
 <li>
-    <a href="category/<?=$category['alias'];?>"><?=$category['title'];?></a>
-    <?php if(isset($category['childs'])): ?>
+    <a href="category/<?=$item['alias'];?>"><?=$item['title'];?></a>
+    <?php if(isset($item['childs'])): ?>
         <ul>
-            <?= $this->getMenuHtml($category['childs']);?>
+            <?= $this->getTreeHtml($item['childs']);?>
         </ul>
     <?php endif; ?>
 </li>

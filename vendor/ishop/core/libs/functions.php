@@ -118,6 +118,15 @@ function upperCamelCase($name){
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
 }
 
+function arrayUnset($array, $items){
+	foreach(toArray($items) as $item){
+		if(isset($array[$item])){
+			unset($array[$item]);
+		}
+	}
+	return $array;
+}
+
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
 function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){

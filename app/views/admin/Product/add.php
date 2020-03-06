@@ -87,7 +87,7 @@
                             </div>
                         </div>
 
-                        <?php new \app\widgets\editor\Editor(isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null); ?>
+                        <?= new \app\widgets\editor\Editor(['data' => isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null]); ?>
 
                         <div class="form-group">
                             <label>

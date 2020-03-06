@@ -5,7 +5,7 @@ namespace app\models;
 class Comment extends AppModel {
 
 	public static $pagination; // пагинация
-	protected $select = 'comment.*, user.name';
+	protected $select = 'comment.*, user.name, user.avatar';
 	protected $join = 'user ON comment.user_id = user.id';
 	protected $where = 'product_id = ?';
 	protected $group = 'comment.id';

@@ -90,7 +90,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <?php new \app\widgets\editor\Editor($product->content); ?>
+                        <?= new \app\widgets\editor\Editor(['data' => $product->content]); ?>
 
                         <div class="form-group">
                             <label>

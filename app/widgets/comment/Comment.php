@@ -2,43 +2,42 @@
 
 namespace app\widgets\comment;
 
-use app\widgets\editor\Editor;
 use app\widgets\menu\Menu;
+use app\widgets\editor\Editor;
+use ishop\App; // подключаем класс базовый приложения
 
 class Comment extends Menu {
 
-	public $tpl; // шаблон
-	public $comment_tpl; // шаблон комментария
-	public $id;
-	public $editor;
+	protected $isMenu = true;
+	protected $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
+	protected $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария
+	protected $id;
+	protected $editor;
+	protected $editor_options = [
+		'tpl' => __DIR__ . '/editor_tpl.php',
+		'label' => 'Новый комментарий',
+		'isRequired' => true
+	];
 
-	public function __construct($comments, $id, $tpl = ''){
-		$this->editor = new Editor(null, 'Новый комментарий', true);
-		list($this->data, $this->id, $this->tpl) = [$comments, $id, $tpl ?: __DIR__ . '/comments_tpl.php'];
-		$this->tpl = $tpl ?: __DIR__ . '/comments_tpl.php'; // подключаем шаблон виджета
-		$this->run();
+	public function __construct($options = []){
+		parent::__construct($options);
+		$this->editor_options['id'] = $this->id;
+		App::$app->setProperty('editor_options', $this->editor_options);
+		$this->editor = new Editor($this->editor_options);
 	}
 
 	public function __toString(){
-		return $this->getHtml();
+		return $this->getComments($this->editor, parent::__toString());
 	}
 
 	public function run(){
-		debug($this->getTree());
-		return $this->getTree();
+		$this->getTree();
 	}
 
 	// получает html-разметку
-	protected function getCommentTpl(){
+	protected function getComments($editor, $comments){
 		ob_start(); // включаем буферизацию
-		require $this->comment_tpl; // подключаем шаблон
-		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
-	}
-
-	// получает html-разметку
-	protected function getHtml(){
-		ob_start(); // включаем буферизацию
-		require $this->tpl; // подключаем шаблон
+		require $this->comments_tpl; // подключаем шаблон
 		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
 	}
 
