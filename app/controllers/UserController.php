@@ -103,4 +103,16 @@ class UserController extends AppController {
 		$this->set(compact('order', 'order_products'));
 	}
 
+	// экшен отображения личного кабинета пользователя
+	public function profileAction(){
+		if(!User::checkAuth()) redirect(); // если пользователь не авторизован, перенаправляем на главную
+		$login = $_GET['login'] ?? null;
+		$user = User::getByLogin($login);
+		if(!$user){
+			throw new \Exception('Страница не найдена', 404);
+		}
+		$this->setMeta("Профиль пользователя {$user->login}"); // устанавливаем мета-данные
+		$this->set(compact('user'));
+	}
+
 }

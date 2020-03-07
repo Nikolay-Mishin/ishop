@@ -127,6 +127,15 @@ function arrayUnset($array, $items){
 	return $array;
 }
 
+function objectUnset($object, $props){
+	foreach(toArray($props) as $prop){
+		if(isset($object->$props)){
+			unset($object->$props);
+		}
+	}
+	return $object;
+}
+
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
 function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){

@@ -31,4 +31,7 @@ $app_path = str_replace('/public/', '', $app_path);
 define("PATH", $app_path); // корневой путь сайта
 define("ADMIN", PATH . '/admin'); // путь админки
 
+define("ROOT_BASE", '/'); // кореневой каталог проекта
+define("ADMIN_BASE", '/adminlte/'); // кореневой каталог админки
+
 require_once VENDOR . '/autoload.php'; // подключаем скрипт автозагрузки (composer)

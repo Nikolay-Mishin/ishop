@@ -10,7 +10,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- тег <base> для указания корневого каталога, от которого работают все ссылки ресурсов (href, src) - link, script, img -->
     <!-- "/" - строить ссылки от корня сайта (подставляется перед всеми ссылками) -->
     <!-- добавляет данное значение ко всем относительным ссылкам (без / вначале), делая их абсолютными (от корня) -->
-    <base href="/">
+    <base href="<?=ROOT_BASE;?>">
     <!-- получаем каноническую ссылку -->
     <?=$this->getCanonical();?>
     <!-- получаем разметку с мета-тегами из вида -->
@@ -276,84 +276,49 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- прелоадер для скрытия контента при ожидании ответа от сервера (ajax-запрос) -->
 <div class="preloader"><img src="images/ring.svg" alt=""></div>
 
-<!-- получаем активную валюту из контейнера -->
-<?php $curr = \ishop\App::$app->getProperty('currency'); ?>
-<!-- ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
-<script>
-    var path = '<?=PATH;?>', // ссылка на главную - абсолютный путь (для ajax-запросов и другого)
-        course = <?=$curr['value'];?>, // текущий курс валюты
-        symboleLeft = '<?=$curr['symbol_left'];?>', // символ слева ($ 1)
-        symboleRight = '<?=$curr['symbol_right'];?>'; // символ справа (1 руб.)
-</script>
+<!-- _variables - ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
+<?= require_once CONF.'/scripts_consts.php'; ?>
+<? debug($this); ?>
+<script src="js/_variables.js"></script>
 
+<!--jquery-->
 <script src="js/jquery-1.11.0.min.js"></script>
+<!--bootstrap-->
 <script src="js/bootstrap.min.js"></script>
+
+<!--validator-->
 <!-- <script src="js/validator.js"></script> -->
+<!--search-->
 <script src="js/typeahead.bundle.js"></script>
+<!--imagezoom-->
+<script src="js/imagezoom.js"></script>
+
 <!--dropdown-->
 <script src="js/jquery.easydropdown.js"></script>
-<!--Slider-Starts-Here-->
-<script src="js/responsiveslides.min.js"></script>
-<script>
-    // You can also use "$(window).load(function() {"
-    $(function () {
-        // Slideshow 4
-        $("#slider4").responsiveSlides({
-            auto: true,
-            pager: true,
-            nav: true,
-            speed: 500,
-            namespace: "callbacks",
-            before: function () {
-                $('.events').append("<li>before event fired.</li>");
-            },
-            after: function () {
-                $('.events').append("<li>after event fired.</li>");
-            }
-        });
-
-    });
-</script>
+<!--menu-->
+<!-- <script src="js/menu.js"></script> -->
+<!--megamenu-->
 <script src="megamenu/js/megamenu.js"></script>
-<script src="js/imagezoom.js"></script>
+
+<!--Slider-Starts-Here-->
+<!--responsiveslides-->
+<script src="js/responsiveslides.min.js"></script>
+<script src="js/slider.js"></script>
+<!--flexslider-->
 <script defer src="js/jquery.flexslider.js"></script>
-<script>
-    // Can also be used with $(document).ready()
-    $(window).load(function() {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: "thumbnails"
-        });
-    });
-</script>
-<script src="js/jquery.easydropdown.js"></script>
-<script type="text/javascript">
-    $(function() {
+<script src="js/flexslider.js"></script>
+<!--Slider-End-Here-->
 
-        var menu_ul = $('.menu_drop > li > ul'),
-            menu_a  = $('.menu_drop > li > a');
-
-        menu_ul.hide();
-
-        menu_a.click(function(e) {
-            e.preventDefault();
-            if(!$(this).hasClass('active')) {
-                menu_a.removeClass('active');
-                menu_ul.filter(':visible').slideUp('normal');
-                $(this).addClass('active').next().stop(true,true).slideDown('normal');
-            } else {
-                $(this).removeClass('active');
-                $(this).next().stop(true,true).slideUp('normal');
-            }
-        });
-
-    });
-</script>
+<!--CKeditor-Starts-Here-->
+<!--ckeditor-->
 <script src="adminlte/bower_components/ckeditor/ckeditor.js"></script>
 <script src="adminlte/bower_components/ckeditor/adapters/jquery.js"></script>
+<!--CKeditor-End-Here-->
+
+<!--editor-->
 <script src="js/editor.js"></script>
+<!--main script-->
 <script src="js/main.js"></script>
-<!--End-slider-script-->
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
 <?php
@@ -361,7 +326,7 @@ $logs = \R::getDatabaseAdapter()
     ->getDatabase()
     ->getLogger();
 
-debug( $logs->grep( 'SELECT' ) );
+debug($logs->grep('SELECT'));
 // распечатка массива с логом SQL запросов
 /*
 Array

@@ -40,6 +40,7 @@ class User extends AppModel {
 			// хэшируем пароль
 			// password_hash - хэширует пароль с учетом временной метки (текущей даты)
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+			$data['name'] = ucfirst($data['name']);
 			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 			// $this->checkUnique()
 			// сохраняем нового пользователя в БД

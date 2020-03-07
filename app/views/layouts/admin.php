@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <base href="/adminlte/">
+    <base href="<?=ADMIN_BASE;?>">
     <link rel="shortcut icon" href="<?=PATH;?>/images/star.png" type="image/png" />
     <?=$this->getMeta();?>
     <!-- Tell the browser to be responsive to screen width -->
@@ -595,6 +595,15 @@
 <script>
     var path = '<?=PATH;?>',
         adminpath = '<?=ADMIN;?>';
+</script>
+
+<!-- _variables - ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
+<script>
+    const Ishop = {
+        consts: <?=json_encode(get_defined_constants(true)['user']);?>,
+        path: '<?=PATH;?>', // ссылка на главную - абсолютный путь (для ajax-запросов и другого)
+        adminpath: '<?=ADMIN;?>'
+    };
 </script>
 
 <!-- jQuery 3 -->

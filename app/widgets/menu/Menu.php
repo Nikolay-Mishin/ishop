@@ -11,9 +11,11 @@ namespace app\widgets\menu;
 
 use ishop\App;
 use ishop\Cache;
-use RedUNIT\Base\Threeway;
+use ishop\traits\TGetOptions;
 
 class Menu {
+
+	use \ishop\traits\TGetOptions;
 
 	protected $isMenu = true;
 	protected $data; // данные для меню
@@ -27,6 +29,7 @@ class Menu {
 	protected $cacheKey = 'ishop_menu'; // ключ для сохранения кэша в файл
 	protected $attrs = []; // массив дополнительных аттрибутов для меню
 	protected $prepend = ''; // для админки (когда работаем с select можно вставить option - 'выберите значение')
+	protected $parents = []; // массив родителей, который строится из дерева ('parent_id' => $level_tree)
 
 	// заполняет недостающие свойства и получает опции
 	public function __construct($options = []){
@@ -42,15 +45,15 @@ class Menu {
 	}
 
 	// получает опции
-	protected function getOptions($options){
-		// если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
-		foreach($options as $k => $v){
-			// проверяем существет ли такое свойство у класса
-			if(property_exists($this, $k)){
-				$this->$k = $v;
-			}
-		}
-	}
+	//protected function getOptions($options){
+	//    // если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
+	//    foreach($options as $k => $v){
+	//        // проверяем существет ли такое свойство у класса
+	//        if(property_exists($this, $k)){
+	//            $this->$k = $v;
+	//        }
+	//    }
+	//}
 
 	// формирует меню
 	protected function run(){
@@ -96,6 +99,7 @@ class Menu {
 	protected function getTree(){
 		$tree = []; // массив для хранения дерева
 		$data = $this->data; // получаем массив данных
+		$level_tree = 0;
 		foreach ($data as $id => &$node) {
 			// если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень
 			if (!$node['parent_id']){
@@ -103,6 +107,9 @@ class Menu {
 			}else{
 				// в элементе с parent_id создаем элемент (childs) и помещаем в него дочерние элементы (ветки)
 				$data[$node['parent_id']]['childs'][$id] = &$node;
+			}
+			if(!array_key_exists($node['parent_id'], $this->parents)){
+				$this->parents[$node['parent_id']] = ++$level_tree;
 			}
 		}
 		return $this->tree = $tree;

@@ -82,6 +82,8 @@ var products = new Bloodhound({
 		url: path + '/search/typeahead?query=%QUERY' // адрес для отправки запроса (вместо %QUERY подставляется маркер wildcard)
 	}
 });
+console.log(products);
+console.log(path);
 
 products.initialize(); // инициализируем объект для поискового запроса
 

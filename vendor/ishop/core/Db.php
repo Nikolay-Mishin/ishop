@@ -4,9 +4,11 @@
 
 namespace ishop;
 
+use ishop\traits\TSingletone;
+
 class Db {
 
-	use TSingletone;
+	use \ishop\traits\TSingletone;
 
 	protected function __construct(){
 		$db = require_once CONF . '/config_db.php'; // подключаем файл конфигурации БД

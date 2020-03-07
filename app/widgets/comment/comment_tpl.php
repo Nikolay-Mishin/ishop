@@ -1,9 +1,9 @@
 <?php if(isset($item)): ?>
-	<!-- Комментарий -->
+	<?='<!-- Комментарий (Уровень ' . $this->parents[$item['parent_id']] . ') -->';?>
 	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media">
 		<div class="media-left">
-			<a href="#">
-				<img class="media-object img-rounded" src="/images/<?=$item['avatar'];?>" alt="<?=$item['name'];?>">
+			<a href="user/profile?login=<?=$item['login'];?>">
+				<img class="media-object img-rounded" src="images/<?=$item['avatar'];?>" alt="<?=$item['name'];?>">
 			</a>
 		</div>
 
@@ -32,7 +32,9 @@
 				<span class="vote plus" title="Нравится">
 					<i class="fa fa-thumbs-up"></i>
 				</span>
-				<span class="rating"><?=($item['rate'] > 0 ? '+' : '') . $item['rate'];?></span>
+				<span class="rating <?=$item['rate'] > 0 ? 'plus' : ($item['rate'] < 0 ? 'minus' : '');?>">
+					<?=($item['rate'] > 0 ? '+' : '') . $item['rate'];?>
+				</span>
 				<span class="vote minus" title="Не нравится">
 					<i class="fa fa-thumbs-down"></i>
 				</span>
@@ -49,5 +51,5 @@
 			<?php endif; ?>
 		</div>
 	</<?=!$item['parent_id'] ? 'li' : 'div';?>>
-	<!-- Конец комментария -->
+	<?='<!-- Конец комментария (Уровень ' . $this->parents[$item['parent_id']] . ') -->';?>
 <?php endif; ?>

@@ -6,9 +6,11 @@
 
 namespace ishop;
 
+use ishop\traits\TSingletone;
+
 class Cache {
 
-    use TSingletone; // шаблон Одининочка
+    use \ishop\traits\TSingletone; // шаблон Одининочка
 
     // запись в кэш
     public function set($key, $data, $seconds = 3600){
