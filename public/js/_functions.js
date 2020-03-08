@@ -7,7 +7,7 @@ function showPreloader(target = '.product-one'){
 
 function hidePreloader(callback = function(){}){
 	console.log(callback);
-	//$('.preloader').delay(500).fadeOut('slow', callback);
+	$('.preloader').delay(500).fadeOut('slow', callback);
 }
 
 // Ajax-запрос - отправляет стандартный ajax-запрос

@@ -36,8 +36,10 @@ if (notEmpty(comment_add)){
 }
 
 function getComment(res, args, data){
-	hidePreloader();
-	console.log({ this: this, res: res, args: args, data: data });
+	var $this = this;
+	hidePreloader(function(){
+		console.log({ this: $this, res: res, args: args, data: data });
+	});
 }
 
 /* Filters */
