@@ -1,9 +1,5 @@
 <div class="comments">
 	<?= $editor; ?>
-	<?php if($comments): ?>
-		<h3 class="title-comments">Комментарии (<?=count($this->data);?>)</h3>
-		<ul id="comments" class="media-list"><?=$comments;?></ul>
-	<?php else: ?>
-		<p class="text-danger">Здесь пока нет комментариев...</p>
-	<?php endif; ?>
+	<h3 class="title-comments"><?=$this->getTitle();?></h3>
+	<ul id="comments" class="media-list"><?=$comments ?: '<p class="text-danger">Здесь пока нет комментариев...</p>';?></ul>
 </div>

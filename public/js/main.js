@@ -1,12 +1,15 @@
 /* Comments */
 var comment_add = $('#comment_add');
 
-if (notEmpty(comment_add)){
+if(notEmpty(comment_add)){
 	var btn = comment_add.find('button'),
-		data;
-	editorOnChange(comment_add, function(value, element, editor){
-		data = value;
-		if (data) {
+		content,
+		comments_count = $('#comments-count'),
+		comments = $('#comments'),
+		vote = '.vote';
+	editorOnChange(comment_add, function(value){
+		content = value;
+		if (content){
 			btn.prop('disabled', false);
 		}
 		else{
@@ -14,32 +17,42 @@ if (notEmpty(comment_add)){
 		}
 	});
 	btn.prop('disabled', true);
-
-	console.log(comment_add.data('ajax'));
+	
 	// блокируем отправку формы, если тип отправки Ajax
 	if(comment_add.data('ajax')){
 		// блокируем отправку формы, если не выбрана категория
-		comment_add.on('submit', function () {
+		comment_add.on('submit', function(){
 			var comments = $('#comments');
-			console.log(comments);
-			console.log(comment_add.prop('action'));
-			console.log(data);
 			// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
-			if(data){
+			if(content){
+				var product_id = comment_add.find('[name=product_id]').val(),
+					user_id = comment_add.find('[name=user_id]').val();
+				data = { content: content, product_id: product_id, user_id: user_id };
 				// ajax-запрос
-				ajax(comment_add.prop('action'), getComment, { comment: data }, 'Ошибка!', showPreloader(comments), data, 'POST');
+				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), data, 'POST');
 			}else{
 				window.location = location.pathname; // /category/men
 			}
 			return false;
 		});
 	}
+
+	console.log({comments_count, comments});
+
+	delegate(vote, 'click touchstart', function (vote, delegate, event){
+		var $this = $(this),
+			url = $this.data('url'),
+			rating = $this.siblings('.rating');
+		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
+		console.log({ this: this, $this: $this, vote: vote, event: event, delegate: delegate });
+		console.log([rating, url]);
+	});
+	
 }
 
-function getComment(res, args, data){
-	var $this = this;
+function getComment(res){
 	hidePreloader(function(){
-		console.log({ this: $this, res: res, args: args, data: data });
+		console.log(JSON.parse(res));
 	});
 }
 /* // Comments */

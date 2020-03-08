@@ -1,43 +1,65 @@
-// плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (call-back функция)
-function showPreloader(target = '.product-one'){
-	$('.preloader').fadeIn(300, function(){
+// плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (callback функция)
+function showPreloader(target = '.product-one', delay = 300, preloader = '.preloader'){
+	$(preloader).fadeIn(delay, function(){
 		$(target).hide();
 	});
 }
 
-function hidePreloader(callback = function(){}){
-	console.log(callback);
-	$('.preloader').delay(500).fadeOut('slow', callback);
+function hidePreloader(callback = function(){}, delay = 500, fadeOut = 'slow', preloader = '.preloader'){
+	$(preloader).delay(delay).fadeOut(fadeOut, callback);
 }
 
 // Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, successFunc = function(){}, data = {}, errorMsg = 'Ошибка! Попробуйте позже', beforeSend = function(){}, args = [], type = 'GET'){
+function ajax(url, success = null, data = {}, errorMsg = null, beforeSend = null, args = [], type = 'GET'){
+	success = success ? success : function(){};
+	errorMsg = errorMsg ? errorMsg : 'Ошибка! Попробуйте позже';
+	beforeSend = beforeSend ? beforeSend : function(){};
 	$.ajax({
 		url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
 		data: data, // объект с данными для отправки на серевер
 		type: type, // метод отправки запроса
 		// функция, вызываемая перед отправкой запроса
 		beforeSend: beforeSend,
-		// success: beforeSend == null ? successFunc.bind(this) : function(res){successFunc.call(this, res, data);},
-		success: function(res){
-			successFunc.call(this, res, args, data);
-		},
+		success: res => success.call(this, res, args, data),
+		//success: function(res){
+		//	success.call(this, res, args, data);
+		//},
 		/* success: function(res){
 			// res - ответ от сервера
 			success(res); // отображаем корзину (showCart())
 		}, */
-		// success: stage1_3.bind(this), // или success: stage1_3.bind(this, data, text) если нужно какие то аргументы передавать
+		// success: stage.bind(this), // или success: stage.bind(this, data, text) если нужно какие то аргументы передавать
 		// Ответ от сервера будет последний в списке аргументов, передаваемых в функцию (text - response).
 		// То есть: data = arguments[arguments.length-1];
-		error: function(){
-			alert(errorMsg);
+		error: function () {
+			console.log(errorMsg);
+		},
+		error: function (jqXHR, exception) {
+			var msg = '';
+			if (jqXHR.status === 0) {
+				msg = 'Not connect.\n Verify Network.';
+			} else if (jqXHR.status == 404) {
+				msg = 'Requested page not found. [404]';
+			} else if (jqXHR.status == 500) {
+				msg = 'Internal Server Error [500].';
+			} else if (exception === 'parsererror') {
+				msg = 'Requested JSON parse failed.';
+			} else if (exception === 'timeout') {
+				msg = 'Time out error.';
+			} else if (exception === 'abort') {
+				msg = 'Ajax request aborted.';
+			} else {
+				msg = 'Uncaught Error.\n' + jqXHR.responseText;
+			}
+			console.log({ errorMsg: errorMsg + '\n' + msg, jqXHR: jqXHR, exception: exception });
 		}
 	});
 }
 
 // плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
 function showFilter(res, data){
-	$('.preloader').delay(500).fadeOut('slow', function(){
+	//$('.preloader').delay(500).fadeOut('slow', function(){
+	hidePreloader(function(){
 		$('.product-one').html(res).fadeIn();
 		// удаляем из строки поиска выражение 'filter=1,' (начиная со слова filter, поле могут идти любые символы (=1,) до знака &)
 		// ?filter=1,&page=2 => ?page=2

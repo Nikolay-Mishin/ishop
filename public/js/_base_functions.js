@@ -8,8 +8,10 @@ let Asdf = new asdf();
 Asdf.dsa();
 */
 
-function delegate(selector, event = 'click touchstart', callback = function(){}){
-	$(document).on(event, selector, callback);
+function delegate(selector, event, callback = function(){}, delegate = document){
+	$(delegate).on(event, selector, function(){
+		callback.call(this, $(selector), $(delegate), event);
+	});
 }
 
 function isset(target, selector = 'div'){

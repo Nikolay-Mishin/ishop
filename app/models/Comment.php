@@ -18,6 +18,7 @@ class Comment extends AppModel {
 		'content' => '',
 		'product_id' => '',
 		'user_id' => '',
+		'rate' => 0,
 	];
 
 	// набор правил для валидации
@@ -40,6 +41,7 @@ class Comment extends AppModel {
 		'integer' => [
 			['product_id'],
 			['user_id'],
+			['rate'],
 		]
 	];
 
@@ -55,9 +57,12 @@ class Comment extends AppModel {
 		}
 	}
 
-	// получаем информацию по модификатору данного товара
 	public static function getByProductId($id){
 		return \R::getAssoc(self::getSql(), [$id]);
+	}
+
+	public static function getRate($comment_id){
+		return \R::getCell("SELECT rate FROM comment WHERE id = ?", [$comment_id]);
 	}
 
 }

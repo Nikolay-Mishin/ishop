@@ -70,6 +70,8 @@ class CategoryController extends AppController {
             $this->loadView('filter', compact('products', 'total', 'pagination'));
         }
 
+        debug(App::$app->getProperty('pagination'));
+
         $this->setMeta($category->title, $category->description, $category->keywords);
         $this->set(compact('products', 'breadcrumbs', 'pagination', 'total'));
     }

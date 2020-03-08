@@ -99,7 +99,7 @@ class ProductController extends AppController {
 			return;
 		}
 		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
-		$result = $id ? Gallery::{'delete'.AppModel::upperCamelCase($upload)}($id, $src) : Gallery::deleteImg($src);
+		$result = $id ? Gallery::{'delete'.upperCamelCase($upload)}($id, $src) : Gallery::deleteImg($src);
 		exit("$result");
 	}
 

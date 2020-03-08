@@ -29,13 +29,13 @@
 			</div>
 
 			<div class="footer-comment">
-				<span class="vote plus" title="Нравится">
+				<span class="vote plus" title="Нравится" data-url="comment/rate?id=<?=$id;?>&action=plus">
 					<i class="fa fa-thumbs-up"></i>
 				</span>
 				<span class="rating <?=$item['rate'] > 0 ? 'plus' : ($item['rate'] < 0 ? 'minus' : '');?>">
 					<?=($item['rate'] > 0 ? '+' : '') . $item['rate'];?>
 				</span>
-				<span class="vote minus" title="Не нравится">
+				<span class="vote minus" title="Не нравится" data-url="comment/rate?id=<?=$id;?>&action=minus">
 					<i class="fa fa-thumbs-down"></i>
 				</span>
 				<span class="devide">
