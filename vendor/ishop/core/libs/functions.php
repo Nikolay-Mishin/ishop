@@ -84,7 +84,7 @@ function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
 }
 
 // метод для преобразования массива в объект (stdClass Object)
-function dataDecode($data, $output = null){
+function dataDecode(&$data, $output = null){
 	$data_type = gettype($data); // получаем тип переданных данных
 	if($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данных
 	$isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
@@ -118,7 +118,7 @@ function upperCamelCase($name){
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
 }
 
-function arrayUnset($array, $items){
+function arrayUnset(&$array, $items){
 	foreach(toArray($items) as $item){
 		if(isset($array[$item])){
 			unset($array[$item]);

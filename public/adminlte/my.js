@@ -1,17 +1,17 @@
 // сброс фильтров
-$('#reset-filter').click(function () {
+$('#reset-filter').click(function(){
 	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров
 	return false;
 });
 
 // при нажатии на ссылку с классом 'delete' происходит переход по ссылке либо отмена действия (в зависимости от выбранного действия)
-$('.delete').click(function () {
+$('.delete').click(function(){
 	var res = confirm('Подтвердите действие'); // окно с подтверждением ок/отмена
 	if (!res) return false; // отменяет действие, если получен параметр false (отмена)
 });
 
 // подсвечивает активный пункт меню
-$('.sidebar-menu a').each(function () {
+$('.sidebar-menu a').each(function(){
 	// текущий запрос (адресная строка) - http://ishop/admin/order
 	// protocol = http:
 	// host = ishop/
@@ -19,7 +19,7 @@ $('.sidebar-menu a').each(function () {
 	var location = window.location.protocol + '//' + window.location.host + window.location.pathname;
 	var link = this.href; // текущая ссылка в цикле
 	// если текущая ссылка совпадает с текущей страницей, то делаем данный элемент активным
-	if (link == location) {
+	if(link == location){
 		$(this).parent().addClass('active'); // непосредственный родитель ссылки (подпункт меню)
 		$(this).closest('.treeview').addClass('active'); // родитель категории меню (пункт меню - родитель списка подпугктов меню)
 	}
@@ -33,13 +33,13 @@ $(".select2").select2({
 		url: adminpath + "/product/related-product",
 		delay: 250,
 		dataType: 'json',
-		data: function (params) {
+		data: function(params){
 			return {
 				q: params.term,
 				page: params.page
 			};
 		},
-		processResults: function (data, params) {
+		processResults: function(data, params){
 			return {
 				results: data.items
 			};
@@ -48,14 +48,15 @@ $(".select2").select2({
 });
 
 // загрузка картинок
-if($('div').is('#single')){
+//if(isset('#single')){
+if(isset('#single')){
 	var buttonSingle = $("#single"),
 		buttonMulti = $("#gallery"),
 		file;
 }
 
 // загрузка основной картинки
-if (buttonSingle) {
+if(buttonSingle){
 	uploadImg(buttonSingle);
 }
 
@@ -64,45 +65,43 @@ if(buttonMulti){
 	uploadImg(buttonMulti, 'gallery');
 }
 
-function uploadImg(target, upload = 'single'){
-	new AjaxUpload(target, {
-		action: adminpath + target.data('url') + "?upload=1", // адрес запроса
-		data: { name: target.data('name') }, // передаваемые данные
-		name: target.data('name'), // имя файла
-		// действие при нажатии кнопки
-		onSubmit: function (file, ext) {
-			if (!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))) {
-				alert('Ошибка! Разрешены только картинки');
-				return false;
-			}
-			target.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
+//function uploadImg(target, upload = 'single'){
+//	new AjaxUpload(target, {
+//		action: adminpath + target.data('url') + "?upload=1", // адрес запроса
+//		data: { name: target.data('name') }, // передаваемые данные
+//		name: target.data('name'), // имя файла
+//		// действие при нажатии кнопки
+//		onSubmit: function(file, ext){
+//			if(!(ext && /^(jpg|png|jpeg|gif)$/i.test(ext))){
+//				alert('Ошибка! Разрешены только картинки');
+//				return false;
+//			}
+//			target.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
 
-		},
-		// действие после окончания загрузки
-		onComplete: function (file, response) {
-			// устанавливаем задержку для выполнения кода в 1000 мс (1с)
-			setTimeout(function () {
-				target.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
-
-				response = JSON.parse(response); // ответ от запроса (парсим json)
-				var img = `<img src="/images/${response.file}" style="max-height: 150px; cursor: pointer;" data-src="${response.file}" data-upload="${upload}" class="del-item">`;
-				console.log(img);
-				// отображаем загруженную картинку
-				if (upload == 'gallery') {
-					$('.' + target.data('name')).append(img);
-				}
-				else {
-					$('.' + target.data('name')).html(img);
-				}
-			}, 1000);
-		}
-	});
-}
+//		},
+//		// действие после окончания загрузки
+//		onComplete: function(file, response){
+//			// устанавливаем задержку для выполнения кода в 1000 мс (1с)
+//			setTimeout(function(){
+//				target.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
+//				response = JSON.parse(response); // ответ от запроса (парсим json)
+//				var img = `<img src="/images/${response.file}" style="max-height: 150px; cursor: pointer;" data-src="${response.file}" data-upload="${upload}" class="del-item">`;
+//				console.log(img);
+//				// отображаем загруженную картинку
+//				if(upload == 'gallery'){
+//					$('.' + target.data('name')).append(img);
+//				}else{
+//					$('.' + target.data('name')).html(img);
+//				}
+//			}, 1000);
+//		}
+//	});
+//}
 
 // удаление картинок
 $(document).on('click', '.del-item', function(){
 	var res = confirm('Подтвердите действие'); // окно с подтверждением ок/отмена
-	if (!res) return false; // отменяет действие, если получен параметр false (отмена)
+	if(!res) return false; // отменяет действие, если получен параметр false (отмена)
 
 	var $this = $(this), // текущий объект, по которому произведен клик
 		id = $this.data('id'), // data-id
@@ -116,23 +115,23 @@ $(document).on('click', '.del-item', function(){
 		data: { id: id, src: src, upload: upload }, // данные для отправки
 		type: 'POST', // метод передачи данных
 		// перед отправкой запроса
-		beforeSend: function () {
+		beforeSend: function(){
 			$this.closest('.file-upload').find('.overlay').css({ 'display': 'block' }); // отображаем прелоадер
 		},
 		// после успешной откправки запроса
-		success: function (res) {
+		success: function(res){
 			// устанавливаем задержку для выполнения кода в 1000 мс (1с)
-			setTimeout(function () {
+			setTimeout(function(){
 				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
-				if (res == 1) {
+				if(res == 1){
 					$this.fadeOut(); // плавно скрываем удаленную картинку
 				}
 				console.log(res);
 			}, 1000);
 		},
 		// ошибка отправки запроса
-		error: function (res) {
-			setTimeout(function () {
+		error: function(res){
+			setTimeout(function(){
 				$this.closest('.file-upload').find('.overlay').css({ 'display': 'none' }); // скрываем прелоадер
 				alert('Ошибка'); // отображаем окно с ошибкой
 				console.log(res);
@@ -142,20 +141,21 @@ $(document).on('click', '.del-item', function(){
 });
 
 // блокируем отправку формы, если не выбрана категория
-$('#add').on('submit', function () {
-	if (!isNumeric($('#category_id').val())) {
+$('#add').on('submit', function(){
+	if(!isNumeric($('#category_id').val())){
 		alert('Выберите категорию');
 		return false;
 	}
 });
 
 // проверяет является данное значения числом
-function isNumeric(n){
-	return !isNaN(parseFloat(n)) && isFinite(n);
-}
+//function isNumeric(n){
+//	return !isNaN(parseFloat(n)) && isFinite(n);
+//}
 
 // заполниет поля формы данными при выборе валюты из выпадающего списка
-if($('form').is('#course-form')){
+//if($('form').is('#course-form')){
+if(isset('#course-form')){
 	var form = $('#course-form'), // форма добавления валюты
 		title = form.find('#title'), // input названия валюты
 		code = form.find('#code'), // input кода валюты
@@ -178,32 +178,32 @@ if($('form').is('#course-form')){
 	});
 }
 
-function isChecked(target){
-	return target.prop('checked'); // значение checkbox
+//function isChecked(target){
+//	return target.prop('checked'); // значение checkbox
+//}
+
+//function changeInput(target, change = true, value = 1){
+//	target.prop('disabled', change);
+//	if(change){
+//		target.data('value', target.val());
+//		target.val(value);
+//	}else{
+//		target.val(target.data('value'));
+//	}
+//}
+
+//function getItems(target, item) {
+//	return target.find(item);
+//}
+
+var mod_list = $('#mod-list');
+//if($('div').is(mod_list)){
+if(isset(mod_list)){
+	var mod_items = getItems(mod_list, '.mod-item');
 }
 
-function changeInput(target, change = true, value = 1){
-	target.prop('disabled', change);
-	if (change) {
-		target.data('value', target.val());
-		target.val(value);
-	}
-	else {
-		target.val(target.data('value'));
-	}
-}
-
-function getItems(target, item) {
-	return target.find(item);
-}
-
-if ($('div').is('#mod-list')) {
-	var mod_list = $('#mod-list'),
-		mod_items = getItems(mod_list, '.mod-item');
-}
-
-if (mod_items) {
-	$(document).on('click touchstart', '.mod-add', function (e) {
+if(mod_items){
+	$(document).on('click touchstart', '.mod-add', function(e){
 		e.preventDefault();
 		var mod_item = $(this).closest('.mod-item').clone();
 		resetInputs(mod_item);
@@ -211,29 +211,29 @@ if (mod_items) {
 		mod_list.append(mod_item);
 	});
 
-	$(document).on('click touchstart', '.mod-del', function (e) {
+	$(document).on('click touchstart', '.mod-del', function(e){
 		e.preventDefault();
-		if (getModItems().length > 1) {
+		if(getModItems().length > 1){
 			$(this).closest('.mod-item').remove();
 			resetLabels(getModItems(), '[for=modification]');
 		}
 	});
 }
 
-function getModItems() {
-	return getItems(mod_list, '.mod-item');
-}
+//function getModItems(){
+//	return getItems(mod_list, '.mod-item');
+//}
 
-function resetInputs(target) {
-	for (var input of target.find('input')) {
-		$(input).val('');
-	}
-}
+//function resetInputs(target){
+//	for(var input of target.find('input')){
+//		$(input).val('');
+//	}
+//}
 
-function resetLabels(target, find) {
-	target = target.find(find);
-	var i = 1;
-	for (var label of target) {
-		$(label).text('Модификация ' + i++);
-	}
-}
+//function resetLabels(target, find){
+//	target = target.find(find);
+//	var i = 1;
+//	for(var label of target){
+//		$(label).text('Модификация ' + i++);
+//	}
+//}

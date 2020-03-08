@@ -60,13 +60,14 @@ class Gallery extends AppModel {
 	}
 
 	/**
+	 * Статичный метод для изменения размера изображения
+	 *
 	 * @param string $target путь к оригинальному файлу
 	 * @param string $dest путь сохранения обработанного файла
 	 * @param string $wmax максимальная ширина
 	 * @param string $hmax максимальная высота
 	 * @param string $ext расширение файла
 	 */
-	// статичный метод для изменения размера изображения
 	public static function resize($target, $dest, $wmax, $hmax, $ext){
 		list($w_orig, $h_orig) = getimagesize($target); // записываем в переменные ширину и высоту изображения
 		$ratio = $w_orig / $h_orig; // ориентация расположения изображения (=1 - квадрат, <1 - альбомная, >1 - книжная)

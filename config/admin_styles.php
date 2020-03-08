@@ -1,8 +1,16 @@
 <?php
-// конфигурации БД - ORM RedBeanPHP
 
 return [
-    'lib' => 'styles',
-    'init' => "mysql:host={$_SERVER['HTTP_HOST']};dbname=".DB_NAME.";charset=utf8",
-    'main' => 'admin'
+    'lib' => [
+        "bower_components/bootstrap/dist/css/bootstrap.min",
+        "bower_components/select2/dist/css/select2.min",
+        "bower_components/Ionicons/css/ionicons.min",
+        "bower_components/font-awesome/css/font-awesome.min",
+        "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic",
+        "dist/css/AdminLTE.min",
+        "dist/css/skins/_all-skins.min"
+    ],
+    'main' => [
+        "my"
+    ]
 ];

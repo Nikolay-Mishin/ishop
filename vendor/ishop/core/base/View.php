@@ -114,45 +114,31 @@ class View {
 
 	// возвращает готовую разметку (или массив) со стилями
 	public function getStyles(){
-		// разметку для вывода в шаблон запишем в переменную и вернем ее
-		//$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
-		//$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
-		//$output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
-		//return $output;
+		return $this->getFilesList($this->style, 'style');
 	}
 
 	// возвращает готовую разметку (или массив) со стилями
 	public function getScripts(){
-		// разметку для вывода в шаблон запишем в переменную и вернем ее
-		//$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
-		//$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
-		//$output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
-		//return $output;
-		debug($this);
-		return;
-		$files_list = '';
-		$files_list .= $this->getFilesList($this->$type, $type) . PHP_EOL;
-		debug($this->$type);
-		debug($files_list);
+		return $this->getFilesList($this->script, 'script');
 	}
 
 	protected function getFilesList($files, $type_file){
 		$files_list = '';
 		foreach($files as $type => $file_list){
+			$files_list .= "<!-- $type -->" . PHP_EOL;
 			$file_list = toArray($file_list);
 			foreach($file_list as $file){
-				if($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)){
-					$file = $match[2] ?? $file;
-					$files_list .= (require_once $file) . PHP_EOL;
-				}else{
-					if($type_file == 'script'){
-						$file = "$type_file " . 'src="js/' . $file . '.js"' . "/$type_file";
-					}
-					else{
-						$file = "link " . 'href="css/' . $file . '.css" rel="stylesheet" type="text/css" media="all" /';
-					}
-					$files_list .= $file . PHP_EOL;
+				if($type_file == 'style'){
+					$file = "<link " . 'href="' . $file . '.css" rel="stylesheet" type="text/css" media="all" />';
 				}
+				else{
+					if($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)){
+						$file = (require_once $match[2] ?? $file);
+					}else{
+						$file = "<$type_file " . 'src="' . $file . '.js">' . "</$type_file>";
+					}
+				}
+				$files_list .= $file . PHP_EOL;
 			}
 		}
 		return $files_list;

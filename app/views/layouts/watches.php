@@ -5,8 +5,12 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html" />
+    <link rel="shortcut icon" href="<?=PATH;?>/images/star.png" type="image/png" />
     <!-- тег <base> для указания корневого каталога, от которого работают все ссылки ресурсов (href, src) - link, script, img -->
     <!-- "/" - строить ссылки от корня сайта (подставляется перед всеми ссылками) -->
     <!-- добавляет данное значение ко всем относительным ссылкам (без / вначале), делая их абсолютными (от корня) -->
@@ -15,25 +19,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <?=$this->getCanonical();?>
     <!-- получаем разметку с мета-тегами из вида -->
     <?=$this->getMeta();?>
+    <!-- получаем разметку со стилями из вида -->
+    <?=$this->getStyles();?>
     <!-- Vendor-Theme-files -->
     <!-- theme-style -->
-
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> -->
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="adminlte/bower_components/font-awesome/css/font-awesome.min.css">
     <link href="megamenu/css/ionicons.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href="megamenu/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" /> -->
     <!-- //theme-style -->
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
-    <!--Custom-Theme-files-->
-    <!--theme-style-->
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
-    <!--//theme-style-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!--start-menu-->
     <!-- <link href="css/memenu.css" rel="stylesheet" type="text/css" media="all" /> -->
+    <!--Custom-Theme-files-->
+    <!--theme-style-->
+    <!-- <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" /> -->
+    <!--//theme-style-->
 </head>
 
 <body>
@@ -277,51 +280,51 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="preloader"><img src="images/ring.svg" alt=""></div>
 
 <!-- получаем разметку со скриптами из вида -->
-<?debug($this->getScripts());?>
+<?=$this->getScripts();?>
 
 <!-- _variables - ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
-<?= require_once CONF.'/scripts_consts.php'; ?>
-<? //debug($this); ?>
-<script src="js/_variables.js"></script>
+<? // require_once CONF.'/scripts_consts.php'; ?>
+
+<!-- <script src="js/_variables.js"></script> -->
 
 <!--jquery-->
-<script src="js/jquery-1.11.0.min.js"></script>
+<!-- <script src="js/jquery-1.11.0.min.js"></script> -->
 <!--bootstrap-->
-<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
 
 <!--validator-->
 <!-- <script src="js/validator.js"></script> -->
 <!--search-->
-<script src="js/typeahead.bundle.js"></script>
+<!-- <script src="js/typeahead.bundle.js"></script> -->
 <!--imagezoom-->
-<script src="js/imagezoom.js"></script>
+<!-- <script src="js/imagezoom.js"></script> -->
 
 <!--megamenu-->
-<script src="megamenu/js/megamenu.js"></script>
+<!-- <script src="megamenu/js/megamenu.js"></script> -->
 <!--dropdown-->
-<script src="js/jquery.easydropdown.js"></script>
+<!-- <script src="js/jquery.easydropdown.js"></script> -->
 <!--accordion-->
-<script src="js/accordion.js"></script>
+<!-- <script src="js/accordion.js"></script> -->
 
 <!--Slider-Starts-Here-->
 <!--responsiveslides-->
-<script src="js/responsiveslides.min.js"></script>
-<script src="js/slider.js"></script>
+<!-- <script src="js/responsiveslides.min.js"></script>
+<script src="js/slider.js"></script> -->
 <!--flexslider-->
-<script defer src="js/jquery.flexslider.js"></script>
-<script src="js/flexslider.js"></script>
+<!-- <script defer src="js/jquery.flexslider.js"></script>
+<script src="js/flexslider.js"></script> -->
 <!--Slider-End-Here-->
 
 <!--CKeditor-Starts-Here-->
 <!--ckeditor-->
-<script src="adminlte/bower_components/ckeditor/ckeditor.js"></script>
-<script src="adminlte/bower_components/ckeditor/adapters/jquery.js"></script>
+<!-- <script src="adminlte/bower_components/ckeditor/ckeditor.js"></script>
+<script src="adminlte/bower_components/ckeditor/adapters/jquery.js"></script> -->
 <!--CKeditor-End-Here-->
 
 <!--editor-->
-<script src="js/editor.js"></script>
+<!-- <script src="js/editor.js"></script> -->
 <!--main script-->
-<script src="js/main.js"></script>
+<!-- <script src="js/main.js"></script> -->
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
 <?php
