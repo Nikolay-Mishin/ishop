@@ -28,8 +28,7 @@ if(notEmpty(comment_add)){
 				var product_id = comment_add.find('[name=product_id]').val(),
 					user_id = comment_add.find('[name=user_id]').val();
 				data = { content: content, product_id: product_id, user_id: user_id };
-				// ajax-запрос
-				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), data, 'POST');
+				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), data, 'POST'); // ajax-запрос
 			}else{
 				window.location = location.pathname; // /category/men
 			}
@@ -44,6 +43,7 @@ if(notEmpty(comment_add)){
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
+		ajax(url, getRate); // ajax-запрос
 		console.log({ this: this, $this: $this, vote: vote, event: event, delegate: delegate });
 		console.log([rating, url]);
 	});
@@ -54,6 +54,10 @@ function getComment(res){
 	hidePreloader(function(){
 		console.log(JSON.parse(res));
 	});
+}
+
+function getRate(res){
+	console.log(JSON.parse(res));
 }
 /* // Comments */
 

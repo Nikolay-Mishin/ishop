@@ -54,16 +54,14 @@ class CommentController extends AppController {
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
 				$rate = Comment::getRate($data['id']);
-				switch($data){
-					case 'plus':
+				$comment = \R::load('comment', $data['id']);
+				switch($data['action']){
+					case 'plus': $comment->rate++;
 						break;
-					case 'minus':
+					case 'minus': $comment->rate--;
 						break;
 				}
-				$comment = \R::load('comment', $data['id']);
-				$comment->rate = $rate;
-				$result = $comment;
-				exit(json_encode(['data' => $rate, 'comment' => $comment, 'result' => $result]));
+				exit(json_encode(['data' => $rate, 'rate' => $comment->rate]));
 			}
 		}
 	}
