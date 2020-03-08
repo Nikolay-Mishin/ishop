@@ -1,14 +1,15 @@
 {
-  "autoload": {
-    "psr-4": {
-      "ishop\\": "vendor/ishop/core",
-      "app\\": "app"
-    }
-  },
-  "require": {
-    "gabordemooij/redbean": "dev-master",
-    "vlucas/valitron": "^1.4",
-    "swiftmailer/swiftmailer": "^5.4",
-    "workerman/workerman": "^3.5"
-  }
+	"autoload": {
+		"psr-4": {
+			"ishop\\": "vendor/ishop/core",
+			"app\\": "app"
+		}
+	},
+	"require": {
+		"gabordemooij/redbean": "dev-master",
+		"vlucas/valitron": "^1.4",
+		"swiftmailer/swiftmailer": "^5.4",
+		"workerman/workerman": "^3.5",
+		"cboden/ratchet": "^0.4.2" // "0.3.*" | "^0.4.2"
+	}
 }

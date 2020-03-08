@@ -27,9 +27,9 @@ abstract class Controller {
         $this->view = $route['action'];
         $this->prefix = $route['prefix'];
         $this->file_prefix = rtrim($this->prefix, '\\') . ($this->prefix ? '_' : ''); // вырезаем из конца строки '\'
-        $this->setFiles($this->typeFiles);
         //$this->setStyle();
         //$this->setScript();
+        $this->setFiles($this->typeFiles);
     }
 
     // получает объект вида и вызывает рендер
@@ -68,42 +68,14 @@ abstract class Controller {
         list($types, $files) = [toArray($types), toArray($files)];
         foreach($types as $type){
             $this->$type = require_once CONF . "/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
-            debug($this->$type);
-            $files_list = '';
             if(!empty($files[$type])){
                 foreach($files[$type] as $file_list){
-                    $files_list .= $this->getFilesList($file_list, $type) . PHP_EOL;
+                    $this->$type['added'] = $file_list;
                 }
-            }
-            else{
-                $files_list .= $this->getFilesList($files, $type) . PHP_EOL;
-            }
-            $files_list .= $this->getFilesList($this->$type, $type) . PHP_EOL;
-            debug($files_list);
-        }
-    }
-
-    protected function getFilesList($files, $type_file){
-        $files_list = '';
-        foreach($files as $type => $file_list){
-            $file_list = toArray($file_list);
-            foreach($file_list as $file){
-                if($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)){
-                    $file = $match[2] ?? $file;
-                    $files_list .= (require_once $file) . PHP_EOL;
-                }
-                else{
-                    if($type_file == 'script'){
-                        $file = 'script src="js/'.$file.'.js" /script';
-                    }
-                    else{
-                        $file = 'link href="css/'.$file.'.css" rel="stylesheet" type="text/css" media="all" /';
-                    }
-                    $files_list .= $file . PHP_EOL;
-                }
+            }elseif(!empty($files)){
+                $this->$type['added'] = $files;
             }
         }
-        return $files_list;
     }
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)

@@ -8,6 +8,7 @@ use ishop\App; // подключаем класс базовый приложе�
 
 class Comment extends Menu {
 
+	protected $isAjax = false;
 	protected $isMenu = true;
 	protected $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
 	protected $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария
@@ -21,13 +22,17 @@ class Comment extends Menu {
 
 	public function __construct($options = []){
 		parent::__construct($options);
-		$this->editor_options['id'] = $this->id;
-		App::$app->setProperty('editor_options', $this->editor_options);
-		$this->editor = new Editor($this->editor_options);
+		if(!$this->isAjax){
+			$this->editor_options['id'] = $this->id;
+			App::$app->setProperty('editor_options', $this->editor_options);
+			$this->editor = new Editor($this->editor_options);
+		}else{
+			
+		}
 	}
 
 	public function __toString(){
-		return $this->getComments($this->editor, parent::__toString());
+		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : '';
 	}
 
 	public function run(){
@@ -35,7 +40,7 @@ class Comment extends Menu {
 	}
 
 	// получает html-разметку
-	protected function getComments($editor, $comments){
+	protected function getComments($comments, $editor = null){
 		ob_start(); // включаем буферизацию
 		require $this->comments_tpl; // подключаем шаблон
 		return ob_get_clean(); // получаем контент из буфера и очищаем буфер

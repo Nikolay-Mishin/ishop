@@ -1,4 +1,4 @@
-<?php if(isset($item)): ?>
+<?php if($item): ?>
 	<?='<!-- Комментарий (Уровень ' . $this->parents[$item['parent_id']] . ') -->';?>
 	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media">
 		<div class="media-left">

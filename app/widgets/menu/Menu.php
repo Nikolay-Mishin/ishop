@@ -37,7 +37,6 @@ class Menu {
 		// для сохранения совместимости версий php значение по умолчанию задаем в конструкторе, а не в самом свойстве
 		$this->getOptions($options); // получаем опции
 		$this->run(); // формируем меню
-		//if(isset($this->isRequired)) debug($this, $this->isRequired ?? false);
 	}
 
 	public function __toString(){

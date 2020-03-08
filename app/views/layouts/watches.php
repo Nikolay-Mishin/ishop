@@ -276,9 +276,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- прелоадер для скрытия контента при ожидании ответа от сервера (ajax-запрос) -->
 <div class="preloader"><img src="images/ring.svg" alt=""></div>
 
+<!-- получаем разметку со скриптами из вида -->
+<?debug($this->getScripts());?>
+
 <!-- _variables - ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
 <?= require_once CONF.'/scripts_consts.php'; ?>
-<? debug($this); ?>
+<? //debug($this); ?>
 <script src="js/_variables.js"></script>
 
 <!--jquery-->
@@ -293,12 +296,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--imagezoom-->
 <script src="js/imagezoom.js"></script>
 
-<!--dropdown-->
-<script src="js/jquery.easydropdown.js"></script>
-<!--menu-->
-<!-- <script src="js/menu.js"></script> -->
 <!--megamenu-->
 <script src="megamenu/js/megamenu.js"></script>
+<!--dropdown-->
+<script src="js/jquery.easydropdown.js"></script>
+<!--accordion-->
+<script src="js/accordion.js"></script>
 
 <!--Slider-Starts-Here-->
 <!--responsiveslides-->

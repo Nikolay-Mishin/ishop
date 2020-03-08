@@ -19,6 +19,8 @@ class View {
 	public $data = [];
 	public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
 	public $canonical;
+	public $style = [];
+	public $script = [];
 
 	public function __construct($route, $layout = '', $view = '', $meta = '', $canonical = '', $controller = null){
 		// $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
@@ -108,6 +110,52 @@ class View {
 		// разметку для вывода в шаблон запишем в переменную и вернем ее
 		// PHP_EOL - перенос строк
 		return $this->canonical ? '<link rel="canonical" href="' . $this->canonical . '">' : '';
+	}
+
+	// возвращает готовую разметку (или массив) со стилями
+	public function getStyles(){
+		// разметку для вывода в шаблон запишем в переменную и вернем ее
+		//$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
+		//$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
+		//$output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+		//return $output;
+	}
+
+	// возвращает готовую разметку (или массив) со стилями
+	public function getScripts(){
+		// разметку для вывода в шаблон запишем в переменную и вернем ее
+		//$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
+		//$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
+		//$output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+		//return $output;
+		debug($this);
+		return;
+		$files_list = '';
+		$files_list .= $this->getFilesList($this->$type, $type) . PHP_EOL;
+		debug($this->$type);
+		debug($files_list);
+	}
+
+	protected function getFilesList($files, $type_file){
+		$files_list = '';
+		foreach($files as $type => $file_list){
+			$file_list = toArray($file_list);
+			foreach($file_list as $file){
+				if($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)){
+					$file = $match[2] ?? $file;
+					$files_list .= (require_once $file) . PHP_EOL;
+				}else{
+					if($type_file == 'script'){
+						$file = "$type_file " . 'src="js/' . $file . '.js"' . "/$type_file";
+					}
+					else{
+						$file = "link " . 'href="css/' . $file . '.css" rel="stylesheet" type="text/css" media="all" /';
+					}
+					$files_list .= $file . PHP_EOL;
+				}
+			}
+		}
+		return $files_list;
 	}
 
 }
