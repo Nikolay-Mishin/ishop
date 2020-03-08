@@ -26,7 +26,8 @@ if (notEmpty(comment_add)){
 			console.log(data);
 			// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 			if(data){
-				ajax(comment_add.prop('action'), getComment, { comment: data }, 'Ошибка!', showPreloader(comments), data, 'POST'); // ajax-запрос
+				// ajax-запрос
+				ajax(comment_add.prop('action'), getComment, { comment: data }, 'Ошибка!', showPreloader(comments), data, 'POST');
 			}else{
 				window.location = location.pathname; // /category/men
 			}
@@ -41,6 +42,7 @@ function getComment(res, args, data){
 		console.log({ this: $this, res: res, args: args, data: data });
 	});
 }
+/* // Comments */
 
 /* Filters */
 // делигируем событие изменения от body инпутам в сайдбаре (списке фильтров)
