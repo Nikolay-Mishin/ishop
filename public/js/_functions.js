@@ -1,13 +1,3 @@
-/*
-function asdf() {
-	this.dsa = function() {
-		alert(123);
-	}
-}
-let Asdf = new asdf();
-Asdf.dsa();
-*/
-
 // плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (call-back функция)
 function showPreloader(target = '.product-one'){
 	$('.preloader').fadeIn(300, function(){
@@ -15,12 +5,13 @@ function showPreloader(target = '.product-one'){
 	});
 }
 
+function hidePreloader(callback = function(){}){
+	console.log(callback);
+	//$('.preloader').delay(500).fadeOut('slow', callback);
+}
+
 // Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, successFunc = null, data = {}, errorMsg = 'Ошибка! Попробуйте позже', beforeSend = null, args = [], type = 'GET'){
-	console.log(beforeSend);
-	successFunc = successFunc != null ? successFunc : function(){};
-	beforeSend = beforeSend != null ? beforeSend.bind() : function(){};
-	console.log(beforeSend);
+function ajax(url, successFunc = function(){}, data = {}, errorMsg = 'Ошибка! Попробуйте позже', beforeSend = function(){}, args = [], type = 'GET'){
 	$.ajax({
 		url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
 		data: data, // объект с данными для отправки на серевер

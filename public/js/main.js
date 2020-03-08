@@ -1,7 +1,7 @@
 /* Comments */
 var comment_add = $('#comment_add');
 
-if (isset(comment_add)){
+if (notEmpty(comment_add)){
 	var btn = comment_add.find('button'),
 		data;
 	editorOnChange(comment_add, function(value, element, editor){
@@ -26,14 +26,18 @@ if (isset(comment_add)){
 			console.log(data);
 			// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 			if(data){
-				ajax(comment_add.prop('action'), null, { comment: data }, 'Ошибка!', showPreloader(comments), data, 'POST'); // ajax-запрос
+				ajax(comment_add.prop('action'), getComment, { comment: data }, 'Ошибка!', showPreloader(comments), data, 'POST'); // ajax-запрос
 			}else{
 				window.location = location.pathname; // /category/men
 			}
 			return false;
 		});
 	}
-	
+}
+
+function getComment(res, args, data){
+	hidePreloader();
+	console.log({ this: this, res: res, args: args, data: data });
 }
 
 /* Filters */

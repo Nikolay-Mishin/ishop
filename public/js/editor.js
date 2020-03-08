@@ -1,12 +1,7 @@
-$(function () {
-	$(document).on('click touchstart', '.selector', function(){
-		console.log($(this));
-	});
-});
-
 // CK Editor
 var editors = $('.editor');
-if(editors){
+
+if(notEmpty(editors)){
 	for (var i = 0; i < editors.length; i++){
 		var editor = $(editors[i]);
 		if (editors.length > 1) editor.prop('id', editor.prop('id') + '_' + (i + 1));
@@ -19,17 +14,17 @@ if(editors){
 	}
 }
 
-function getEditor(target, find = '.editor', prop = 'id'){
-	return editors ? editors[typeof target == 'object' ? target.find(find).prop(prop) : target] : null;
-}
+//function getEditor(target, find = '.editor', prop = 'id'){
+//	return editors ? editors[typeof target == 'object' ? target.find(find).prop(prop) : target] : null;
+//}
 
-function editorOnChange(target, callback = function(){}){
-	var editor = getEditor(target),
-		value;
-	if(!editor) return false;
-	editor.on('change', function(){
-		this.updateElement();
-		callback(this._.data, $(this.element.$), this);
-	});
-	return value;
-}
+//function editorOnChange(target, callback = function(){}){
+//	var editor = getEditor(target),
+//		value;
+//	if(!editor) return false;
+//	editor.on('change', function(){
+//		this.updateElement();
+//		callback(this._.data, $(this.element.$), this);
+//	});
+//	return value;
+//}

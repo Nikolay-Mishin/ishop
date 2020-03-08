@@ -49,19 +49,21 @@ $(".select2").select2({
 
 // загрузка картинок
 //if(isset('#single')){
-if(isset('#single')){
+if (notEmpty('#single')){
 	var buttonSingle = $("#single"),
 		buttonMulti = $("#gallery"),
 		file;
 }
 
 // загрузка основной картинки
-if(buttonSingle){
+//if(buttonSingle){
+if(notEmpty(buttonSingle)){
 	uploadImg(buttonSingle);
 }
 
 // загрузка картинок галлереи
-if(buttonMulti){
+//if(buttonMulti){
+if(notEmpty(buttonMulti)){
 	uploadImg(buttonMulti, 'gallery');
 }
 
@@ -155,7 +157,7 @@ $('#add').on('submit', function(){
 
 // заполниет поля формы данными при выборе валюты из выпадающего списка
 //if($('form').is('#course-form')){
-if(isset('#course-form')){
+if(notEmpty('#course-form')){
 	var form = $('#course-form'), // форма добавления валюты
 		title = form.find('#title'), // input названия валюты
 		code = form.find('#code'), // input кода валюты
@@ -198,7 +200,7 @@ if(isset('#course-form')){
 
 var mod_list = $('#mod-list');
 //if($('div').is(mod_list)){
-if(isset(mod_list)){
+if(notEmpty(mod_list)){
 	var mod_items = getItems(mod_list, '.mod-item');
 }
 
