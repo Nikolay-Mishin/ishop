@@ -3,6 +3,8 @@
 
 namespace app\models;
 
+use \Exception;
+
 use app\models\Payment; // модель оплаты
 use ishop\App;
 use Swift_Mailer; // класс отправки писем
@@ -110,7 +112,7 @@ class Order extends AppModel {
 			// отправляем письма клиенту и администратору
 			$result = $mailer->send($message_client);
 			$result = $mailer->send($message_admin);
-		} catch (\Exception $e){
+		} catch (Exception $e){
 			
 		}
 

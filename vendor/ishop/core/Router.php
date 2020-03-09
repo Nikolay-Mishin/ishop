@@ -3,6 +3,8 @@
 
 namespace ishop;
 
+use \Exception;
+
 class Router {
     // таблица марштуров
     protected static $routes = [];
@@ -42,13 +44,13 @@ class Router {
                     $controllerObject->$action(); // вызываем экшен у заданного класса
                     $controllerObject->getView(); // вызываем метод для отображения вида
                 }else{
-                    throw new \Exception("Метод $controller::$action не найден", 404);
+                    throw new Exception("Метод $controller::$action не найден", 404);
                 }
             }else{
-                throw new \Exception("Контроллер $controller не найден", 404);
+                throw new Exception("Контроллер $controller не найден", 404);
             }
         }else{
-            throw new \Exception("Страница не найдена", 404);
+            throw new Exception("Страница не найдена", 404);
         }
     }
 

@@ -5,19 +5,33 @@
 
 namespace ishop\traits;
 
-trait TGetOptions {
+use \Closure;
+
+trait T_setProperties {
+
+	use T_Closure;
 
 	// получает опции
-	protected function getOptions($options, $callback = null){
-		$callback = $callback ?? function(){};
+	protected function setProperties($options, $condition = null, Closure $callback = null){
+		list($condition, $callback) = $this->setArgs($condition, $callback);
 		// если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
 		foreach($options as $k => $v){
 			// проверяем существет ли такое свойство у класса
-			if(property_exists($this, $k)){
+			if($this->isClosure($condition) ? $condition($k) : $condition){
 				$this->$k = $v;
-				$callback($options, $k, $v);
+				$callback($k, $v);
 			}
 		}
+	}
+
+	protected function setArgs($condition, $callback){
+		$isClosure = $this->isClosure($condition);
+		$base_condition = function($k){
+			return property_exists($this, $k);
+		};
+		$callback = $isClosure ? $condition : ($callback ?? function(){});
+		$condition = $isClosure ? $base_condition : ($condition ?? function(){});
+		return [$condition, $callback];
 	}
 
 }

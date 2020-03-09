@@ -11,6 +11,8 @@
 
 namespace app\controllers;
 
+use \Exception;
+
 use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Product; // модель продукта
 use app\models\Comment; // модель комментариев
@@ -25,7 +27,7 @@ class ProductController extends AppController {
         $product = \R::findOne('product', "alias = ? AND status = '1'", [$alias]);
         // если продукт не найден выбрасываем исключение
         if(!$product){
-            throw new \Exception('Страница не найдена', 404);
+            throw new Exception('Страница не найдена', 404);
         }
 
         // хлебные крошки - строка с ссылками на главную и категории (Home / Single)

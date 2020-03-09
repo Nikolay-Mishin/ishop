@@ -2,6 +2,8 @@
 
 namespace app\controllers\admin;
 
+use \Exception;
+
 use app\models\AppModel;
 use app\models\User;
 use ishop\base\Controller;
@@ -29,7 +31,7 @@ class AppController extends Controller {
         $id = !empty($_GET[$id]) ? (int)$_GET[$id] : (!empty($_POST[$id]) ? (int)$_POST[$id] : null);
         // выбрасываем исключение, если не получен id
         if(!$id){
-            throw new \Exception('Страница не найдена', 404);
+            throw new Exception('Страница не найдена', 404);
         }
         return $id;
     }

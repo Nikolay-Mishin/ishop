@@ -12,14 +12,17 @@ class CommentController extends AppController {
 	public function addAction(){
 		$data = $_POST;
 		if(!empty($data)){
+			//$comment = new Comment($data);
+			$comment = new Comment(['rate' => 6], 3, 'update');
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				//$comment = new Comment($data);
 				$content = !empty($data['content']) ? $data['content'] : null;
 				$id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
 				$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;
 				//if($comment->errors) exit(json_encode(['errors' => $comment->errors]));
-				if(!$content || !$id || !$user_id) exit(json_encode(['errors' => 'errors']));
+				if(!$content || !$id || !$user_id){
+					exit(json_encode(['errors' => ['Не задан параметр' => [$content, $id, $user_id]]]));
+				}
 				$comments = Comment::getByProductId($id);
 				$w_Comment = [
 					'parent_id' => 0,
@@ -34,15 +37,14 @@ class CommentController extends AppController {
 					'avatar' => "avatar1.jpg",
 					'login' => "admin"
 				];
-				$comments[] = $w_Comment;
 				//$w_Comment = new w_Comment([
 				//    'data' => $comments,
 				//    'id' => $id,
 				//    'isAjax' => true
 				//]);
+				$comments[] = $w_Comment;
 				exit(json_encode(['data' => $data, 'comments' => $comments, 'w_Comment' => $w_Comment]));
 			}
-			new Comment($data);
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}

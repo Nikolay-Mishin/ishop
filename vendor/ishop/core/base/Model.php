@@ -9,22 +9,25 @@ use Valitron\Validator; // класс Валидатора
 
 abstract class Model extends Sql {
 
+	use \ishop\traits\T_setProperties;
+	use \ishop\traits\T_ProtectProperties;
+
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
+	protected $bean;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		//debug(['__construct', get_called_class(), $data, $attrs, $action, $valid]);
 		if($data){
+			$this->setProtectProperties('bean');
+			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
 			// in_array(,,true) - при поиске будет использовано строгое сравнение (проверит соответствие типов)
-			//debug(['__construct [$attrs, $valid]', get_called_class(), $attrs, $valid]);
-			list($attrs, $valid) = toArray([$attrs, $valid], true);
-			//debug(['__construct [$attrs, $valid]', get_called_class(), $attrs, $valid]);
 			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;
@@ -63,23 +66,37 @@ abstract class Model extends Sql {
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
 		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
-		// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
-		foreach($this->attributes as $name => $value){
-			$tbl->$name = $value;
-		}
-		// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
-		return $this->id = \R::store($tbl);
+		//// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
+		//foreach($this->attributes as $name => $value){
+		//    $tbl->$name = $value;
+		//}
+		//// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
+		//return $this->id = \R::store($this->bean = $tbl);
+		return $this->saveBean($tbl);
 	}
 
 	// метод обновления (перезаписи) данных в БД
 	public function update($id){
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
+		//// для каждого аттрибута модели заполняем поля записи в БД
+		//foreach($this->attributes as $name => $value){
+		//    $bean->$name = $value;
+		//}
+		//// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
+		//return $this->id = \R::store($this->bean = $bean);
+		return $this->saveBean($bean);
+	}
+
+	// метод сохранения бина (представления таблицы) в БД
+	protected function saveBean($bean){
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach($this->attributes as $name => $value){
 			$bean->$name = $value;
 		}
+		$this->bean = $bean;
+		debug($this, 1);
 		// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
-		return $this->id = \R::store($bean);
+		//return $this->id = \R::store($this->bean = $bean);
 	}
 
 	// метод валидации данных
@@ -107,6 +124,35 @@ abstract class Model extends Sql {
 		}
 		$errors .= '</ul>';
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
+	}
+
+	protected function setAttributes($attributes){
+		$this->attributes = [];
+		$this->addAttributes($attributes);
+	}
+
+	protected function addAttributes($attributes){
+		$attributes = toArray($attributes);
+		foreach($attributes as $name => $value){
+			$this->attributes[$name] = $value;
+		}
+	}
+
+	protected function delAttributes($attributes = []){
+		$attributes = !empty($attributes) ? toArray($attributes) : array_keys($this->attributes);
+		arrayUnset($this->attributes, $attributes);
+	}
+
+	protected function setRequired($required){
+		$this->rules['required'] = [];
+		$this->addRequired($required);
+	}
+
+	protected function addRequired($required){
+		$required = toArray($required);
+		foreach($required as $require){
+			$this->rules['required'][] = toArray($require);
+		}
 	}
 
 }

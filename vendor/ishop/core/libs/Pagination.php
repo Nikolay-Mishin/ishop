@@ -3,6 +3,8 @@
 
 namespace ishop\libs;
 
+use \Exception;
+
 class Pagination {
 
     public $currentPage; // текущая страница
@@ -30,7 +32,7 @@ class Pagination {
             return "LIMIT {$this->getStart()}, $this->perpage";
         }
         else{
-            throw new \Exception('Oops, there is no such property here!');
+            throw new Exception('Oops, there is no such property here!');
         }
     }
 

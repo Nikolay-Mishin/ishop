@@ -3,6 +3,8 @@
 
 namespace app\models\admin;
 
+use \Exception;
+
 use app\models\AppModel;
 use ishop\libs\Pagination; // класс пагинации
 
@@ -74,7 +76,7 @@ class Order extends AppModel {
 		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
-			throw new \Exception('Страница не найдена', 404);
+			throw new Exception('Страница не найдена', 404);
 		}
 		return $order;
 	}
@@ -103,7 +105,7 @@ class Order extends AppModel {
 		$order = \R::load('order', $id); // получаем данные заказа по его id
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
-			throw new \Exception('Страница не найдена', 404);
+			throw new Exception('Страница не найдена', 404);
 		}
 		$order->status = $status; // записываем статус заказа
 		$order->update_at = date("Y-m-d H:i:s"); // записываем дату изменения заказа

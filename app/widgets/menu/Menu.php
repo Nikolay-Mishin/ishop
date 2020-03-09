@@ -11,11 +11,10 @@ namespace app\widgets\menu;
 
 use ishop\App;
 use ishop\Cache;
-use ishop\traits\TGetOptions;
 
 class Menu {
 
-	use \ishop\traits\TGetOptions;
+	use \ishop\traits\T_setProperties;
 
 	protected $isMenu = true;
 	protected $data; // данные для меню
@@ -35,7 +34,7 @@ class Menu {
 	public function __construct($options = []){
 		// $options - массив опций
 		// для сохранения совместимости версий php значение по умолчанию задаем в конструкторе, а не в самом свойстве
-		$this->getOptions($options); // получаем опции
+		$this->setProperties($options); // получаем опции
 		$this->run(); // формируем меню
 	}
 
@@ -44,7 +43,7 @@ class Menu {
 	}
 
 	// получает опции
-	//protected function getOptions($options){
+	//protected function setProperties($options){
 	//    // если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
 	//    foreach($options as $k => $v){
 	//        // проверяем существет ли такое свойство у класса
@@ -99,9 +98,9 @@ class Menu {
 		$tree = []; // массив для хранения дерева
 		$data = $this->data; // получаем массив данных
 		$level_tree = 0;
-		foreach ($data as $id => &$node) {
+		foreach($data as $id => &$node){
 			// если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень
-			if (!$node['parent_id']){
+			if(!$node['parent_id']){
 				$tree[$id] = &$node;
 			}else{
 				// в элементе с parent_id создаем элемент (childs) и помещаем в него дочерние элементы (ветки)

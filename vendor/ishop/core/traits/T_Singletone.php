@@ -5,7 +5,7 @@
 
 namespace ishop\traits;
 
-trait TSingletone {
+trait T_Singletone {
 
     private static $instance; // хранит экземляр класса
 

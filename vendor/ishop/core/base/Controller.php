@@ -1,10 +1,12 @@
 <?php
 // базовый класс контроллера фреймворка - описывает базовые свойства и методы, которые будут наследоваться всеми контроллерами
 // работает с данными и видами - обработка полученных из определенного контроллера/модели данных и отображение вида (view) 
-
 namespace ishop\base;
 
 abstract class Controller {
+
+    use \ishop\traits\T_Ajax;
+    use \ishop\traits\T_ProtectProperties;
     
     public $route; // массив с маршрутами
     public $controller; // контроллер
@@ -34,7 +36,7 @@ abstract class Controller {
 
     // получает объект вида и вызывает рендер
     public function getView(){
-        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta, $this->canonical, $this); // объект класса Вида
+        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta, $this); // объект класса Вида
         $viewObject->render($this->data); // вызов метода для рендера и передаем данные из контроллера в вид
     }
 
@@ -78,11 +80,6 @@ abstract class Controller {
         }
     }
 
-    // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
-    public function isAjax() {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
-    }
-
     // возвращает html-ответ (шаблон/вид) на ajax-запрос
     // внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu, Filter), где подключается шаблон
     // в видах, подключаемых через loadView() доступен объект класса, в котором был вызван метод ($this - CartController)
@@ -92,5 +89,10 @@ abstract class Controller {
         require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид
         die;
     }
+
+    // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
+    //public function isAjax(){
+    //    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    //}
 
 }

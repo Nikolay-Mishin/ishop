@@ -4,11 +4,9 @@
 
 namespace ishop;
 
-use ishop\traits\TSingletone;
-
 class Registry {
 
-    use \ishop\traits\TSingletone; // подключаем трейт Singletone с помощью директивы (служебного слова) use
+    use \ishop\traits\T_Singletone; // подключаем трейт Singletone с помощью директивы (служебного слова) use
 
     protected static $properties = [];
 

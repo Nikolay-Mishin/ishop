@@ -4,11 +4,11 @@
 
 namespace ishop;
 
-use ishop\traits\TSingletone;
+use \Exception;
 
 class Db {
 
-	use \ishop\traits\TSingletone;
+	use \ishop\traits\T_Singletone;
 
 	protected function __construct(){
 		$db = require_once CONF . '/config_db.php'; // подключаем файл конфигурации БД
@@ -18,7 +18,7 @@ class Db {
 		\R::setup($db['dsn'], $db['user'], $db['pass']); // подключаемся к БД через RedBeanPHP
 		// если соединение не установлено выбрасываем исключение
 		if( !\R::testConnection() ){
-			throw new \Exception("Нет соединения с БД", 500);
+			throw new Exception("Нет соединения с БД", 500);
 		}
 		// RedBeanPHP позволяет работать с таблицами на ходу (в автоматическом/'жидком' режиме)
 		// например, создать таблицу, если такой нет, создание несуществуещего поля при записн данных

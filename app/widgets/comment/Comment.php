@@ -23,14 +23,17 @@ class Comment extends Menu {
 	protected $count;
 
 	public function __construct($options = []){
+		debug($options);
 		parent::__construct($options);
+		debug($this);
 		$this->count = count($this->data);
 		if(!$this->isAjax){
 			$this->editor_options['id'] = $this->id;
 			App::$app->setProperty('editor_options', $this->editor_options);
 			$this->editor = new Editor($this->editor_options);
+			debug($this->isAjax);
 		}else{
-			//debug([$this]);
+			//debug($this);
 		}
 	}
 

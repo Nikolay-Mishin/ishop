@@ -1,5 +1,8 @@
 <?php
 namespace MyApp;
+
+use \Exception;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
  
@@ -33,7 +36,7 @@ class Chat implements MessageComponentInterface {
         $this->clients->detach($conn);
         echo "Connection {$conn->resourceId} has disconnected\n";
     }
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, Exception $e) {
         echo "An error has occurred: {$e->getMessage()}\n";
         $conn->close();
     }

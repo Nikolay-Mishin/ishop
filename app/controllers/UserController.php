@@ -3,6 +3,8 @@
 
 namespace app\controllers;
 
+use \Exception;
+
 use app\models\User; // модель пользователя
 use app\models\Order; // модель заказа
 use app\models\OrderProduct; // модель товаров заказа
@@ -96,7 +98,7 @@ class UserController extends AppController {
 		$order = adminOrder::getById($order_id); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
 		if(!$order){
-			throw new \Exception('Страница не найдена', 404);
+			throw new Exception('Страница не найдена', 404);
 		}
 		$order_products = OrderProduct::getByOrderId($order_id); // получаем данные товаров заказа
 		$this->setMeta("Заказ №{$order_id}");
@@ -109,7 +111,7 @@ class UserController extends AppController {
 		$login = $_GET['login'] ?? null;
 		$user = User::getByLogin($login);
 		if(!$user){
-			throw new \Exception('Страница не найдена', 404);
+			throw new Exception('Страница не найдена', 404);
 		}
 		$this->setMeta("Профиль пользователя {$user->login}"); // устанавливаем мета-данные
 		$this->set(compact('user'));

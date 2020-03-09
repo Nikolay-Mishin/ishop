@@ -3,6 +3,8 @@
 
 namespace app\controllers;
 
+use \Exception;
+
 use app\models\Category; // модель категорий
 use app\models\Breadcrumbs; // модель хлебных крошек
 use ishop\App;
@@ -17,7 +19,7 @@ class CategoryController extends AppController {
         $category = \R::findOne('category', 'alias = ?', [$alias]); // получаем категорию из БД
         // если категория не получаена выбрасываем исключение
         if(!$category){
-            throw new \Exception('Страница не найдена', 404);
+            throw new Exception('Страница не найдена', 404);
         }
 
         // хлебные крошки
@@ -69,8 +71,6 @@ class CategoryController extends AppController {
         if($this->isAjax()){
             $this->loadView('filter', compact('products', 'total', 'pagination'));
         }
-
-        debug(App::$app->getProperty('pagination'));
 
         $this->setMeta($category->title, $category->description, $category->keywords);
         $this->set(compact('products', 'breadcrumbs', 'pagination', 'total'));

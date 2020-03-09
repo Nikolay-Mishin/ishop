@@ -4,11 +4,11 @@
 
 namespace ishop\base;
 
-use ishop\traits\TGetOptions;
+use \Exception;
 
 class View {
 
-	use TGetOptions;
+	use \ishop\traits\T_setProperties;
 
 	public $route;
 	public $controller;
@@ -22,7 +22,7 @@ class View {
 	public $style = [];
 	public $script = [];
 
-	public function __construct($route, $layout = '', $view = '', $meta = '', $canonical = '', $controller = null){
+	public function __construct($route, $layout = '', $view = '', $meta = '', $controller = null){
 		// $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
 		// $view - вид для отображения
 
@@ -32,7 +32,6 @@ class View {
 		//$this->model = $route['controller'];
 		//$this->prefix = $route['prefix'];
 		//$this->meta = $meta;
-		//$this->canonical = $canonical;
 		//// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
 		//if($layout === false){
 		//    $this->layout = false;
@@ -41,7 +40,8 @@ class View {
 		//    $this->layout = $layout ?: LAYOUT;
 		//}
 
-		$this->getOptions(objectUnset(clone $controller, 'data'), function($controller, $k){
+		//$this->setProperties(objectUnset(clone $controller, 'data'), function($controller, $k){
+		$this->setProperties(objectUnset(clone $controller, 'data'), function($k) use ($controller) {
 			// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
 			if($k === 'layout'){
 				if($controller->$k === false){
@@ -55,7 +55,7 @@ class View {
 	}
 
 	// получает опции
-	//protected function getOptions($controller, $callback = null){
+	//protected function setOptions($controller, $callback = null){
 	//    $callback = $callback ?? function(){};
 	//    // если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
 	//    foreach($controller as $k => $v){
@@ -82,7 +82,7 @@ class View {
 			require_once $viewFile; // подключаем файл вида
 			$content = ob_get_clean(); // возвращаем все данные из буфера в переменную и одновременно очистим буфер
 		}else{
-			throw new \Exception("Не найден вид {$viewFile}", 500);
+			throw new Exception("Не найден вид {$viewFile}", 500);
 		}
 		// если свойство layout не равно false (подключение шаблона включено)
 		if(false !== $this->layout){
@@ -91,7 +91,7 @@ class View {
 			if(is_file($layoutFile)){
 				require_once $layoutFile;
 			}else{
-				throw new \Exception("Не найден шаблон {$this->layout}", 500);
+				throw new Exception("Не найден шаблон {$this->layout}", 500);
 			}
 		}
 	}
