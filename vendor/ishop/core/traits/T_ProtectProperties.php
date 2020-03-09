@@ -37,12 +37,13 @@ trait T_ProtectProperties {
 
 	protected function propertyExist($obj, $property, $callback = null, $condition = null){
 		debug([$property, $obj->$property, $obj]);
-		$condition = $callback === true ? $callback : array_key_exists($property, $this->returnProtect);
+		$key_exist = array_key_exists($property, $this->returnProtect);
+		$condition = $callback === true ? $callback : ($condition === true ?: $key_exist);
 		$callback = in_array($callback, [null, true], true) ? function(){} : $callback;
+		debug([$condition]);
 		if(property_exists($obj, $property) && $condition){
 			return $callback($obj, $property, $this->returnProtect[$property] == 'const');
 		}elseif($condition){
-			debug([$condition]);
 			foreach($this->returnProtect as $protect => $mod){
 				debug([$protect => $mod, $property]);
 				//if(property_exists($this->$protect, $property)){
