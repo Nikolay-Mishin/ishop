@@ -7,25 +7,50 @@ namespace ishop\traits;
 
 trait T_ProtectProperties {
 
-	protected $protectProperties = [];
+	protected $returnProtect = [];
 
-	public function __get($property) {
-		if(property_exists($this, $property)){
-			return $this->$property;
+	public function getReturnProtect(){
+		return $this->returnProtect;
+	}
+
+	protected function setReturnProtect($properties){
+		foreach(toArray($properties) as $property => $mod){
+			if(!array_key_exists($property, $this->returnProtect)){
+				$isConst = gettype($property) == 'integer';
+				list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'const'];
+				$this->returnProtect[$property] = $mod;
+			}
 		}
 	}
 
-	public function __set($property, $value) {
-		if(property_exists($this, $property)){
-			$this->$property = $value;
-		}
+	public function __get($property){
+		return $this->propertyExist($this, $property, function($obj, $property){
+			return $obj->$property;
+		});
 	}
 
-	protected function setProtectProperties($properties){
-		$properties = toArray($properties);
-		foreach($properties as $property){
-			if(!in_array($property, $this->protectProperties)){
-				$this->protectProperties[] = $property;
+	public function __set($property, $value){
+		$this->propertyExist($this, $property, function($obj, $property, $const) use ($value) {
+			if(!$const) $obj->$property = $value;
+		});
+	}
+
+	protected function propertyExist($obj, $property, $callback = null, $condition = null){
+		debug([$property, $obj->$property, $obj]);
+		$condition = $callback === true ? $callback : array_key_exists($property, $this->returnProtect);
+		$callback = in_array($callback, [null, true], true) ? function(){} : $callback;
+		if(property_exists($obj, $property) && $condition){
+			return $callback($obj, $property, $this->returnProtect[$property] == 'const');
+		}elseif($condition){
+			debug([$condition]);
+			foreach($this->returnProtect as $protect => $mod){
+				debug([$protect => $mod, $property]);
+				//if(property_exists($this->$protect, $property)){
+				//    return $callback($obj, $property, $this->returnProtect[$property] == 'const');
+				//}
+				$this->propertyExist($this->$protect, $property, function($obj, $property){
+					return $obj->$property;
+				}, true);
 			}
 		}
 	}

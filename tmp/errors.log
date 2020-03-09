@@ -2212,3 +2212,23 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-09 20:16:11] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 53
 =================
+[2020-03-09 21:39:55] Текст ошибки: Undefined constant 'ishop\base\Model' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 18
+=================
+[2020-03-09 21:51:54] Текст ошибки: Call to undefined function ishop\traits\propertyExist() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 17
+=================
+[2020-03-09 22:09:44] Текст ошибки: Class 'T_Closure' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_setProperties.php | Строка: 30
+=================
+[2020-03-09 22:10:25] Текст ошибки: Class 'T_Closure' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_setProperties.php | Строка: 30
+=================
+[2020-03-09 22:21:14] Текст ошибки: Call to undefined method app\models\Comment::protectProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
+=================
+[2020-03-09 22:21:29] Текст ошибки: Call to undefined method app\models\Comment::getProtectProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
+=================
+[2020-03-09 22:32:55] Текст ошибки: Call to undefined method app\models\Comment::setProtectProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 26
+=================
+[2020-03-09 22:33:08] Текст ошибки: Call to undefined method app\models\Comment::getReturnProtect() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
+=================
+[2020-03-09 22:33:45] Текст ошибки: Call to undefined method app\models\Comment::getReturnProtect() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
+=================
+[2020-03-09 22:46:31] Текст ошибки: Call to undefined function ishop\traits\typeof() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 20
+=================

@@ -26,11 +26,9 @@ trait T_setProperties {
 
 	protected function setArgs($condition, $callback){
 		$isClosure = $this->isClosure($condition);
-		$base_condition = function($k){
-			return property_exists($this, $k);
-		};
+		$base_condition = function($k){ return property_exists($this, $k); };
 		$callback = $isClosure ? $condition : ($callback ?? function(){});
-		$condition = $isClosure ? $base_condition : ($condition ?? function(){});
+		$condition = $isClosure ? $base_condition : ($condition ?? function(){ return true; });
 		return [$condition, $callback];
 	}
 
