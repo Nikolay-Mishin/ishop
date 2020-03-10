@@ -37,8 +37,10 @@ class Router {
             $controller = 'app\controllers\\' . self::$route['prefix'] . self::$route['controller'] . 'Controller';
             // проверяем существует ли такой класс
             if(class_exists($controller)){
+                App::$controller = $controller;
                 $controllerObject = new $controller(self::$route); // объект вызываемого контроллера
                 $action = self::lowerCamelCase(self::$route['action']) . 'Action'; // задаем имя экшена для вызова (indexAction)
+                App::$action = $action;
                 // проверяем существует ли такой метод у данного класса
                 if(method_exists($controllerObject, $action)){
                     $controllerObject->$action(); // вызываем экшен у заданного класса

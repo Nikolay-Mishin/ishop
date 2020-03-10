@@ -2232,3 +2232,159 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-09 22:46:31] Текст ошибки: Call to undefined function ishop\traits\typeof() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 20
 =================
+[2020-03-10 14:29:48] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 53
+=================
+[2020-03-10 14:31:38] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 53
+=================
+[2020-03-10 14:36:04] Текст ошибки: Свойство product_id объекта RedBeanPHP\OODBBean недоступно в области видимости {} | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 54
+=================
+[2020-03-10 15:19:17] Текст ошибки: Cannot access protected property RedBeanPHP\OODBBean::$properties | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 19
+=================
+[2020-03-10 15:41:37] Текст ошибки: Свойство product_id объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 64
+=================
+[2020-03-10 15:45:35] Текст ошибки: Свойство _id объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 15:46:08] Текст ошибки: Свойство _id объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 64
+=================
+[2020-03-10 15:58:46] Текст ошибки: syntax error, unexpected '}', expecting end of file | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 78
+=================
+[2020-03-10 15:58:46] Текст ошибки: syntax error, unexpected '}', expecting end of file | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 78
+=================
+[2020-03-10 15:58:57] Текст ошибки: syntax error, unexpected '}', expecting end of file | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 78
+=================
+[2020-03-10 15:59:14] Текст ошибки: Свойство property объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 63
+=================
+[2020-03-10 15:59:26] Текст ошибки: Свойство property объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 63
+=================
+[2020-03-10 15:59:34] Текст ошибки: Свойство properties объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 63
+=================
+[2020-03-10 16:03:13] Текст ошибки: Свойство property объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 61
+=================
+[2020-03-10 16:04:58] Текст ошибки: Свойство property объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 16:06:00] Текст ошибки: Свойство property объекта app\models\Comment недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 16:07:19] Текст ошибки: Свойство app\models\Comment::property недоступно в app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 16:07:30] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 16:08:34] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 16:11:52] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 63
+=================
+[2020-03-10 16:12:15] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 63
+=================
+[2020-03-10 16:13:18] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 64
+=================
+[2020-03-10 16:16:18] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 66
+=================
+[2020-03-10 16:19:16] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 67
+=================
+[2020-03-10 16:19:34] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 67
+=================
+[2020-03-10 16:19:55] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 67
+=================
+[2020-03-10 16:20:35] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 66
+=================
+[2020-03-10 16:21:13] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 65
+=================
+[2020-03-10 16:21:57] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 66
+=================
+[2020-03-10 16:25:22] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:26:06] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 68
+=================
+[2020-03-10 16:26:49] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:27:02] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:27:40] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:28:35] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:29:07] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:30:58] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:31:42] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:33:07] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:34:37] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:34:49] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:35:30] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:35:59] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 16:36:55] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:37:50] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 72
+=================
+[2020-03-10 16:39:19] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 16:44:21] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 16:45:33] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 16:46:08] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 16:48:04] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 74
+=================
+[2020-03-10 16:48:36] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 74
+=================
+[2020-03-10 16:49:02] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 72
+=================
+[2020-03-10 16:49:50] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:50:29] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:51:17] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:51:46] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:52:24] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 71
+=================
+[2020-03-10 16:53:19] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 70
+=================
+[2020-03-10 16:53:31] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 16:59:22] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 69
+=================
+[2020-03-10 17:03:48] Текст ошибки: Свойство app\models\Comment::property отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 75
+=================
+[2020-03-10 17:04:19] Текст ошибки: Свойство app\models\Comment::property отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 76
+=================
+[2020-03-10 17:04:35] Текст ошибки: Свойство app\models\Comment::property отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 76
+=================
+[2020-03-10 17:04:40] Текст ошибки: Свойство app\models\Comment::property отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 76
+=================
+[2020-03-10 17:10:03] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 76
+=================
+[2020-03-10 17:10:21] Текст ошибки: syntax error, unexpected ')', expecting ']' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 53
+=================
+[2020-03-10 17:10:47] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 76
+=================
+[2020-03-10 17:14:15] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 79
+=================
+[2020-03-10 17:20:43] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 82
+=================
+[2020-03-10 17:21:29] Текст ошибки: Свойство app\models\Comment::property недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 82
+=================
+[2020-03-10 17:30:24] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 33
+=================
+[2020-03-10 17:31:18] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 62
+=================
+[2020-03-10 17:31:41] Текст ошибки: Свойство app\models\Comment::property отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 80
+=================
+[2020-03-10 17:32:29] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 80
+=================
+[2020-03-10 17:33:08] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 80
+=================
+[2020-03-10 17:34:20] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 79
+=================
+[2020-03-10 17:34:51] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 79
+=================
+[2020-03-10 17:41:01] Текст ошибки: Call to undefined method app\models\Comment::getProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
+=================

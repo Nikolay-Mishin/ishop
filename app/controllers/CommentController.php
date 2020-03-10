@@ -14,9 +14,10 @@ class CommentController extends AppController {
 		if(!empty($data)){
 			//$comment = new Comment($data);
 			$comment = new Comment(['rate' => 6], 3, 'update');
-			debug($comment->errors);
-			debug($comment->getReturnProtect());
+			debug($comment->_id);
 			debug($comment->product_id);
+			debug($comment->getProtectProperties());
+			debug($comment->getProperties());
 			debug($comment->bean, 1);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){

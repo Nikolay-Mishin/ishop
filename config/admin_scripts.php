@@ -15,9 +15,9 @@ return [
     ],
     'init' => [
         '@ ' . CONF . '/admin_scripts_consts.php',
-        "_variables",
         "$base/_base_functions",
-        "_functions"
+        "_functions",
+        "_variables",
     ],
     'main' => [
         "$base/editor",

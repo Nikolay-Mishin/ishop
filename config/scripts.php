@@ -22,9 +22,9 @@ return [
     ],
     'init' => [
         "@ " . CONF . "/scripts_consts.php",
-        "$base/_variables",
         "$base/_base_functions",
-        "$base/_functions"
+        "$base/_functions",
+        "$base/_variables",
     ],
     'main' => [
         "$base/editor",

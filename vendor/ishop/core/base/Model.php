@@ -10,20 +10,21 @@ use Valitron\Validator; // класс Валидатора
 abstract class Model extends Sql {
 
 	use \ishop\traits\T_setProperties;
-	use \ishop\traits\T_ProtectProperties;
+	use \ishop\traits\T_Protect;
 
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
 	protected $bean;
+	protected $property2;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		//debug(['__construct', get_called_class(), $data, $attrs, $action, $valid]);
 		if($data){
-			$this->setReturnProtect('bean');
+			$this->setReturnProtect(['bean']);
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
