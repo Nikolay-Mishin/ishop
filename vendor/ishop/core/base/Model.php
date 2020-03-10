@@ -17,14 +17,13 @@ abstract class Model extends Sql {
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
 	protected $bean;
-	protected $property2;
+    protected $tbl;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
-		//debug(['__construct', get_called_class(), $data, $attrs, $action, $valid]);
 		if($data){
-			$this->addProtectProperties('bean');
+			$this->addProtectProperties('bean', 'tbl');
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
@@ -39,7 +38,8 @@ abstract class Model extends Sql {
 			// $this->save();
 			// $this->$action($attrs);
 			// Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`
-			call_user_func_array([$this, $action], $attrs);
+			//call_user_func_array([$this, $action], $attrs);
+			$this->$action(...$attrs);
 		}
 	}
 

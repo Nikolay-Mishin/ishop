@@ -14,23 +14,23 @@ class CommentController extends AppController {
 		if(!empty($data)){
 			//$comment = new Comment($data);
 			$comment = new Comment(['rate' => 6], 3, 'update');
-			debug($comment->getProtectProperties());
-			debug($comment->_id);
-			debug($comment->getReturnProperties(), 1);
-			debug($comment->bean, 1);
+			$id = $comment->_id;
+			//debug($comment->_id);
+			//debug($comment->bean, 1);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
 				$content = !empty($data['content']) ? $data['content'] : null;
-				$id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
+				$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
 				$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;
 				//if($comment->errors) exit(json_encode(['errors' => $comment->errors]));
-				if(!$content || !$id || !$user_id){
-					exit(json_encode(['errors' => ['Не задан параметр' => [$content, $id, $user_id]]]));
+				if(!$content || !$product_id || !$user_id){
+					exit(json_encode(['errors' => ['Не задан параметр' => [$content, $product_id, $user_id]]]));
 				}
-				$comments = Comment::getByProductId($id);
+				$comments = Comment::getByProductId($product_id);
 				$w_Comment = [
+					'id' => $id,
 					'parent_id' => 0,
-					'product_id' => $id,
+					'product_id' => $product_id,
 					'content' => $content,
 					'date' => "2020-03-05 23:15:33",
 					'update_at' => null,
@@ -43,7 +43,7 @@ class CommentController extends AppController {
 				];
 				//$w_Comment = new w_Comment([
 				//    'data' => $comments,
-				//    'id' => $id,
+				//    'id' => $product_id,
 				//    'isAjax' => true
 				//]);
 				$comments[] = $w_Comment;

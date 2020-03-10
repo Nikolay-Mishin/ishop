@@ -2424,3 +2424,217 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-10 18:47:23] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
 =================
+[2020-03-10 19:28:23] Текст ошибки: Call to undefined method app\models\Comment::getProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 76
+=================
+[2020-03-10 19:54:09] Текст ошибки: Call to undefined method app\models\Comment::getProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 78
+=================
+[2020-03-10 19:55:49] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 80
+=================
+[2020-03-10 19:56:10] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 80
+=================
+[2020-03-10 20:00:03] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 79
+=================
+[2020-03-10 20:04:46] Текст ошибки: Call to undefined method app\models\Comment::getProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:05:35] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 75
+=================
+[2020-03-10 20:06:05] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 75
+=================
+[2020-03-10 20:10:18] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:12:54] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:13:24] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:29:07] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:30:18] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:33:26] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 76
+=================
+[2020-03-10 20:41:05] Текст ошибки: Call to undefined function ishop\base\get_func_args() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 90
+=================
+[2020-03-10 20:44:51] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 74
+=================
+[2020-03-10 20:46:57] Текст ошибки: Class  does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 107
+=================
+[2020-03-10 20:48:05] Текст ошибки: Call to a member function getProperties() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 76
+=================
+[2020-03-10 20:56:18] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 112
+=================
+[2020-03-10 20:57:59] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 110
+=================
+[2020-03-10 21:02:57] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 110
+=================
+[2020-03-10 21:06:39] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 106
+=================
+[2020-03-10 21:08:21] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 106
+=================
+[2020-03-10 21:08:49] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 105
+=================
+[2020-03-10 21:09:28] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 106
+=================
+[2020-03-10 21:24:29] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 115
+=================
+[2020-03-10 21:26:16] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 115
+=================
+[2020-03-10 21:31:58] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости property2::app\controllers\CommentController | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 116
+=================
+[2020-03-10 21:32:33] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 115
+=================
+[2020-03-10 21:32:56] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 115
+=================
+[2020-03-10 21:34:19] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 115
+=================
+[2020-03-10 21:35:48] Текст ошибки: Class 'ishop\base\Object' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 25
+=================
+[2020-03-10 21:35:57] Текст ошибки: Class 'Object' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 25
+=================
+[2020-03-10 21:48:52] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 119
+=================
+[2020-03-10 21:50:46] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 120
+=================
+[2020-03-10 21:51:49] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 121
+=================
+[2020-03-10 21:52:55] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 120
+=================
+[2020-03-10 21:54:38] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 120
+=================
+[2020-03-10 21:55:51] Текст ошибки: Свойство RedBeanPHP\OODBBean::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:39:59] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:39:59] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:41:58] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:42:17] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:42:51] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 123
+=================
+[2020-03-10 22:53:55] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 131
+=================
+[2020-03-10 22:58:04] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 129
+=================
+[2020-03-10 22:58:35] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 22:59:35] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:00:18] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:00:55] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:01:49] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:05:54] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:09:50] Текст ошибки: syntax error, unexpected ',' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 68
+=================
+[2020-03-10 23:10:01] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:11:23] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:12:03] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:12:16] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:12:29] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:13:00] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:23:25] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:30:26] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:31:50] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-10 23:32:20] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 129
+=================
+[2020-03-10 23:33:22] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:34:18] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:34:49] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:35:25] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:35:47] Текст ошибки: Свойство app\models\Comment::property2 недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:35:59] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:36:19] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:36:32] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:41:31] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 125
+=================
+[2020-03-10 23:42:15] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:43:38] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:44:32] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-10 23:44:49] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-10 23:45:43] Текст ошибки: Свойство app\models\Comment::product_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-10 23:46:12] Текст ошибки: Свойство app\models\Comment::product_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:46:55] Текст ошибки: Свойство app\models\Comment::product_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:49:49] Текст ошибки: Свойство app\models\Comment::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:51:14] Текст ошибки: Свойство app\models\Comment::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:51:46] Текст ошибки: Свойство app\models\Comment::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:53:29] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-10 23:53:52] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 127
+=================
+[2020-03-10 23:54:29] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:54:50] Текст ошибки: Свойство app\models\Comment::property2 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-10 23:59:23] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 126
+=================
+[2020-03-11 00:02:03] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-11 00:02:38] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-11 00:04:06] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-11 00:04:57] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 128
+=================
+[2020-03-11 00:09:09] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 132
+=================
+[2020-03-11 00:14:40] Текст ошибки: Call to undefined function ishop\traits\reverseProtectProperty() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 111
+=================
+[2020-03-11 00:14:56] Текст ошибки: Свойство app\models\AppModel::0 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 129
+=================
+[2020-03-11 00:15:12] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 129
+=================
+[2020-03-11 00:16:11] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 131
+=================
+[2020-03-11 00:17:24] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 132
+=================
+[2020-03-11 00:19:06] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 133
+=================
+[2020-03-11 00:20:05] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 00:20:42] Текст ошибки: Свойство app\models\AppModel::1 отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 135
+=================
+[2020-03-11 00:27:09] Текст ошибки: Свойство app\models\AppModel::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 00:28:44] Текст ошибки: Свойство app\models\Comment::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 00:40:08] Текст ошибки: Свойство app\models\Comment::tbl недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 135
+=================
+[2020-03-11 00:40:22] Текст ошибки: Свойство app\models\Comment::tbl недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 00:41:33] Текст ошибки: Свойство tbl является константой недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 00:42:05] Текст ошибки: Свойство tbl является константой и изменение недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 00:44:20] Текст ошибки: Изменение значения свойства app\models\Comment::tbl недоступно в области видимости app\controllers\CommentController::addAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 135
+=================

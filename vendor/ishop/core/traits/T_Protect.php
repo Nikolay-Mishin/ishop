@@ -12,18 +12,19 @@ use ishop\App;
 
 trait T_Protect {
 
-	protected $protectProperties = ['protectProperties', 'returnProperties'];
-	protected $returnProperties = [];
+	protected $protectProperties = ['protectProperties', 'properties'];
+	protected $properties = [];
 
 	public function __get($property){
-		return $this->propertyExist($this, $property, function($obj, $property){
+		return $this->exist($this, $property, function($obj, $property){
 			return $obj->$property;
 		});
 	}
 
 	public function __set($property, $value){
-		$this->propertyExist($this, $property, function($obj, $property, $const) use ($value) {
-			if(!$const) return $obj->$property = $value;
+		$this->exist($this, $property, function($obj, $property, $const, $error, $class) use ($value) {
+			if(!$const) $obj->$property = $value;
+			else $this->getException(500, "Изменение значения свойства $class::$property");
 		});
 	}
 
@@ -32,7 +33,7 @@ trait T_Protect {
 	}
 
 	public function getReturnProperties(){
-		return (object) $this->returnProperties;
+		return (object) $this->properties;
 	}
 
 	protected function setProtectProperties($protectProperties){
@@ -40,7 +41,7 @@ trait T_Protect {
 		$this->addProtectProperties($protectProperties);
 	}
 
-	protected function addProtectProperties($protectProperties){
+	protected function addProtectProperties(...$protectProperties){
 		$this->structuredProtectProperties($protectProperties);
 	}
 
@@ -52,51 +53,76 @@ trait T_Protect {
 		}
 	}
 
-	private function reverseProtectProperty($property, $mod, $condition, $structuredBefore){
+	private function reverseProtectProperty($property, $mod, $condition = true, $structuredBefore = false){
 		if($condition){
 			list($key, $isConst) = [$property, gettype($property) == 'integer'];
 			list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
 			$this->protectProperties[$property] = $mod;
-			if($isConst && !$structuredBefore) arrayUnset($this->protectProperties, $key);
+			$key = !property_exists($this, $property) ? $property : $key;
+			if($isConst && !$structuredBefore || !property_exists($this, $property)) arrayUnset($this->protectProperties, $key);
 		}
 	}
 
-	private function propertyExist($obj, $property, Closure $callback, $protected = true){
+	private function exist($obj, $property, Closure $callback){
+		foreach(array_keys($this->protectProperties) as $key){
+			if(gettype($key) == 'integer'){
+				$this->structuredProtectProperties($this->protectProperties, false);
+				break;
+			}
+		}
+
+		$class = getClassName($obj);
+		$error = "Свойство $class::$property";
+
+		list($_property, $inObj, $inProperty) = $this->propertyExist($obj, $property, $callback, $error);
+
+		if(!$_property){
+			$this->getException(500, $error, $inObj, $inProperty);
+		}
+
+		return $_property;
+	}
+
+	private function propertyExist($obj, $property, Closure $callback, $error, $inProtectProperty = false){
 		if(gettype($obj) !== 'object') return false;
-		list($propertyExist, $inObj, $inProperty) = [property_exists($obj, $property), false, false];
-		if($propertyExist) $inObj = true;
-		if($isBean = $obj instanceof \RedBeanPHP\OODBBean){
-			$propertyExist = array_key_exists($property = preg_replace('/^_(.*)$/', '$1', $property), $obj->getProperties());
-			if($propertyExist) $inProperty = true;
-		}
-		$condition = $protected !== true ?: array_key_exists($property, $this->protectProperties);
-		//debug([getClassName($obj), $property, property_exists($obj, $property), [$propertyExist, $condition], $isBean]);
 
-		if($propertyExist && $condition){
-			$_property = $callback($obj, $property, $this->protectProperties[$property] ?? null == 'get');
-			$this->returnProperties[$property] = $_property;
-			if(!$isBean) $inObj = true;
-		}elseif(!$condition){
+		list($inBean, $inObj, $inProperty) = [preg_match('/^_(.*)$/', $property), false, false];
+		$isBean = $this->isBean($obj);
+
+		$obj = $inBean && !$isBean ? $obj->bean : $obj;
+		$property = preg_replace('/^_(.*)$/', '$1', $property);
+
+		if(($isBean = $this->isBean($obj)) && $propertyExist = array_key_exists($property, $obj->getProperties())){
+			$inProperty = true;
+		}elseif($propertyExist = property_exists($obj, $property)){
+			$inObj = true;
+		}
+
+		$access = $isBean ?: array_key_exists($property, $this->protectProperties);
+
+		if($propertyExist && $access){
+			$isConst = ($this->protectProperties[$property] ?? 'get') === 'get';
+			$_property = $callback($obj, $property, $isConst, $error, getClassName($obj));
+			$this->properties[$property] = $_property;
+		}elseif(!$access && !$isBean && !$inProtectProperty){
 			foreach($this->protectProperties as $protect => $mod){
-				//debug([$property, $protect, gettype($this->$protect)]);
-				$_property = $this->propertyExist($this->$protect, $property, $callback, false);
-				if($_property){
-					$inProperty = true;
-					break;
-				}
-			}
-			if(!$_property){
-				list($obj, $controller, $action) = [getClassName($obj), App::$controller, App::$action];
-				$this->getException(500, $inObj, $inProperty, $obj, $property, $controller, $action);
+				$_property = $this->propertyExist($this->$protect, $property, $callback, $error, true)[0];
+				if($_property) break;
 			}
 		}
-		//debug([$inObj, $inProperty]);
-		return $_property ?? null;
+
+		return [$_property ?? null, $inObj, $inProperty];
 	}
 
-	private function getException($code, $inObj, $inProperty, $obj, $property, $controller, $action){
+	private function isBean($obj){
+		return $obj instanceof \RedBeanPHP\OODBBean;
+	}
+
+
+	private function getException($code, $error, $inObj = true, $inProperty = false){
+		list($controller, $action) = [App::$controller, App::$action];
 		$msg = $inObj || $inProperty ? "недоступно в области видимости $controller::$action" : "отсутствует в объекте";
-		throw new Exception("Свойство $obj::$property $msg", 500);
+		throw new Exception("$error $msg", 500);
 	}
 
 }

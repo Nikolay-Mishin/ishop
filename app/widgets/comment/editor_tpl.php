@@ -1,5 +1,5 @@
 <?php if(!empty($_SESSION['user'])): ?>
-	<form method="post" action="comment/add" id="comment_add" role="form" data-toggle="validator" data-ajax="false">
+	<form method="post" action="comment/add" id="comment_add" role="form" data-toggle="validator" data-ajax="true">
 		<?php
 			$editor_options = \ishop\App::$app->getProperty('editor_options');
 			$id = $editor_options['id'];
