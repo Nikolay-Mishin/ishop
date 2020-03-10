@@ -44,8 +44,8 @@ if(notEmpty(comment_add)){
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
 		ajax(url, getRate); // ajax-запрос
-		console.log({ this: this, $this: $this, vote: vote, event: event, delegate: delegate });
-		console.log([rating, url]);
+		//console.log({ this: this, $this: $this, vote: vote, event: event, delegate: delegate });
+		//console.log([rating, url]);
 	});
 	
 }

@@ -12,43 +12,19 @@ class CommentController extends AppController {
 	public function addAction(){
 		$data = $_POST;
 		if(!empty($data)){
-			//$comment = new Comment($data);
-			$comment = new Comment(['rate' => 6], 3, 'update');
-			$id = $comment->_id;
-			//debug($comment->_id);
-			//debug($comment->bean, 1);
+			$comment = new Comment($data);
+			//$comment = new Comment(['rate' => 6], 3, 'update');
+			$content = !empty($data['content']) ? $data['content'] : null;
+			$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
+			$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;
+			$comments = Comment::getByProductId($product_id);
+			$w_Comment = $this->getComments($comments, $product_id);
+
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				$content = !empty($data['content']) ? $data['content'] : null;
-				$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
-				$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;
-				//if($comment->errors) exit(json_encode(['errors' => $comment->errors]));
-				if(!$content || !$product_id || !$user_id){
-					exit(json_encode(['errors' => ['Не задан параметр' => [$content, $product_id, $user_id]]]));
-				}
-				$comments = Comment::getByProductId($product_id);
-				$w_Comment = [
-					'id' => $id,
-					'parent_id' => 0,
-					'product_id' => $product_id,
-					'content' => $content,
-					'date' => "2020-03-05 23:15:33",
-					'update_at' => null,
-					'status' => "1",
-					'rate' => 0,
-					'user_id' => $user_id,
-					'name' => "Admin",
-					'avatar' => "avatar1.jpg",
-					'login' => "admin"
-				];
-				//$w_Comment = new w_Comment([
-				//    'data' => $comments,
-				//    'id' => $product_id,
-				//    'isAjax' => true
-				//]);
-				$comments[] = $w_Comment;
-				exit(json_encode(['data' => $data, 'comments' => $comments, 'w_Comment' => $w_Comment]));
+				exit(json_encode(['data' => $data, 'comments' => $comments, 'w_Comment' => "$w_Comment"]));
 			}
+			debug("$comments", 1);
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
@@ -57,19 +33,33 @@ class CommentController extends AppController {
 	public function rateAction(){
 		$data = $_GET;
 		if(!empty($data)){
+			$rate = Comment::getRate($data['id']);
+			switch($data['action']){
+				case 'plus': $rate++;
+					break;
+				case 'minus': $rate--;
+					break;
+			}
+			$comment = $this->changeRate($rate, $data['id']);
+
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				$rate = Comment::getRate($data['id']);
-				$comment = \R::load('comment', $data['id']);
-				switch($data['action']){
-					case 'plus': $comment->rate++;
-						break;
-					case 'minus': $comment->rate--;
-						break;
-				}
-				exit(json_encode(['data' => $rate, 'rate' => $comment->rate]));
+				exit(json_encode(['rate' => $comment->rate, 'comment' => $comment->bean]));
 			}
+			redirect(); // перезапрашиваем текущую страницу
 		}
+	}
+
+	protected function getComments($comments, $product_id){
+		return new w_Comment([
+			'data' => $comments,
+			'id' => $product_id,
+			'isAjax' => true
+		]);
+	}
+
+	protected function changeRate($rate, $id){
+		return new Comment(['rate' => $rate], $id, 'update');
 	}
 
 }

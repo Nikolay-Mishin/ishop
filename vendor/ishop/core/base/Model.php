@@ -17,7 +17,7 @@ abstract class Model extends Sql {
 	public $rules = []; // правила валидации данных
 	public $id = null; // id последней сохраненной записи (метод save())
 	protected $bean;
-    protected $tbl;
+	protected $tbl;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД

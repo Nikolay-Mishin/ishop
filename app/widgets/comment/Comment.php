@@ -35,7 +35,7 @@ class Comment extends Menu {
 	}
 
 	public function __toString(){
-		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : 'Comment';
+		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : parent::__toString();
 	}
 
 	public function run(){
