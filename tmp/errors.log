@@ -2388,3 +2388,39 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-10 17:41:01] Текст ошибки: Call to undefined method app\models\Comment::getProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 20
 =================
+[2020-03-10 18:01:23] Текст ошибки: Call to undefined method app\models\Comment::getreturnProperties() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\CommentController.php | Строка: 19
+=================
+[2020-03-10 18:01:23] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-10 18:04:48] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 83
+=================
+[2020-03-10 18:06:05] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 83
+=================
+[2020-03-10 18:15:28] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 94
+=================
+[2020-03-10 18:16:31] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 95
+=================
+[2020-03-10 18:18:03] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
+=================
+[2020-03-10 18:23:50] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 18:25:35] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 18:26:13] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 18:28:00] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 73
+=================
+[2020-03-10 18:39:20] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 82
+=================
+[2020-03-10 18:45:21] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 100
+=================
+[2020-03-10 18:45:25] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 100
+=================
+[2020-03-10 18:46:04] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
+=================
+[2020-03-10 18:46:35] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
+=================
+[2020-03-10 18:47:05] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
+=================
+[2020-03-10 18:47:23] Текст ошибки: Свойство app\models\Comment::_id отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_ProtectProperties.php | Строка: 101
+=================

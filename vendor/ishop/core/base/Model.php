@@ -24,7 +24,7 @@ abstract class Model extends Sql {
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		//debug(['__construct', get_called_class(), $data, $attrs, $action, $valid]);
 		if($data){
-			$this->setReturnProtect(['bean']);
+			$this->addProtectProperties('bean');
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные

@@ -12,26 +12,8 @@ use ishop\App;
 
 trait T_ProtectProperties {
 
-	protected $protectProperties = [];
-	protected $properties = [];
-
-	public function getProtectProperties(){
-		return $this->protectProperties;
-	}
-
-	public function getProperties(){
-		return $this->properties;
-	}
-
-	protected function setReturnProtect($protectProperties){
-		foreach(toArray($protectProperties) as $property => $mod){
-			if(!array_key_exists($property, $this->protectProperties)){
-				$isConst = gettype($property) == 'integer';
-				list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
-				$this->protectProperties[$property] = $mod;
-			}
-		}
-	}
+	protected $protectProperties = ['protectProperties', 'returnProperties'];
+	protected $returnProperties = [];
 
 	public function __get($property){
 		return $this->propertyExist($this, $property, function($obj, $property){
@@ -45,7 +27,41 @@ trait T_ProtectProperties {
 		});
 	}
 
-	protected function propertyExist($obj, $property, Closure $callback, $protected = true){
+	public function getProtectProperties(){
+		return $this->protectProperties;
+	}
+
+	public function getReturnProperties(){
+		return (object) $this->returnProperties;
+	}
+
+	protected function setProtectProperties($protectProperties){
+		$this->protectProperties = [];
+		$this->addProtectProperties($protectProperties);
+	}
+
+	protected function addProtectProperties($protectProperties){
+		$this->structuredProtectProperties($protectProperties);
+	}
+
+	private function structuredProtectProperties($protectProperties, $structuredBefore = true){
+		if($structuredBefore) $this->structuredProtectProperties($this->protectProperties, false);
+		foreach(toArray($protectProperties) as $property => $mod){
+			$condition = !$structuredBefore ?: !array_key_exists($property, $this->protectProperties);
+			$this->reverseProtectProperty($property, $mod, $condition, $structuredBefore);
+		}
+	}
+
+	private function reverseProtectProperty($property, $mod, $condition, $structuredBefore){
+		if($condition){
+			list($key, $isConst) = [$property, gettype($property) == 'integer'];
+			list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
+			$this->protectProperties[$property] = $mod;
+			if($isConst && !$structuredBefore) arrayUnset($this->protectProperties, $key);
+		}
+	}
+
+	private function propertyExist($obj, $property, Closure $callback, $protected = true){
 		if(gettype($obj) !== 'object') return false;
 		list($propertyExist, $inObj, $inProperty) = [property_exists($obj, $property), false, false];
 		if($propertyExist) $inObj = true;
@@ -58,7 +74,7 @@ trait T_ProtectProperties {
 
 		if($propertyExist && $condition){
 			$_property = $callback($obj, $property, $this->protectProperties[$property] ?? null == 'get');
-			$this->properties[$property] = $_property;
+			$this->returnProperties[$property] = $_property;
 			if(!$isBean) $inObj = true;
 		}elseif(!$condition){
 			foreach($this->protectProperties as $protect => $mod){
@@ -78,7 +94,7 @@ trait T_ProtectProperties {
 		return $_property ?? null;
 	}
 
-	public function getException($code, $inObj, $inProperty, $obj, $property, $controller, $action){
+	private function getException($code, $inObj, $inProperty, $obj, $property, $controller, $action){
 		$msg = $inObj || $inProperty ? "недоступно в области видимости $controller::$action" : "отсутствует в объекте";
 		throw new Exception("Свойство $obj::$property $msg", 500);
 	}
