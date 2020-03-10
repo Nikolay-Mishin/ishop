@@ -4,7 +4,7 @@
 namespace app\controllers;
 
 use app\models\Comment; // модель комментариев
-use app\widgets\comment\Comment as w_Comment; // модель виджета комментариев
+use app\widgets\comment\Comment as W_Comment; // модель виджета комментариев
 
 class CommentController extends AppController {
 
@@ -51,7 +51,7 @@ class CommentController extends AppController {
 	}
 
 	protected function getComments($comments, $product_id){
-		return new w_Comment([
+		return new W_Comment([
 			'data' => $comments,
 			'id' => $product_id,
 			'isAjax' => true
