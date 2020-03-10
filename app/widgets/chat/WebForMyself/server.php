@@ -1,6 +1,7 @@
 <?php
 define('PORT',"8090");
 
+
 require_once ("classes/chat.php");
 
 $chat = new Chat();
@@ -15,6 +16,7 @@ socket_listen($socket);
 $clientSocketArray = array($socket);
 
 while(true) {
+
     $newSocketArray = $clientSocketArray;
     $nullA = [];
     socket_select($newSocketArray,$nullA, $nullA,0,10);
@@ -32,9 +34,11 @@ while(true) {
 
         $newSocketArrayIndex = array_search($socket, $newSocketArray);
         unset($newSocketArray[$newSocketArrayIndex]);
+
     }
 
     foreach($newSocketArray as $newSocketArrayResource) {
+
         //1
         while(socket_recv($newSocketArrayResource, $socketData, 1024, 0) >=  1) {
             $socketMessage = $chat->unseal($socketData);
@@ -45,6 +49,8 @@ while(true) {
             $chat->send($chatMessage,$clientSocketArray);
 
             break 2;
+
+
         }
 
         ///2
@@ -56,8 +62,14 @@ while(true) {
 
             $newSocketArrayIndex = array_search($newSocketArrayResource, $clientSocketArray);
             unset($clientSocketArray[$newSocketArrayIndex]);
+
         }
+
+
     }
+    
+
 }
+
 
 socket_close($socket);

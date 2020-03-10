@@ -6,7 +6,7 @@ namespace ishop\base;
 abstract class Controller {
 
     use \ishop\traits\T_Ajax;
-    use \ishop\traits\T_ProtectProperties;
+    use \ishop\traits\T_Protect;
     
     public $route; // массив с маршрутами
     public $controller; // контроллер

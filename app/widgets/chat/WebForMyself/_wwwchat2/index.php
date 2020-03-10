@@ -11,11 +11,9 @@
 </head>
 <body>
 
-<form id="chat" action="">
+<form action="">
     <div class="chat-result" id="chat-result">
-    <input type="text" name="chat-user" id="chat-user" placeholder="Name">
-    <input type="text" name="chat-message" id="chat-message"  placeholder="Message">
-    <input type="submit" value="Send" >
+    
     </div>
 
 </form>

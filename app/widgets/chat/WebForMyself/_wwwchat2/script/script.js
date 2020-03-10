@@ -23,18 +23,4 @@ jQuery(document).ready(function($) {
         var data = JSON.parse(event.data);
         message("<div>" + data.type + " - " + data.message + "</div>");
     }
-
-    $("#chat").on('submit',function() {
-
-        var message = {
-            chat_message:$("#chat-message").val(),
-            chat_user:$("#chat-user").val(),
-        };
-
-        $("#chat-user").attr("type","hidden");
-
-        socket.send(JSON.stringify(message));
-
-        return false;
-    });
 });
