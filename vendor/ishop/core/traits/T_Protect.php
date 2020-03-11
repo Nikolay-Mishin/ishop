@@ -82,6 +82,7 @@ trait T_Protect {
 
 	protected function addProtectProperties(...$protectProperties){
 		$this->structuredProtectProperties($protectProperties);
+		debug($this->protectProperties);
 	}
 
 	protected function setProtectMethods(...$protectMethods){
@@ -91,27 +92,33 @@ trait T_Protect {
 
 	protected function addProtectMethods(...$protectMethods){
 		$this->structuredProtectProperties($protectMethods, 'protectMethods');
+		debug($this->protectMethods);
 	}
 
 	private function structuredProtectProperties($protectProperties, $protectList = 'protectProperties', $before = true){
 		if($before) $this->structuredProtectProperties($this->$protectList, $protectList, false);
 		foreach(toArray($protectProperties) as $property => $mod){
-			//debug([$property, $mod, $before, array_key_exists($property, $this->$protectList)]);
-			$condition = !$before ?: !array_key_exists($property, $this->$protectList);
-			$this->reverseProtectProperty($property, $mod, $condition, $protectList, $before);
+            debug([$property, property_exists($this, $property)]);
+			$isConst = gettype($property) == 'integer';
+			$reverse = !$before ? $isConst : $isConst && !array_key_exists($property, $this->$protectList);
+			$this->reverseProtectProperty($property, $mod, $reverse, $protectList, $before, $isConst);
 		}
 	}
 
-	private function reverseProtectProperty($property, $mod, $condition, $protectList, $before){
-		//debug([$property, $mod, $condition, $protectList]);
-		if($condition){
-			list($key, $isConst) = [$property, gettype($property) == 'integer'];
-			list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
-			$this->$protectList[$property] = $mod;
-			$key = !property_exists($this, $property) ? $property : $key;
-			if($isConst && !$before || !property_exists($this, $property)) arrayUnset($this->$protectList, $key);
+	private function reverseProtectProperty($property, $mod, $reverse, $protectList, $before, $isConst){
+		if($reverse){
+			list($key, $property) = [$property, $isConst ? $mod : $property];
+            $property = preg_replace('/=>|=/', ',', str_replace(' ', '', $property));
+            $explode = explode(',', $property);
+            list($property, $mod) = [$explode[0], isset($explode[1]) && $explode[1] == 'set' ? 'set' : 'get'];
+            debug([$property, $mod]);
+            $exist = $protectList == 'protectProperties' ? 'property_exists' : 'method_exists';
+			list($this->$protectList[$property], $exist) = [$mod, $exist($this, $property)];
+			$key = !$exist ? $property : $key;
+			if(!$before || !$exist) arrayUnset($this->$protectList, $key);
+            debug([$key, [$before, $exist], !$before || !$exist]);
 		}
-		//debug([$property, $mod, $condition, $protectList]);
+        debug([$property, $mod, $reverse, $protectList]);
 	}
 
 	private function exist($property, Closure $callback, $protectList = 'protectProperties'){
