@@ -70,37 +70,35 @@ trait T_Protect {
 		return (object) $this->methods;
 	}
 
-	protected function setProtectProperties($protectProperties){
+	protected function setProtectProperties(...$protectProperties){
 		$this->protectProperties = [];
-		$this->addProtectProperties($protectProperties);
+		$this->addProtectProperties($protectMethods);
 	}
 
 	protected function addProtectProperties(...$protectProperties){
 		$this->structuredProtectProperties($protectProperties);
-		debug($this->protectProperties);
 	}
 
-	protected function setProtectMethods($protectMethods){
+	protected function setProtectMethods(...$protectMethods){
 		$this->protectMethods = [];
 		$this->addProtectMethods($protectMethods);
 	}
 
 	protected function addProtectMethods(...$protectMethods){
 		$this->structuredProtectProperties($protectMethods, 'protectMethods');
-		debug($this->protectMethods);
 	}
 
 	private function structuredProtectProperties($protectProperties, $protectList = 'protectProperties', $before = true){
 		if($before) $this->structuredProtectProperties($this->$protectList, $protectList, false);
 		foreach(toArray($protectProperties) as $property => $mod){
-			debug([$property, $mod, $before, array_key_exists($property, $this->$protectList)]);
+			//debug([$property, $mod, $before, array_key_exists($property, $this->$protectList)]);
 			$condition = !$before ?: !array_key_exists($property, $this->$protectList);
 			$this->reverseProtectProperty($property, $mod, $condition, $protectList, $before);
 		}
 	}
 
 	private function reverseProtectProperty($property, $mod, $condition, $protectList, $before){
-		debug([$property, $mod, $condition, $protectList]);
+		//debug([$property, $mod, $condition, $protectList]);
 		if($condition){
 			list($key, $isConst) = [$property, gettype($property) == 'integer'];
 			list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
@@ -108,7 +106,7 @@ trait T_Protect {
 			$key = !property_exists($this, $property) ? $property : $key;
 			if($isConst && !$before || !property_exists($this, $property)) arrayUnset($this->$protectList, $key);
 		}
-		debug([$property, $mod, $condition, $protectList]);
+		//debug([$property, $mod, $condition, $protectList]);
 	}
 
 	private function exist($property, Closure $callback, $protectList = 'protectProperties'){
