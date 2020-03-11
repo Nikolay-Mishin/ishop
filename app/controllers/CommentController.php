@@ -14,6 +14,7 @@ class CommentController extends AppController {
 		if(!empty($data)){
 			$comment = new Comment($data);
 			//$comment = new Comment(['rate' => 6], 3, 'update');
+			debug($comment->tbl, 1);
 			$content = !empty($data['content']) ? $data['content'] : null;
 			$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
 			$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;

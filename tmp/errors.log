@@ -2660,3 +2660,173 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-11 01:37:49] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
 =================
+[2020-03-11 15:33:13] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-11 15:36:17] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 131
+=================
+[2020-03-11 15:37:32] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 131
+=================
+[2020-03-11 15:38:12] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 132
+=================
+[2020-03-11 15:38:35] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 15:39:24] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 15:41:29] Текст ошибки: Свойство app\models\Product::_getAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 15:44:31] Текст ошибки: Call to protected method app\models\Product::_getProtectAttrs() from context 'app\controllers\ProductController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 74
+=================
+[2020-03-11 16:02:32] Текст ошибки: Access to undeclared static property: ishop\App::$action | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 37
+=================
+[2020-03-11 16:21:11] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 132
+=================
+[2020-03-11 16:22:06] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 133
+=================
+[2020-03-11 16:23:41] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 133
+=================
+[2020-03-11 16:24:54] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 133
+=================
+[2020-03-11 16:32:03] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 16:32:38] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 134
+=================
+[2020-03-11 16:35:30] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 16:36:34] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 16:37:05] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 16:42:38] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 135
+=================
+[2020-03-11 17:02:43] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 135
+=================
+[2020-03-11 17:04:24] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:04:45] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:06:04] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:08:09] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:08:50] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:09:24] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:09:46] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:10:47] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:11:50] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 139
+=================
+[2020-03-11 17:12:21] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:12:29] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:15:56] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:16:42] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:16:51] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:17:27] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:31:04] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:31:18] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
+[2020-03-11 17:44:58] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 17:45:30] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:46:04] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:46:15] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:46:35] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:46:44] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:46:53] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 17:47:38] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:48:20] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:48:55] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:49:17] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:49:31] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:51:21] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 138
+=================
+[2020-03-11 17:51:58] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 17:55:15] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 17:57:15] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:01:35] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:07:34] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:08:41] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:11:59] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:12:41] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:13:54] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:14:19] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:14:31] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:17:25] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:17:57] Текст ошибки: Cannot use object of type stdClass as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 130
+=================
+[2020-03-11 18:18:14] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 136
+=================
+[2020-03-11 18:20:57] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: на строке () | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:21:16] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: на строке () | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:21:19] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости :: на строке () | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:21:42] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction на строке (46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:22:10] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction на строке (46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:22:26] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction на строке (46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:22:55] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:23:09] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 137
+=================
+[2020-03-11 18:24:07] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 133
+=================
+[2020-03-11 18:40:47] Текст ошибки: Call to protected method app\models\Product::getProtectAttrs() from context 'app\controllers\ProductController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 78
+=================
+[2020-03-11 18:43:19] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 142
+=================
+[2020-03-11 18:46:45] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 142
+=================
+[2020-03-11 18:47:35] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 142
+=================
+[2020-03-11 18:51:01] Текст ошибки: syntax error, unexpected ''contextTrace'' (T_CONSTANT_ENCAPSED_STRING), expecting ']' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 18:51:22] Текст ошибки: syntax error, unexpected ''contextTrace'' (T_CONSTANT_ENCAPSED_STRING), expecting ']' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 141
+=================
+[2020-03-11 18:51:31] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 18:54:15] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 18:54:43] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости ishop\base\Model::__get (строка 81) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 18:55:35] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости ishop\base\Model::exist (строка 21) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 18:55:59] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 18:56:06] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости ishop\base\Model::exist (строка 21) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================

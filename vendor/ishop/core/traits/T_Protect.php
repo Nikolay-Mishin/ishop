@@ -28,6 +28,19 @@ trait T_Protect {
 		});
 	}
 
+	public function __call($method, array $parameters){
+		$class = $class = getClassName($this);;
+		//if (in_array($method, array('retweet', 'favourite'))){
+		//    return call_user_func_array(array($this, $method), $parameters);
+		//}
+
+		debug([
+			'class' => $class, 'method' => $method, 'parameters' => $parameters,
+			'exists' => method_exists($class, $method), 'callable' => is_callable([$class, $method]),
+			'caller' => getCaller(), 'parentCaller' => getParentCaller(), 'trace' => getTrace()
+		]);
+	}
+
 	public function getProtectProperties(){
 		return $this->protectProperties;
 	}
@@ -86,10 +99,10 @@ trait T_Protect {
 	private function propertyExist($obj, $property, Closure $callback, $error, $inProtectProperty = false){
 		if(gettype($obj) !== 'object') return false;
 
-		list($inBean, $inObj, $inProperty) = [preg_match('/^_(.*)$/', $property), false, false];
-		$isBean = $this->isBean($obj);
+		list($inBean, $isBean, $inObj, $inProperty) = [preg_match('/^_(.*)$/', $property), $this->isBean($obj), false, false];
+		$beanExist = $this->isBean($obj->bean);
 
-		$obj = $inBean && !$isBean ? $obj->bean : $obj;
+		$obj = $inBean && !$isBean && $beanExist ? $obj->bean : $obj;
 		$property = preg_replace('/^_(.*)$/', '$1', $property);
 
 		if(($isBean = $this->isBean($obj)) && $propertyExist = array_key_exists($property, $obj->getProperties())){
@@ -120,8 +133,13 @@ trait T_Protect {
 
 
 	private function getException($code, $error, $inObj = true, $inProperty = false){
-		list($controller, $action) = [App::$controller, App::$action];
-		$msg = $inObj || $inProperty ? "недоступно в области видимости $controller::$action" : "отсутствует в объекте";
+		list($controller, $action, $line) = [getContextTrace()->class, getContextTrace()->function, getContextTrace()->line];
+		$exist = $inObj || $inProperty;
+		$msg = $exist ? "недоступно в области видимости $controller::$action (строка $line)" : "отсутствует в объекте";
+		//debug([
+		//    'caller' => getCaller(), 'parentCaller' => getParentCaller(), 'contextTrace' => getContextTrace(),
+		//    'trace' => getTrace()
+		//]);
 		throw new Exception("$error $msg", 500);
 	}
 

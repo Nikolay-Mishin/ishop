@@ -49,4 +49,7 @@ class Product extends AppModel {
 		return false;
 	}
 
+	protected function getProtectAttrs(){debug('getProtectAttrs');}
+	private function _getPrivateAttrs(){debug('getPrivateAttrs');}
+
 }

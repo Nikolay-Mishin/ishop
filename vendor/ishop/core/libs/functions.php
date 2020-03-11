@@ -92,6 +92,34 @@ function dataDecode(&$data, $output = null){
 	return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
 }
 
+function getCaller($id = 0){
+	// position 0 would be the line that called debug_backtrace (getTrace) function so we ignore it
+	// position 1 would be the line that called this (getCaller) function so we ignore it
+	// position 2 would be the line that called getCaller function so we ignore it
+	debug(getTrace());
+	return getTrace($id + 3);
+}
+
+function getParentCaller($id = 0){
+	return getTrace($id + 4);
+}
+
+function getContextTrace($pattern = '/^___(get|set|call)$/'){
+	return getMethodTrace($pattern) ?? getParentCaller();
+}
+
+function getMethodTrace($pattern){
+	$search = preg_grep($pattern, array_column(getTrace(), 'function'));
+	$key = array_keys($search)[0] ?? null;
+	return $key ? getTrace($key + 1) : null;
+}
+
+function getTrace($id = 0){
+	$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+	debug($id);
+	return $id ? (object) $trace[$id] : $trace;
+}
+
 // возвращает короткое имя класса (app\models\User => User)
 function getClassShortName($class){
 	return getClassInfo($class)->getShortName();
@@ -139,11 +167,8 @@ function objectUnset($object, $props){
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
 function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
-	//debug(['Start', $attrs, $attrToArray, $data]);
 	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
-	//debug(['$attrs toArray', $attrs, $attrToArray, $data]);
 	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
-	//debug(['$data toArray', $attrs, $attrToArray, $data]);
 	if($data){
 		foreach($data as $item){
 			if(!in_array($item, $attrs)) $attrs[] = $item;
@@ -158,16 +183,13 @@ function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
 }
 
 function validateAttrs($class, $attrs){
-	//debug(['validateAttrs', $attrs]);
 	foreach($attrs as $key => $attr){
 		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
 	}
-	//debug(['validateAttrs', $attrs]);
 	return $attrs;
 }
 
 function callMethod($class, $attr, $attrs = []){
-	//debug(['callMethod', $attr, $attrs]);
 	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func_array([$class, $attr], $attrs) : false;
 }
 
