@@ -40,12 +40,10 @@ trait T_Protect {
 		//    //'beanExist' => $this->isBean($obj),
 		//    //'caller' => getCaller(), 'context' => getContext(), 'trace' => getTrace()
 		//]);
+
 		//$exist = $this->exist($method, function($obj, $method){
 		//    debug(['class' => getClassName($obj), 'method' => $method]);
 		//}, 'protectMethods');
-		//$result = callPrivateMethod($obj, $method, $args);
-		//debug(['result' => $result, '$exist' => $exist ?? null]);
-		//return $result;
 
 		if($isBean && isCallable($obj, $method)) return call_user_func_array([$obj, $method], $args);
 		return callPrivateMethod($obj, $method, $args);
