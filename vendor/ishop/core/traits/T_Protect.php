@@ -33,7 +33,6 @@ trait T_Protect {
 		list($inBean, $beanExist) = [preg_match('/^_(.*)$/', $method), $this->isBean($this->bean)];
 		$isBean = $inBean && $beanExist;
 		list($method, $obj) = [preg_replace('/^_(.*)$/', '$1', $method), $isBean ? $this->bean : $this];
-
 		//debug([
 		//    'class' => getClassName($obj), 'method' => $method, 'inBean' => $inBean, 'beanExist' => $beanExist,
 		//    'isBean' => $isBean, 'beanExist' => $this->isBean($obj),
@@ -41,19 +40,12 @@ trait T_Protect {
 		//    //'beanExist' => $this->isBean($obj),
 		//    //'caller' => getCaller(), 'context' => getContext(), 'trace' => getTrace()
 		//]);
-
-		//return $this->exist($method, function($obj, $method){
+		//$exist = $this->exist($method, function($obj, $method){
 		//    debug(['class' => getClassName($obj), 'method' => $method]);
 		//}, 'protectMethods');
-
-		//if(isCallable($obj, $method)){
-		//    if($isBean) return call_user_func_array([$obj, $method], $args);
-		//    $method = getReflector($obj)->getMethod($method);
-		//    $method->setAccessible(true);
-		//    $result = $method->invokeArgs($obj, $args);
-		//    $method->setAccessible(false);
-		//}
-		//return $result ?? null;
+		//$result = callPrivateMethod($obj, $method, $args);
+		//debug(['result' => $result, '$exist' => $exist ?? null]);
+		//return $result;
 
 		if($isBean && isCallable($obj, $method)) return call_user_func_array([$obj, $method], $args);
 		return callPrivateMethod($obj, $method, $args);
