@@ -96,7 +96,6 @@ function getCaller($id = 0){
 	// position 0 would be the line that called debug_backtrace (getTrace) function so we ignore it
 	// position 1 would be the line that called this (getCaller) function so we ignore it
 	// position 2 would be the line that called getCaller function so we ignore it
-	debug(getTrace());
 	return getTrace($id + 3);
 }
 
@@ -104,7 +103,7 @@ function getParentCaller($id = 0){
 	return getTrace($id + 4);
 }
 
-function getContextTrace($pattern = '/^___(get|set|call)$/'){
+function getContext($pattern = '/^__(get|set|call)$/'){
 	return getMethodTrace($pattern) ?? getParentCaller();
 }
 
@@ -115,8 +114,7 @@ function getMethodTrace($pattern){
 }
 
 function getTrace($id = 0){
-	$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-	debug($id);
+	$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $id ? $id + 1 : $id);
 	return $id ? (object) $trace[$id] : $trace;
 }
 
@@ -130,8 +128,11 @@ function getClassName($class){
 	return getClassInfo($class)->getName();
 }
 
-// возвращает короткое имя класса (app\models\User)
+// возвращает информацию о классе (app\models\User)
 function getClassInfo($class){
+	return new \ReflectionClass($class);
+}
+function getReflector($class){
 	return new \ReflectionClass($class);
 }
 
@@ -189,8 +190,12 @@ function validateAttrs($class, $attrs){
 	return $attrs;
 }
 
-function callMethod($class, $attr, $attrs = []){
-	return method_exists($class, $attr) && is_callable([$class, $attr]) ? call_user_func_array([$class, $attr], $attrs) : false;
+function callMethod($class, $method, $attrs = []){
+	return isCallable($class, $method) ? call_user_func_array([$class, $method], $attrs) : false;
+}
+
+function isCallable($class, $method){
+	return method_exists($class, $method) && is_callable([$class, $method]);
 }
 
 function getProp($class, $attr){

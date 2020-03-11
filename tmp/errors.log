@@ -2830,3 +2830,43 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-11 18:56:06] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости ishop\base\Model::exist (строка 21) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
 =================
+[2020-03-11 19:41:50] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости ishop\base\Model::exist (строка 21) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 19:42:28] Текст ошибки: Свойство app\models\Product::tbl недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 143
+=================
+[2020-03-11 19:52:51] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-11 20:25:33] Текст ошибки: Свойство app\models\Product::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 145
+=================
+[2020-03-11 20:25:47] Текст ошибки: Свойство app\models\Product::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 145
+=================
+[2020-03-11 20:34:40] Текст ошибки: Свойство app\models\Product::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 156
+=================
+[2020-03-11 20:42:03] Текст ошибки: Call to undefined function ishop\traits\getContext() | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 34
+=================
+[2020-03-11 21:03:05] Текст ошибки: Call to protected method app\models\Product::getProtectAttrs() from context 'app\controllers\ProductController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 68
+=================
+[2020-03-11 21:04:21] Текст ошибки: Class 'app\controllers\ReflectionObject' not found | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 71
+=================
+[2020-03-11 21:05:11] Текст ошибки: Call to private method app\models\Product::_getPrivateAttrs() from context 'app\controllers\ProductController' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 76
+=================
+[2020-03-11 21:14:06] Текст ошибки: Method _getPrivateAttrs does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\controllers\ProductController.php | Строка: 73
+=================
+[2020-03-11 21:26:36] Текст ошибки: Method _getPrivateAttrs does not exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 40
+=================
+[2020-03-11 21:30:55] Текст ошибки: Call to a member function invoke() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 43
+=================
+[2020-03-11 21:31:10] Текст ошибки: Call to a member function invoke() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 43
+=================
+[2020-03-11 21:32:34] Текст ошибки: Trying to invoke protected method app\models\Product::getProtectAttrs() from scope ReflectionMethod | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 43
+=================
+[2020-03-11 21:42:05] Текст ошибки: Call to a member function invoke() on null | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 47
+=================
+[2020-03-11 21:52:25] Текст ошибки: Свойство app\models\Product::getPrivateAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-11 21:55:21] Текст ошибки: Свойство app\models\Product::getPrivateAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-11 21:55:50] Текст ошибки: Свойство app\models\Product::getPrivateAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-11 22:05:11] Текст ошибки: Свойство app\models\Product::getPrivateAttrs отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================

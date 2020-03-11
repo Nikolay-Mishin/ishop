@@ -8,45 +8,66 @@ namespace ishop\traits;
 use \Exception;
 use \Closure;
 
-use ishop\App;
-
 trait T_Protect {
 
-	protected $protectProperties = ['protectProperties', 'properties'];
+	protected $protectProperties = ['protectProperties']; // ['protectProperties', 'properties', 'protectMethods', 'methods']
 	protected $properties = [];
+	protected $protectMethods = ['getProtectAttrs', 'getPrivateAttrs']; // ['getProtectAttrs', 'getPrivateAttrs']
+	protected $methods = [];
 
 	public function __get($property){
-		return $this->exist($this, $property, function($obj, $property){
+		return $this->exist($property, function($obj, $property){
 			return $obj->$property;
 		});
 	}
 
 	public function __set($property, $value){
-		$this->exist($this, $property, function($obj, $property, $const, $error, $class) use ($value) {
+		$this->exist($property, function($obj, $property, $const, $error, $class) use ($value) {
 			if(!$const) $obj->$property = $value;
 			else $this->getException(500, "Изменение значения свойства $class::$property");
 		});
 	}
 
-	public function __call($method, array $parameters){
-		$class = $class = getClassName($this);;
-		//if (in_array($method, array('retweet', 'favourite'))){
-		//    return call_user_func_array(array($this, $method), $parameters);
-		//}
+	public function __call($method, array $attrs){
+		// Call to protected method app\models\Product::getProtectAttrs() from context 'app\controllers\ProductController'
+		list($inBean, $beanExist) = [preg_match('/^_(.*)$/', $method), $this->isBean($this->bean)];
+		$isBean = $inBean && $beanExist;
+		list($method, $obj) = [preg_replace('/^_(.*)$/', '$1', $method), $isBean ? $this->bean : $this];
 
-		debug([
-			'class' => $class, 'method' => $method, 'parameters' => $parameters,
-			'exists' => method_exists($class, $method), 'callable' => is_callable([$class, $method]),
-			'caller' => getCaller(), 'parentCaller' => getParentCaller(), 'trace' => getTrace()
-		]);
+		//debug([
+		//    'class' => getClassName($obj), 'method' => $method, 'inBean' => $inBean, 'beanExist' => $beanExist,
+		//    'isBean' => $isBean, 'beanExist' => $this->isBean($obj),
+		//    'exists' => method_exists($obj, $method), 'isCallable' => isCallable($obj, $method),
+		//    //'beanExist' => $this->isBean($obj),
+		//    //'caller' => getCaller(), 'context' => getContext(), 'trace' => getTrace()
+		//]);
+
+		//return $this->exist($method, function($obj, $method){
+		//    debug(['class' => getClassName($obj), 'method' => $method]);
+		//}, 'protectMethods');
+
+		//if(isCallable($obj, $method)){
+		//    if($isBean) return call_user_func_array([$obj, $method], $attrs);
+		//    $method = getReflector($obj)->getMethod($method);
+		//    $method->setAccessible(true);
+		//    return $method->invoke($obj);
+		//}
 	}
 
 	public function getProtectProperties(){
 		return $this->protectProperties;
 	}
 
-	public function getReturnProperties(){
+	public function getProperties(){
 		return (object) $this->properties;
+	}
+
+	public function getProtectMethods(){
+		return $this->protectMethods;
+	}
+
+	public function getMethods(){
+		return (object) $this->methods;
 	}
 
 	protected function setProtectProperties($protectProperties){
@@ -56,38 +77,54 @@ trait T_Protect {
 
 	protected function addProtectProperties(...$protectProperties){
 		$this->structuredProtectProperties($protectProperties);
+		debug($this->protectProperties);
 	}
 
-	private function structuredProtectProperties($protectProperties, $structuredBefore = true){
-		if($structuredBefore) $this->structuredProtectProperties($this->protectProperties, false);
+	protected function setProtectMethods($protectMethods){
+		$this->protectMethods = [];
+		$this->addProtectMethods($protectMethods);
+	}
+
+	protected function addProtectMethods(...$protectMethods){
+		$this->structuredProtectProperties($protectMethods, 'protectMethods');
+		debug($this->protectMethods);
+	}
+
+	private function structuredProtectProperties($protectProperties, $protectList = 'protectProperties', $before = true){
+		if($before) $this->structuredProtectProperties($this->$protectList, $protectList, false);
 		foreach(toArray($protectProperties) as $property => $mod){
-			$condition = !$structuredBefore ?: !array_key_exists($property, $this->protectProperties);
-			$this->reverseProtectProperty($property, $mod, $condition, $structuredBefore);
+			debug([$property, $mod, $before, array_key_exists($property, $this->$protectList)]);
+			$condition = !$before ?: !array_key_exists($property, $this->$protectList);
+			$this->reverseProtectProperty($property, $mod, $condition, $protectList, $before);
 		}
 	}
 
-	private function reverseProtectProperty($property, $mod, $condition = true, $structuredBefore = false){
+	private function reverseProtectProperty($property, $mod, $condition, $protectList, $before){
+		debug([$property, $mod, $condition, $protectList]);
 		if($condition){
 			list($key, $isConst) = [$property, gettype($property) == 'integer'];
 			list($property, $mod) = [$isConst ? $mod : $property, !$isConst && $mod == 'set' ? 'set' : 'get'];
-			$this->protectProperties[$property] = $mod;
+			$this->$protectList[$property] = $mod;
 			$key = !property_exists($this, $property) ? $property : $key;
-			if($isConst && !$structuredBefore || !property_exists($this, $property)) arrayUnset($this->protectProperties, $key);
+			if($isConst && !$before || !property_exists($this, $property)) arrayUnset($this->$protectList, $key);
 		}
+		debug([$property, $mod, $condition, $protectList]);
 	}
 
-	private function exist($obj, $property, Closure $callback){
-		foreach(array_keys($this->protectProperties) as $key){
+	private function exist($property, Closure $callback, $protectList = 'protectProperties'){
+		debug($this->$protectList);
+		foreach(array_keys($this->$protectList) as $key){
 			if(gettype($key) == 'integer'){
-				$this->structuredProtectProperties($this->protectProperties, false);
+				$this->structuredProtectProperties($this->$protectList, $protectList, false);
 				break;
 			}
 		}
+		debug($this->$protectList);
 
-		$class = getClassName($obj);
+		$class = getClassName($this);
 		$error = "Свойство $class::$property";
 
-		list($_property, $inObj, $inProperty) = $this->propertyExist($obj, $property, $callback, $error);
+		list($_property, $inObj, $inProperty) = $this->propertyExist($this, $property, $callback, $error);
 
 		if(!$_property){
 			$this->getException(500, $error, $inObj, $inProperty);
@@ -133,13 +170,9 @@ trait T_Protect {
 
 
 	private function getException($code, $error, $inObj = true, $inProperty = false){
-		list($controller, $action, $line) = [getContextTrace()->class, getContextTrace()->function, getContextTrace()->line];
-		$exist = $inObj || $inProperty;
-		$msg = $exist ? "недоступно в области видимости $controller::$action (строка $line)" : "отсутствует в объекте";
-		//debug([
-		//    'caller' => getCaller(), 'parentCaller' => getParentCaller(), 'contextTrace' => getContextTrace(),
-		//    'trace' => getTrace()
-		//]);
+		list($context, $exist) = [getContext(), $inObj || $inProperty];
+		$msg = $exist ? "$context->class::$context->function (строка $context->line)" : '';
+		$msg = $msg ? "недоступно в области видимости $msg" : "отсутствует в объекте";
 		throw new Exception("$error $msg", 500);
 	}
 

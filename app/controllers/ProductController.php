@@ -65,21 +65,9 @@ class ProductController extends AppController {
 
 		$comments = Comment::getByProductId($product->id);
 
-		$class = $p_model;
-
-		$protect = 'getProtectAttrs';
-		$private = '_getPrivateAttrs';
-
-		debug([
-			'getProtectAttrs' => method_exists($class, $protect), 'getProtectAttrs call' => is_callable([$class, $protect]),
-			'_getPrivateAttrs' => method_exists($class, $private), '_getPrivateAttrs call' => is_callable([$class, $private]),
-		]);
-
-		$class->$protect();
-		$class->$private();
-
-		$class->tbl;
-
+		//debug($p_model->getProtectAttrs());
+		//debug($p_model->getPrivateAttrs());
+		//debug($p_model->__getPrivateAttrs());
 
 		$this->setMeta($product->title, $product->description, $product->keywords);
 		// передаем данные в вид карточки товара

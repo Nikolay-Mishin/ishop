@@ -6,6 +6,9 @@ namespace app\models;
 
 class Product extends AppModel {
 
+	protected function getProtectAttrs(){ return 'getProtectAttrs'; }
+	private function getPrivateAttrs(){ return 'getPrivateAttrs'; }
+
 	// получаем данные товара из БД
 	public static function getById($id){
 		return \R::findOne('product', 'id = ?', [$id]);
@@ -31,6 +34,9 @@ class Product extends AppModel {
 
 	// получаем последние просмотренные товары (3)
 	public function getRecentlyViewed(){
+		$this->addProtectProperties('bean', 'tbl');
+		$this->addProtectProperties('getProps');
+		$this->addProtectMethods('getProps');
 		// если в куках есть просмотренные товары, возвращаем срез из 3 элементов массива, иначе - false
 		if(!empty($_COOKIE['recentlyViewed'])){
 			$recentlyViewed = $_COOKIE['recentlyViewed']; // просмотренные товары из кук
@@ -48,8 +54,5 @@ class Product extends AppModel {
 		}
 		return false;
 	}
-
-	protected function getProtectAttrs(){debug('getProtectAttrs');}
-	private function _getPrivateAttrs(){debug('getPrivateAttrs');}
 
 }
