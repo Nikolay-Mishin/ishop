@@ -28,7 +28,7 @@ trait T_Protect {
 		});
 	}
 
-	public function __call($method, array $attrs){
+	public function __call($method, array $args){
 		// Call to protected method app\models\Product::getProtectAttrs() from context 'app\controllers\ProductController'
 		list($inBean, $beanExist) = [preg_match('/^_(.*)$/', $method), $this->isBean($this->bean)];
 		$isBean = $inBean && $beanExist;
@@ -47,11 +47,16 @@ trait T_Protect {
 		//}, 'protectMethods');
 
 		//if(isCallable($obj, $method)){
-		//    if($isBean) return call_user_func_array([$obj, $method], $attrs);
+		//    if($isBean) return call_user_func_array([$obj, $method], $args);
 		//    $method = getReflector($obj)->getMethod($method);
 		//    $method->setAccessible(true);
-		//    return $method->invoke($obj);
+		//    $result = $method->invokeArgs($obj, $args);
+		//    $method->setAccessible(false);
 		//}
+		//return $result ?? null;
+
+		if($isBean && isCallable($obj, $method)) return call_user_func_array([$obj, $method], $args);
+		return callPrivateMethod($obj, $method, $args);
 	}
 
 	public function getProtectProperties(){

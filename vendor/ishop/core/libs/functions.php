@@ -120,20 +120,35 @@ function getTrace($id = 0){
 
 // возвращает короткое имя класса (app\models\User => User)
 function getClassShortName($class){
-	return getClassInfo($class)->getShortName();
+	return getReflector($class)->getShortName();
 }
 
 // возвращает короткое имя класса (app\models\User)
 function getClassName($class){
-	return getClassInfo($class)->getName();
+	return getReflector($class)->getName();
 }
 
 // возвращает информацию о классе (app\models\User)
-function getClassInfo($class){
-	return new \ReflectionClass($class);
-}
 function getReflector($class){
-	return new \ReflectionClass($class);
+	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
+}
+
+function callMethod($class, $method, $attrs = []){
+	return isCallable($class, $method) ? call_user_func_array([$class, $method], $attrs) : false;
+}
+
+function isCallable($class, $method){
+	return method_exists($class, $method) && is_callable([$class, $method]);
+}
+
+function callPrivateMethod($obj, $method, $args){
+	if(isCallable($obj, $method)){
+	    $method = getReflector($obj)->getMethod($method);
+	    $method->setAccessible(true);
+	    $result = $method->invokeArgs($obj, $args);
+	    $method->setAccessible(false);
+	}
+	return $result ?? null;
 }
 
 // CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
@@ -190,17 +205,9 @@ function validateAttrs($class, $attrs){
 	return $attrs;
 }
 
-function callMethod($class, $method, $attrs = []){
-	return isCallable($class, $method) ? call_user_func_array([$class, $method], $attrs) : false;
-}
-
-function isCallable($class, $method){
-	return method_exists($class, $method) && is_callable([$class, $method]);
-}
-
 function getProp($class, $attr){
 	if(property_exists($class, $attr)){
-		$isStatic = array_key_exists($attr, getClassInfo($class)->getStaticProperties());
+		$isStatic = array_key_exists($attr, getReflector($class)->getStaticProperties());
 		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::${$attr};
 	}
 	return $attr;
