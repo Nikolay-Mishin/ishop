@@ -34,7 +34,7 @@ class Product extends AppModel {
 
 	// получаем последние просмотренные товары (3)
 	public function getRecentlyViewed(){
-		//$this->addProtectProperties('bean => set', 'tbl');
+        $this->addProtectProperties('bean => set', 'tbl');
 		$this->addProtectMethods('getProps');
 		// если в куках есть просмотренные товары, возвращаем срез из 3 элементов массива, иначе - false
 		if(!empty($_COOKIE['recentlyViewed'])){

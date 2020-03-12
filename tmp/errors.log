@@ -2876,3 +2876,9 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-12 00:55:10] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 114
 =================
+[2020-03-12 19:04:51] Текст ошибки: Too few arguments to function ishop\base\Model::reverseProtectProperty(), 4 passed in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php on line 92 and exactly 5 expected | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 97
+=================
+[2020-03-12 19:23:43] Текст ошибки: syntax error, unexpected ';' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 114
+=================
+[2020-03-12 19:55:11] Текст ошибки: syntax error, unexpected ')' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 140
+=================
