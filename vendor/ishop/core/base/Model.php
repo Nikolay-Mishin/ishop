@@ -9,7 +9,7 @@ use Valitron\Validator; // класс Валидатора
 
 abstract class Model extends Sql {
 
-	use \ishop\traits\T_setProperties;
+	use \ishop\traits\T_SetProperties;
 	use \ishop\traits\T_Protect;
 
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)

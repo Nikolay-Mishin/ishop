@@ -65,6 +65,7 @@ class ProductController extends AppController {
 
 		$comments = Comment::getByProductId($product->id);
 
+		debug($p_model->tbl);
 		//debug($p_model->getProtectAttrs());
 		//debug($p_model->getPrivateAttrs());
 		//debug($p_model->__getPrivateAttrs());

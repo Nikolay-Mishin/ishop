@@ -14,7 +14,7 @@ use ishop\Cache;
 
 class Menu {
 
-	use \ishop\traits\T_setProperties;
+	use \ishop\traits\T_SetProperties;
 
 	protected $isMenu = true;
 	protected $data; // данные для меню

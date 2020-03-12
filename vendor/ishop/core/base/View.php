@@ -8,7 +8,7 @@ use \Exception;
 
 class View {
 
-	use \ishop\traits\T_setProperties;
+	use \ishop\traits\T_SetProperties;
 
 	public $route;
 	public $controller;

@@ -7,7 +7,7 @@ namespace ishop\traits;
 
 use \Closure;
 
-trait T_setProperties {
+trait T_SetProperties {
 
 	use T_Closure;
 
