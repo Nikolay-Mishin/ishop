@@ -60,12 +60,12 @@ trait T_Protect {
 
 	private function structuredProtect($protectProperties, $protectList = 'protectProperties', $new = true){
 		if($new) $this->structuredProtect($this->$protectList, $protectList, false);
-		debug(['protectProperties - start' => $protectProperties]);
+		debug(['protectProperties - start' => $this->$protectList]);
 		foreach(toArray($protectProperties) as $property => $mod){
 			debug([$property => $mod]);
 			$this->reverseProtectProperty($property, $mod, $protectList, $new);
 		}
-		debug(['protectProperties - end' => $protectProperties]);
+		debug(['protectProperties - end' => $this->$protectList]);
 	}
 
 	private function reverseProtectProperty($property, $mod, $protectList, $new){
@@ -88,6 +88,7 @@ trait T_Protect {
 			if(!$new) arrayUnset($this->$protectList, $key);
 			debug(['isMethod' => $this->isMethod($protectList), 'key' => $key, 'exist' => $exist, 'del' => !$new]);
 		}
+		debug([$property => $mod]);
 	}
 
 	private function isMethod($protectList){
