@@ -1,11 +1,14 @@
-/* Comments */
-var draggable = $('#draggable');
+/* Draggable */
+var dragElement = $('.dragElement');
 
-if(notEmpty(draggable)){
-	draggable.draggable();
+if (notEmpty(dragElement)){
+	// draggable.draggable();
+	dragElement.draggable({
+		containment: "parent"
+	}).filter('#dragH').draggable("option", "axis", "x");
 }
 
-/* // Comments */
+/* // Draggable */
 
 /* Comments */
 var comment_add = $('#comment_add');

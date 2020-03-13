@@ -40,9 +40,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-<div id="draggable" class="ui-widget-content">
-    <p>Drag me around</p>
+<!--
+<div id="container">
+    <div id="dragH" class="dragElement ui-widget ui-corner-all ui-state-error">
+        Перетащить по горизонтали
+    </div> 
+    <div class="dragElement ui-widget ui-corner-all ui-state-error">
+        Перетащить внутри родителя
+    </div>
 </div>
+-->
 
 <!--top-header-->
 <div class="top-header">

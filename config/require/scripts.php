@@ -19,7 +19,7 @@ return [
         "$base/jquery.flexslider",
         "$base/flexslider", // defer
         "adminlte/bower_components/ckeditor/ckeditor",
-        "adminlte/bower_components/ckeditor/adapters/jquery"
+        "adminlte/bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
         "@ " . CONF . "/require/scripts_consts.php",
@@ -29,6 +29,6 @@ return [
     ],
     'main' => [
         "$base/editor",
-        "$base/main"
+        "$base/main",
     ]
 ];

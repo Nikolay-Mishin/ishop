@@ -11,9 +11,9 @@ return [
         "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic",
         "dist/css/AdminLTE.min",
         "dist/css/skins/_all-skins.min",
-        "/jquery-ui-1.12.1/themes/base/jquery-ui"
+        "/jquery-ui-1.12.1/themes/base/jquery-ui",
     ],
     'main' => [
-        "my"
+        "my",
     ]
 ];

@@ -12,7 +12,7 @@ return [
         "$base/validator",
         "dist/js/adminlte.min",
         "bower_components/ckeditor/ckeditor",
-        "bower_components/ckeditor/adapters/jquery"
+        "bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
         '@ ' . CONF . '/require/admin_scripts_consts.php',
@@ -22,6 +22,6 @@ return [
     ],
     'main' => [
         "$base/editor",
-        "my"
+        "my",
     ]
 ];

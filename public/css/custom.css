@@ -87,9 +87,3 @@
 	padding-bottom: .25rem;
 	border-bottom: 1px solid rgba(34, 36, 38, .15);
 }
-
-#draggable {
-	width: 150px;
-	height: 150px;
-	padding: 0.5em;
-}

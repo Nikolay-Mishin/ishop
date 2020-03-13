@@ -32,9 +32,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
     <header class="main-header">
         <!-- Logo -->
         <a href="<?=PATH;?>" class="logo" target="_blank">

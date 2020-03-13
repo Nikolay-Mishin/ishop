@@ -1,0 +1,21 @@
+#draggable {
+	width: 150px;
+	height: 150px;
+	padding: 0.5em;
+}
+
+.dragElement {
+	font-size: large;
+	border: thin solid black;
+	padding: 16px;
+	width: 8em;
+	text-align: center;
+	background-color: lightgray;
+	margin: 4px
+}
+
+#container {
+	border: medium double black;
+	width: 700px;
+	height: 450px
+}

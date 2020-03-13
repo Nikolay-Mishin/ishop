@@ -11,10 +11,11 @@ return [
         "megamenu/css/style",
         "$base/flexslider", // screen
         "/jquery-ui-1.12.1/themes/base/jquery-ui",
-        //"memenu.css"
+        //"memenu.css",
     ],
     'main' => [
         "$base/style",
         "$base/custom",
+        "$base/draggable",
     ]
 ];
