@@ -17,7 +17,7 @@ class CommentController extends AppController {
 			$comments = $this->getComments($product_id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['html' => $comments->html, 'count' => $comments->count]));
+				exit(json_encode(['html' => "$comments", 'count' => $comments->count]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -46,14 +46,11 @@ class CommentController extends AppController {
 	private function getComments($product_id, $data = []){
 		$comments = Comment::getByProductId($product_id);
 		$comments[] = $comments[3];
-		return (object) [
-			'html' => (string) new W_Comment([
-				'data' => $comments,
-				'id' => $product_id,
-				'isAjax' => true
-			]),
-			'count' => count($comments)
-		];
+		return new W_Comment([
+			'data' => $comments,
+			'id' => $product_id,
+			'isAjax' => true
+		]);
 	}
 
 	private function changeRate($rate, $id){

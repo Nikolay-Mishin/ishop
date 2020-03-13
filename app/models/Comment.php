@@ -66,8 +66,8 @@ class Comment extends AppModel {
 		return \R::getAssoc(self::getSql(), [$id]);
 	}
 
-	public static function getRate($comment_id){
-		return \R::getCell("SELECT rate FROM comment WHERE id = ?", [$comment_id]);
+	public static function getRate($id){
+		return \R::getCell("SELECT rate FROM comment WHERE id = ?", [$id]);
 	}
 
 }

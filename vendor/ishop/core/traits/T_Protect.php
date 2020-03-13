@@ -60,17 +60,18 @@ trait T_Protect {
 
 	private function structuredProtect($protectProperties, $protectList = 'protectProperties', $new = true){
 		if($new) $this->structuredProtect($this->$protectList, $protectList, false);
-		//debug(['protectProperties' => $protectProperties]);
+		debug(['protectProperties - start' => $protectProperties]);
 		foreach(toArray($protectProperties) as $property => $mod){
-			//debug([$property => $mod]);
+			debug([$property => $mod]);
 			$this->reverseProtectProperty($property, $mod, $protectList, $new);
 		}
-		//debug(['protectProperties' => $protectProperties]);
+		debug(['protectProperties - end' => $protectProperties]);
 	}
 
 	private function reverseProtectProperty($property, $mod, $protectList, $new){
 		$isConst = gettype($property) == 'integer';
 		$reverse = $new ? $isConst && !array_key_exists($property, $this->$protectList) : $isConst;
+		debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
 		if($reverse){
 			list($key, $property) = [$property, $isConst ? $mod : $property];
 
@@ -85,9 +86,8 @@ trait T_Protect {
 
 			$key = !$exist ? $property : $key;
 			if(!$new) arrayUnset($this->$protectList, $key);
-			//debug(['isMethod' => $isMethod, 'key' => $key, 'exist' => $exist, 'del' => !$new]);
+			debug(['isMethod' => $this->isMethod($protectList), 'key' => $key, 'exist' => $exist, 'del' => !$new]);
 		}
-		//debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
 	}
 
 	private function isMethod($protectList){
@@ -104,9 +104,9 @@ trait T_Protect {
 		$class = getClassName($this);
 		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";
 		list($_property, $exist, $access) = $this->propertyExist($this, $property, $callback, $protectList);
-		//debug(['_property' => $_property, 'exist' => $exist, 'access' => $access]);
-		if(!$_property && !$access){
-			$this->getException(500, $error, $exist && !$access, $this->isMethod($protectList));
+		//debug(['_property' => $_property, 'exist' => $exist, 'access' => $access, 'type' => gettype($_property)]);
+		if(!$exist || !$access){
+			$this->getException(500, $error, $exist, $access, $this->isMethod($protectList));
 		}
 		return $_property;
 	}
@@ -121,7 +121,7 @@ trait T_Protect {
 
 		//debug([
 		//    'class' => getClassName($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
-		//    'isMethod' => $isMethod, 'isBean' => $isBean,
+		//    'isMethod' => $isMethod, 'isBean' => $isBean, 'List' => $this->$protectList,
 		//    'propertyExist' => $propertyExist, 'access' => $access, 'else' => !$access && !$isBean && !$inProperty
 		//]);
 
@@ -129,10 +129,14 @@ trait T_Protect {
 			$isConst = ($this->$protectList[$property] ?? 'get') === 'get';
 			$_property = $callback($obj, $property, $isConst, getClassName($obj), $isBean, $exist);
 		}elseif(!$access && !$isBean && !$inProperty){
+			debug(['protectProperties' => $this->protectProperties]);
 			foreach($this->protectProperties as $protect => $mod){
 				//debug([$protect => $mod]);
-				$_property = $this->propertyExist($this->$protect, $property, $callback, $protectList, true)[0];
-				if($_property) break;
+				$result = $this->propertyExist($this->$protect, $property, $callback, $protectList, true);
+				$_property = $result[0];
+				if($result[1]) list($propertyExist, $access) = [$result[1], $result[2]];
+				//debug(['propertyExist' => $propertyExist, 'access' => $access, 'result' => $result]);
+				if($propertyExist && $access) break;
 			}
 		}
 		return [$_property ?? null, $propertyExist, $access];
@@ -143,9 +147,9 @@ trait T_Protect {
 	}
 
 
-	private function getException($code, $error, $access = true, $isMethod){
+	private function getException($code, $error, $exist = true, $access = true, $isMethod){
 		$context = getContext();
-		$msg = $access ? "$context->class::$context->function (строка $context->line)" : '';
+		$msg = $exist && !$access ? "$context->class::$context->function (строка $context->line)" : '';
 		$msg = $msg ? "недоступ" . ($isMethod ? 'ен' : 'но') . " в области видимости $msg" : "отсутствует в объекте";
 		throw new Exception("$error $msg", 500);
 	}

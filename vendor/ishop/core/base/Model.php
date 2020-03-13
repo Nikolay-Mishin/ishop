@@ -20,9 +20,10 @@ abstract class Model extends Sql {
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		Db::instance(); // создаем объект класса БД
+		$this->addProtectProperties('bean');
+		//$this->addProtectProperties('bean');
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
-			$this->addProtectProperties('bean', 'tbl');
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные

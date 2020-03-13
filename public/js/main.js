@@ -54,6 +54,7 @@ if(notEmpty(comment_add)){
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
 		ajax(url, getRate, rating); // ajax-запрос
+		console.log(url);
 	});
 	
 }
@@ -70,7 +71,8 @@ function getComment(comments, args){
 }
 
 function getRate(rate, args, rating){
-	rating.text(JSON.parse(rate) > 0 ? `+${rate}` : rate);
+	console.log({ rate: rate, json: JSON.parse(rate) });
+	//rating.text(JSON.parse(rate) > 0 ? `+${rate}` : rate);
 }
 /* // Comments */
 

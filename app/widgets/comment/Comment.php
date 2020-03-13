@@ -20,7 +20,7 @@ class Comment extends Menu {
 		'isRequired' => true
 	];
 	protected $title = 'Комментарии';
-	protected $count;
+	public $count;
 
 	public function __construct($options = []){
 		parent::__construct($options);
@@ -29,8 +29,6 @@ class Comment extends Menu {
 			$this->editor_options['id'] = $this->id;
 			App::$app->setProperty('editor_options', $this->editor_options);
 			$this->editor = new Editor($this->editor_options);
-		}else{
-			//debug($this);
 		}
 	}
 
