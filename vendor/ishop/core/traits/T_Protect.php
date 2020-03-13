@@ -10,12 +10,11 @@ use \Closure;
 
 trait T_Protect {
 
-	protected $protectProperties = ['protectProperties']; // ['protectProperties', 'properties', 'protectMethods', 'methods']
-	protected $protectMethods = ['getProtectAttrs', 'getPrivateAttrs']; // ['getProtectAttrs', 'getPrivateAttrs']
+	protected $protectProperties = [];
+	protected $protectMethods = ['getProtectAttrs', 'getPrivateAttrs'];
 
 	public function __get($property){
 		return $this->exist($property, function($obj, $property){
-			debug(['_property' => $property, '$obj->$property' => $obj->$property]);
 			return $obj->$property;
 		});
 	}
@@ -40,9 +39,9 @@ trait T_Protect {
 		//    //'caller' => getCaller(), 'context' => getContext(), 'trace' => getTrace()
 		//]);
 
-		//$exist = $this->exist($method, function($obj, $method){
-		//    debug(['class' => getClassName($obj), 'method' => $method]);
-		//}, 'protectMethods');
+		$exist = $this->exist($method, function($obj, $method){
+			debug(['class' => getClassName($obj), 'method' => $method]);
+		}, 'protectMethods');
 
 		if($isBean && isCallable($obj, $method)){
 			$result = call_user_func_array([$obj, $method], $args);
@@ -101,7 +100,8 @@ trait T_Protect {
 			list($property, $mod) = [$explode[0], isset($explode[1]) && $explode[1] == 'set' ? 'set' : 'get'];
 
 			if($exist = $this->getExists($protectList, $property)){
-				!$this->isMethod($protectList) ? $this->$protectList[$property] = $mod : $this->$protectList[] = $property;
+				//!$this->isMethod($protectList) ? $this->$protectList[$property] = $mod : $this->$protectList[] = $property;
+				$this->$protectList[$property] = $mod;
 			}
 
 			$key = !$exist ? $property : $key;
@@ -127,24 +127,26 @@ trait T_Protect {
 		list($_property, $exist, $access) = $this->propertyExist($this, $property, $callback, $protectList);
 		debug(['_property' => $_property, 'exist' => $exist, 'access' => $access]);
 		if(!$_property && !$access){
-			$this->getException(500, $error, $exist && !$access);
+			$this->getException(500, $error, $exist && !$access, $this->isMethod($protectList));
 		}
 		return $_property;
 	}
 
 	private function propertyExist($obj, $property, Closure $callback, $protectList = 'protectProperties', $inProperty = false){
-		if(gettype($obj) !== 'object') return false;
+		if(gettype($obj) !== 'object') return;
 
-		list($isBean, $beanExist) = [preg_match('/^_(.*)$/', $property), $this->isBean($obj), $this->isBean($obj->bean)];
-		$obj = !$isBean && $beanExist ? $obj->bean : $obj;
+		debug(['property' => $property]);
+
+		list($isBean, $beanExist) = [$this->isBean($obj), $this->isBean($obj->bean)];
+		list($obj, $isMethod) = [!$isBean && $beanExist ? $obj->bean : $obj, $this->isMethod($protectList)];
 		list($obj, $exist) = [!$isBean && $beanExist ? $obj->bean : $obj, $this->getExists($protectList, $property, $obj)];
-		list($property, $isBean) = [preg_replace('/^_(.*)$/', '$1', $property), $this->isBean($obj)];
+		$isBean = $this->isBean($obj);
 		$propertyExist = $exist || ($isBean && array_key_exists($property, $obj->getProperties()));
 		$access = $isBean || $inProperty ?: array_key_exists($property, $this->$protectList);
 
 		debug([
 			'class' => getClassName($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
-			'isBean' => $isBean, 'beanExist' => $beanExist,
+			'isMethod' => $isMethod, 'isBean' => $isBean, 'beanExist' => $beanExist,
 			'propertyExist' => $propertyExist, 'access' => $access, 'else' => !$access && !$isBean && !$inProperty
 		]);
 
@@ -152,14 +154,14 @@ trait T_Protect {
 			$isConst = ($this->$protectList[$property] ?? 'get') === 'get';
 			$_property = $callback($obj, $property, $isConst, getClassName($obj));
 		}elseif(!$access && !$isBean && !$inProperty){
-			debug($this->$protectList);
-			foreach($this->$protectList as $protect => $mod){
+			debug(['protectProperties' => $this->protectProperties, 'protectList' => $this->$protectList]);
+			foreach($this->protectProperties as $protect => $mod){
+				//$protect = $isMethod ? $mod : $protect;
 				debug([$protect => $mod]);
 				$_property = $this->propertyExist($this->$protect, $property, $callback, $protectList, true);
 				if($_property = $_property ?: $_property[0]) break;
 			}
 		}
-		debug(['_property' => $_property, 'propertyExist' => $propertyExist]);
 		return [$_property ?? null, $propertyExist, $access];
 	}
 
@@ -168,10 +170,10 @@ trait T_Protect {
 	}
 
 
-	private function getException($code, $error, $access = true){
+	private function getException($code, $error, $access = true, $isMethod){
 		$context = getContext();
 		$msg = $access ? "$context->class::$context->function (строка $context->line)" : '';
-		$msg = $msg ? "недоступно в области видимости $msg" : "отсутствует в объекте";
+		$msg = $msg ? "недоступ" . ($isMethod ? 'ен' : 'но') . " в области видимости $msg" : "отсутствует в объекте";
 		throw new Exception("$error $msg", 500);
 	}
 
