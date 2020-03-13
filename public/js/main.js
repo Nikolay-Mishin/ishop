@@ -1,4 +1,13 @@
 /* Comments */
+var draggable = $('#draggable');
+
+if(notEmpty(draggable)){
+	draggable.draggable();
+}
+
+/* // Comments */
+
+/* Comments */
 var comment_add = $('#comment_add');
 
 if(notEmpty(comment_add)){

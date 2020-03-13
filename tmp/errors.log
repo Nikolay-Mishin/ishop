@@ -2972,3 +2972,45 @@ ORDER BY comment.id" does not conform to RedBeanPHP security policies. | Фай�
 =================
 [2020-03-13 02:21:53] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 170
 =================
+[2020-03-13 13:53:06] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 170
+=================
+[2020-03-13 13:53:38] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 170
+=================
+[2020-03-13 15:43:37] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 178
+=================
+[2020-03-13 15:45:01] Текст ошибки: syntax error, unexpected '{' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 107
+=================
+[2020-03-13 15:45:47] Текст ошибки: syntax error, unexpected '{' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 107
+=================
+[2020-03-13 15:47:42] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 180
+=================
+[2020-03-13 15:48:09] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 180
+=================
+[2020-03-13 15:48:30] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 174
+=================
+[2020-03-13 15:49:02] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 174
+=================
+[2020-03-13 15:50:27] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 15:52:07] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 173
+=================
+[2020-03-13 16:00:43] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 16:04:20] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 16:20:06] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 16:33:28] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 16:35:36] Текст ошибки: Свойство app\models\Product::tbl отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 175
+=================
+[2020-03-13 16:38:34] Текст ошибки: Контроллер app\controllers\AdController не найден | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 52
+=================
+[2020-03-13 17:20:08] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-13 17:21:53] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-13 17:32:37] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-13 17:33:09] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================

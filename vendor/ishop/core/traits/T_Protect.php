@@ -100,13 +100,8 @@ trait T_Protect {
 			$explode = explode(',', $property);
 			list($property, $mod) = [$explode[0], isset($explode[1]) && $explode[1] == 'set' ? 'set' : 'get'];
 
-			$isMethod = preg_match('/()$/', $property);
-			$property = $isMethod ? str_replace('()', '', $property) : $property;
-			$exist = $protectList == 'protectMethods' ? 'method_exists' : 'property_exists';
-			list($exist, $isMethod) = [$exist($this, $property), $protectList == 'protectMethods'];
-
-			if($exist){
-				!$isMethod ? $this->$protectList[$property] = $mod : $this->$protectList[] = $property;
+			if($exist = $this->getExists($protectList, $property)){
+				!$this->isMethod($protectList) ? $this->$protectList[$property] = $mod : $this->$protectList[] = $property;
 			}
 
 			$key = !$exist ? $property : $key;
@@ -116,10 +111,19 @@ trait T_Protect {
 		//debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
 	}
 
+	private function isMethod($protectList){
+		return $protectList == 'protectMethods';
+	}
+
+	private function getExists($protectList, $property, $obj = null){
+		$exist = $this->isMethod($protectList) ? 'isCallable' : 'property_exists';
+		return call_user_func_array($exist, [$obj ?? $this, $property]);
+	}
+
 	private function exist($property, Closure $callback, $protectList = 'protectProperties'){
 		$this->structuredProtect($this->$protectList, $protectList, false);
 		$class = getClassName($this);
-		$error = "Свойство $class::$property";
+		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";
 		list($_property, $exist, $access) = $this->propertyExist($this, $property, $callback, $protectList);
 		debug(['_property' => $_property, 'exist' => $exist, 'access' => $access]);
 		if(!$_property && !$access){
@@ -131,15 +135,16 @@ trait T_Protect {
 	private function propertyExist($obj, $property, Closure $callback, $protectList = 'protectProperties', $inProperty = false){
 		if(gettype($obj) !== 'object') return false;
 
-		list($inBean, $isBean, $beanExist) = [preg_match('/^_(.*)$/', $property), $this->isBean($obj), $this->isBean($obj->bean)];
-		$obj = $inBean && !$isBean && $beanExist ? $obj->bean : $obj;
+		list($isBean, $beanExist) = [preg_match('/^_(.*)$/', $property), $this->isBean($obj), $this->isBean($obj->bean)];
+		$obj = !$isBean && $beanExist ? $obj->bean : $obj;
+		list($obj, $exist) = [!$isBean && $beanExist ? $obj->bean : $obj, $this->getExists($protectList, $property, $obj)];
 		list($property, $isBean) = [preg_replace('/^_(.*)$/', '$1', $property), $this->isBean($obj)];
-		$propertyExist = ($isBean && array_key_exists($property, $obj->getProperties())) || property_exists($obj, $property);
-		$access = $isBean ?: array_key_exists($property, $this->$protectList);
+		$propertyExist = $exist || ($isBean && array_key_exists($property, $obj->getProperties()));
+		$access = $isBean || $inProperty ?: array_key_exists($property, $this->$protectList);
 
 		debug([
 			'class' => getClassName($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
-			'inBean' => $inBean, 'isBean' => $isBean, 'beanExist' => $beanExist,
+			'isBean' => $isBean, 'beanExist' => $beanExist,
 			'propertyExist' => $propertyExist, 'access' => $access, 'else' => !$access && !$isBean && !$inProperty
 		]);
 

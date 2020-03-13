@@ -134,7 +134,7 @@ function getReflector($class){
 }
 
 function callMethod($class, $method, $attrs = []){
-	return isCallable($class, $method) ? call_user_func_array([$class, $method], $attrs) : false;
+	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
 
 function isCallable($class, $method){

@@ -41,11 +41,7 @@ class UserController extends AppController {
 	public function loginAdminAction(){
 		// если данные получены методом POST, обрабатываем их
 		if(!empty($_POST)){
-			$user = new baseUser('login', [], true); // объект пользователя
-			// при авторизации указываем флаг true для проверки роли пользователя (isAdmin)
-			if(!$user->login(true)){
-				$_SESSION['error'] = 'Логин/пароль введены неверно';
-			}
+			$user = new baseUser('login', [], [$_POST, true]); // объект пользователя
 			// если авторизованный пользователь является админом, перенаправляем на гланую админки
 			// иначе направляем на главную сайта
 			if(User::isAdmin()){

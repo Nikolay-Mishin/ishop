@@ -40,6 +40,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
+<div id="draggable" class="ui-widget-content">
+    <p>Drag me around</p>
+</div>
+
 <!--top-header-->
 <div class="top-header">
     <div class="container">

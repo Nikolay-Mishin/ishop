@@ -15,7 +15,7 @@ abstract class Model extends Sql {
 	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public $errors = []; // хранение ошибок
 	public $rules = []; // правила валидации данных
-	public $id = null; // id последней сохраненной записи (метод save())
+	public $id; // id последней сохраненной записи (метод save())
 	protected $bean;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){

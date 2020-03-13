@@ -35,21 +35,20 @@ class User extends AppModel {
 		]
 	];
 
-	public function __construct($userAction = 'login', $data = [], $attrs = [], $action = 'save', $valid = []){
-		if($userAction == 'login' || $userAction == 'signup'){
+	public function __construct($userAction = 'login', $data = [], $attrs = [], $action = 'save', $valid = 'checkUnique'){
+		if($data){
 			// хэшируем пароль
 			// password_hash - хэширует пароль с учетом временной метки (текущей даты)
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 			$data['name'] = ucfirst($data['name']);
-			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-			// $this->checkUnique()
-			// сохраняем нового пользователя в БД
-			// $user->save('user') - благодаря методу getModelName() имя Модели используется в качестве имени таблицы в БД
-			// если имя таблицы не передано, ModelName = TableName в БД (User => user)
-			parent::__construct($data, $attrs, $action, 'checkUnique');
-			return callMethod($this, $userAction, $attrs);
 		}
+		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+		// $this->checkUnique()
+		// сохраняем нового пользователя в БД
+		// $user->save('user') - благодаря методу getModelName() имя Модели используется в качестве имени таблицы в БД
+		// если имя таблицы не передано, ModelName = TableName в БД (User => user)
 		parent::__construct($data, $attrs, $action, $valid);
+		callMethod($this, $userAction, $attrs);
 	}
 
 	// проверяем роль пользователя и получаем из БД пользователя с соответствующей ролью (admin/user)
@@ -91,10 +90,10 @@ class User extends AppModel {
 	// за авторизацию отвечает 1 метод - и для обычного пользователя, и для админа
 	// админ может авторизоваться как со страницы админки, так и со страницы авторизации обычного пользователя
 	// пользователь может авторизоваться только на странице авторизации обычного пользователя и получает доступ к личному кабинету
-	public function login($isAdmin = false){
+	public function login($data, $isAdmin = false){
 		// $isAdmin - является ли пользователь админом
-		$login = !empty(trim($_POST['login'])) ? trim($_POST['login']) : null; // получаем логин из формы авторизации
-		$password = !empty(trim($_POST['password'])) ? trim($_POST['password']) : null; // получаем пароль из формы авторизации
+		$login = !empty(trim($data['login'])) ? trim($data['login']) : null; // получаем логин из формы авторизации
+		$password = !empty(trim($data['password'])) ? trim($data['password']) : null; // получаем пароль из формы авторизации
 		if($login && $password){
 			// получаем из БД пользователя с соответствующей ролью (admin/user)
 			// если пользователь получен, то проверяем правильность введенного пароля
@@ -129,6 +128,11 @@ class User extends AppModel {
 	// проверяет роль пользователя - админ/не админ
 	public static function isAdmin(){
 		return (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin');
+	}
+
+	// проверяет авторизован ли пользователь
+	public static function getData(){
+		return $this->checkAuth() ? $_SESSION['user'] : null;
 	}
 
 }
