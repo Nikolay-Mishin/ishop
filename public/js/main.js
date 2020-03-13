@@ -32,44 +32,45 @@ if(notEmpty(comment_add)){
 	
 	// блокируем отправку формы, если тип отправки Ajax
 	if(comment_add.data('ajax')){
-		// блокируем отправку формы, если не выбрана категория
-		comment_add.on('submit', function(){
-			var comments = $('#comments');
+		comment_add.on('submit', function(e){
+			e.preventDefault();
 			// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 			if(content){
 				var product_id = comment_add.find('[name=product_id]').val(),
-					user_id = comment_add.find('[name=user_id]').val();
+					user_id = comment_add.find('[name=user_id]').val(),
+					args = { target: comments, count: comments_count };
 				data = { content: content, product_id: product_id, user_id: user_id };
-				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), data, 'POST'); // ajax-запрос
+				// ajax-запрос
+				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), args, 'POST');
 			}else{
 				window.location = location.pathname; // /category/men
 			}
-			return false;
 		});
 	}
 
-	console.log({comments_count, comments});
-
-	delegate(vote, 'click touchstart', function (vote, delegate, event){
+	delegate(vote, 'click touchstart', function(vote, delegate, event){
 		var $this = $(this),
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
-		ajax(url, getRate); // ajax-запрос
-		//console.log({ this: this, $this: $this, vote: vote, event: event, delegate: delegate });
-		//console.log([rating, url]);
+		ajax(url, getRate, rating); // ajax-запрос
 	});
 	
 }
 
-function getComment(res){
+function getComment(comments, args){
+	var comments = JSON.parse(comments),
+		target = args.target,
+		count = args.count;
+	console.log({ comments: comments, args: args });
 	hidePreloader(function(){
-		console.log(JSON.parse(res));
+		target.html(comments.html).fadeIn();
+		count.text(comments.count);
 	});
 }
 
-function getRate(res){
-	console.log(JSON.parse(res));
+function getRate(rate, args, rating){
+	rating.text(JSON.parse(rate) > 0 ? `+${rate}` : rate);
 }
 /* // Comments */
 

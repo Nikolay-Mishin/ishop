@@ -41,7 +41,7 @@ class View {
 		//}
 
 		//$this->setProperties(objectUnset(clone $controller, 'data'), function($controller, $k){
-		$this->setProperties(objectUnset(clone $controller, 'data'), function($k) use ($controller) {
+		$this->setProperties(objectUnset(clone $controller, 'data'), function($k) use($controller){
 			// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
 			if($k === 'layout'){
 				if($controller->$k === false){

@@ -113,8 +113,9 @@ function getMethodTrace($pattern){
 	return $key ? getTrace($key + 1) : null;
 }
 
-function getTrace($id = 0){
-	$trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $id ? $id + 1 : $id);
+function getTrace($id = 0, $args = false){
+	$args = $args ? DEBUG_BACKTRACE_PROVIDE_OBJECT : DEBUG_BACKTRACE_IGNORE_ARGS;
+	$trace = debug_backtrace($args, $id ? $id + 1 : $id);
 	return $id ? (object) $trace[$id] : $trace;
 }
 
@@ -143,10 +144,10 @@ function isCallable($class, $method){
 
 function callPrivateMethod($obj, $method, $args){
 	if(isCallable($obj, $method)){
-	    $method = getReflector($obj)->getMethod($method);
-	    $method->setAccessible(true);
-	    $result = $method->invokeArgs($obj, $args);
-	    $method->setAccessible(false);
+		$method = getReflector($obj)->getMethod($method);
+		$method->setAccessible(true);
+		$result = $method->invokeArgs($obj, $args);
+		$method->setAccessible(false);
 	}
 	return $result ?? null;
 }

@@ -13,19 +13,12 @@ class CommentController extends AppController {
 		$data = $_POST;
 		if(!empty($data)){
 			$comment = new Comment($data);
-			//$comment = new Comment(['rate' => 6], 3, 'update');
-			debug($comment->tbl, 1);
-			$content = !empty($data['content']) ? $data['content'] : null;
 			$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
-			$user_id = !empty($data['user_id']) ? (int)$data['user_id'] : null;
-			$comments = Comment::getByProductId($product_id);
-			$w_Comment = $this->getComments($comments, $product_id);
-
+			$comments = $this->getComments($product_id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['data' => $data, 'comments' => $comments, 'w_Comment' => "$w_Comment"]));
+				exit(json_encode(['html' => $comments->html, 'count' => $comments->count]));
 			}
-			debug("$comments", 1);
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
@@ -42,24 +35,28 @@ class CommentController extends AppController {
 					break;
 			}
 			$comment = $this->changeRate($rate, $data['id']);
-
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['rate' => $comment->rate, 'comment' => $comment->bean]));
+				exit("$comment->rate");
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
 
-	protected function getComments($comments, $product_id){
-		return new W_Comment([
-			'data' => $comments,
-			'id' => $product_id,
-			'isAjax' => true
-		]);
+	private function getComments($product_id, $data = []){
+		$comments = Comment::getByProductId($product_id);
+		$comments[] = $comments[3];
+		return (object) [
+			'html' => (string) new W_Comment([
+				'data' => $comments,
+				'id' => $product_id,
+				'isAjax' => true
+			]),
+			'count' => count($comments)
+		];
 	}
 
-	protected function changeRate($rate, $id){
+	private function changeRate($rate, $id){
 		return new Comment(['rate' => $rate], $id, 'update');
 	}
 

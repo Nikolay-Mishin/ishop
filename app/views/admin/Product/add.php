@@ -73,7 +73,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="mod_price">Цена</label>
-                                        <input type="text" name="mod_price[]" class="form-control" id="mod_price" placeholder="Цена модификации" pattern="^[0-9.]{1,}$" required data-error="Допускаются цифры и десятичная точка">
+                                        <input type="text" name="mod_price[]" class="form-control" id="mod_price" placeholder="Цена модификации" pattern="^[0-9.]{1,}$" data-error="Допускаются цифры и десятичная точка">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

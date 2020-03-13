@@ -143,10 +143,10 @@ $(document).on('click', '.del-item', function(){
 });
 
 // блокируем отправку формы, если не выбрана категория
-$('#add').on('submit', function(){
+$('#add').on('submit', function(e){
 	if(!isNumeric($('#category_id').val())){
+		e.preventDefault();
 		alert('Выберите категорию');
-		return false;
 	}
 });
 

@@ -65,10 +65,6 @@ class ProductController extends AppController {
 
 		$comments = Comment::getByProductId($product->id);
 
-		//debug($p_model->tbl);
-		debug($p_model->getProtectAttrs());
-		debug($p_model->getPrivateAttrs());
-
 		$this->setMeta($product->title, $product->description, $product->keywords);
 		// передаем данные в вид карточки товара
 		$this->set(compact('product', 'related', 'gallery', 'recentlyViewed', 'breadcrumbs', 'mods', 'comments'));
