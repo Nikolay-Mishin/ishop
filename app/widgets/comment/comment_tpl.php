@@ -1,6 +1,6 @@
 <?php if($item): ?>
 	<?='<!-- Комментарий (Уровень ' . $this->parents[$item['parent_id']] . ') -->';?>
-	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media">
+	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media comment">
 		<div class="media-left">
 			<a href="user/profile?login=<?=$item['login'];?>">
 				<img class="media-object img-rounded" src="images/<?=$item['avatar'];?>" alt="<?=$item['name'];?>">
@@ -42,7 +42,7 @@
 					|
 				</span>
 				<span class="comment-reply">
-					<a href="#" class="reply">ответить</a>
+					<a href="comment/reply?parent_id=<?=$id;?>" class="reply">ответить</a>
 				</span>
 			</div>
 

@@ -21,15 +21,17 @@ class Comment extends Menu {
 	];
 	protected $title = 'Комментарии';
 	public $count;
+	protected $container = 'span'; // контейнер
+	protected $container_id = 'comments-count';
 
 	public function __construct($options = []){
 		parent::__construct($options);
-		$this->count = count($this->data);
+		$this->count = count($this->data) ?: null;
 		if(!$this->isAjax){
 			$this->editor_options['id'] = $this->id;
 			App::$app->setProperty('editor_options', $this->editor_options);
-			$this->editor = new Editor($this->editor_options);
 		}
+		$this->editor = new Editor($this->editor_options);
 	}
 
 	public function __toString(){
@@ -40,6 +42,14 @@ class Comment extends Menu {
 		$this->getTree();
 	}
 
+	public function getData(){
+		return $this->data;
+	}
+
+	public function getCount(){
+		return $this->count;
+	}
+
 	// получает html-разметку
 	protected function getComments($comments, $editor = null){
 		ob_start(); // включаем буферизацию
@@ -48,11 +58,11 @@ class Comment extends Menu {
 	}
 
 	protected function getTitle(){
-		return $this->count ? "{$this->title} ({$this->getSpan()})" : $this->getSpan();
+		return $this->count ? "{$this->title} ({$this->getTitleHtml()})" : $this->getTitleHtml();
 	}
 
-	private function getSpan(){
-		return '<span id="comments-count">' .($this->count ?: null). '</span>';
+	private function getTitleHtml(){
+		return "<$this->container id=$this->container_id>$this->count</$this->container>";
 	}
 
 }

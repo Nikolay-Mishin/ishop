@@ -101,7 +101,7 @@ trait T_Protect {
 		$class = getClassName($this);
 		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";
 		list($_property, $exist, $access) = $this->propertyExist($this, $property, $callback, $protectList);
-		//debug(['_property' => $_property, 'exist' => $exist, 'access' => $access, 'type' => gettype($_property)]);
+        //debug(['_property' => $_property, 'exist' => $exist, 'access' => $access, 'type' => gettype($_property)]);
 		if(!$exist || !$access){
 			$this->getException(500, $error, $exist, $access, $this->isMethod($protectList));
 		}

@@ -17,19 +17,17 @@ class CommentController extends AppController {
 			$comments = $this->getComments($product_id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['html' => "$comments", 'count' => $comments->count]));
+				exit(json_encode(['html' => "$comments", 'count' => $comments->getCount(), 'data' => $comments->getData(), 'attributes' => $comment->attributes]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
 
-	// метод добавления комментария
 	public function rateAction(){
 		$data = $_GET;
 		if(!empty($data)){
 			$rate = Comment::getRate($id = $data['id']);
 			if($rate === null) exit(json_encode(['error' => "Невозможно получить оценку для комментария с id = $id!"]));
-			$getRate = $rate;
 			switch($data['action']){
 				case 'plus': $rate++;
 					break;
@@ -39,7 +37,22 @@ class CommentController extends AppController {
 			$comment = $this->changeRate($rate, $id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['rate' => "$comment->rate"]));
+				exit(json_encode(['rate' => "$comment->rate", 'data' => $data]));
+			}
+			redirect(); // перезапрашиваем текущую страницу
+		}
+	}
+
+	public function replyAction(){
+		$data = $_GET;
+		if(!empty($data)){
+			//$comment = new Comment($data);
+			//$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
+			//$comments = $this->getComments($product_id);
+			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
+			if($this->isAjax()){
+				exit(json_encode(['data' => $data]));
+				exit(json_encode(['html' => "$comments", 'count' => $comments->getCount(), 'data' => $comments->getData()]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}

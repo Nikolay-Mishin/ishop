@@ -9,8 +9,8 @@ Asdf.dsa();
 */
 
 function delegate(selector, event, callback = function(){}, delegate = document){
-	$(delegate).on(event, selector, function(){
-		callback.call(this, $(selector), $(delegate), event);
+	$(delegate).on(event, selector, function(e){
+		callback.call(this, e, $(selector), $(delegate), event);
 	});
 }
 

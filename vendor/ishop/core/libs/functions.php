@@ -172,13 +172,13 @@ function arrayUnset(&$array, $items){
 	return $array;
 }
 
-function objectUnset($object, $props){
+function objectUnset($obj, $props){
 	foreach(toArray($props) as $prop){
-		if(isset($object->$props)){
-			unset($object->$props);
+		if(property_exists($obj, $prop)){
+			unset($obj->$prop);
 		}
 	}
-	return $object;
+	return $obj;
 }
 
 // если получен массив, возвращает его

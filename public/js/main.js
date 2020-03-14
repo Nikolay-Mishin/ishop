@@ -1,55 +1,70 @@
 /* Comments */
-var comment_add = $('#comment_add');
+var comments_wrap = $('.comments');
 
-if(notEmpty(comment_add)){
-	var btn = comment_add.find('button'),
+if(notEmpty(comments_wrap)){
+	var comment_add = comments_wrap.find('#comment_add'),
+		btn = comment_add.find('button'),
 		content,
-		comments_count = $('#comments-count'),
-		comments = $('#comments'),
-		vote = '.vote';
+		count = comments_wrap.find('#comments-count'),
+		comments = comments_wrap.find('#comments'),
+		vote = '.vote',
+		reply = '.reply';
 	editorOnChange(comment_add, function(value){
 		content = value;
 		if (content){
-			btn.prop('disabled', false);
+			btn.attr('disabled', false);
 		}
 		else{
-			btn.prop('disabled', true);
+			btn.attr('disabled', true);
 		}
 	});
-	btn.prop('disabled', true);
+	btn.attr('disabled', true);
 	
 	// блокируем отправку формы, если тип отправки Ajax
 	if(comment_add.data('ajax')){
-		comment_add.on('submit', function(e){
-			e.preventDefault();
-			// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
-			if(content){
-				var product_id = comment_add.find('[name=product_id]').val(),
-					user_id = comment_add.find('[name=user_id]').val(),
-					args = { target: comments, count: comments_count };
-				data = { content: content, product_id: product_id, user_id: user_id };
-				// ajax-запрос
-				ajax(comment_add.prop('action'), getComment, data, 'Ошибка!', showPreloader(comments), args, 'POST');
-			}else{
-				window.location = location.pathname; // /category/men
-			}
-		});
+		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));
 	}
 
-	delegate(vote, 'click touchstart', function(vote, delegate, event){
+	delegate(vote, 'click touchstart', function(e, vote){
 		var $this = $(this),
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
 		ajax(url, getRate, rating); // ajax-запрос
-	});
-	
+		console.log({ this: this, vote: vote, url: url, rating: rating, e: e });
+	}, comments);
+
+	delegate(reply, 'click touchstart', function(e, reply){
+		e.preventDefault();
+		var $this = $(this),
+			url = $this.attr('href'),
+			comment = $this.closest('.comment');
+		ajax(url, getReply, comment); // ajax-запрос
+		console.log({ this: this, reply: reply, url: url, comment: comment, e: e });
+		return false;
+	}, comments);
+}
+
+function addComment(e, comment_add, content, comments, count){
+	// блокируем отправку формы, если тип отправки Ajax
+	e.preventDefault();
+	// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
+	if(content){
+		var product_id = comment_add.find('[name=product_id]').val(),
+			user_id = comment_add.find('[name=user_id]').val(),
+			args = { target: comments, count: count };
+		data = { content: content, product_id: product_id, user_id: user_id };
+		// ajax-запрос
+		ajax(comment_add.attr('action'), getComment, data, 'Ошибка!', showPreloader(comments), args, 'POST');
+	}else{
+		window.location = location.pathname; // /category/men
+	}
 }
 
 function getComment(comments, args){
+	console.log({ comments: comments });
 	var comments = JSON.parse(comments),
-		target = args.target,
-		count = args.count;
+		{ target, count } = args;
 	console.log({ comments: comments, args: args });
 	hidePreloader(function(){
 		target.html(comments.html).fadeIn();
@@ -57,9 +72,10 @@ function getComment(comments, args){
 	});
 }
 
-function getRate(rate, args, rating){
-	var rate = JSON.parse(rate).rate;
-	console.log({ rate: rate, rating: rating });
+function getRate(res, args, rating){
+	var res = JSON.parse(res),
+		rate = res.rate;
+	console.log({ rate: rate, rating: rating, data: res.data });
 	if(rate != undefined){
 		var add_class = rate > 0 ? 'plus' : (rate < 0 ? 'minus' : ''),
 			remove_class = rate > 0 ? 'minus' : (rate < 0 ? 'plus' : 'plus minus');
@@ -67,6 +83,12 @@ function getRate(rate, args, rating){
 		rating.removeClass(remove_class).addClass(add_class);
 	}
 }
+
+function getReply(reply, args, comment){
+	var reply = JSON.parse(reply);
+	console.log({ reply: reply, comment: comment });
+}
+
 /* // Comments */
 
 /* Filters */
