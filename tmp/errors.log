@@ -3327,3 +3327,85 @@ J' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\do
 =================
 [2020-03-14 01:10:31] Текст ошибки: Метод app\models\Comment::_getProperties отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
 =================
+[2020-03-14 11:18:25] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 155
+=================
+[2020-03-14 11:19:19] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 155
+=================
+[2020-03-14 11:26:27] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 11:27:00] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 11:27:44] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 11:28:11] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 11:45:25] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 11:46:27] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 11:47:44] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 11:48:03] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 155
+=================
+[2020-03-14 11:58:22] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 155
+=================
+[2020-03-14 11:59:53] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 155
+=================
+[2020-03-14 12:00:59] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:01:33] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:02:44] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:03:47] Текст ошибки: Свойство app\models\Comment::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:03:56] Текст ошибки: Свойство app\models\Comment::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:04:05] Текст ошибки: Свойство app\models\Comment::bean недоступно в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 154
+=================
+[2020-03-14 12:08:34] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 12:09:50] Текст ошибки: Свойство app\models\Comment::rate отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 12:12:18] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 13:39:19] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 165
+=================
+[2020-03-14 13:41:34] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 13:47:13] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 166
+=================
+[2020-03-14 13:48:14] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 166
+=================
+[2020-03-14 13:48:31] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 166
+=================
+[2020-03-14 13:49:06] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 13:51:27] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 13:57:40] Текст ошибки: Метод app\models\Comment::_getProperties отсутствует в объекте | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 13:58:47] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 13:59:44] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 153
+=================
+[2020-03-14 14:00:35] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 14:02:27] Текст ошибки: Метод app\models\Product::getProtectAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 14:03:48] Текст ошибки: Метод app\models\Product::getPrivateAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 14:05:01] Текст ошибки: Метод app\models\Product::getPrivateAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 14:08:53] Текст ошибки: Метод app\models\Product::getPrivateAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 151
+=================
+[2020-03-14 14:15:21] Текст ошибки: Метод app\models\Product::getPrivateAttrs недоступен в области видимости app\controllers\ProductController::viewAction (строка 46) | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 152
+=================
+[2020-03-14 14:24:06] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-14 14:24:07] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-14 14:24:40] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-14 14:28:02] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================

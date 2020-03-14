@@ -11,7 +11,7 @@ use \Closure;
 trait T_Protect {
 
 	protected $protectProperties = [];
-	protected $protectMethods = ['getProtectAttrs', 'getPrivateAttrs'];
+	protected $protectMethods = [];
 
 	public function __get($property){
 		return $this->exist($property, function($obj, $property){
@@ -60,35 +60,31 @@ trait T_Protect {
 
 	private function structuredProtect($protectProperties, $protectList = 'protectProperties', $new = true){
 		if($new) $this->structuredProtect($this->$protectList, $protectList, false);
-		debug(['protectProperties - start' => $this->$protectList]);
+		//debug(["$protectList - start" => $this->$protectList]);
 		foreach(toArray($protectProperties) as $property => $mod){
-			debug([$property => $mod]);
+			//debug(['class' => getClassName($this), $property => $mod]);
 			$this->reverseProtectProperty($property, $mod, $protectList, $new);
 		}
-		debug(['protectProperties - end' => $this->$protectList]);
+		//debug(["$protectList - end" => $this->$protectList]);
 	}
 
 	private function reverseProtectProperty($property, $mod, $protectList, $new){
-		$isConst = gettype($property) == 'integer';
-		$reverse = $new ? $isConst && !array_key_exists($property, $this->$protectList) : $isConst;
-		debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
+		list($isConst, $isMethod) = [gettype($property) == 'integer', $this->isMethod($protectList)];
+		$reverse = $new ? !$isMethod && $isConst && !array_key_exists($property, $this->$protectList) : !$isMethod && $isConst;
+		list($key, $property) = [$property, $isConst ? $mod : $property];
+		//debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
 		if($reverse){
-			list($key, $property) = [$property, $isConst ? $mod : $property];
-
 			$property = preg_replace('/=>|=/', ',', str_replace(' ', '', $property));
 			$explode = explode(',', $property);
 			list($property, $mod) = [$explode[0], isset($explode[1]) && $explode[1] == 'set' ? 'set' : 'get'];
-
-			if($exist = $this->getExists($protectList, $property)){
-				//!$this->isMethod($protectList) ? $this->$protectList[$property] = $mod : $this->$protectList[] = $property;
-				$this->$protectList[$property] = $mod;
-			}
-
-			$key = !$exist ? $property : $key;
-			if(!$new) arrayUnset($this->$protectList, $key);
-			debug(['isMethod' => $this->isMethod($protectList), 'key' => $key, 'exist' => $exist, 'del' => !$new]);
 		}
-		debug([$property => $mod]);
+		if($exist = $this->getExists($protectList, $property)){
+			if(!$isMethod) $this->$protectList[$property] = $mod;
+			if($isMethod && $new) $this->$protectList[] = $property;
+		}
+		$key = !$exist && !$isMethod ? $property : $key;
+		if(!$new && !$exist) arrayUnset($this->$protectList, $key);
+		//debug([$property => $mod, 'isMethod' => $isMethod, 'key' => $key, 'exist' => $exist, 'del' => !$new && !$exist]);
 	}
 
 	private function isMethod($protectList){
@@ -118,11 +114,12 @@ trait T_Protect {
 		$exist = $this->getExists($protectList, $property, $obj);
 		list($isBean, $isMethod) = [$this->isBean($obj), $this->isMethod($protectList)];
 		$propertyExist = $exist || ($isBean && array_key_exists($property, $obj->getProperties()));
-		$access = $isBean || $inProperty ?: array_key_exists($property, $this->$protectList);
+		$inProtectList = $isMethod ? 'in_array' : 'array_key_exists';
+		$access = $isBean || $inProperty ?: $inProtectList($property, $this->$protectList);
 
 		//debug([
 		//    'class' => getClassName($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
-		//    'isMethod' => $isMethod, 'isBean' => $isBean, 'List' => $this->$protectList,
+		//    'isMethod' => $isMethod, 'isBean' => $isBean, 'List' => $this->$protectList, 
 		//    'propertyExist' => $propertyExist, 'access' => $access, 'else' => !$access && !$isBean && !$inProperty
 		//]);
 
@@ -130,7 +127,7 @@ trait T_Protect {
 			$isConst = ($this->$protectList[$property] ?? 'get') === 'get';
 			$_property = $callback($obj, $property, $isConst, getClassName($obj), $isBean, $exist);
 		}elseif(!$access && !$isBean && !$inProperty){
-			debug(['protectProperties' => $this->protectProperties]);
+			//debug(['protectProperties' => $this->protectProperties]);
 			foreach($this->protectProperties as $protect => $mod){
 				//debug([$protect => $mod]);
 				$result = $this->propertyExist($this->$protect, $property, $callback, $protectList, true);

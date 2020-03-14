@@ -65,16 +65,10 @@ class ProductController extends AppController {
 
 		$comments = Comment::getByProductId($product->id);
 
-		$rate = Comment::getRate(5);
-        //debug(['rate' => $rate]);
-		$rate++;
-        //debug(['rate' => $rate]);
-		$comment = new Comment(['rate' => $rate], 5, 'update');
-        //debug(['comment' => $comment]);
-        //debug(['rate' => $comment->rate]);
-        //debug(['rate' => $p_model->getProtectAttrs()]);
-        //debug(['rate' => $comment->getProperties()]);
-        //debug(['rate' => $comment->_getProperties()]);
+		//$rate = Comment::getRate(5);
+		//$rate++;
+		//$comment = new Comment(['rate' => $rate], 5, 'update');
+		//debug(['rate' => $comment->rate]);
 
 		$this->setMeta($product->title, $product->description, $product->keywords);
 		// передаем данные в вид карточки товара

@@ -16,6 +16,6 @@ return [
     'main' => [
         "$base/style",
         "$base/custom",
-        "$base/draggable",
+        "$base/dragAndDrop",
     ]
 ];

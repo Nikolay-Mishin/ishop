@@ -1,15 +1,3 @@
-/* Draggable */
-var dragElement = $('.dragElement');
-
-if (notEmpty(dragElement)){
-	// draggable.draggable();
-	dragElement.draggable({
-		containment: "parent"
-	}).filter('#dragH').draggable("option", "axis", "x");
-}
-
-/* // Draggable */
-
 /* Comments */
 var comment_add = $('#comment_add');
 
@@ -54,7 +42,6 @@ if(notEmpty(comment_add)){
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
 		ajax(url, getRate, rating); // ajax-запрос
-		console.log(url);
 	});
 	
 }
@@ -71,7 +58,7 @@ function getComment(comments, args){
 }
 
 function getRate(rate, args, rating){
-	console.log({ rate: rate, json: JSON.parse(rate) });
+	console.log({ rate: rate, args: args, rating: rating });
 	//rating.text(JSON.parse(rate) > 0 ? `+${rate}` : rate);
 }
 /* // Comments */

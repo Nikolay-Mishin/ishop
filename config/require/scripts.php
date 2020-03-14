@@ -30,5 +30,6 @@ return [
     'main' => [
         "$base/editor",
         "$base/main",
+        "$base/dragAndDrop",
     ]
 ];
