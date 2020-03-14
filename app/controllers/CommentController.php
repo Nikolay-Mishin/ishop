@@ -27,17 +27,19 @@ class CommentController extends AppController {
 	public function rateAction(){
 		$data = $_GET;
 		if(!empty($data)){
-			$rate = Comment::getRate($data['id']);
+			$rate = Comment::getRate($id = $data['id']);
+			if($rate === null) exit(json_encode(['error' => "Невозможно получить оценку для комментария с id = $id!"]));
+			$getRate = $rate;
 			switch($data['action']){
 				case 'plus': $rate++;
 					break;
 				case 'minus': $rate--;
 					break;
 			}
-			$comment = $this->changeRate($rate, $data['id']);
+			$comment = $this->changeRate($rate, $id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit("$comment->rate");
+				exit(json_encode(['rate' => "$comment->rate"]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}

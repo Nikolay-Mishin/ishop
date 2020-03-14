@@ -65,11 +65,6 @@ class ProductController extends AppController {
 
 		$comments = Comment::getByProductId($product->id);
 
-		//$rate = Comment::getRate(5);
-		//$rate++;
-		//$comment = new Comment(['rate' => $rate], 5, 'update');
-		//debug(['rate' => $comment->rate]);
-
 		$this->setMeta($product->title, $product->description, $product->keywords);
 		// передаем данные в вид карточки товара
 		$this->set(compact('product', 'related', 'gallery', 'recentlyViewed', 'breadcrumbs', 'mods', 'comments'));

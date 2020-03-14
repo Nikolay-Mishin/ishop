@@ -1,7 +1,7 @@
-#draggable {
-	width: 150px;
-	height: 150px;
-	padding: 0.5em;
+#dragAndDrop {
+	border: medium double black;
+	width: 700px;
+	height: 450px
 }
 
 .dragElement {
@@ -14,8 +14,53 @@
 	margin: 4px
 }
 
-#dragAndDrop {
-	border: medium double black;
-	width: 700px;
-	height: 450px
+#draggable, #droppable {
+	font-size: large;
+	border: thin solid black;
+	padding: 10px;
+	width: 100px;
+	text-align: center;
+	background-color: lightgray;
+	margin: 4px;
+}
+
+#droppable {
+	padding: 20px;
+	position: absolute;
+	right: 50px;
+}
+
+.draggable, .droppable {
+	font-size: large;
+	border: thin solid black;
+	padding: 4px;
+	width: 100px;
+	text-align: center;
+	background-color: lightgray;
+}
+
+.droppable {
+	margin-bottom: 10px;
+	margin-right: 5px;
+	height: 60px;
+	width: 120px
+}
+
+#dropContainer {
+	position: absolute;
+	right: 50px;
+	bottom: 150px;
+}
+
+div span {
+	position: relative;
+	top: 25%
+}
+
+.droppable.active {
+	border: thick solid green
+}
+
+.droppable.hover {
+	background-color: lightgreen
 }

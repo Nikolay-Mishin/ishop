@@ -69,7 +69,9 @@ abstract class Controller {
     public function setFiles($types = 'style', $files = []){
         list($types, $files) = [toArray($types), toArray($files)];
         foreach($types as $type){
-            $this->$type = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
+            // подключаем файл конфигурации
+            $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php";
+            $this->$type = $file === true ? $this->$type : $file; 
             if(!empty($files[$type])){
                 foreach($files[$type] as $file_list){
                     $this->$type['added'] = $file_list;

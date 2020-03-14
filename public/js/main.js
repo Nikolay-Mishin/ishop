@@ -58,8 +58,14 @@ function getComment(comments, args){
 }
 
 function getRate(rate, args, rating){
-	console.log({ rate: rate, args: args, rating: rating });
-	//rating.text(JSON.parse(rate) > 0 ? `+${rate}` : rate);
+	var rate = JSON.parse(rate).rate;
+	console.log({ rate: rate, rating: rating });
+	if(rate != undefined){
+		var add_class = rate > 0 ? 'plus' : (rate < 0 ? 'minus' : ''),
+			remove_class = rate > 0 ? 'minus' : (rate < 0 ? 'plus' : 'plus minus');
+		rating.text(rate > 0 ? `+${rate}` : rate);
+		rating.removeClass(remove_class).addClass(add_class);
+	}
 }
 /* // Comments */
 

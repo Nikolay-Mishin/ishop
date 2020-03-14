@@ -14,8 +14,8 @@ namespace app\controllers;
 class DragAndDropController extends AppController {
 
 	public function indexAction(){
+		$this->setStyle('/jquery-ui-1.12.1/themes/sunny/jquery-ui');
 		$this->setMeta('Drag and Drop');
-		//$this->set(compact('product'));
 	}
 
 }
