@@ -3851,3 +3851,15 @@ J' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\do
 =================
 [2020-03-15 21:08:13] Текст ошибки: Cannot use object of type Closure as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 116
 =================
+[2020-03-15 22:50:51] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views//.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 85
+=================
+[2020-03-15 22:51:25] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views//.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 85
+=================
+[2020-03-15 22:56:28] Текст ошибки: Не найден шаблон  | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 94
+=================
+[2020-03-15 23:14:52] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 21
+=================
+[2020-03-15 23:15:09] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 21
+=================
+[2020-03-15 23:17:51] Текст ошибки: Function name must be a string | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 20
+=================
