@@ -83,6 +83,50 @@ function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
 	return $result . $postfix;
 }
 
+// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
+function lowerCamelCase($name){
+	// ThisMethodName => this_method_name
+	return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
+}
+
+function upperCamelCase($name){
+	// this_method_name => ThisMethodName
+	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
+}
+
+function callMethod($class, $method, $attrs = []){
+	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
+}
+
+function callPrivateMethod($obj, $method, $args){
+	if(isCallable($obj, $method)){
+		$method = getReflector($obj)->getMethod($method);
+		$method->setAccessible(true);
+		$result = $method->invokeArgs($obj, $args);
+		$method->setAccessible(false);
+	}
+	return $result ?? null;
+}
+
+// возвращает информацию о классе (app\models\User)
+function getReflector($class){
+	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
+}
+
+// возвращает короткое имя класса (app\models\User => User)
+function getClassShortName($class){
+	return getReflector($class)->getShortName();
+}
+
+// возвращает короткое имя класса (app\models\User)
+function getClassName($class){
+	return getReflector($class)->getName();
+}
+
+function isCallable($class, $method){
+	return method_exists($class, $method) && is_callable([$class, $method]);
+}
+
 // метод для преобразования массива в объект (stdClass Object)
 function dataDecode(&$data, $output = null){
 	$data_type = gettype($data); // получаем тип переданных данных
@@ -90,6 +134,98 @@ function dataDecode(&$data, $output = null){
 	$isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
 	$json = json_encode($data); // кодируем данные в json
 	return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
+}
+
+function arrayUnset(&$array, $items){
+	foreach(toArray($items) as $item){
+		if(isset($array[$item])){
+			unset($array[$item]);
+		}
+	}
+	return $array;
+}
+
+function objectUnset($obj, $props){
+	foreach(toArray($props) as $prop){
+		if(property_exists($obj, $prop)){
+			unset($obj->$prop);
+		}
+	}
+	return $obj;
+}
+
+function arrayMultiKeyExists(array $arr, array $keys){
+	// array_diff_key - Вычисляет расхождение массивов, сравнивая ключи
+	// Сравнивает ключи array1 с ключами array2 и возвращает разницу
+	return !array_diff_key($keys, array_keys($arr));
+
+	// Example
+	$arr = array('blue' => 1, 'red' => 2, 'green' => 3, 'purple' => 4);
+	$keys = array('green', 'yellow','cyan');
+	arrayMultiKeyExists($arr, $keys);
+	// Will return
+	//Array
+	//(
+	//    [0] => yellow
+	//    [1] => cyan
+	//)
+}
+
+function arrayGetValues(array $arr, array $keys){
+	// array_intersect_key - Вычислить пересечение массивов, сравнивая ключи.
+	// возвращает массив, содержащий все элементы array1, имеющие ключи, содержащиеся во всех последующих параметрах.
+	// array_flip - Меняет местами ключи с их значениями в массиве.
+	return array_intersect_key($arr, array_flip($keys));
+
+	// Example
+	$arr = array('a' => 123, 'b' => 213, 'c' => 321);
+	$keys = array('b', 'c');
+	arrayGetValues($arr, $keys);
+	// Will return
+	//Array
+	//(
+	//    [b] => 213
+	//    [c] => 321
+	//)
+}
+
+function array_multi_key_exists(array $arrNeedles, array $arrHaystack, $matchAll = true){
+	// array_shift - Извлекает первый элемент массива
+	// извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент.
+	// Все числовые ключи будут изменены таким образом, что нумерация массива начнётся с нуля, строковые ключи останутся прежними.
+	$found = array_key_exists(array_shift($arrNeedles), $arrHaystack);
+   
+	if($found && (count($arrNeedles) == 0 || !$matchAll))
+		return true;
+   
+	if(!$found && count($arrNeedles) == 0 || $matchAll)
+		return false;
+   
+	return array_multi_key_exists($arrNeedles, $arrHaystack, $matchAll);
+}
+
+// если получен массив, возвращает его
+// иначе возвращает полученное значение в виде массива
+function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
+	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
+	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
+	if($data){
+		foreach($data as $item){
+			if(!in_array($item, $attrs)) $attrs[] = $item;
+		}
+	}
+	if($attrToArray){
+		foreach($attrs as $key => $attr){
+			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr]);
+		}
+	}
+	return ${$result};
+}
+
+function getTrace($id = 0, $args = false){
+	$args = $args ? DEBUG_BACKTRACE_PROVIDE_OBJECT : DEBUG_BACKTRACE_IGNORE_ARGS;
+	$trace = debug_backtrace($args, $id ? $id + 1 : $id);
+	return $id ? (object) $trace[$id] : $trace;
 }
 
 function getCaller($id = 0){
@@ -111,92 +247,6 @@ function getMethodTrace($pattern){
 	$search = preg_grep($pattern, array_column(getTrace(), 'function'));
 	$key = array_keys($search)[0] ?? null;
 	return $key ? getTrace($key + 1) : null;
-}
-
-function getTrace($id = 0, $args = false){
-	$args = $args ? DEBUG_BACKTRACE_PROVIDE_OBJECT : DEBUG_BACKTRACE_IGNORE_ARGS;
-	$trace = debug_backtrace($args, $id ? $id + 1 : $id);
-	return $id ? (object) $trace[$id] : $trace;
-}
-
-// возвращает короткое имя класса (app\models\User => User)
-function getClassShortName($class){
-	return getReflector($class)->getShortName();
-}
-
-// возвращает короткое имя класса (app\models\User)
-function getClassName($class){
-	return getReflector($class)->getName();
-}
-
-// возвращает информацию о классе (app\models\User)
-function getReflector($class){
-	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
-}
-
-function callMethod($class, $method, $attrs = []){
-	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
-}
-
-function isCallable($class, $method){
-	return method_exists($class, $method) && is_callable([$class, $method]);
-}
-
-function callPrivateMethod($obj, $method, $args){
-	if(isCallable($obj, $method)){
-		$method = getReflector($obj)->getMethod($method);
-		$method->setAccessible(true);
-		$result = $method->invokeArgs($obj, $args);
-		$method->setAccessible(false);
-	}
-	return $result ?? null;
-}
-
-// CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
-function lowerCamelCase($name){
-	// ThisMethodName => this_method_name
-	return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
-}
-
-function upperCamelCase($name){
-	// this_method_name => ThisMethodName
-	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
-}
-
-function arrayUnset(&$array, $items){
-	foreach(toArray($items) as $item){
-		if(isset($array[$item])){
-			unset($array[$item]);
-		}
-	}
-	return $array;
-}
-
-function objectUnset($obj, $props){
-	foreach(toArray($props) as $prop){
-		if(property_exists($obj, $prop)){
-			unset($obj->$prop);
-		}
-	}
-	return $obj;
-}
-
-// если получен массив, возвращает его
-// иначе возвращает полученное значение в виде массива
-function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
-	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
-	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
-	if($data){
-		foreach($data as $item){
-			if(!in_array($item, $attrs)) $attrs[] = $item;
-		}
-	}
-	if($attrToArray){
-		foreach($attrs as $key => $attr){
-			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr]);
-		}
-	}
-	return ${$result};
 }
 
 function validateAttrs($class, $attrs){
