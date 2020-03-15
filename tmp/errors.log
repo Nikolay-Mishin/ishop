@@ -3849,3 +3849,5 @@ J' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\do
 =================
 [2020-03-15 19:26:58] Текст ошибки: Не найден вид D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop/app/views//.php | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\base\View.php | Строка: 85
 =================
+[2020-03-15 21:08:13] Текст ошибки: Cannot use object of type Closure as array | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 116
+=================
