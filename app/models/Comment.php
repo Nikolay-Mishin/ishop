@@ -18,8 +18,8 @@ class Comment extends AppModel {
 		'content' => '',
 		'product_id' => '',
 		'user_id' => '',
-		'rate' => 1,
-		'parent_id' => 1,
+		'rate' => 0,
+		'parent_id' => 0,
 	];
 
 	// набор правил для валидации
@@ -43,6 +43,7 @@ class Comment extends AppModel {
 			['product_id'],
 			['user_id'],
 			['rate'],
+			['parent_id'],
 		]
 	];
 
@@ -52,8 +53,9 @@ class Comment extends AppModel {
 		if($action == 'save'){
 			$data['product_id'] = !empty($data['product_id']) ? (int)$data['product_id'] : null;
 			$data['user_id'] = !empty($data['user_id']) ? (int)$data['user_id'] : null;
+			$data['parent_id'] = !empty($data['parent_id']) ? (int)$data['parent_id'] : null;
 		}else{
-			$this->setRequired($data);
+			$this->setRequired($data, 'rate');
 		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);

@@ -13,23 +13,35 @@ trait T_SetProperties {
 
 	// получает опции
 	protected function setProperties($options, $condition = null, Closure $callback = null){
-		list($condition, $callback) = $this->setArgs($condition, $callback);
+		list($condition, $callback, $isClosure) = $this->setArgs($condition, $callback);
 		// если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
 		foreach($options as $k => $v){
 			// проверяем существет ли такое свойство у класса
-			if($this->isClosure($condition) ? $condition($k) : $condition){
+            //debug([$k => $v, 'isClosure' => $isClosure, 'condition' => $isClosure ? $condition($k) : $condition], 'property_exists' => property_exists($this, $k));
+			if($isClosure ? $condition($k) : $condition){
 				$this->$k = $v;
 				$callback($k, $v);
 			}
 		}
+        //debug($this);
 	}
 
 	protected function setArgs($condition, $callback){
+        $base_condition = function($k){ return property_exists($this, $k); };
 		$isClosure = $this->isClosure($condition);
-		$base_condition = function($k){ return property_exists($this, $k); };
-		$callback = $isClosure ? $condition : ($callback ?? function(){});
-		$condition = $isClosure ? $base_condition : ($condition ?? function(){ return true; });
-		return [$condition, $callback];
+        //$noCallback = $callback === false;
+        $callback2 = null;
+        $callback2 = function(){};
+        //$callback2 = false;
+        $noCallback = $callback2 === false;
+        $reverse = $isClosure;
+        $reverse2 = $isClosure && !$noCallback;
+        debug(['class' => get_class($this), 'isClosure' => $isClosure, 'noCallback' => $noCallback, 'reverse' => $reverse2]);
+        if($reverse){
+            $callback = $isClosure ? $condition : $callback;
+            $condition = $isClosure ? $base_condition : $condition;
+        }
+		return [$condition ?? $base_condition, $callback ?? function(){}, $isClosure];
 	}
 
 }

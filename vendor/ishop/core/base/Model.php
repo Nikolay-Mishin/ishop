@@ -30,7 +30,7 @@ abstract class Model extends Sql {
 			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;
-				redirect();
+				//redirect();
 			}
 			$this->table = self::getTable(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
@@ -125,14 +125,14 @@ abstract class Model extends Sql {
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
 	}
 
-	protected function setRequired($required){
+	public function setRequired($data, ...$required){
 		$this->rules['required'] = [];
-		$this->addRequired($required);
+		$this->addRequired($data, ...$required);
 	}
 
-	protected function addRequired($required){
-		$required = array_keys(toArray($required));
-		foreach($required as $k => $v){
+	public function addRequired($data, ...$required){
+		$data = arrayGetValues($data, $required);
+		foreach($data as $k => $v){
 			$this->rules['required'][] = toArray($k);
 		}
 	}

@@ -18,7 +18,7 @@ class Menu {
 
 	protected $isMenu = true;
 	protected $data; // данные для меню
-	protected $tree; // массив (дерево), который строится из данных
+	protected $tree = []; // массив (дерево), который строится из данных
 	protected $menuHtml; // html-разметка меню
 	protected $tpl = __DIR__ . '/menu_tpl/menu.php'; // шаблон для меню - в старых версиях php такая запись запрещена
 	protected $container = 'ul'; // контейнер для меню (классическое - 'ul', например в админке для выпадающих пунктов - 'select')
@@ -52,6 +52,18 @@ class Menu {
 	//        }
 	//    }
 	//}
+
+	// получает опции
+	protected function getOptions($options, ...$unset){
+		$isObj = gettype($options) == 'object';
+		foreach($unset as $property){
+			if($isObj ? property_exists($options, $property) : in_array($options, $property)){
+				if($isObj) unset($options->$property);
+				else unset($options[$property]);
+			}
+		}
+		return $options;
+	}
 
 	// формирует меню
 	protected function run(){
@@ -96,7 +108,7 @@ class Menu {
 	// код взят из бесплатного курса по созданию фреймворка (урок 2-9 + 1 урок из премиум курса - создание каталога товара)
 	protected function getTree(){
 		$tree = []; // массив для хранения дерева
-		$data = $this->data; // получаем массив данных
+		$data = $this->data ?? []; // получаем массив данных
 		$level_tree = 0;
 		foreach($data as $id => &$node){
 			// если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень

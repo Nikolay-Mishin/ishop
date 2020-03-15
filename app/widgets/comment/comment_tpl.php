@@ -42,7 +42,7 @@
 					|
 				</span>
 				<span class="comment-reply">
-					<a href="comment/reply?parent_id=<?=$id;?>" class="reply">ответить</a>
+					<a href="comment/reply?parent_id=<?=$id;?>&product_id=<?=$item['product_id'];?>" class="reply">ответить</a>
 				</span>
 			</div>
 

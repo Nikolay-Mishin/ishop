@@ -13,11 +13,10 @@ class CommentController extends AppController {
 		$data = $_POST;
 		if(!empty($data)){
 			$comment = new Comment($data);
-			$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
-			$comments = $this->getComments($product_id);
+			$w_Comment = $this->getComments($data['product_id']);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['html' => "$comments", 'count' => $comments->getCount(), 'data' => $comments->getData(), 'attributes' => $comment->attributes]));
+				exit(json_encode(['html' => "$w_Comment", 'count' => $w_Comment->getCount(), 'info' => $w_Comment->getInfo(), 'attributes' => $comment->attributes]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -46,13 +45,15 @@ class CommentController extends AppController {
 	public function replyAction(){
 		$data = $_GET;
 		if(!empty($data)){
-			//$comment = new Comment($data);
-			//$product_id = !empty($data['product_id']) ? (int)$data['product_id'] : null;
-			//$comments = $this->getComments($product_id);
+			$w_Comment = new W_Comment([
+				'id' => $data['product_id'],
+				'parent_id' => $data['parent_id'],
+				'isAjax' => true
+			]);
+			$info = $w_Comment->getInfo();
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['data' => $data]));
-				exit(json_encode(['html' => "$comments", 'count' => $comments->getCount(), 'data' => $comments->getData()]));
+				exit(json_encode(['data' => $data, 'info' => $info, 'editor' => $info['editor']]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -64,7 +65,8 @@ class CommentController extends AppController {
 		return new W_Comment([
 			'data' => $comments,
 			'id' => $product_id,
-			'isAjax' => true
+			'isAjax' => true,
+			'editor' => false
 		]);
 	}
 

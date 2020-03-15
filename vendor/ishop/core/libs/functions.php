@@ -181,6 +181,7 @@ function arrayGetValues(array $arr, array $keys){
 	$arr = array('a' => 123, 'b' => 213, 'c' => 321);
 	$keys = array('b', 'c');
 	arrayGetValues($arr, $keys);
+
 	// Will return
 	//Array
 	//(
@@ -202,6 +203,46 @@ function array_multi_key_exists(array $arrNeedles, array $arrHaystack, $matchAll
 		return false;
    
 	return array_multi_key_exists($arrNeedles, $arrHaystack, $matchAll);
+}
+
+function arrayMerge(array $arr1, array $arr2){
+	// array_intersect_key - Вычислить пересечение массивов, сравнивая ключи.
+	// возвращает массив, содержащий все элементы array1, имеющие ключи, содержащиеся во всех последующих параметрах.
+	// array_flip - Меняет местами ключи с их значениями в массиве.
+	return array_replace_recursive($arr1, array_intersect_key($arr2, $arr1));
+
+	// Example
+	$defaults = [
+		'id'            => 123456,
+		'client_id'     => null,
+		'client_secret' => null,
+		'options'       => [
+			'trusted'   => false,
+			'active'    => false
+		]
+	];
+	$options = [
+		'client_id'       => 789,
+		'client_secret'   => '5ebe2294ecd0e0f08eab7690d2a6ee69',
+		'client_password' => '5f4dcc3b5aa765d61d8327deb882cf99', // ignored
+		'client_name'     => 'IGNORED',                          // ignored
+		'options'         => [
+			'active'      => true
+		]
+	];
+	arrayMerge($defaults, $options);
+
+	// Will return
+	//Array
+	//(
+	//    [id]            => 123456
+	//    [client_id]     => 789
+	//    [client_secret] => '5ebe2294ecd0e0f08eab7690d2a6ee69'
+	//    [options]       => array(
+	//        'trusted'   => false
+	//        'active'    => true
+	//    )
+	//)
 }
 
 // если получен массив, возвращает его

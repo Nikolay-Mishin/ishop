@@ -30,8 +30,8 @@ if(notEmpty(comments_wrap)){
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
-		ajax(url, getRate, rating); // ajax-запрос
 		console.log({ this: this, vote: vote, url: url, rating: rating, e: e });
+		ajax(url, getRate, rating); // ajax-запрос
 	}, comments);
 
 	delegate(reply, 'click touchstart', function(e, reply){
@@ -39,8 +39,8 @@ if(notEmpty(comments_wrap)){
 		var $this = $(this),
 			url = $this.attr('href'),
 			comment = $this.closest('.comment');
-		ajax(url, getReply, comment); // ajax-запрос
 		console.log({ this: this, reply: reply, url: url, comment: comment, e: e });
+		ajax(url, getReply, comment); // ajax-запрос
 		return false;
 	}, comments);
 }
@@ -65,7 +65,7 @@ function getComment(comments, args){
 	console.log({ comments: comments });
 	var comments = JSON.parse(comments),
 		{ target, count } = args;
-	console.log({ comments: comments, args: args });
+	console.log({ comments: comments, args: args, target: target, count: count });
 	hidePreloader(function(){
 		target.html(comments.html).fadeIn();
 		count.text(comments.count);
@@ -73,6 +73,7 @@ function getComment(comments, args){
 }
 
 function getRate(res, args, rating){
+	console.log({ res: res });
 	var res = JSON.parse(res),
 		rate = res.rate;
 	console.log({ rate: rate, rating: rating, data: res.data });
@@ -85,6 +86,7 @@ function getRate(res, args, rating){
 }
 
 function getReply(reply, args, comment){
+	console.log({ reply: reply });
 	var reply = JSON.parse(reply);
 	console.log({ reply: reply, comment: comment });
 }
