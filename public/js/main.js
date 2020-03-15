@@ -3,13 +3,14 @@ var comments_wrap = $('.comments');
 
 if(notEmpty(comments_wrap)){
 	var comment_add = comments_wrap.find('#comment_add'),
+		editor = comment_add.find('.editor'),
 		btn = comment_add.find('button'),
 		content,
 		count = comments_wrap.find('#comments-count'),
 		comments = comments_wrap.find('#comments'),
 		vote = '.vote',
 		reply = '.reply';
-	editorOnChange(comment_add, function(value){
+	editorOnChange(editor, function(value){
 		content = value;
 		if (content){
 			btn.attr('disabled', false);
@@ -19,6 +20,10 @@ if(notEmpty(comments_wrap)){
 		}
 	});
 	btn.attr('disabled', true);
+
+	console.log(getEditors());
+	console.log(getEditor('editor'));
+	console.log(getEditor($('#editor')));
 	
 	// блокируем отправку формы, если тип отправки Ajax
 	if(comment_add.data('ajax')){
@@ -62,7 +67,7 @@ function addComment(e, comment_add, content, comments, count){
 }
 
 function getComment(comments, args){
-	console.log({ comments: comments });
+	//console.log({ comments: comments });
 	var comments = JSON.parse(comments),
 		{ target, count } = args;
 	console.log({ comments: comments, args: args, target: target, count: count });
@@ -73,7 +78,7 @@ function getComment(comments, args){
 }
 
 function getRate(res, args, rating){
-	console.log({ res: res });
+	//console.log({ res: res });
 	var res = JSON.parse(res),
 		rate = res.rate;
 	console.log({ rate: rate, rating: rating, data: res.data });
@@ -86,9 +91,11 @@ function getRate(res, args, rating){
 }
 
 function getReply(reply, args, comment){
-	console.log({ reply: reply });
-	var reply = JSON.parse(reply);
-	console.log({ reply: reply, comment: comment });
+	//console.log({ reply: reply });
+	var reply = JSON.parse(reply),
+		editor = reply.editor;
+	console.log({ reply: reply, comment: comment, editor: editor });
+	comment.append(editor);
 }
 
 /* // Comments */

@@ -139,3 +139,23 @@ function cartRecalc(){
 	});
 	ajax('/cart/recalc', changeCart, {productsChange: productsChange}); // ajax-запрос
 }
+
+function getEditors(){
+	editors = CKEDITOR.instances;
+	return editors;
+}
+
+function getEditor(id){
+	return getEditors()[typeof id == 'object' ? id.prop('id') : id];
+}
+
+function editorOnChange(editor, callback = function(){}){
+	var editor = getEditor(editor),
+		value;
+	if(!editor) return false;
+	editor.on('change', function(){
+		this.updateElement();
+		callback(this._.data, $(this.element.$), this);
+	});
+	return value;
+}

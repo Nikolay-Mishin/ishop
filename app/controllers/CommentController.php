@@ -50,10 +50,9 @@ class CommentController extends AppController {
 				'parent_id' => $data['parent_id'],
 				'isAjax' => true
 			]);
-			$info = $w_Comment->getInfo();
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['data' => $data, 'info' => $info, 'editor' => $info['editor']]));
+				exit(json_encode(['editor' => "{$w_Comment->getEditor()}", 'data' => $data, 'info' => $w_Comment->getInfo()]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}

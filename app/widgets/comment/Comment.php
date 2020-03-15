@@ -4,7 +4,6 @@ namespace app\widgets\comment;
 
 use app\widgets\menu\Menu;
 use app\widgets\editor\Editor;
-use ishop\App; // подключаем класс базовый приложения
 
 class Comment extends Menu {
 
@@ -39,19 +38,16 @@ class Comment extends Menu {
 		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : parent::__toString();
 	}
 
-	public function run(){
-		$this->getTree();
-	}
-
 	public function getCount(){
 		return $this->count;
 	}
 
-	public function getInfo(){
-		return [
-			'data' => $this->data, 'editor' => $this->editor, 'type' => gettype($this->editor), 'options' => $this->editor_options,
-			'id' => $this->id, 'parent' => $this->parent_id
-	];
+	public function getEditor(){
+		return $this->editor = $this->editor ? new Editor($this->editor_options) : null;
+	}
+
+	protected function run(){
+		$this->getTree();
 	}
 
 	// получает html-разметку
@@ -61,16 +57,19 @@ class Comment extends Menu {
 		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
 	}
 
-	protected function getEditor(){
-		return $this->editor = $this->editor ? new Editor($this->editor_options) : null;
-	}
-
 	protected function getTitle(){
 		return $this->count ? "{$this->title} ({$this->getTitleHtml()})" : $this->getTitleHtml();
 	}
 
 	private function getTitleHtml(){
 		return "<$this->container id=$this->container_id>$this->count</$this->container>";
+	}
+
+	public function getInfo(){
+		return [
+			'data' => $this->data, 'editor' => $this->editor, 'type' => gettype($this->editor), 'options' => $this->editor_options,
+			'id' => $this->id, 'parent' => $this->parent_id
+		];
 	}
 
 }

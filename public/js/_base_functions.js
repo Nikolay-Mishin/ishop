@@ -61,18 +61,3 @@ function isEmpty(obj){
 	isEmpty({length: 3, custom_property: [1,2,3]}) // false
 	*/
 }
-
-function getEditor(target, find = '.editor', prop = 'id'){
-	return editors ? editors[typeof target == 'object' ? target.find(find).prop(prop) : target] : null;
-}
-
-function editorOnChange(target, callback = function(){}){
-	var editor = getEditor(target),
-		value;
-	if(!editor) return false;
-	editor.on('change', function(){
-		this.updateElement();
-		callback(this._.data, $(this.element.$), this);
-	});
-	return value;
-}
