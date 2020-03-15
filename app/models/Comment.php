@@ -53,8 +53,7 @@ class Comment extends AppModel {
 			$data['product_id'] = !empty($data['product_id']) ? (int)$data['product_id'] : null;
 			$data['user_id'] = !empty($data['user_id']) ? (int)$data['user_id'] : null;
 		}else{
-			//$this->setAttributes(['rate' => 0]);
-			$this->setRequired(array_keys($data));
+			$this->setRequired($data);
 		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);

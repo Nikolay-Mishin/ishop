@@ -125,32 +125,15 @@ abstract class Model extends Sql {
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
 	}
 
-	protected function setAttributes($attributes){
-		$this->attributes = [];
-		$this->addAttributes($attributes);
-	}
-
-	protected function addAttributes($attributes){
-		$attributes = toArray($attributes);
-		foreach($attributes as $name => $value){
-			$this->attributes[$name] = $value;
-		}
-	}
-
-	protected function delAttributes($attributes = []){
-		$attributes = !empty($attributes) ? toArray($attributes) : array_keys($this->attributes);
-		arrayUnset($this->attributes, $attributes);
-	}
-
 	protected function setRequired($required){
 		$this->rules['required'] = [];
 		$this->addRequired($required);
 	}
 
 	protected function addRequired($required){
-		$required = toArray($required);
-		foreach($required as $require){
-			$this->rules['required'][] = toArray($require);
+		$required = array_keys(toArray($required));
+		foreach($required as $k => $v){
+			$this->rules['required'][] = toArray($k);
 		}
 	}
 
