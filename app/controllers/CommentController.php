@@ -13,7 +13,7 @@ class CommentController extends AppController {
 		$data = $_POST;
 		if(!empty($data)){
 			$comment = new Comment($data);
-			$w_Comment = $this->getComments($data['product_id']);
+			$w_Comment = $this->getComments($data['product_id'], $data);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
 				exit(json_encode(['html' => "$w_Comment", 'count' => $w_Comment->getCount(), 'data' => $data, 'info' => $w_Comment->getInfo()]));
@@ -64,7 +64,19 @@ class CommentController extends AppController {
 
 	private function getComments($product_id, $data = []){
 		$comments = Comment::getByProductId($product_id);
-		$comments[] = $comments[3];
+		$comments[] = [
+			'parent_id' => $data['parent_id'],
+			'product_id' => $data['product_id'],
+			'content' => $data['content'],
+			'date' => date('Y-m-d H:i:s'),
+			'update_at' => null,
+			'status' => 1,
+			'rate' => 0,
+			'user_id' => $data['user_id'],
+			'name' => 'Admin',
+			'avatar' => 'avatar1.jpg',
+			'login' => 'admin'
+		];
 		return new W_Comment([
 			'data' => $comments,
 			'isAjax' => true,
