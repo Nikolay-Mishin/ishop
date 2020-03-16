@@ -236,7 +236,7 @@
                 <!-- выводим комментарии -->
                 <?= new \app\widgets\comment\Comment([
                     'data' => $comments,
-                    'id' => $product->id
+                    'meta' => ['id' => $product->id]
                 ]); ?>
                 <!-- // выводим комментарии -->
             </div>

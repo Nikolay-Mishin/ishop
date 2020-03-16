@@ -29,6 +29,7 @@ class Menu {
 	protected $attrs = []; // массив дополнительных аттрибутов для меню
 	protected $prepend = ''; // для админки (когда работаем с select можно вставить option - 'выберите значение')
 	protected $parents = []; // массив родителей, который строится из дерева ('parent_id' => $level_tree)
+	protected $meta = [];
 
 	// заполняет недостающие свойства и получает опции
 	public function __construct($options = []){
@@ -40,6 +41,10 @@ class Menu {
 
 	public function __toString(){
 		return $this->tree ? $this->getTreeHtml() : $this->getHtml($this->data);
+	}
+
+	public function meta($key = ''){
+		return $key ? (array_key_exists($key, $this->meta) ? $this->meta[$key] : null) : $this->meta;
 	}
 
 	// получает опции

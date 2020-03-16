@@ -10,7 +10,7 @@ function hidePreloader(callback = function(){}, delay = 500, fadeOut = 'slow', p
 }
 
 // Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, success = null, data = {}, errorMsg = null, beforeSend = null, args = [], type = 'GET'){
+function ajax(url, success = null, data = {}, args = [], errorMsg = null, beforeSend = null, type = 'GET'){
 	success = success ? success : function(){};
 	errorMsg = errorMsg ? errorMsg : 'Ошибка! Попробуйте позже';
 	beforeSend = beforeSend ? beforeSend : function(){};
@@ -18,6 +18,8 @@ function ajax(url, success = null, data = {}, errorMsg = null, beforeSend = null
 		url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
 		data: data, // объект с данными для отправки на серевер
 		type: type, // метод отправки запроса
+		//processData: false,
+		//contentType: false,
 		// функция, вызываемая перед отправкой запроса
 		beforeSend: beforeSend,
 		success: res => success.call(this, res, args, data),
@@ -138,24 +140,4 @@ function cartRecalc(){
 		productsChange[$(item).data('id')] = $(item).val() - $(item).data('qty');
 	});
 	ajax('/cart/recalc', changeCart, {productsChange: productsChange}); // ajax-запрос
-}
-
-function getEditors(){
-	editors = CKEDITOR.instances;
-	return editors;
-}
-
-function getEditor(id){
-	return getEditors()[typeof id == 'object' ? id.prop('id') : id];
-}
-
-function editorOnChange(editor, callback = function(){}){
-	var editor = getEditor(editor),
-		value;
-	if(!editor) return false;
-	editor.on('change', function(){
-		this.updateElement();
-		callback(this._.data, $(this.element.$), this);
-	});
-	return value;
 }

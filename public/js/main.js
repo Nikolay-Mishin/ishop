@@ -1,33 +1,22 @@
 /* Comments */
-var comments_wrap = $('.comments');
+var comments = $('#comments');
 
-if(notEmpty(comments_wrap)){
-	var comment_add = comments_wrap.find('#comment_add'),
-		editor = comment_add.find('.editor'),
-		btn = comment_add.find('button'),
+if(notEmpty(comments)){
+	var comment_form = comments.find('#comment_form'),
+		editor = comment_form.find('.editor'),
+		btn = comment_form.find('button'),
 		content,
-		count = comments_wrap.find('#comments-count'),
-		comments = comments_wrap.find('#comments'),
+		count = comments.find('#comments-count'),
+		comments = comments.find('#comments-list'),
 		vote = '.vote',
-		reply = '.reply';
-	editorOnChange(editor, function(value){
-		content = value;
-		if (content){
-			btn.attr('disabled', false);
-		}
-		else{
-			btn.attr('disabled', true);
-		}
-	});
-	btn.attr('disabled', true);
-
-	console.log(getEditors());
-	console.log(getEditor('editor'));
-	console.log(getEditor($('#editor')));
+		reply = '.reply',
+		reply_editor = '#reply_editor';
+	
+	setEditorOnChange(editor, btn);
 	
 	// блокируем отправку формы, если тип отправки Ajax
-	if(comment_add.data('ajax')){
-		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));
+	if(comment_form.data('ajax')){
+		comment_form.on('submit', e => addComment(e, comment_form, content, comments, count));
 	}
 
 	delegate(vote, 'click touchstart', function(e, vote){
@@ -35,7 +24,6 @@ if(notEmpty(comments_wrap)){
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
 		//$(".lBlock").siblings(".cont"); // найдет элементы класса cont, которые имеют общих родителей, с элементами класса lBlock
-		console.log({ this: this, vote: vote, url: url, rating: rating, e: e });
 		ajax(url, getRate, rating); // ajax-запрос
 	}, comments);
 
@@ -43,34 +31,48 @@ if(notEmpty(comments_wrap)){
 		e.preventDefault();
 		var $this = $(this),
 			url = $this.attr('href'),
-			comment = $this.closest('.comment');
-		console.log({ this: this, reply: reply, url: url, comment: comment, e: e });
-		ajax(url, getReply, comment); // ajax-запрос
-		return false;
+			comment = $this.closest('.comment'),
+			args = { comments: comments, reply_editor: reply_editor };
+		ajax(url, getReply, comment, args); // ajax-запрос
 	}, comments);
 }
 
-function addComment(e, comment_add, content, comments, count){
+function setEditorOnChange(editor, btn, callback = null){
+	editorOnChange(editor, callback !== null ? callback : function(value){
+		content = value;
+		if(content){
+			btn.attr('disabled', false);
+		}
+		else{
+			btn.attr('disabled', true);
+		}
+		console.log({ value: value });
+	});
+	btn.attr('disabled', true);
+}
+
+function addComment(e, comment_form, content, comments, count){
 	// блокируем отправку формы, если тип отправки Ajax
 	e.preventDefault();
+	console.log({ addComment: content });
 	// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 	if(content){
-		var product_id = comment_add.find('[name=product_id]').val(),
-			user_id = comment_add.find('[name=user_id]').val(),
+		var product_id = comment_form.find('[name=product_id]').val(),
+			user_id = comment_form.find('[name=user_id]').val(),
+			parent_id = comment_form.find('[name=user_id]').val(),
 			args = { target: comments, count: count };
-		data = { content: content, product_id: product_id, user_id: user_id };
+		data = { content: content, product_id: product_id, user_id: user_id, parent_id: parent_id };
 		// ajax-запрос
-		ajax(comment_add.attr('action'), getComment, data, 'Ошибка!', showPreloader(comments), args, 'POST');
+		ajax(comment_form.attr('action'), getComments, data, args, 'Ошибка!', showPreloader(comments), 'POST');
 	}else{
 		window.location = location.pathname; // /category/men
 	}
 }
 
-function getComment(comments, args){
-	//console.log({ comments: comments });
-	var comments = JSON.parse(comments),
-		{ target, count } = args;
-	console.log({ comments: comments, args: args, target: target, count: count });
+function getComments(comments, args){
+	comments = JSON.parse(comments);
+	console.log({ comments: comments });
+	var { target, count } = args;
 	hidePreloader(function(){
 		target.html(comments.html).fadeIn();
 		count.text(comments.count);
@@ -78,10 +80,8 @@ function getComment(comments, args){
 }
 
 function getRate(res, args, rating){
-	//console.log({ res: res });
-	var res = JSON.parse(res),
-		rate = res.rate;
-	console.log({ rate: rate, rating: rating, data: res.data });
+	res = JSON.parse(res);
+	var rate = res.rate;
 	if(rate != undefined){
 		var add_class = rate > 0 ? 'plus' : (rate < 0 ? 'minus' : ''),
 			remove_class = rate > 0 ? 'minus' : (rate < 0 ? 'plus' : 'plus minus');
@@ -91,11 +91,33 @@ function getRate(res, args, rating){
 }
 
 function getReply(reply, args, comment){
-	//console.log({ reply: reply });
-	var reply = JSON.parse(reply),
-		editor = reply.editor;
-	console.log({ reply: reply, comment: comment, editor: editor });
+	reply = JSON.parse(reply);
+	var editor = reply.editor,
+		comments = args.comments,
+		reply_editor = getReplyEditor(comments, args.reply_editor);
+
+	getReplyParent(reply_editor).remove();
 	comment.append(editor);
+	editor = comment.find('.editor');
+	editorInstance(editor);
+
+	var comment_reply = getReplyParent(editor),
+		btn = comment_reply.find('button');
+
+	setEditorOnChange(editor, btn);
+
+	// блокируем отправку формы, если тип отправки Ajax
+	if(comment_reply.data('ajax')){
+		comment_reply.on('submit', e => addComment(e, comment_reply, content, comments, count));
+	}
+}
+
+function getReplyParent(reply, closest = 'form') {
+	return reply.parent().closest(closest);
+}
+
+function getReplyEditor(comment, find){
+	return comment.find(find);
 }
 
 /* // Comments */
@@ -111,7 +133,7 @@ $('body').on('change', '.w_sidebar input', function(){
 	});
 	// если список фильтров не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 	if(data){
-		ajax(location.href, showFilter, {filter: data}, 'Ошибка!', showPreloader, data); // ajax-запрос
+		ajax(location.href, showFilter, { filter: data }, data, 'Ошибка!', showPreloader); // ajax-запрос
 		/* $.ajax({
 			url: location.href, // url для отправки на сервер (абсолютный адрес текущей страницы - http://ishop/category/men)
 			data: {filter: data}, // данные для отправки на сервер
@@ -219,7 +241,7 @@ $('body').on('click', '.add-to-cart-link', function(e){
 // делегируем событие клика от тела модального окна корзины элементу с классом 'del-item'
 $('#cart .modal-body').on('click', '.del-item', function(){
 	var id = $(this).data('id'); // id товара, который хотим удалить из корзины
-	ajax('/cart/delete', changeCart, {id: id}, 'Error!'); // ajax-запрос
+	ajax('/cart/delete', changeCart, { id: id }, id, 'Error!'); // ajax-запрос
 	/* $.ajax({
 		url: '/cart/delete',
 		data: {id: id},

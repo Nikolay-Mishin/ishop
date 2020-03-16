@@ -1,21 +1,44 @@
 // CK Editor
-var editors = $('.editor');
+const editor_class = '.editor',
+	editor_id = '#editor',
+	$editors = $(editor_class);
 
-if(notEmpty(editors)){
-	console.log({ editors: editors });
-	for(var editor of editors){
-		console.log({ editor: editor });
+if(notEmpty($editors)){
+	for(var i = 0; i < $editors.length; i++){
+		editorInstance($($editors[i]), $editors.length, i);
 	}
-	for(var i = 0; i < editors.length; i++){
-		var editor = $(editors[i]);
-		if (editors.length > 1) editor.prop('id', editor.prop('id') + '_' + (i + 1));
-		editor.ckeditor();
-	}
-	editors = getEditors();
-	for(var editor in editors){
+	for(var editor in getEditors()){
 		editorOnChange(editor);
-		editor = editors[editor];
-		console.log({ editor: editor });
-		console.log({ id: editor.id, element: editor.element, $: editor.element.$ });
 	}
+}
+
+function editorInstance(editor, length = null, i = null){
+	//console.log({ editorInstance: editor, length: length, i: i });
+	var length = length != null ? length : $(editor_class).filter(editor_id).length;
+	if(length > 1) editorChangeId(editor, i != null ? i + 1 : length);
+	//console.log({ length: length });
+	editor.ckeditor();
+}
+
+function editorChangeId(editor, i){
+	editor.prop('id', editor.prop('id') + '_' + i);
+}
+
+function getEditors(){
+	return CKEDITOR.instances;
+}
+
+function getEditor(id){
+	return getEditors()[typeof id == 'object' ? id.prop('id') : id];
+}
+
+function editorOnChange(editor, callback = function(){}){
+	var editor = getEditor(editor),
+		value;
+	if(!editor) return false;
+	editor.on('change', function(){
+		this.updateElement();
+		callback(this._.data, $(this.element.$), this);
+	});
+	return value;
 }

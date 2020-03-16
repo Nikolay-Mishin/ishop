@@ -13,9 +13,9 @@ class Comment extends Menu {
 	protected $isMenu = true;
 	protected $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
 	protected $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария
-	protected $id;
-	protected $parent_id;
+	protected $form_id = 'comment_add';
 	protected $editor = true;
+	protected $editor_id = 'comment_editor';
 	protected $editor_options = [
 		'tpl' => __DIR__ . '/editor_tpl.php',
 		'label' => 'Новый комментарий',
@@ -29,8 +29,9 @@ class Comment extends Menu {
 	public function __construct($options = []){
 		parent::__construct($options);
 		$this->count = count($this->data) ?: null;
-		$this->editor_options['id'] = $this->id;
-		$this->editor_options['parent_id'] = $this->parent_id;
+		$this->editor_options['id'] = $this->editor_id;
+		$this->meta['form_id'] = $this->meta['form_id'] ?? $this->form_id;
+		$this->editor_options['meta'] = $this->meta;
 		$this->getEditor();
 	}
 
@@ -38,12 +39,12 @@ class Comment extends Menu {
 		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : parent::__toString();
 	}
 
-	public function getCount(){
-		return $this->count;
-	}
-
 	public function getEditor(){
 		return $this->editor = $this->editor ? new Editor($this->editor_options) : null;
+	}
+
+	public function getCount(){
+		return $this->count;
 	}
 
 	protected function run(){
@@ -68,7 +69,7 @@ class Comment extends Menu {
 	public function getInfo(){
 		return [
 			'data' => $this->data, 'editor' => $this->editor, 'type' => gettype($this->editor), 'options' => $this->editor_options,
-			'id' => $this->id, 'parent' => $this->parent_id
+			'form_id' => $this->meta('form_id'), 'id' => $this->meta('id'), 'parent' => $this->meta('parent_id')
 		];
 	}
 

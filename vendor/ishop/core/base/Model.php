@@ -30,7 +30,7 @@ abstract class Model extends Sql {
 			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
 				$this->getErrors(); // получаем список ошибок
 				if($action == 'save') $_SESSION['form_data'] = $data;
-				//redirect();
+				redirect();
 			}
 			$this->table = self::getTable(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи

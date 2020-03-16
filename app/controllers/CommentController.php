@@ -16,7 +16,7 @@ class CommentController extends AppController {
 			$w_Comment = $this->getComments($data['product_id']);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['html' => "$w_Comment", 'count' => $w_Comment->getCount(), 'info' => $w_Comment->getInfo(), 'attributes' => $comment->attributes]));
+				exit(json_encode(['html' => "$w_Comment", 'count' => $w_Comment->getCount(), 'data' => $data, 'info' => $w_Comment->getInfo()]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -36,7 +36,7 @@ class CommentController extends AppController {
 			$comment = $this->changeRate($rate, $id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['rate' => "$comment->rate", 'data' => $data]));
+				exit(json_encode(['rate' => "$comment->rate"]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -46,13 +46,17 @@ class CommentController extends AppController {
 		$data = $_GET;
 		if(!empty($data)){
 			$w_Comment = new W_Comment([
-				'id' => $data['product_id'],
-				'parent_id' => $data['parent_id'],
-				'isAjax' => true
+				'editor_id' => 'reply_editor',
+				'isAjax' => true,
+				'meta' => [
+					'form_id' => 'comment_reply',
+					'id' => $data['product_id'],
+					'parent_id' => $data['parent_id']
+				]
 			]);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if($this->isAjax()){
-				exit(json_encode(['editor' => "{$w_Comment->getEditor()}", 'data' => $data, 'info' => $w_Comment->getInfo()]));
+				exit(json_encode(['editor' => "{$w_Comment->getEditor()}"]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
@@ -63,9 +67,9 @@ class CommentController extends AppController {
 		$comments[] = $comments[3];
 		return new W_Comment([
 			'data' => $comments,
-			'id' => $product_id,
 			'isAjax' => true,
-			'editor' => false
+			'editor' => false,
+			'meta' => ['id' => $product_id]
 		]);
 	}
 
