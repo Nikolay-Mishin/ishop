@@ -2,9 +2,9 @@
 var comments = $('#comments');
 
 if(notEmpty(comments)){
-	var comment_form = comments.find('#comment_form'),
-		editor = comment_form.find('.editor'),
-		btn = comment_form.find('button'),
+	var comment_add = comments.find('#comment_add'),
+		editor = comment_add.find('.editor'),
+		btn = comment_add.find('button'),
 		content,
 		count = comments.find('#comments-count'),
 		comments = comments.find('#comments-list'),
@@ -15,8 +15,8 @@ if(notEmpty(comments)){
 	setEditorOnChange(editor, btn);
 	
 	// блокируем отправку формы, если тип отправки Ajax
-	if(comment_form.data('ajax')){
-		comment_form.on('submit', e => addComment(e, comment_form, content, comments, count));
+	if (comment_add.data('ajax')){
+		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));
 	}
 
 	delegate(vote, 'click touchstart', function(e, vote){
@@ -32,8 +32,10 @@ if(notEmpty(comments)){
 		var $this = $(this),
 			url = $this.attr('href'),
 			comment = $this.closest('.comment'),
+			comment_footer = comment.children('.media-body').children('.footer-comment'),
 			args = { comments: comments, reply_editor: reply_editor };
-		ajax(url, getReply, comment, args); // ajax-запрос
+		ajax(url, getReply, comment_footer, args); // ajax-запрос
+		console.log({ comment: comment, comment_footer: comment_footer, args: args });
 	}, comments);
 }
 
@@ -46,7 +48,6 @@ function setEditorOnChange(editor, btn, callback = null){
 		else{
 			btn.attr('disabled', true);
 		}
-		console.log({ value: value });
 	});
 	btn.attr('disabled', true);
 }
@@ -54,12 +55,12 @@ function setEditorOnChange(editor, btn, callback = null){
 function addComment(e, comment_form, content, comments, count){
 	// блокируем отправку формы, если тип отправки Ajax
 	e.preventDefault();
-	console.log({ addComment: content });
+	console.log({ addComment: content, this: this });
 	// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
 	if(content){
 		var product_id = comment_form.find('[name=product_id]').val(),
 			user_id = comment_form.find('[name=user_id]').val(),
-			parent_id = comment_form.find('[name=user_id]').val(),
+			parent_id = comment_form.find('[name=parent_id]').val(),
 			args = { target: comments, count: count };
 		data = { content: content, product_id: product_id, user_id: user_id, parent_id: parent_id };
 		// ajax-запрос
@@ -101,6 +102,8 @@ function getReply(reply, args, comment){
 	editor = comment.find('.editor');
 	editorInstance(editor);
 
+	console.log({ editor: editor, comment: comment });
+
 	var comment_reply = getReplyParent(editor),
 		btn = comment_reply.find('button');
 
@@ -116,8 +119,8 @@ function getReplyParent(reply, closest = 'form') {
 	return reply.parent().closest(closest);
 }
 
-function getReplyEditor(comment, find){
-	return comment.find(find);
+function getReplyEditor(comments, find){
+	return comments.find(find);
 }
 
 /* // Comments */

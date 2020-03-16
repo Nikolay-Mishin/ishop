@@ -1,5 +1,5 @@
 <?php if(!empty($_SESSION['user'])): ?>
-	<form method="post" action="comment/add" id="<?=$this->meta('form_id');?>" role="form" data-toggle="validator" data-ajax="true">
+	<form method="post" action="comment/add" id="<?=$this->meta('form_id');?>" data-ajax="true">
 		<?=new \app\widgets\editor\Editor($this->getOptions(clone $this, 'tpl'));?>
 		<input type="hidden" name="product_id" value="<?=$this->meta('id');?>">
 		<input type="hidden" name="user_id" value="<?=$_SESSION['user']['id'];?>">
