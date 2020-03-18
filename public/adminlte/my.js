@@ -1,3 +1,5 @@
+console.log(Ishop);
+
 // сброс фильтров
 $('#reset-filter').click(function(){
 	$('#filter input[type=radio]').prop('checked', false); // сбрасываем все выбранные радио-кнопки фильтров

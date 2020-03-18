@@ -40,6 +40,21 @@ abstract class Controller {
         $viewObject->render($this->data); // вызов метода для рендера и передаем данные из контроллера в вид
     }
 
+    // возвращает html-ответ (шаблон/вид) на ajax-запрос
+    // внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu, Filter), где подключается шаблон
+    // в видах, подключаемых через loadView() доступен объект класса, в котором был вызван метод ($this - CartController)
+    // в видах, подключаемых через класс вида доступен объект класса View ($this - View)
+    public function loadView($view, $vars = []){
+        extract($vars); // извлекаем переменные из массива
+        require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид
+        die;
+    }
+
+    // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
+    //public function isAjax(){
+    //    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    //}
+
     // записывает полученные данные в массив (свойство)
     public function set($data){
         $this->data = $data;
@@ -57,44 +72,34 @@ abstract class Controller {
         $this->canonical = h($url); // каноническая ссылка
     }
 
-    public function setStyle($styles = []){
-        $this->setFiles('style', $styles); // подключаем файл конфигурации стилей
+    public function setStyle(...$styles){
+        $this->setFiles('style', ...$styles); // подключаем файл конфигурации стилей
     }
 
-    public function setScript($scripts = []){
-        $this->setFiles('script', $scripts); // подключаем файл конфигурации скриптов
+    public function setScript(...$scripts){
+        $this->setFiles('script', ...$scripts); // подключаем файл конфигурации скриптов
         
     }
 
-    public function setFiles($types = 'style', $files = []){
-        list($types, $files) = [toArray($types), toArray($files)];
+    public function setFiles($types = 'style', ...$files){
+        $types = toArray($types);
         foreach($types as $type){
-            // подключаем файл конфигурации
-            $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php";
+            $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
             $this->$type = $file === true ? $this->$type : $file; 
             if(!empty($files[$type])){
                 foreach($files[$type] as $file_list){
-                    $this->$type['added'] = $file_list;
+                    $this->setAddedFiles($type, $file_list);
                 }
-            }elseif(!empty($files)){
-                $this->$type['added'] = $files;
+            }else{
+                $this->setAddedFiles($type, $files);
             }
         }
     }
 
-    // возвращает html-ответ (шаблон/вид) на ajax-запрос
-    // внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu, Filter), где подключается шаблон
-    // в видах, подключаемых через loadView() доступен объект класса, в котором был вызван метод ($this - CartController)
-    // в видах, подключаемых через класс вида доступен объект класса View ($this - View)
-    public function loadView($view, $vars = []){
-        extract($vars); // извлекаем переменные из массива
-        require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид
-        die;
+    protected function setAddedFiles($type, $files){
+        foreach($files as $file){
+            $this->$type['added'][] = $file;
+        }
     }
-
-    // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
-    //public function isAjax(){
-    //    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
-    //}
 
 }

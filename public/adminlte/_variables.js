@@ -4,7 +4,5 @@
  * adminpath - ссылка на главную админки - абсолютный путь (для ajax-запросов и другого)
  */
 
-console.log(Ishop);
-
 // выгружаем свойства из объекта Ishop (деструктуризация)
 const { consts, path, adminpath } = Ishop;

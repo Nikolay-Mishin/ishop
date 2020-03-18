@@ -6,7 +6,5 @@
  * symboleRight - символ справа (1 руб.)
  */
 
-console.log(Ishop);
-
 // выгружаем свойства из объекта Ishop (деструктуризация)
 const { consts, path, course, symboleLeft, symboleRight } = Ishop;

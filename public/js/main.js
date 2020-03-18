@@ -1,3 +1,7 @@
+(function(){
+	console.log(Ishop);
+})();
+
 /* Comments */
 var comments = $('#comments');
 
@@ -5,7 +9,7 @@ if(notEmpty(comments)){
 	var comment_add = comments.find('#comment_add'),
 		editor = comment_add.find('.editor'),
 		btn = comment_add.find('button'),
-		content,
+		content = '',
 		count = comments.find('#comments-count'),
 		comments = comments.find('#comments-list'),
 		vote = '.vote',
@@ -13,9 +17,11 @@ if(notEmpty(comments)){
 		reply_editor = '#reply_editor';
 	
 	setEditorOnChange(editor, btn);
+
+	console.log(content);
 	
 	// блокируем отправку формы, если тип отправки Ajax
-	if (comment_add.data('ajax')){
+	if(comment_add.data('ajax')){
 		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));
 	}
 

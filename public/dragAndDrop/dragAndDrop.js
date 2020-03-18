@@ -28,13 +28,18 @@ if(notEmpty(dragAndDrop)){
 
 	$('#draggable').draggable({
 		containment: containment, // Ограничение допустимой области перемещения элемента
+		create: function(event, ui){
+			//console.log(ui);
+		},
 		// Происходит в момент начала перетаскивания
 		start: function(event, ui){
-			$('#draggable').text("Перетаскивание...");
+			$(this).text("Перетаскивание...");
+			console.log(ui);
 		},
 		// Происходит в момент отпускания кнопки мыши в процессе перетаскивания
 		stop: function(event, ui){
-			$('#draggable').text("Перетащи");
+			$(this).text("Перетащи");
+			console.log(ui);
 		}
 	});
 
@@ -48,31 +53,40 @@ if(notEmpty(dragAndDrop)){
 	// drop			Происходит, когда пользователь оставляет перемещаемый элемент на принимающем элементе
 
 	$('#droppable').droppable({
+		create: function(event, ui){
+			//console.log(ui);
+		},
 		// Происходит, когда пользователь оставляет перемещаемый элемент на принимающем элементе
 		drop: function(event, ui){
 			ui.draggable.text("Оставлено");
+			console.log(ui);
+			console.log(ui.draggable.context.offsetTop);
+			console.log(ui.draggable.context.offsetLeft);
+			console.log(ui.draggable.context.offsetTop - ui.position.top);
+			console.log(ui.draggable.context.offsetLeft - ui.position.left);
+			ui.draggable.offsetTop = ui.position.top;
 		},
 		// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 		activate: function(){
-			$('#droppable').css({
+			$(this).css({
 				border: "medium double green",
 				backgroundColor: "lightGreen"
 			});
 		},
 		// Происходит, когда пользователь прекращает перетаскивать перемещаемый элемент
 		deactivate: function(){
-			$('#droppable').css("border", "").css("background-color", "");
+			$(this).css("border", "").css("background-color", "");
 		},
 		// Происходит, когда пользователь перетаскивает перемещаемый элемент над принимающим элементом(но при условии, что кнопка мыши еще не была отпущена)
 		over: function(){
-			$('#droppable').css({
+			$(this).css({
 				border: "medium double red",
 				backgroundColor: "red"
 			});
 		},
 		// Происходит, когда пользователь перетаскивает перемещаемый элемент за пределы принимающего элемента
 		out: function(event, ui){
-			$('#droppable').css("border", "").css("background-color", "");
+			$(this).css("border", "").css("background-color", "");
 		},
 		accept: '#draggable' // Ограничение допустимых перемещаемых элементов
 	});
@@ -95,22 +109,22 @@ if(notEmpty(dragAndDrop)){
 	//					где именно перетаскиваемый элемент был захвачен пользователем
 	// touch		Означает любую степень перекрывания перетаскиваемого и принимающего элементов
 
-	$('.draggable').draggable({
+	$('.fit-touch').draggable({
 		containment: containment, // Ограничение допустимой области перемещения элемента
 		start: function(event, ui){
-			$('.draggable').text("Перетаскивание...");
+			$(this).text("Перетаскивание...");
 		},
 		stop: function(event, ui){
-			$('.draggable').text("Fit, Touch");
+			$(this).text("Fit, Touch");
 		}
 	});
 
-	$('.droppable').droppable({
+	$('.fit-touch_droppable').droppable({
 		drop: function(event, ui){
 			ui.draggable.text("Оставлено");
 		},
 		// Сужает множество перемещаемых элементов, на которые будет реагировать принимающий элемент
-		accept: '.draggable', // Ограничение допустимых перемещаемых элементов
+		accept: '.fit-touch', // Ограничение допустимых перемещаемых элементов
 		// activate/deactivate - Определяет класс, который будет присваиваться в ответ на событие activate и удаляться в ответ на событие deactivate
 		activeClass: "active",
 		// over/out - Определяет класс, который будет присваиваться в ответ на событие over и удаляться в ответ на событие out
@@ -121,6 +135,51 @@ if(notEmpty(dragAndDrop)){
 
 	// Означает любую степень перекрывания перетаскиваемого и принимающего элементов
 	$('#touchDrop').droppable("option", "tolerance", "touch");
+
+	// Использование опции Scope
+	// Альтернативный подход заключается в использовании опции scope как для перемещаемых, так и для принимающих элементов.
+	// Перемещаемый элемент будет активизировать лишь те принимающие элементы, которые имеют одинаковое с ним значение свойства scope.
+	$('#apple').draggable({
+		scope: "fruit"
+	});
+
+	$('#orchid').draggable({
+		scope: "flower"
+	});
+
+	$('#flowerDrop').droppable({
+		activeClass: "active",
+		hoverClass: "hover",
+		scope: "flower"
+	});
+
+	$('#fruitDrop').droppable({
+		activeClass: "active",
+		hoverClass: "hover",
+		scope: "fruit"
+	});
+
+	// Использование вспомогательного элемента
+	// С помощью опции helper можно определить вспомогательный элемент, который будет перетаскиваться вместо исходного элемента, остающегося на месте.
+	$('#lily').draggable({
+		//helper: "clone"
+		helper: function(){
+			return $('<img src="http://professorweb.ru/downloads/jquery/lily.png"/>');
+		}
+	});
+
+	// Объект ui, который jQuery UI передает событиям взаимодействия Droppable, содержит свойство helper, и это свойство можно использовать для манипуляций вспомогательным элементом в процессе его перетаскивания.
+	$('#basket').droppable({
+		accept: '#lily',
+		activeClass: "active",
+		hoverClass: "hover",
+		over: function(event, ui){
+			ui.helper.css("border", "thick solid #27e6ed");
+		},
+		out: function(event, ui){
+			ui.helper.css("border", "");
+		}
+	});
 }
 
 /* // dragAndDrop */

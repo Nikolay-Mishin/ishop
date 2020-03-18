@@ -1,0 +1,52 @@
+#sort, #dragAndDrop {
+	margin: 22px auto;
+	padding: 88px 12px;
+	background-color: #fafafa;
+	border: 1px solid #eee;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+.col {
+	padding: 8px 12px;
+	margin: 0 8px;
+	border-width: 1px;
+	border-style: solid;
+	font-family: monospace;
+	font-size: 15px;
+	position: relative;
+}
+
+[data-id="1"] {
+	color: #5bc0de;
+}
+
+[data-id="2"] {
+	color: #008cba;
+}
+
+[data-id="3"] {
+	color: #6610f2;
+}
+
+[data-id="4"] {
+	color: #6f42c1;
+}
+
+[data-id="5"] {
+	color: #e83e8c;
+}
+
+[data-id="6"] {
+	color: #f04124;
+}
+
+[data-id="7"] {
+	color: #fd7e14;
+}
+
+[data-id="8"] {
+	color: #e99002;
+}
