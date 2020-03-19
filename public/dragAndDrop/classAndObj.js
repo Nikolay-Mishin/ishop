@@ -1,4 +1,94 @@
+(function(){
+	function makeCounter(){
+		var currentCount = 1;
+
+		// возвращаемся к функции
+		function counter(){
+			return currentCount++;
+		}
+
+		// ...и добавляем ей методы!
+		counter.set = function(value){
+			currentCount = value;
+		};
+
+		counter.reset = function(){
+			currentCount = 1;
+		};
+
+		return counter;
+	}
+
+	var counter = makeCounter();
+
+	console.log(counter()); // 1
+	console.log(counter()); // 2
+
+	counter.set(5);
+	console.log(counter()); // 5
+})();
+
+
+
 console.log('----------- 1 -----------')
+
+person = createPerson('Алексей', 'Данчин')
+console.log({ person })
+
+function createPerson(name, family) {
+	const person = {
+		name: name,
+		family: family,
+		sayHello() {
+			console.log(`Привет! Меня зовут ${this.name} ${this.family}`)
+		}
+	}
+
+	return person
+}
+
+
+
+console.log('----------- 2 -----------')
+
+person = new Person('Алексей', 'Данчин')
+console.log({ person })
+
+function Person(name, family) {
+	this.name = name
+	this.family = family
+
+	this.sayHello = () => {
+		console.log(`Привет! Меня зовут ${this.name} ${this.family}`)
+	}
+}
+
+
+
+console.log('----------- 3 -----------')
+
+person = {
+	name: 'Алексей',
+	family: 'Данчин',
+	age: 26,
+
+	get fullName() {
+		return `${this.name} ${this.family}`
+	},
+
+	set fullName(str) {
+		const pair = str.split(' ')
+
+		this.name = pair[0]
+		this.family = pair[1]
+
+		return str
+	}
+}
+
+
+
+console.log('----------- 4 -----------')
 
 class Point {
 	constructor (x, y) {
@@ -44,7 +134,7 @@ console.log(Point.getDist(pointA, pointB))
 
 
 
-console.log('----------- 2 -----------')
+console.log('----------- 5 -----------')
 // Наследование
 
 class Point {
@@ -83,58 +173,6 @@ console.log(vector.dist(point))
 
 
 
-console.log('----------- 3 -----------')
-
-person = createPerson('Алексей', 'Данчин')
-console.log({ person })
-
-function createPerson(name, family) {
-	const person = {
-		name: name,
-		family: family,
-		sayHello() {
-			console.log(`Привет! Меня зовут ${this.name} ${this.family}`)
-		}
-	}
-
-	return person
-}
 
 
 
-console.log('----------- 4 -----------')
-
-person = new Person('Алексей', 'Данчин')
-console.log({ person })
-
-function Person(name, family) {
-	this.name = name
-	this.family = family
-
-	this.sayHello = () => {
-		console.log(`Привет! Меня зовут ${this.name} ${this.family}`)
-	}
-}
-
-
-
-console.log('----------- 5 -----------')
-
-person = {
-	name: 'Алексей',
-	family: 'Данчин',
-	age: 26,
-
-	get fullName() {
-		return `${this.name} ${this.family}`
-	},
-
-	set fullName(str) {
-		const pair = str.split(' ')
-
-		this.name = pair[0]
-		this.family = pair[1]
-
-		return str
-	}
-}
