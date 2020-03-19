@@ -21,99 +21,86 @@ if(notEmpty(dragAndDrop)){
 	const containment = 'parent',
 		accept = '.col',
 		$drag = dragAndDrop.find('.col'),
-		$drop = $drag;
+		$drop = $drag,
+		duration = 288;
 
-	var distance,
+	var drop,
 		drag,
+		distance,
+		dist,
 		context,
 		offset,
 		position;
 
 	$drag.draggable({
 		containment: containment, // Ограничение допустимой области перемещения элемента
+		axis: 'x',
 		create: function(event, ui){
-			//console.log(ui);
+			console.log('Drag - create');
 		},
 		// Происходит в момент начала перетаскивания
 		start: function(event, ui){
+			console.log('Drag - start');
+			console.log(this);
+			dist = $(this).offset().left;
 			//$('#draggable').text("Перетаскивание...");
-			console.log(ui);
 		},
 		// Происходит в момент отпускания кнопки мыши в процессе перетаскивания
 		stop: function(event, ui){
+			console.log('Drag - stop');
 			//$('#draggable').text("Перетащи");
-			console.log(ui);
 		}
 	});
 
 	$drop.droppable({
 		create: function(event, ui){
-			//console.log(ui);
+			console.log('Drop - create');
 		},
 		// Происходит, когда пользователь оставляет перемещаемый элемент на принимающем элементе
 		drop: function(event, ui){
-			//const $this = $(this),
-			//	distance = $this.outerWidth(true),
-			//	drag = ui.draggable,
-			//	context = drag.context,
-			//	offset = {
-			//		top: context.offsetTop,
-			//		left: context.offsetLeft
-			//	},
-			//	position = {
-			//		top: ui.position.top,
-			//		left: ui.position.left
-			//	};
-			//console.log(ui);
-			//console.log('Расстояние: ' + distance);
-			//console.log(offset.top);
-			//console.log(offset.left);
-			//console.log(offset.top - ui.position.top);
-			//console.log(offset.left - ui.position.left);
-			setArgs(this, ui);
+			console.log('Drag - drop');
+			setArgs(ui);
+			drop = $(this);
 			console.log({
-				distance,
+				drop,
 				drag,
+				distance,
+				dist,
 				context,
 				offset,
 				position
 			});
+			getDistance();
+			distance = dist;
+			animate(drag, this, duration);
 		},
 		// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 		activate: function(event, ui){
-			$(this).css({
-				border: "medium double green"
-			});
-			const $this = $(this),
-				distance = $this.outerWidth(true),
-				drag = ui.draggable,
-				offset = {
-					top: ui.draggable.context.offsetTop,
-					left: ui.draggable.context.offsetLeft
-				};
+			console.log('Drop - activate');
+			$(this).css({ border: "medium double green" });
 		},
 		// Происходит, когда пользователь прекращает перетаскивать перемещаемый элемент
 		deactivate: function(){
-			$(this).css("border", "").css("background-color", "");
+			console.log('Drop - deactivate');
+			$(this).css({ border: "", backgroundColor: "" });
 		},
 		// Происходит, когда пользователь перетаскивает перемещаемый элемент над принимающим элементом(но при условии, что кнопка мыши еще не была отпущена)
 		over: function(){
-			$(this).css({
-				border: "medium double red"
-			});
+			console.log('Drag - over');
+			$(this).css({ border: "medium double red" });
 		},
 		// Происходит, когда пользователь перетаскивает перемещаемый элемент за пределы принимающего элемента
 		out: function(event, ui){
-			$(this).css("border", "").css("background-color", "");
+			console.log('Drag - out');
+			$(this).css({ border: "", "background-color": "" });
 		},
 		accept: accept // Ограничение допустимых перемещаемых элементов
 	});
 }
 
-function setArgs($this, ui){
-	var $this = $($this);
-	distance = $this.outerWidth(true);
+function setArgs(ui){
 	drag = ui.draggable;
+	distance = drag.outerWidth(true);
 	context = drag.context;
 	offset = {
 		top: context.offsetTop,
@@ -122,13 +109,64 @@ function setArgs($this, ui){
 	position = {
 		top: ui.position.top,
 		left: ui.position.left
-	};
+		};
 	console.log(ui);
 	console.log('Расстояние: ' + distance);
-	console.log(offset.top);
-	console.log(offset.left);
-	console.log(offset.top - ui.position.top);
-	console.log(offset.left - ui.position.left);
+	console.log('offset.top: ' + offset.top);
+	console.log('offset.left: ' + offset.left);
+	console.log('distance.top: ' + (offset.top - position.top));
+	console.log('distance.left: ' + (offset.left - position.left));
+}
+
+function getDistance(){
+	console.log('Drop', drop);
+	console.log('Drag', drag);
+	console.log('drag.left: ' + dist);
+	console.log('drop.left: ' + drop.offset().left);
+	dist = drop.offset().left - dist;
+	console.log('dist: ' + dist);
+}
+
+function animate(drag, drop, duration){
+	console.log('Drag: ', drag);
+	console.log('Drop: ', drop);
+	console.log('Расстояние: ' + distance);
+	console.log('Задержка: ' + duration);
+	console.log('prev.drop: ', $(drop).prev());
+
+	var is = $(drag).is($(drop).prev()),
+		prev = $(drag).is($(drop).prev()) ? $(drop) : $(drop).prev();
+
+	console.log('is: ', is);
+	console.log('prev: ', prev);
+
+	// Окончание анимации привязываем к первому элементу
+	$(drag)
+		.animate({
+			left: distance
+		})
+		.animate({
+			left: distance
+		}, {
+			duration: duration,
+			complete: function(){
+				console.log('Анимация выполнена.');
+
+				$(drop).removeAttr('style');
+				$(drag).removeAttr('style');
+				
+				$(drag).before(prev);
+				if(!is) prev.before($(drop));
+			}
+		});
+
+	// Второй элемент у нас всегда двигается только влево
+	// При этом делаем задержку `delay`
+	$(drop)
+		.delay(duration)
+		.animate({
+			left: -distance
+		}, duration);
 }
 
 function bubbleSort(first, second){
