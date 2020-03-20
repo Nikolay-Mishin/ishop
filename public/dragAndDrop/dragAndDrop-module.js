@@ -3,7 +3,7 @@
 const dragAndDrop = (function(){
 	// Переменные модуля
 	const instances = {},
-		wrapper = '#dragAndDrop-2';
+		wrapper = '#dragAndDrop';
 
 	// Методы модуля
 	const init = function(args = {}){
@@ -89,7 +89,7 @@ const dragAndDrop = (function(){
 						position: $this.position
 					});
 
-					$this.animate($this.drag, $this.drop, duration, function(drag, drop, drag_prev, drop_prev, isPair, isDrag){
+					$this.animate($this.drag, $this.drop, $this.duration, function(drag, drop, drag_prev, drop_prev, isPair, isDrag){
 						if(!isDrag) drag_prev.after(drop);
 						else drag_prev.before(drop);
 
@@ -121,57 +121,57 @@ const dragAndDrop = (function(){
 
 			this.setArgs = function(ui){
 				console.log('setArgs');
-				console.log(this);
+				console.log($this);
 
-				this.drag = ui.draggable;
-				setDistance();
-				this.context = drag.context;
-				this.offset = {
-					top: context.offsetTop,
-					left: context.offsetLeft
+				$this.drag = ui.draggable;
+				$this.setDistance();
+				$this.context = $this.drag.context;
+				$this.offset = {
+					top: $this.context.offsetTop,
+					left: $this.context.offsetLeft
 				};
-				this.position = {
+				$this.position = {
 					top: ui.position.top,
 					left: ui.position.left
 				};
 
 				console.log(ui);
-				console.log('Расстояние: ' + this.distance);
-				console.log('offset.top: ' + this.offset.top);
-				console.log('offset.left: ' + this.offset.left);
-				console.log('distance.top: ' + (this.offset.top - this.position.top));
-				console.log('distance.left: ' + (this.offset.left - this.position.left));
+				console.log('Расстояние: ' + $this.distance);
+				console.log('offset.top: ' + $this.offset.top);
+				console.log('offset.left: ' + $this.offset.left);
+				console.log('distance.top: ' + ($this.offset.top - $this.position.top));
+				console.log('distance.left: ' + ($this.offset.left - $this.position.left));
 			};
 
 			this.setDistance = function(){
 				console.log('setDistance');
-				console.log(this);
+				console.log($this);
 
-				console.log('Drop', this.drop);
-				console.log('Drag', this.drag);
-				console.log('drag.left: ' + this.distance);
-				console.log('drop.left: ' + this.drop.offset().left);
+				console.log('Drop', $this.drop);
+				console.log('Drag', $this.drag);
+				console.log('drag.left: ' + $this.distance);
+				console.log('drop.left: ' + $this.drop.offset().left);
 
-				this.distance = this.drop.offset().left - this.distance;
+				$this.distance = $this.drop.offset().left - $this.distance;
 
-				console.log('distance: ' + this.distance);
+				console.log('distance: ' + $this.distance);
 			};
 
 			this.animate = function(drag, drop, duration, callback = null){
 				console.log('animate');
-				console.log(this);
+				console.log($this);
 
 				callback = callback !== null ? callback : function () { };
 
-				console.log('Drag: ', this.drag);
-				console.log('Drop: ', this.drop);
-				console.log('Расстояние: ' + this.distance);
-				console.log('Задержка: ' + this.duration);
+				console.log('Drag: ', $this.drag);
+				console.log('Drop: ', $this.drop);
+				console.log('Расстояние: ' + $this.distance);
+				console.log('Задержка: ' + $this.duration);
 
-				const drag_prev = notEmpty(this.drag.prev()) ? this.drag.prev() : this.drag,
-					isDrag = this.drag.is(drag_prev),
-					isPair = this.drag.is(this.drop.prev()),
-					drop_prev = isPair ? this.drop : this.drop.prev();
+				const drag_prev = notEmpty($this.drag.prev()) ? this.drag.prev() : $this.drag,
+					isDrag = $this.drag.is(drag_prev),
+					isPair = $this.drag.is($this.drop.prev()),
+					drop_prev = isPair ? $this.drop : $this.drop.prev();
 
 				console.log('drag_prev: ', drag_prev);
 				console.log('isDrag: ', isDrag);
@@ -179,31 +179,31 @@ const dragAndDrop = (function(){
 				console.log('drop_prev: ', drop_prev);
 
 				// Окончание анимации привязываем к первому элементу
-				this.drag
+				$this.drag
 					.animate({
-						left: distance
+						left: $this.distance
 					})
 					.animate({
-						left: distance
+						left: $this.distance
 					}, {
-						duration: duration,
+						duration: $this.duration,
 						complete: function(){
 							console.log('Анимация выполнена');
 
-							this.drop.removeAttr('style');
-							this.drag.removeAttr('style');
+							$this.drop.removeAttr('style');
+							$this.drag.removeAttr('style');
 
-							callback.call(this, this.drag, this.drop, drag_prev, drop_prev, isPair, isDrag);
+							callback.call($this, $this.drag, $this.drop, drag_prev, drop_prev, isPair, isDrag);
 						}
 					});
 
 				// Второй элемент у нас всегда двигается только влево
 				// При этом делаем задержку `delay`
-				this.drop
-					.delay(duration)
+				$this.drop
+					.delay($this.duration)
 					.animate({
-						left: -distance
-					}, duration);
+						left: -$this.distance
+					}, $this.duration);
 			};
 		};
 
