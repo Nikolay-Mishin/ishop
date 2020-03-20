@@ -2,7 +2,8 @@
 
 const dragAndDrop = (function(){
 	// Переменные модуля
-	const instances = {};
+	const instances = {},
+		wrapper = '#dragAndDrop-2';
 
 	// Методы модуля
 	const init = function(args){
@@ -20,16 +21,16 @@ const dragAndDrop = (function(){
 			return instances;
 		},
 
-		getInstance = function (instance){
+		getInstance = function(instance){
 			return instances[instance];
 		},
 
-		instance2 = function(args){
-			this.wrapper = args.wrapper || '#dragAndDrop';
+		instance2 = function(args = {}){
+			this.wrapper = args.wrapper || wrapper;
 			this.id = args.id || this.wrapper;
 			this.$dragAndDrop = $(this.wrapper);
 
-			if(notEmpty(this.$dragAndDrop)) return null;
+			if(isEmpty(this.$dragAndDrop)) return null;
 
 			instances[this.id] = this;
 
@@ -95,12 +96,12 @@ const dragAndDrop = (function(){
 						position: $this.position
 					});
 
-					//$this.animate($this.drag, $this.drop, duration, function(drag, drop, drag_prev, drop_prev, isPair, isDrag){
-					//	if(!isDrag) drag_prev.after(drop);
-					//	else drag_prev.before(drop);
+					$this.animate($this.drag, $this.drop, duration, function(drag, drop, drag_prev, drop_prev, isPair, isDrag){
+						if(!isDrag) drag_prev.after(drop);
+						else drag_prev.before(drop);
 
-					//	if(!isPair) drop_prev.after(drag);
-					//});
+						if(!isPair) drop_prev.after(drag);
+					});
 				},
 				// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 				activate: function(event, ui){
@@ -217,7 +218,7 @@ const dragAndDrop = (function(){
 		init,
 		getInstances,
 		getInstance,
-		//instance: new instance2
+		instance: new instance2
 	};
 })();
 
@@ -226,6 +227,8 @@ dragAndDrop.init({ wrapper: '#dragAndDrop' });
 console.log('dragAndDrop \n', dragAndDrop);
 console.log('dragAndDrop.getInstances \n', dragAndDrop.getInstances());
 console.log('dragAndDrop.getInstance("#dragAndDrop") \n', dragAndDrop.getInstance('#dragAndDrop'));
+
+console.log('dragAndDrop.instance\n', dragAndDrop.instance);
 
 /* // dragAndDrop Module */
 
@@ -239,6 +242,9 @@ if(notEmpty($dragAndDrop)){
 		$drag = $dragAndDrop.find('.col'),
 		$drop = $drag,
 		duration = 288;
+
+	console.log('Drag', $drag);
+	console.log('Drop', $drop);
 
 	var drop,
 		drag,
@@ -417,10 +423,10 @@ function animate(drag, drop, duration, callback = null){
 
 var sort = $('#sort');
 
-if (notEmpty(sort)) {
+if(notEmpty(sort)){
 	$('button[name="random"]').on('click', randomeSort); // Рандомно перемешаем блоки
 
-	$('button[name="start"]').on('click', function (event) {
+	$('button[name="start"]').on('click', function(event){
 		console.clear();
 
 		$('button[name="random"]').attr('disabled', 'disabled');
@@ -428,6 +434,8 @@ if (notEmpty(sort)) {
 
 		bubbleSort(0, 1); // Отсортируем элементы по `data-id`
 	});
+
+	randomeSort();
 }
 
 function bubbleSort(first, second){
@@ -463,7 +471,7 @@ function bubbleSort(first, second){
 		// Окончание анимации привязываем к первому элементу
 		$(cols[first])
 			.animate({
-				top: -60
+				top: -50
 			}, duration)
 			.animate({
 				left: distance

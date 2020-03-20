@@ -1,6 +1,6 @@
-#sort, #dragAndDrop {
-	margin: 22px auto;
-	padding: 88px 12px;
+#sort, #dragAndDrop, #dragAndDrop-2 {
+	margin: 20px auto;
+	padding: 55px 10px;
 	background-color: #fafafa;
 	border: 1px solid #eee;
 	text-align: center;
