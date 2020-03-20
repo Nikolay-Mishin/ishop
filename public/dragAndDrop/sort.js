@@ -40,6 +40,7 @@ if(notEmpty(dragAndDrop)){
 		},
 		// Происходит в момент начала перетаскивания
 		start: function(event, ui){
+			console.clear();
 			console.log('Drag - start');
 			console.log(this);
 			dist = $(this).offset().left;
@@ -59,8 +60,8 @@ if(notEmpty(dragAndDrop)){
 		// Происходит, когда пользователь оставляет перемещаемый элемент на принимающем элементе
 		drop: function(event, ui){
 			console.log('Drag - drop');
-			setArgs(ui);
 			drop = $(this);
+			setArgs(ui);
 			console.log({
 				drop,
 				drag,
@@ -70,9 +71,12 @@ if(notEmpty(dragAndDrop)){
 				offset,
 				position
 			});
-			getDistance();
-			distance = dist;
-			animate(drag, this, duration);
+			animate($(drag), drop, duration, function(drag, drop, drag_prev, drop_prev, isPair, isDrag){
+				if (!isDrag) drag_prev.after(drop);
+				else drag_prev.before(drop);
+
+				if (!isPair) drop_prev.after(drag);
+			});
 		},
 		// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 		activate: function(event, ui){
@@ -100,7 +104,8 @@ if(notEmpty(dragAndDrop)){
 
 function setArgs(ui){
 	drag = ui.draggable;
-	distance = drag.outerWidth(true);
+	//distance = drag.outerWidth(true);
+	distance = getDistance();
 	context = drag.context;
 	offset = {
 		top: context.offsetTop,
@@ -125,20 +130,26 @@ function getDistance(){
 	console.log('drop.left: ' + drop.offset().left);
 	dist = drop.offset().left - dist;
 	console.log('dist: ' + dist);
+	return dist;
 }
 
-function animate(drag, drop, duration){
+function animate(drag, drop, duration, callback = null){
+	callback = callback !== null ? callback : function(){};
+
 	console.log('Drag: ', drag);
 	console.log('Drop: ', drop);
 	console.log('Расстояние: ' + distance);
 	console.log('Задержка: ' + duration);
-	console.log('prev.drop: ', $(drop).prev());
 
-	var is = $(drag).is($(drop).prev()),
-		prev = $(drag).is($(drop).prev()) ? $(drop) : $(drop).prev();
+	var drag_prev = notEmpty(drag.prev()) ? drag.prev() : drag,
+		isDrag = drag.is(drag_prev),
+		isPair = drag.is(drop.prev()),
+		drop_prev = isPair ? drop : drop.prev();
 
-	console.log('is: ', is);
-	console.log('prev: ', prev);
+	console.log('drag_prev: ', drag_prev);
+	console.log('isDrag: ', isDrag);
+	console.log('isPair: ', isPair);
+	console.log('drop_prev: ', drop_prev);
 
 	// Окончание анимации привязываем к первому элементу
 	$(drag)
@@ -152,11 +163,10 @@ function animate(drag, drop, duration){
 			complete: function(){
 				console.log('Анимация выполнена.');
 
-				$(drop).removeAttr('style');
-				$(drag).removeAttr('style');
-				
-				$(drag).before(prev);
-				if(!is) prev.before($(drop));
+				drop.removeAttr('style');
+				drag.removeAttr('style');
+
+				callback.call(this, drag, drop, drag_prev, drop_prev, isPair, isDrag);
 			}
 		});
 
