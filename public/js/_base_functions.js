@@ -61,3 +61,26 @@ function isEmpty(obj){
 	isEmpty({length: 3, custom_property: [1,2,3]}) // false
 	*/
 }
+
+function freeze(obj){
+	// Заморозить сам объект obj (ничего не произойдёт, если он уже заморожен)
+	return Object.freeze(obj);
+}
+
+// Чтобы сделать объект obj полностью неизменяемым, замораживаем каждый объект в объекте obj.
+// Для этого воспользуемся этой функцией.
+function deepFreeze(obj){
+	// Получаем имена свойств из объекта obj
+	var propNames = Object.getOwnPropertyNames(obj);
+
+	// Замораживаем свойства для заморозки самого объекта
+	propNames.forEach(function(name){
+		var prop = obj[name];
+		// Заморозка свойства prop, если оно объект
+		if(typeof prop == 'object' && prop !== null)
+			deepFreeze(prop);
+	});
+
+	// Заморозить сам объект obj (ничего не произойдёт, если он уже заморожен)
+	return freeze(obj);
+}

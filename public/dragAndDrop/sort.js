@@ -1,26 +1,45 @@
-/* Sort */
+/* dragAndDrop Module */
 
-var sort = $('#sort');
+const dragAndDrop = (function(){
+	// Переменные модуля
+	const instances = {};
 
-if(notEmpty(sort)){
-	$('button[name="random"]').on('click', randomeSort); // Рандомно перемешаем блоки
+	// Методы модуля
+	const init = function(args){
+			return typeof args === 'object' ? new instance(args) : null;
+		},
 
-	$('button[name="start"]').on('click', function(event){
-		console.clear();
+		instance = function(args){
+			this.id = args.id ? args.id : args.wrapper;
+			this.$dragAndDrop = args.wrapper;
 
-		$('button[name="random"]').attr('disabled', 'disabled');
-		$('button[name="start"]').attr('disabled', 'disabled');
-		
-		bubbleSort(0, 1); // Отсортируем элементы по `data-id`
-	});
-}
+			instances[this.id] = this;
+		};
 
-var dragAndDrop = $('#dragAndDrop');
+	return {
+		instances,
+		init
+	};
+})();
 
-if(notEmpty(dragAndDrop)){
+dragAndDrop.init({ wrapper: '#dragAndDrop' });
+dragAndDrop.init({ wrapper: '#dragAndDrop2' });
+
+console.log('dragAndDrop \n', dragAndDrop);
+
+console.log('dragAndDrop.instances \n', dragAndDrop.instances);
+console.log('dragAndDrop.instances["#dragAndDrop"] \n', dragAndDrop.instances['#dragAndDrop']);
+
+/* // dragAndDrop Module */
+
+/* dragAndDrop */
+
+var $dragAndDrop = $('#dragAndDrop');
+
+if(notEmpty($dragAndDrop)){
 	const containment = 'parent',
 		accept = '.col',
-		$drag = dragAndDrop.find('.col'),
+		$drag = $dragAndDrop.find('.col'),
 		$drop = $drag,
 		duration = 288;
 
@@ -177,6 +196,25 @@ function animate(drag, drop, duration, callback = null){
 		.animate({
 			left: -distance
 		}, duration);
+}
+
+/* // dragAndDrop */
+
+/* Sort */
+
+var sort = $('#sort');
+
+if (notEmpty(sort)) {
+	$('button[name="random"]').on('click', randomeSort); // Рандомно перемешаем блоки
+
+	$('button[name="start"]').on('click', function (event) {
+		console.clear();
+
+		$('button[name="random"]').attr('disabled', 'disabled');
+		$('button[name="start"]').attr('disabled', 'disabled');
+
+		bubbleSort(0, 1); // Отсортируем элементы по `data-id`
+	});
 }
 
 function bubbleSort(first, second){

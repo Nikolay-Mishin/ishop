@@ -20,8 +20,8 @@ $script = "<!-- _variables - ряд javaScript переменных (основ�
 		symboleLeft: '$symboleLeft', // символ слева ($ 1)
 		symboleRight: '$symboleRight' // символ справа (1 руб.)
 	};
-	Object.freeze(Ishop); // замораживает объект
-	Object.freeze(Ishop.consts); // замораживает объект
+	freeze(Ishop); // замораживает объект
+	freeze(Ishop.consts); // замораживает объект
 </script>";
 
 return $script;

@@ -22,8 +22,8 @@ return [
         "adminlte/bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
-        "@ " . CONF . "/require/scripts_consts.php",
         "$base/_base_functions",
+        "@ " . CONF . "/require/scripts_consts.php",
         "$base/_functions",
         "$base/_variables",
     ],
