@@ -14,11 +14,20 @@ const dragAndDrop = (function(){
 			this.$dragAndDrop = args.wrapper;
 
 			instances[this.id] = this;
+		},
+
+		getInstances = function(){
+			return instances;
+		},
+
+		getInstance = function (instance){
+			return instances[instance];
 		};
 
 	return {
-		instances,
-		init
+		init,
+		getInstances,
+		getInstance
 	};
 })();
 
@@ -26,9 +35,8 @@ dragAndDrop.init({ wrapper: '#dragAndDrop' });
 dragAndDrop.init({ wrapper: '#dragAndDrop2' });
 
 console.log('dragAndDrop \n', dragAndDrop);
-
-console.log('dragAndDrop.instances \n', dragAndDrop.instances);
-console.log('dragAndDrop.instances["#dragAndDrop"] \n', dragAndDrop.instances['#dragAndDrop']);
+console.log('dragAndDrop.getInstances \n', dragAndDrop.getInstances());
+console.log('dragAndDrop.getInstance("#dragAndDrop") \n', dragAndDrop.getInstance('#dragAndDrop'));
 
 /* // dragAndDrop Module */
 
