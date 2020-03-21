@@ -1,15 +1,15 @@
 <?php
 
-// Подключаем библиотеку Workerman
-// \ishop\app\widgets\chat\SimpleChat-server\ChatWorker.php
-require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/config/config.php';
-
 namespace app\widgets\chat;
 
 // Подключаем библиотеку Workerman
 use Workerman\Lib\Timer;
 use Workerman\Worker;
+
+// Подключаем библиотеку Workerman
+// \ishop\app\widgets\chat\SimpleChat-server\ChatWorker.php
+require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../config/chat.php';
 
 class ChatWorker {
 
