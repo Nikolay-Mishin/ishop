@@ -163,15 +163,15 @@ function animate(drag, drop, duration, callback = null){
 		.animate({
 			left: distance
 		}, {
-			duration: duration,
-			complete: function(){
-				console.log('Анимация выполнена');
+				duration: duration,
+				complete: function () {
+					console.log('Анимация выполнена');
 
-				drop.removeAttr('style');
-				drag.removeAttr('style');
+					drop.removeAttr('style');
+					drag.removeAttr('style');
 
-				callback.call(this, drag, drop, drag_prev, drop_prev, isPair, isDrag);
-			}
+					callback.call(this, drag, drop, drag_prev, drop_prev, isPair, isDrag);
+				}
 		});
 
 	// Второй элемент у нас всегда двигается только влево

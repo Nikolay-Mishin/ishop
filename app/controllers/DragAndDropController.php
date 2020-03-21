@@ -16,30 +16,19 @@ class DragAndDropController extends AppController {
 	public function exampleAction(){
 		$this->setStyle('/jquery-ui-1.12.1/themes/sunny/jquery-ui', '/dragAndDrop/dragAndDrop');
 		$this->setScript('/dragAndDrop/dragAndDrop-example');
-		$this->setMeta('Drag and Drop');
+		$this->setMeta('Drag and Drop - Example');
 	}
 
 	public function mainAction(){
 		$this->setStyle('/dragAndDrop/sort');
-		$this->setScript('/dragAndDrop/dragAndDrop');
-		$this->setMeta('Drag and Drop');
-	}
-
-	public function moduleAction(){
-		$this->setStyle('/dragAndDrop/sort');
-		$this->setScript('/dragAndDrop/dragAndDrop-module');
-		$this->setMeta('Drag and Drop');
+		$this->setScript('/dragAndDrop/dragAndDrop', '/dragAndDrop/dragAndDrop-module');
+		$this->setMeta('Drag and Drop - Module');
 	}
 
 	public function sortAction(){
 		$this->setStyle('/dragAndDrop/sort');
-		$this->setScript('/dragAndDrop/sort');
+		$this->setScript('/dragAndDrop/sort', '/dragAndDrop/sort-list');
 		$this->setMeta('Sort DOM');
-	}
-
-	public function sortListAction(){
-		$this->setScript('/dragAndDrop/sort-list');
-		$this->setMeta('Sort List');
 	}
 
 }

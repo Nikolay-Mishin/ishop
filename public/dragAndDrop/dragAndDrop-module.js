@@ -3,7 +3,7 @@
 const dragAndDrop = (function(){
 	// Переменные модуля
 	const instances = {},
-		wrapper = '#dragAndDrop';
+		id = 'dragAndDrop';
 
 	// Методы модуля
 	const init = function(args = {}){
@@ -19,24 +19,29 @@ const dragAndDrop = (function(){
 		},
 
 		instance = function(args){
-			this.wrapper = args.wrapper || wrapper;
-			this.id = args.id || this.wrapper;
+			this.id = args.id || id;
+			this.wrapper = args.wrapper || `#${this.id}`;
 			this.$dragAndDrop = $(this.wrapper);
 
 			if(isEmpty(this.$dragAndDrop)) return null;
+
+			this.containment = args.containment || 'parent'; // false
+			this.axis = args.axis || 'x'; // false
+			this.tolerance = args.tolerance || 'intersect';
+			this.drag_wrapper = args.$drag || '.col';
+			this.drop_wrapper = args.$drop || this.drag_wrapper;
+			this.accept = args.accept || this.drag_wrapper; // '*'
+			this.$drag = this.$dragAndDrop.find(this.drag_wrapper);
+			this.$drop = this.$dragAndDrop.find(this.drop_wrapper);
+			this.duration = args.duration || 288;
+
+			if(isEmpty(this.$drag) || isEmpty(this.$drop)) return null;
 
 			instances[this.id] = this;
 
 			const $this = this;
 
 			console.log(this);
-
-			this.containment = args.containment || 'parent';
-			this.axis = args.axis || 'x';
-			this.accept = args.accept || '.col';
-			this.$drag = args.$drag || this.$dragAndDrop.find(this.accept);
-			this.$drop = args.$drop || this.$drag;
-			this.duration = args.duration || 288;
 
 			this.drop;
 			this.drag;
@@ -182,19 +187,18 @@ const dragAndDrop = (function(){
 				$this.drag
 					.animate({
 						left: $this.distance
-					})
+					}, $this.duration)
 					.animate({
 						left: $this.distance
 					}, {
-						duration: $this.duration,
-						complete: function(){
-							console.log('Анимация выполнена');
+							complete: function(){
+								console.log('Анимация выполнена');
 
-							$this.drop.removeAttr('style');
-							$this.drag.removeAttr('style');
+								$this.drop.removeAttr('style');
+								$this.drag.removeAttr('style');
 
-							callback.call($this, $this.drag, $this.drop, drag_prev, drop_prev, isPair, isDrag);
-						}
+								callback.call($this, $this.drag, $this.drop, drag_prev, drop_prev, isPair, isDrag);
+							}
 					});
 
 				// Второй элемент у нас всегда двигается только влево
@@ -214,10 +218,10 @@ const dragAndDrop = (function(){
 	};
 })();
 
-dragAndDrop.init();
+dragAndDrop.init({ id: 'dragAndDrop-2' });
 
 console.log('dragAndDrop \n', dragAndDrop);
 console.log('dragAndDrop.getInstances \n', dragAndDrop.getInstances());
-console.log('dragAndDrop.getInstance("#dragAndDrop") \n', dragAndDrop.getInstance('#dragAndDrop-2'));
+console.log('dragAndDrop.getInstance("#dragAndDrop") \n', dragAndDrop.getInstance('dragAndDrop-2'));
 
 /* // dragAndDrop Module */
