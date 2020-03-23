@@ -89,13 +89,16 @@ function getKeys(obj){
 	return Object.keys(obj);
 };
 
+function getValues(obj){
+	return Object.values(obj);
+};
+
 function objectToArray(obj){
 	return Object.entries(obj);
 };
 
 function filterObject(obj, search, searchKey = '', strict = true){
-	return objectToArray(obj).filter(obj => {
-		obj = obj[1];
+	return getValues(obj).filter(obj => {
 		return searchKey ? searchInObject(obj[searchKey], search, strict) : searchInObject(obj, search, strict);
 	});
 }

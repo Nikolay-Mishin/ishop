@@ -2,6 +2,7 @@
 
 const dragAndDrop = (function(){
 	// Переменные модуля
+
 	const instances = {},
 		wrapper = 'dragAndDrop',
 		drag_wrapper = '.draggable',
@@ -12,28 +13,21 @@ const dragAndDrop = (function(){
 		duration = 288;
 
 	var id,
-		$instances,
 		length = 0;
 
-	const getInstances = function(){
-		return instances;
-	};
+	// Методы модуля
 
-	const getInstance = function(instance){
-		return instances[instance] || filterInstances(`#${instance}`);
-	};
-
-	const getInstancesKeys = function(){
-		return getKeys(instances);
-	};
-
-	function getInstancesArray(){
-		return objectToArray(instances);
+	const get = function(instance = ''){
+		return !instance ? instances : (instances[instance] || filterInstances(`#${instance}`));
 	};
 
 	const filterInstances = function(instance, searchKey = 'wrapper'){
 		var filter = filterObject(instances, instance, searchKey);
-		return filter.length ? filter[0][1] : {};
+		return filter.length ? filter[0] : {};
+	};
+
+	const getInstancesKeys = function(){
+		return getKeys(instances);
 	};
 
 	const getInstancesLength = function(){
@@ -47,8 +41,7 @@ const dragAndDrop = (function(){
 		}
 		return matches;
 	};
-
-	// Методы модуля
+	
 	const init = function(args = {}){
 		if(typeof args !== 'object') return null;
 		getInstancesLength();
@@ -262,17 +255,15 @@ const dragAndDrop = (function(){
 
 	return {
 		init,
-		getInstances,
-		getInstance
+		get
 	};
 })();
 
 dragAndDrop.init({ drop: 'drag' });
-
 dragAndDrop.init({ drop: 'drag' });
 
-console.log('dragAndDrop \n', dragAndDrop.getInstances());
-console.log('dragAndDrop("#dragAndDrop") \n', dragAndDrop.getInstance('dragAndDrop'));
-console.log('dragAndDrop("#dragAndDrop-2") \n', dragAndDrop.getInstance('dragAndDrop-2'));
+console.log('dragAndDrop() \n', dragAndDrop.get());
+console.log('dragAndDrop("#dragAndDrop") \n', dragAndDrop.get('dragAndDrop'));
+console.log('dragAndDrop("#dragAndDrop-2") \n', dragAndDrop.get('dragAndDrop-2'));
 
 /* // dragAndDrop Module */
