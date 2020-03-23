@@ -21,7 +21,7 @@ class DragAndDropController extends AppController {
 
 	public function mainAction(){
 		$this->setStyle('/dragAndDrop/sort');
-		$this->setScript('/dragAndDrop/dragAndDrop', '/dragAndDrop/dragAndDrop-module');
+		$this->setScript('/dragAndDrop/dragAndDrop-module');
 		$this->setMeta('Drag and Drop - Module');
 	}
 

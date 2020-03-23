@@ -4,8 +4,8 @@ var $dragAndDrop = $('#dragAndDrop');
 
 if(notEmpty($dragAndDrop)){
 	const containment = 'parent',
-		accept = '.col',
-		$drag = $dragAndDrop.find('.col'),
+		accept = '.draggable',
+		$drag = $dragAndDrop.find('.draggable'),
 		$drop = $drag,
 		duration = 288;
 

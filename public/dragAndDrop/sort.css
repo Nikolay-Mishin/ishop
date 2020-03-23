@@ -9,7 +9,7 @@
 	box-sizing: border-box;
 }
 
-.col {
+.draggable {
 	padding: 8px 12px;
 	margin: 0 8px;
 	border-width: 1px;
