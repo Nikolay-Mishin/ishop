@@ -17,7 +17,11 @@ const dragAndDrop = (function(){
 
 	// Методы модуля
 
-	const get = function(instance = ''){
+	const dragAndDrop = function(args = {}){
+		return new init(args);
+	};
+
+	const get = dragAndDrop.get = function(instance = ''){
 		return !instance ? instances : (instances[instance] || filterInstances(`#${instance}`));
 	};
 
@@ -34,12 +38,9 @@ const dragAndDrop = (function(){
 		var matches = [];
 		for(var property of getInstancesKeys()){
 			var match = property.match(new RegExp(wrapper));
-			if(match){
-				matches.push(match);
-				length++;
-			};
+			if(match) matches.push(match);
 		}
-		return matches;
+		length = matches.length;
 	};
 	
 	const init = function(args = {}){
@@ -244,23 +245,17 @@ const dragAndDrop = (function(){
 		this.getAnimate = function(isDrop = false){
 			console.log('getAnimate');
 
-			const animate = {},
-				action = this.axis === 'x' ? 'left' : 'top';
-
-			animate[action] = !isDrop ? this.distance : -this.distance;
-
+			const animate = {};
+			animate[this.axis === 'x' ? 'left' : 'top'] = !isDrop ? this.distance : -this.distance;
 			return animate;
 		};
 	};
 
-	return {
-		init,
-		get
-	};
+	return dragAndDrop;
 })();
 
-dragAndDrop.init({ drop: 'drag' });
-dragAndDrop.init({ drop: 'drag' });
+dragAndDrop({ drop: 'drag' });
+dragAndDrop({ drop: 'drag' });
 
 console.log('dragAndDrop() \n', dragAndDrop.get());
 console.log('dragAndDrop("#dragAndDrop") \n', dragAndDrop.get('dragAndDrop'));
