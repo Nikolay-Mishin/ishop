@@ -227,17 +227,15 @@ const dragAndDrop = (function(){
 
 			// Второй элемент у нас всегда двигается только влево
 			// При этом делаем задержку `delay`
-			if(isDrop) target.delay(this.duration);
+			if(isDrop) $this.drop.delay(this.duration);
 			target.animate(this.getAnimate(isDrop), this.duration);
 			// Окончание анимации привязываем к первому элементу
-			if(!isDrop) target.animate(this.getAnimate(isDrop), {
+			if(!isDrop) this.drag.animate(this.getAnimate(isDrop), {
 				complete: function(){
 					console.log('Анимация выполнена');
 
-					$this.drop.removeAttr('style');
-					target.removeAttr('style');
-
-					callback.call($this, target, $this.drop, $this.drag_prev, $this.drop_prev, isPair, isDrag);
+					$this.removeStyle();
+					callback.call($this, $this.drag, $this.drop, $this.drag_prev, $this.drop_prev, isPair, isDrag);
 				}
 			});
 		};
@@ -248,6 +246,13 @@ const dragAndDrop = (function(){
 			const animate = {};
 			animate[this.axis === 'x' ? 'left' : 'top'] = !isDrop ? this.distance : -this.distance;
 			return animate;
+		};
+
+		this.removeStyle = function(){
+			console.log('removeStyle');
+
+			$this.drop.removeAttr('style');
+			$this.drag.removeAttr('style');
 		};
 	};
 
