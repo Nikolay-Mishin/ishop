@@ -69,6 +69,7 @@ const dragAndDrop = (function(){
 		this.tolerance = args.tolerance || tolerance;
 		this.accept = args.accept || this.drag_wrapper; // '*'
 		this.duration = args.duration || duration;
+		this.animateOn = args.animateOn || true;
 
 		instances[this.id] = this;
 
@@ -79,9 +80,6 @@ const dragAndDrop = (function(){
 		this.drag_prev;
 		this.drop_prev;
 		this.distance;
-		this.context;
-		this.offset;
-		this.position;
 
 		this.$drag.draggable({
 			containment: this.containment, // Ограничение допустимой области перемещения элемента
@@ -93,7 +91,6 @@ const dragAndDrop = (function(){
 			start: function(){
 				console.clear();
 				console.log('Drag - start');
-				
 				$this.distance = $(this).offset().left;
 			},
 			// Происходит в момент отпускания кнопки мыши в процессе перетаскивания
@@ -109,22 +106,8 @@ const dragAndDrop = (function(){
 			// Происходит, когда пользователь оставляет перемещаемый элемент на принимающем элементе
 			drop: function(event, ui){
 				console.log('Drag - drop');
-				
 				$this.setArgs(ui, $(this));
-				$this.animate(function(isPair, isDrag){
-					console.log({
-						drop: this.drop,
-						drag: this.drag,
-						drag_prev: this.drag_prev,
-						drop_prev: this.drop_prev,
-						distance: this.distance,
-					});
-
-					if(!isDrag) this.drag_prev.after(this.drop);
-					else this.drag_prev.before(this.drop);
-
-					if(!isPair) this.drop_prev.after(this.drag);
-				});
+				if($this.animateOn) $this.onAnimate();
 			},
 			// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 			activate: function(){
@@ -158,6 +141,27 @@ const dragAndDrop = (function(){
 		this.setDistance = function(){
 			this.distance = this.drop.offset().left - this.distance;
 		};
+		
+		this.onAnimate = typeof args.onAnimate === 'function' ? args.onAnimate.bind(this) : function(){
+			console.log('onAnimate \n', {
+				drop: this.drop,
+				drag: this.drag,
+				drag_prev: this.drag_prev,
+				drop_prev: this.drop_prev,
+				distance: this.distance
+			});
+			this.animate(function(isPair, isDrag){
+				console.log('animate \n', {
+					isPair: isPair,
+					isDrag: isDrag
+				});
+
+				if(!isDrag) this.drag_prev.after(this.drop);
+				else this.drag_prev.before(this.drop);
+
+				if(!isPair) this.drop_prev.after(this.drag);
+			});
+		};
 
 		this.animate = function(callback){
 			this.drag_prev = notEmpty(this.drag.prev()) ? this.drag.prev() : this.drag;
@@ -177,7 +181,6 @@ const dragAndDrop = (function(){
 			// Окончание анимации привязываем к первому элементу
 			if(!isDrop) this.drag.animate(this.getAnimate(isDrop), {
 				complete: function(){
-					console.log('Анимация выполнена');
 					$this.removeStyle();
 					callback.call($this, isPair, isDrag);
 				}
