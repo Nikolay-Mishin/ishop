@@ -2,6 +2,8 @@
 
 namespace app\widgets\chat;
 
-use ChatWorker;
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use app\widgets\chat\ChatWorker;
 
 ChatWorker::run();
