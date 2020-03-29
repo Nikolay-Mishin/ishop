@@ -3,7 +3,7 @@
 namespace app\controllers\admin;
 
 use app\models\admin\User;
-use app\models\User as baseUser;
+use app\models\User as BaseUser;
 
 // Контроллер авторизации админа
 class UserController extends AppController {
@@ -41,7 +41,7 @@ class UserController extends AppController {
 	public function loginAdminAction(){
 		// если данные получены методом POST, обрабатываем их
 		if(!empty($_POST)){
-			$user = new baseUser('login', [], [$_POST, true]); // объект пользователя
+			$user = new BaseUser('login', [], [$_POST, true]); // объект пользователя
 			// если авторизованный пользователь является админом, перенаправляем на гланую админки
 			// иначе направляем на главную сайта
 			if(User::isAdmin()){

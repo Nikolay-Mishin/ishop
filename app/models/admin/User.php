@@ -49,7 +49,6 @@ class User extends baseUser {
 		// $this->checkUnique()
 		//debug(['User', $data, $attrs, $valid]);
 		parent::__construct('', $data, $attrs, $action, $valid);
-		//debug(['User', $this->attributes]);
 		// сохраняем изменения в БД
 		if($this->id){
 			$_SESSION['success'] = 'Изменения сохранены';

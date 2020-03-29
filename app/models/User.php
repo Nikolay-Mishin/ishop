@@ -53,8 +53,14 @@ class User extends AppModel {
 
 	// проверяем роль пользователя и получаем из БД пользователя с соответствующей ролью (admin/user)
 	public static function getByLogin($login, $isAdmin = false){
-		$role = $isAdmin ? "AND role = 'admin'" : '';
-		return \R::findOne('user', "login = ? $role", [$login]);
+		//$role = $isAdmin ? "AND role = 'admin'" : '';
+		//return \R::findOne('user', "login = ? $role", [$login]);
+		$role = $isAdmin ? "AND role.role = 'admin'" : '';
+		$row = \R::getRow("SELECT user.*, role.role FROM user JOIN role ON role.id = user.role WHERE login = ? $role", [$login]);
+		// обратное преобразование для одной строки
+		return \R::convertToBean('user', $row);
+		// обратное преобразование для всего массива
+		// \R::convertToBeans('user', [$row])[$row['id']];
 	}
 
 	// проверяет уникальные поля с данными

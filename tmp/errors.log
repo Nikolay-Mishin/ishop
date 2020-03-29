@@ -4033,3 +4033,21 @@ J' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\do
 =================
 [2020-03-21 15:50:30] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
 =================
+[2020-03-29 15:08:00] Текст ошибки: Нет соединения с БД | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Db.php | Строка: 21
+=================
+[2020-03-29 15:08:00] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2020-03-29 15:09:12] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'login = 'admin' LIMIT 1  -- keep-cache' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:17:31] Текст ошибки: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user.role' in 'on clause' | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:21:13] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'user' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:32:51] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'user' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:36:56] Текст ошибки: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'role.role' doesn't exist | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:43:07] Текст ошибки: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT user.*, role.role FROM user JOIN role ON role.id = user.role WHERE login ' at line 1 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2020-03-29 15:48:31] Текст ошибки: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'role' in where clause is ambiguous | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
