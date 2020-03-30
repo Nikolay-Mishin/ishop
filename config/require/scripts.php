@@ -1,34 +1,31 @@
 <?php
-// конфигурации БД - ORM RedBeanPHP
-
-$base = "js";
 
 return [
     'lib' => [
-        "$base/jquery-1.11.0.min",
+        "js/jquery-1.11.0.min",
         "/jquery-ui-1.12.1/jquery-ui.min",
-        "$base/bootstrap.min",
-        "$base/validator",
-        "$base/typeahead.bundle",
-        "$base/imagezoom",
+        "js/bootstrap.min",
+        "js/validator",
+        "js/typeahead.bundle",
+        "js/imagezoom",
         "megamenu/js/megamenu",
-        "$base/jquery.easydropdown",
-        "$base/accordion",
-        "$base/responsiveslides.min",
-        "$base/slider",
-        "$base/jquery.flexslider",
-        "$base/flexslider", // defer
+        "js/jquery.easydropdown",
+        "js/accordion",
+        "js/responsiveslides.min",
+        "js/slider",
+        "js/jquery.flexslider",
+        "js/flexslider", // defer
         "adminlte/bower_components/ckeditor/ckeditor",
         "adminlte/bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
-        "$base/_base_functions",
+        "js/_base_functions",
         "@ " . CONF . "/require/scripts_consts.php",
-        "$base/_functions",
-        "$base/_variables",
+        "js/_functions",
+        "js/_variables",
     ],
     'main' => [
-        "$base/editor",
-        "$base/main",
+        "js/editor",
+        "js/main",
     ]
 ];

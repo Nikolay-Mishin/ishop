@@ -44,8 +44,8 @@
                         <div class="form-group">
                             <label>Роль</label>
                             <select name="role" id="role" class="form-control">
-                                <option value="user"<?php if($user->role == 'user') echo ' selected'; ?>>Пользователь</option>
-                                <option value="admin"<?php if($user->role == 'admin') echo ' selected'; ?>>Администратор</option>
+                                <option value="2" <?= $user->role == 'user' ? 'selected' : ''; ?>>Пользователь</option>
+                                <option value="1" <?= $user->role == 'admin' ? 'selected' : ''; ?>>Администратор</option>
                             </select>
                         </div>
                     </div>

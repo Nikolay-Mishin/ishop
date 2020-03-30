@@ -20,9 +20,8 @@ abstract class Controller {
     public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
     public $canonical = ''; // каноническая ссылка
     public $file_prefix; // префикс
-    public $typeFiles = ['style', 'script'];
-    public $style = ['init' => [], 'main' => [], 'lib' => []];
-    public $script = ['init' => [], 'main' => [], 'lib' => []];
+    public $style = ['lib' => [], 'added' => [], 'main' => []];
+    public $script = ['lib' => [], 'init' => [], 'added' => [], 'main' => []];
 
     public function __construct($route){
         if(!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
@@ -32,9 +31,8 @@ abstract class Controller {
         $this->view = $route['action'];
         $this->prefix = $route['prefix'];
         $this->file_prefix = rtrim($this->prefix, '\\') . ($this->prefix ? '_' : ''); // вырезаем из конца строки '\'
-        //$this->setStyle();
-        //$this->setScript();
-        $this->setFiles($this->typeFiles);
+        $this->setStyle();
+        $this->setScript();
     }
 
     // получает объект вида и вызывает рендер
@@ -84,22 +82,16 @@ abstract class Controller {
         
     }
 
-    public function setFiles($types = 'style', ...$files){
-        $types = toArray($types);
-        foreach($types as $type){
-            $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
-            $this->$type = $file === true ? $this->$type : $file; 
-            if(!empty($files[$type])){
-                foreach($files[$type] as $file_list){
-                    $this->setAddedFiles($type, $file_list);
-                }
-            }else{
-                $this->setAddedFiles($type, $files);
+    public function setFiles($type, ...$files){
+        $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
+
+        //$this->$type = $file === true ? $this->$type : $file;
+        if($file !== true){
+            foreach($file as $file_type => $file_list){
+                $this->$type[$file_type] = $file_list;
             }
         }
-    }
 
-    protected function setAddedFiles($type, $files){
         foreach($files as $file){
             $this->$type['added'][] = $file;
         }

@@ -12,7 +12,7 @@ class User extends AppModel {
 		'name' => '',
 		'email' => '',
 		'address' => '',
-		'role' => 'user',
+		'role' => 2,
 	];
 
 	// набор правил для валидации

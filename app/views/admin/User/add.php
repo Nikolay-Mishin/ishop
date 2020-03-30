@@ -41,8 +41,8 @@
                         <div class="form-group">
                             <label>Роль</label>
                             <select class="form-control" name="role">
-                                <option value="user">Пользователь</option>
-                                <option value="admin">Администратор</option>
+                                <option value="2">Пользователь</option>
+                                <option value="1">Администратор</option>
                             </select>
                         </div>
                     </div>
