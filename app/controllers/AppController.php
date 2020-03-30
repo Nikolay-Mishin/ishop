@@ -15,7 +15,7 @@ class AppController extends Controller {
     public function __construct($route){
         // перегрузка - переопределение методов и свойств родительского класса
         parent::__construct($route); // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-        new AppModel(); // создаем объект базовой модели приложения
+        if(CUSTOM_DB_INSTANCE) new AppModel(); // создаем объект базовой модели приложения
         // записываем в контейнер (реестр) список доступных валют и текущую валюту
         App::$app->setProperty('currencies', Currency::getCurrencies());
         $curr = Currency::getCurrency(App::$app->getProperty('currencies')); // получаем текущую валюту из реестра

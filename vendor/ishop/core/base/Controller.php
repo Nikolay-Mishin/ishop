@@ -3,6 +3,8 @@
 // работает с данными и видами - обработка полученных из определенного контроллера/модели данных и отображение вида (view) 
 namespace ishop\base;
 
+use ishop\Db; // класс БД
+
 abstract class Controller {
 
     use \ishop\traits\T_Ajax;
@@ -15,7 +17,7 @@ abstract class Controller {
     public $prefix; // префикс
     public $layout; // шаблон
     public $data = []; // обычные данные (контент)
-    public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (задаем по умолчанию пустые значения для индексов)
+    public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
     public $canonical = ''; // каноническая ссылка
     public $file_prefix; // префикс
     public $typeFiles = ['style', 'script'];
@@ -23,6 +25,7 @@ abstract class Controller {
     public $script = ['init' => [], 'main' => [], 'lib' => []];
 
     public function __construct($route){
+        if(!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
         $this->route = $route;
         $this->controller = $route['controller'];
         $this->model = $route['controller'];

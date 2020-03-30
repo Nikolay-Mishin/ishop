@@ -20,7 +20,7 @@ class AppController extends Controller {
         if(!User::isAdmin() && $route['action'] != 'login-admin'){
             redirect(ADMIN . '/user/login-admin'); // UserController::loginAdminAction
         }
-        new AppModel(); // создаем объект базовой модели для доступа к sql
+        if(CUSTOM_DB_INSTANCE) new AppModel(); // создаем объект базовой модели для доступа к sql
     }
 
     // получает параметр id из массива get или post

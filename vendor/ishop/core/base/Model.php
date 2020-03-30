@@ -19,7 +19,7 @@ abstract class Model extends Sql {
 	protected $bean;
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
-		Db::instance(); // создаем объект класса БД
+		if(CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
 		$this->addProtectProperties('bean');
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
