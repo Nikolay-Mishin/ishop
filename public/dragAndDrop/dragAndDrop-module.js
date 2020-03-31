@@ -68,8 +68,10 @@ const dragAndDrop = (function(){
 		this.axis = args.axis || axis;
 		this.tolerance = args.tolerance || tolerance;
 		this.accept = args.accept || this.drag_wrapper; // '*'
+
 		this.duration = args.duration || duration;
 		this.animateOn = args.animateOn || true;
+		this.animateTrigger = args.animateTrigger || 'drop';
 
 		instances[this.id] = this;
 
@@ -107,7 +109,6 @@ const dragAndDrop = (function(){
 			drop: function(event, ui){
 				console.log('Drag - drop');
 				$this.setArgs(ui, $(this));
-				if($this.animateOn) $this.onAnimate();
 			},
 			// Происходит, когда пользователь начинает перетаскивать перемещаемый элемент
 			activate: function(){
@@ -132,17 +133,18 @@ const dragAndDrop = (function(){
 			accept: this.accept // Ограничение допустимых перемещаемых элементов
 		});
 
-		this.setArgs = function(ui, drop){
+		this.setArgs = function(ui, drop, trigger = 'drop'){
 			this.drag = ui.draggable;
 			this.drop = drop;
 			this.setDistance();
+			this.onAnimate(trigger);
 		};
 
 		this.setDistance = function(){
 			this.distance = this.drop.offset().left - this.distance;
 		};
 		
-		this.onAnimate = typeof args.onAnimate === 'function' ? args.onAnimate.bind(this) : function(){
+		this.onAnimate = typeof args.onAnimate === 'function' ? args.onAnimate.bind(this, trigger) : function(trigger = 'drop'){
 			console.log('onAnimate \n', {
 				drop: this.drop,
 				drag: this.drag,
@@ -150,12 +152,12 @@ const dragAndDrop = (function(){
 				drop_prev: this.drop_prev,
 				distance: this.distance
 			});
+			if(this.animateOn && trigger !== this.animateTrigger) return false;
 			this.animate(function(isPair, isDrag){
 				console.log('animate \n', {
 					isPair: isPair,
 					isDrag: isDrag
 				});
-
 				if(!isDrag) this.drag_prev.after(this.drop);
 				else this.drag_prev.before(this.drop);
 
