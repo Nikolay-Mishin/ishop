@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 28 2020 г., 00:51
+-- Время создания: Апр 01 2020 г., 20:45
 -- Версия сервера: 10.3.13-MariaDB-log
 -- Версия PHP: 7.1.22
 
@@ -66,10 +66,6 @@ INSERT INTO `attribute_product` (`attr_id`, `product_id`) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
-(1, 34),
-(1, 35),
-(1, 38),
-(1, 39),
 (1, 61),
 (1, 62),
 (1, 63),
@@ -79,31 +75,22 @@ INSERT INTO `attribute_product` (`attr_id`, `product_id`) VALUES
 (5, 2),
 (5, 3),
 (5, 4),
-(5, 34),
 (5, 62),
 (5, 63),
 (5, 82),
-(6, 38),
-(6, 39),
 (8, 1),
 (8, 2),
 (8, 3),
 (8, 4),
-(8, 34),
 (8, 63),
-(9, 38),
 (12, 1),
 (12, 2),
 (12, 3),
 (12, 4),
-(12, 34),
-(12, 38),
 (18, 1),
 (18, 2),
 (18, 4),
-(19, 3),
-(19, 34),
-(19, 38);
+(19, 3);
 
 -- --------------------------------------------------------
 
@@ -209,6 +196,35 @@ INSERT INTO `category` (`id`, `title`, `alias`, `parent_id`, `keywords`, `descri
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `product_id` int(10) UNSIGNED NOT NULL,
+  `content` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `update_at` timestamp NULL DEFAULT NULL,
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
+  `rate` int(10) NOT NULL DEFAULT 0,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Дамп данных таблицы `comment`
+--
+
+INSERT INTO `comment` (`id`, `parent_id`, `product_id`, `content`, `date`, `update_at`, `status`, `rate`, `user_id`) VALUES
+(3, 0, 1, '<p>Lorem ipsum dolor sit amet. Blanditiis praesentium voluptatum\r\n				deleniti atque. Autem vel illum, qui blanditiis praesentium voluptatum deleniti atque corrupti.\r\n				Dolor repellendus cum soluta nobis. Corporis suscipit laboriosam, nisi ut enim. Debitis aut\r\n				perferendis doloribus asperiores repellat. sint, obcaecati cupiditate non numquam eius. Itaque\r\n				earum rerum facilis. Similique sunt in ea commodi. Dolor repellendus numquam eius modi. Quam\r\n				nihil molestiae consequatur, vel illum, qui ratione voluptatem accusantium doloremque.</p>\r\n', '2020-03-05 20:15:33', NULL, 1, 5, 1),
+(4, 3, 1, '<p>Dolor sit, amet, consectetur, adipisci velit. Aperiam eaque ipsa, quae. Amet, consectetur, adipisci velit, sed quia consequuntur magni dolores. Ab illo inventore veritatis et quasi architecto. Quisquam est, omnis voluptas nulla. Obcaecati cupiditate non numquam eius modi tempora. Corporis suscipit laboriosam, nisi ut labore et aut reiciendis.</p>\r\n', '2020-03-05 20:40:13', NULL, 1, 3, 2),
+(5, 4, 1, '<p><strong>Amet</strong>, consectetur, adipisci velit, sed ut labore et dolore. Maiores alias consequatur aut perferendis doloribus asperiores. Voluptas nulla vero eos. Minima veniam, quis nostrum exercitationem ullam corporis. Atque corrupti, quos dolores eos, qui blanditiis praesentium voluptatum deleniti atque corrupti. Quibusdam et harum quidem rerum necessitatibus saepe eveniet, ut enim ipsam. Magni dolores et dolorum fuga nostrum exercitationem ullam. Eligendi optio, cumque nihil molestiae consequatur.</p>\r\n', '2020-03-05 20:40:36', NULL, 1, -1, 3),
+(6, 3, 1, '<p>Ex ea voluptate velit esse, quam nihil impedit, quo minus id quod. Totam rem aperiam eaque ipsa, quae ab illo. Minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid. Iste natus error sit voluptatem. Sunt, explicabo deleniti atque corrupti, quos dolores et expedita.</p>\r\n', '2020-03-05 20:40:43', NULL, 1, 1, 4),
+(8, 0, 1, '<p>Eum iure reprehenderit, qui dolorem eum fugiat. Sint et expedita distinctio velit. Architecto beatae vitae dicta sunt, explicabo unde omnis. Qui aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto. Nemo enim ipsam voluptatem quia. Eos, qui ratione voluptatem sequi nesciunt, neque porro. A sapiente delectus, ut enim ipsam voluptatem, quia non recusandae architecto beatae.</p>\r\n', '2020-03-06 16:28:48', NULL, 1, 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `currency`
 --
 
@@ -229,9 +245,9 @@ CREATE TABLE `currency` (
 --
 
 INSERT INTO `currency` (`id`, `title`, `code`, `symbol_left`, `symbol_right`, `value`, `course`, `base`, `update_at`) VALUES
-(1, 'гривна', 'UAH', '', ' грн.', 0.0375, 26.6909, '0', '2020-02-27 19:42:42'),
-(2, 'доллар', 'USD', '$ ', '', 0.0152, 65.6097, '0', '2020-02-27 19:42:42'),
-(3, 'Евро', 'EUR', '€ ', '', 0.0140, 71.6458, '0', '2020-02-27 19:42:42'),
+(1, 'гривна', 'UAH', '', ' грн.', 0.0367, 27.2248, '0', '2020-03-06 17:54:37'),
+(2, 'доллар', 'USD', '$ ', '', 0.0148, 67.5175, '0', '2020-03-06 17:54:37'),
+(3, 'Евро', 'EUR', '€ ', '', 0.0132, 75.8424, '0', '2020-03-06 17:54:37'),
 (4, 'Рубль', 'RUR', '', ' руб.', 1.0000, 1.0000, '1', '2020-02-22 18:36:55');
 
 -- --------------------------------------------------------
@@ -284,12 +300,12 @@ CREATE TABLE `modification` (
 --
 
 INSERT INTO `modification` (`id`, `product_id`, `title`, `price`) VALUES
-(1, 1, 'Silver', 300),
-(2, 1, 'Black', 300),
-(3, 1, 'Dark Black', 305),
-(4, 1, 'Red', 310),
 (5, 2, 'Silver', 80),
-(6, 2, 'Red', 70);
+(6, 2, 'Red', 70),
+(27, 1, 'Silver', 300),
+(28, 1, 'Black', 300),
+(29, 1, 'Dark Black', 305),
+(30, 1, 'Red', 310);
 
 -- --------------------------------------------------------
 
@@ -440,16 +456,6 @@ INSERT INTO `related_product` (`product_id`, `related_id`) VALUES
 (5, 1),
 (5, 7),
 (5, 8),
-(34, 1),
-(34, 3),
-(34, 12),
-(35, 1),
-(38, 1),
-(38, 3),
-(38, 13),
-(39, 1),
-(39, 4),
-(39, 6),
 (61, 1),
 (62, 2),
 (62, 13),
@@ -457,6 +463,25 @@ INSERT INTO `related_product` (`product_id`, `related_id`) VALUES
 (63, 2),
 (63, 3),
 (82, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `role`
+--
+
+CREATE TABLE `role` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `role` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `role`
+--
+
+INSERT INTO `role` (`id`, `role`) VALUES
+(1, 'admin'),
+(2, 'user');
 
 -- --------------------------------------------------------
 
@@ -471,18 +496,19 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `role` enum('user','admin') NOT NULL DEFAULT 'user'
+  `avatar` varchar(255) NOT NULL DEFAULT 'no_image.jpg',
+  `role` int(10) UNSIGNED NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `user`
 --
 
-INSERT INTO `user` (`id`, `login`, `password`, `email`, `name`, `address`, `role`) VALUES
-(1, 'admin', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'admin@mail.ru', 'Admin', '1', 'admin'),
-(2, 'user1', '$2y$10$7QvD9AiyE4SS0EVwsFyv3OvQqJpDfFs7Z6TF5cAI5Vb51KRIcEUcK', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'user'),
-(3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'user'),
-(4, 'user3', '$2y$10$QkJYBUkwv7RJAbQVZDCIqOuzsOqFKKzr/2P.X5cmhqfuaxntK3lya', '3@3.ru', 'user3', '3', 'user');
+INSERT INTO `user` (`id`, `login`, `password`, `email`, `name`, `address`, `avatar`, `role`) VALUES
+(1, 'admin', '$2y$10$.Vx2.uPlxCWsiobtFDlsHedJPb.OPVpjxbgh41LCS2/3hPGhpQ84q', 'admin@mail.ru', 'Admin', '1', 'avatar1.jpg', 1),
+(2, 'user1', '$2y$10$7QvD9AiyE4SS0EVwsFyv3OvQqJpDfFs7Z6TF5cAI5Vb51KRIcEUcK', 'mishin.nikolay.d270893@yandex.ru', 'User1', '1', 'avatar2.jpg', 2),
+(3, 'user2', '$2y$10$Xv6p.JDMkPuniMyMhPblSeAIVKQSeEeQs7MZrIbAA71O2KKfH.aTi', '2@1.ru', 'User2', '222', 'avatar3.jpg', 2),
+(4, 'user3', '$2y$10$QkJYBUkwv7RJAbQVZDCIqOuzsOqFKKzr/2P.X5cmhqfuaxntK3lya', '3@3.ru', 'user3', '3', 'avatar4.jpg', 2);
 
 --
 -- Индексы сохранённых таблиц
@@ -498,7 +524,8 @@ ALTER TABLE `attribute_group`
 -- Индексы таблицы `attribute_product`
 --
 ALTER TABLE `attribute_product`
-  ADD PRIMARY KEY (`attr_id`,`product_id`);
+  ADD PRIMARY KEY (`attr_id`,`product_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Индексы таблицы `attribute_value`
@@ -521,6 +548,15 @@ ALTER TABLE `brand`
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `alias` (`alias`);
+
+--
+-- Индексы таблицы `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `parent_id` (`parent_id`);
 
 --
 -- Индексы таблицы `currency`
@@ -578,12 +614,20 @@ ALTER TABLE `related_product`
   ADD KEY `related_id` (`related_id`);
 
 --
+-- Индексы таблицы `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `role` (`role`);
+
+--
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `login` (`login`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `role` (`role`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -614,6 +658,12 @@ ALTER TABLE `category`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT для таблицы `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT для таблицы `currency`
 --
 ALTER TABLE `currency`
@@ -629,7 +679,7 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT для таблицы `modification`
 --
 ALTER TABLE `modification`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT для таблицы `order`
@@ -650,6 +700,12 @@ ALTER TABLE `product`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
+-- AUTO_INCREMENT для таблицы `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
@@ -663,13 +719,33 @@ ALTER TABLE `user`
 -- Ограничения внешнего ключа таблицы `attribute_product`
 --
 ALTER TABLE `attribute_product`
-  ADD CONSTRAINT `attr_id` FOREIGN KEY (`attr_id`) REFERENCES `attribute_value` (`id`);
+  ADD CONSTRAINT `attr_id` FOREIGN KEY (`attr_id`) REFERENCES `attribute_value` (`id`),
+  ADD CONSTRAINT `attribute_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `attribute_value`
 --
 ALTER TABLE `attribute_value`
   ADD CONSTRAINT `attr_group_id` FOREIGN KEY (`attr_group_id`) REFERENCES `attribute_group` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `gallery`
+--
+ALTER TABLE `gallery`
+  ADD CONSTRAINT `gallery_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `modification`
+--
+ALTER TABLE `modification`
+  ADD CONSTRAINT `modification_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `order`
@@ -682,7 +758,8 @@ ALTER TABLE `order`
 -- Ограничения внешнего ключа таблицы `order_product`
 --
 ALTER TABLE `order_product`
-  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `order_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `product`
@@ -695,7 +772,14 @@ ALTER TABLE `product`
 -- Ограничения внешнего ключа таблицы `related_product`
 --
 ALTER TABLE `related_product`
-  ADD CONSTRAINT `related_id` FOREIGN KEY (`related_id`) REFERENCES `attribute_value` (`id`);
+  ADD CONSTRAINT `related_id` FOREIGN KEY (`related_id`) REFERENCES `attribute_value` (`id`),
+  ADD CONSTRAINT `related_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `role_id` FOREIGN KEY (`role`) REFERENCES `role` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
