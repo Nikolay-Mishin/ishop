@@ -20,6 +20,7 @@ abstract class Model extends Sql {
 
 	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
 		if(CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
+
 		$this->addProtectProperties('bean');
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if($data){
@@ -34,9 +35,8 @@ abstract class Model extends Sql {
 			}
 			$this->table = self::getTable(); // имя таблицы в БД
 			// сохраняем/обновляем данные в БД и получаем id последней сохраненной записи
-			// $this->save();
-			// $this->$action($attrs);
 			// Вызывает callback-функцию `callback`, с параметрами из массива `param_arr`
+			//$this->$action($attrs);
 			//call_user_func_array([$this, $action], $attrs);
 			$this->$action(...$attrs);
 		}
@@ -60,11 +60,16 @@ abstract class Model extends Sql {
 	}
 
 	// сохраняем данные в таблицу в БД
-	public function save(){
+	public function save($table = '', $valid = true){
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
+		//if($valid){
+		//    $tbl = \R::dispense($table);
+		//}else{
+		//    $tbl = \R::xdispense($table);
+		//}
 		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
 		//// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
 		//foreach($this->attributes as $name => $value){
@@ -76,7 +81,8 @@ abstract class Model extends Sql {
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update($id){
+	public function update($id, $table = ''){
+		//$bean = \R::load($table, $id);
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		//// для каждого аттрибута модели заполняем поля записи в БД
 		//foreach($this->attributes as $name => $value){
