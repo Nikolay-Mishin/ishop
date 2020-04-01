@@ -12,16 +12,19 @@ class Pagination {
     public $total; // общее число записей
     public $countPages; // число старница для вывода всех записей
     public $uri; // строка запроса
+
     public $limit; // sql-запрос ограничения выборки из БД
 
     public function __construct($page, $perpage, $total, $table = ''){
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
+
         $this->perpage = $perpage;
         $this->total = $table ? \R::count($table) : $total;
         $this->countPages = $this->getCountPages(); // расчитываем необходимое число страниц для вывода всех записей
         $this->currentPage = $this->getCurrentPage($page); // получаем текущую страницу
         // получаем строку запроса, сформированную в нужном формате
         $this->uri = $this->getParams(); // http://ishop/category/casio?sort=name&filter=1,2,3&
+
         $this->limit = "{$this->getStart()}, $this->perpage";
     }
 

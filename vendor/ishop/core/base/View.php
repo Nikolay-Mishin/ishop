@@ -18,6 +18,7 @@ class View {
 	public $layout;
 	public $data = [];
 	public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
+
 	public $canonical;
 	public $style = [];
 	public $script = [];

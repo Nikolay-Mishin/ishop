@@ -18,6 +18,7 @@ abstract class Controller {
     public $layout; // шаблон
     public $data = []; // обычные данные (контент)
     public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
+
     public $canonical = ''; // каноническая ссылка
     public $file_prefix; // префикс
     public $style = ['lib' => [], 'added' => [], 'main' => []];
@@ -25,11 +26,13 @@ abstract class Controller {
 
     public function __construct($route){
         if(!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
+
         $this->route = $route;
         $this->controller = $route['controller'];
         $this->model = $route['controller'];
         $this->view = $route['action'];
         $this->prefix = $route['prefix'];
+
         $this->file_prefix = rtrim($this->prefix, '\\') . ($this->prefix ? '_' : ''); // вырезаем из конца строки '\'
         $this->setStyle();
         $this->setScript();

@@ -24,16 +24,16 @@ function redirect($http = false){
 	exit; // завершаем скрипт
 }
 
-function referer_url($url = ''){
-	$referer_url = isset($_SERVER['HTTP_REFERER']) ? rtrim($_SERVER['HTTP_REFERER'], '/') : PATH;
-	return $_SESSION['redirect'] = $url && $referer_url == PATH ? $url : $referer_url;
-}
-
 // обертка для функции htmlspecialchars() - обрабатывет спец символы от html-инъекций
 function h($str){
 	// ENT_QUOTES - чтобы преобразовывать и " (двойные кавычки)
 	// return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	return htmlspecialchars($str, ENT_QUOTES);
+}
+
+function referer_url($url = ''){
+	$referer_url = isset($_SERVER['HTTP_REFERER']) ? rtrim($_SERVER['HTTP_REFERER'], '/') : PATH;
+	return $_SESSION['redirect'] = $url && $referer_url == PATH ? $url : $referer_url;
 }
 
 // добавление разрядов к цене (1000 => 1 000)
