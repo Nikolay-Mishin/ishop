@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hometask 4.1 - Загрузка 2 файлов</title>
+        <link rel="stylesheet" href="style.css">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+        <link href="../_libs/fontawesome-5.7.2/css/all.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <div class="cont">
+            <form id="upload-form" action="form_txt.php" method="post" enctype="multipart/form-data">
+                <h2><i class="fa fa-users"></i>РЕГИСТРАЦИЯ  НА  СОРЕВНОВАНИЯ</h2>
+                <div class="form-cont">
+                    <label for="">Фамилия:</label><input type="text" name="surname" class="mb-20" placeholder="" required/><br>
+                    <label for="">Имя:</label><input type="text" name="name" class="mb-20" required/><br>
+                    <label for="">Отчество:</label><input type="text" name="patronymic" class="mb-20" placeholder=""/><br>
+                    <label for="">Дата рождения:</label><input type="date" name="date_of_birth" class="mb-20" placeholder=""/><br>
+                    <label for="">Спортивный разряд:</label><input type="number" min="0" name="rang" class="mb-20" placeholder="" required/><br>
+                    <p>Приложение 1: Скан медицинской справки о допуске к соревнованиям</p>
+                    <input type="file" id="file" name="file" accept="image/jpeg,image/png" required/>
+                    <div class="row"><span id="image-preview-1"></span></div>
+                    <p>Приложение 2: Скан разрядной книжки</p>
+                    <input type="file" id="file-2" name="file-2" accept="image/jpeg,image/png" required/>
+                    <div class="row"><span id="image-preview-2"></span></div>
+                    
+                    <div class="btn-cont">
+                        <input type="submit" class="btn" value="Отправить">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script src="../_libs/jquery_3.3.1/jquery.min.js"></script>
+        <script src="uploads-functions.js"></script>
+        <script src="uploads.js"></script>
+        <!-- <script src="main.js"></script> -->
+    </body>
+</html>
