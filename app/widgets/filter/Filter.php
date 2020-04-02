@@ -48,6 +48,7 @@ class Filter {
 
 	// получает список групп фильтров
 	protected function getGroups(){
+		// SELECT id, title FROM attribute_group
 		return \R::getAssoc('SELECT id, title FROM attribute_group'); // SELECT id, title FROM attribute_group
 	}
 

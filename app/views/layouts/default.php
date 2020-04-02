@@ -17,12 +17,13 @@
 <?=$content;?>
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
+<?php \ishop\Logger::getLog(); ?>
 <?php
-$logs = \R::getDatabaseAdapter()
-    ->getDatabase()
-    ->getLogger();
+//$logs = \R::getDatabaseAdapter()
+//    ->getDatabase()
+//    ->getLogger();
 
-debug( $logs->grep( 'SELECT' ) );
+//debug( $logs->grep( 'SELECT' ) );
 // распечатка массива с логом SQL запросов
 /*
 Array

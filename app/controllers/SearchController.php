@@ -29,7 +29,7 @@ class SearchController extends AppController {
         $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null; // пришедший поисковый запрос
         // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
         if($query){
-            // SELECT `product`.*  FROM `product`  WHERE title LIKE ?
+            // SELECT `product`.*  FROM `product`  WHERE title LIKE ? AND status = '1'
             $products = \R::find('product', "title LIKE ? AND status = '1'", ["%{$query}%"]);
         }
         $breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Поиск по запросу: "' . h($query) . '"'); // хлебные крошки

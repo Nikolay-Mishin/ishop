@@ -66,6 +66,14 @@ class Comment extends AppModel {
 	}
 
 	public static function getByProductId($id){
+		/*
+		SELECT comment.*, user.name, user.avatar, user.login
+		FROM `comment`
+		JOIN user ON comment.user_id = user.id
+		WHERE product_id = ?
+		GROUP BY comment.id
+		ORDER BY comment.id
+		*/
 		return \R::getAssoc(self::getSql(), [$id]);
 	}
 

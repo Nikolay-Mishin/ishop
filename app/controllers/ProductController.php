@@ -62,7 +62,7 @@ class ProductController extends AppController {
 		// часы 1 и часы 1 (silver)
 		// SELECT `modification`.*  FROM `modification`  WHERE product_id = ?
 		$mods = \R::findAll('modification', 'product_id = ?', [$product->id]);
-
+		
 		$comments = Comment::getByProductId($product->id);
 
 		$this->setMeta($product->title, $product->description, $product->keywords);

@@ -327,12 +327,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- <script src="js/main.js"></script> -->
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
+<?php \ishop\Logger::getLog(); ?>
 <?php
-$logs = \R::getDatabaseAdapter()
-    ->getDatabase()
-    ->getLogger();
-
-debug($logs->grep('SELECT'));
+//$logs = \R::getDatabaseAdapter()->getDatabase()->getLogger();
+//debug($logs->grep('SELECT'));
 // распечатка массива с логом SQL запросов
 /*
 Array
