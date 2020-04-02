@@ -58,7 +58,7 @@ class OrderController extends AppController {
 	// экшен удаления заказа
 	public function deleteAction(){
 		$order_id = $this->getRequestID(); // получаем id заказа
-		//$order = \R::load('order', $order_id);
+		//$order = \R::load('order', $order_id); // получаем данные заказа из БД
 		//\R::trash($order); // удаляем заказ
 		//$_SESSION['success'] = 'Заказ удален';
 		Order::delete($order_id); // удаляем заказ

@@ -60,7 +60,6 @@ class Currency extends AppModel {
 	public static function delete($id){
 		\R::trash(self::getById($id)); // удаляем валюту из БД
 		$_SESSION['success'] = "Валюта удалена";
-		redirect();
 	}
 
 	// возвращает список курсов по кодам переданных валют

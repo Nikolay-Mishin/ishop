@@ -18,7 +18,6 @@ class Category extends Cat {
 		}
 		*/
 		// сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
-		// if($this->update('save')){
 		// if($this->update('category', $id)){
 		if($this->id){
 			self::updateAlias('category', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id

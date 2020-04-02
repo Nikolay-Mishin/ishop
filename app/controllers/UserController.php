@@ -37,7 +37,6 @@ class UserController extends AppController {
 			//        $_SESSION['error'] = 'Ошибка!';
 			//    }
 			//}
-
 			$user = new User('signup', $_POST); // объект модели пользователя
 			redirect($_SESSION['redirect']); // перезапрашиваем страницу
 		}
@@ -55,6 +54,7 @@ class UserController extends AppController {
 
 		// если получены данные методом POST, обрабатываем их и регистрируем пользователя
 		if(!empty($_POST)){
+			// авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
 			//$user = new User(); // объект модели пользователя
 			//// сохраняем данные в БД
 			//if($user->login()){
@@ -62,8 +62,6 @@ class UserController extends AppController {
 			//}else{
 			//    $_SESSION['error'] = 'Логин/пароль введены неверно';
 			//}
-
-			// авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
 			$user = new User('login'); // объект модели пользователя
 			redirect($_SESSION['redirect']); // перезапрашиваем страницу
 		}
@@ -88,7 +86,8 @@ class UserController extends AppController {
 
 	// экшен редактирования личных данных пользователя
 	public function viewAction(){
-		if(!User::checkAuth()) redirect('/user/login'); // если пользователь не авторизован, перенаправляем на страницу авторизации
+		// если пользователь не авторизован, перенаправляем на страницу авторизации
+		if(!User::checkAuth()) redirect('/user/login');
 		$user = $_SESSION['user']; // записываем в переменную данные пользователя
 		$this->setMeta('Изменение личных данных'); // устанавливаем мета-данные
 		$this->set(compact('user')); // передаем данные в вид

@@ -54,26 +54,23 @@ class ProductController extends AppController {
 			//$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
 			//$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
 			//$product->getImg(); // получаем основную картинку
-
 			//// валидируем данные
 			//if(!$product->validate($data)){
 			//    $product->getErrors();
 			//    redirect();
 			//}
-
 			//// сохраняем данные в БД
 			//if($product->update('product', $id)){
 			//    $product->editFilter($id, $data); // изменяем фильтры товара
 			//    $product->editRelatedProduct($id, $data); // изменяем связанные товары
 			//    $product->saveGallery($id); // сохраняем галлерею
-			//    // создаем алиас для категории на основе ее названия и id
+			//    // создаем алиас для товара на основе его названия и id
 			//    $alias = AppModel::createAlias('product', 'alias', $data['title'], $id);
 			//    $product = \R::load('product', $id);
 			//    $product->alias = $alias;
 			//    \R::store($product);
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//}
-
 			new Product($_POST, [$this->getRequestID()], 'update'); // объект товара
 			redirect();
 		}
@@ -83,30 +80,31 @@ class ProductController extends AppController {
 	public function addAction(){
 		// если данные из формы получены, обрабатываем их
 		if(!empty($_POST)){
-			//$product = new Product();
-			//$data = $_POST;
-			//$product->load($data);
+			//$product = new Product(); // объект модели товара
+			//$data = $_POST; // записываем пришедшие данные в переменную
+			//$product->load($data); // получаем данные товара из БД
+			////обрабатываем аттрибуты
 			//$product->attributes['status'] = $product->attributes['status'] ? '1' : '0';
 			//$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
-			//$product->getImg();
-
+			//$product->getImg(); // получаем основную картинку
+			//// валидируем данные
 			//if(!$product->validate($data)){
 			//    $product->getErrors();
 			//    $_SESSION['form_data'] = $data;
 			//    redirect();
 			//}
-
+			//// сохраняем данные в БД
 			//if($id = $product->save('product')){
-			//    $product->saveGallery($id);
+			//    $product->saveGallery($id); // сохраняем галлерею
+			//    $product->editFilter($id, $data); // изменяем фильтры товара
+			//    $product->editRelatedProduct($id, $data); // изменяем связанные товары
+			//    // создаем алиас для товара на основе его названия и id
 			//    $alias = AppModel::createAlias('product', 'alias', $data['title'], $id);
 			//    $p = \R::load('product', $id);
 			//    $p->alias = $alias;
 			//    \R::store($p);
-			//    $product->editFilter($id, $data);
-			//    $product->editRelatedProduct($id, $data);
 			//    $_SESSION['success'] = 'Товар добавлен';
 			//}
-
 			new Product($_POST); // объект товара
 			redirect();
 		}
@@ -151,7 +149,6 @@ class ProductController extends AppController {
 			// устанавливаем max значения ширины и высоты изображений в зависимости от того какие картинки пришли
 			// (основная - 'single' или галлереи)
 			// получаем необходимые значения из контейнера приложения
-
 			//if($_POST['name'] == 'single'){
 			//    $wmax = App::$app->getProperty('img_width');
 			//    $hmax = App::$app->getProperty('img_height');
@@ -159,10 +156,9 @@ class ProductController extends AppController {
 			//    $wmax = App::$app->getProperty('gallery_width');
 			//    $hmax = App::$app->getProperty('gallery_height');
 			//}
-			//$name = $_POST['name'];
-			//$product = new Product();
-			//$product->uploadImg($name, $wmax, $hmax);
-			
+			//$name = $_POST['name']; // тип загрузки картинки (single/gallery)
+			//$product = new Product(); // объект модели товара
+			//$product->uploadImg($name, $wmax, $hmax); // загружаем изображения на сервер
 			$wmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_width' : 'gallery_width');
 			$hmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_height' : 'gallery_height');
 			Gallery::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
@@ -173,7 +169,8 @@ class ProductController extends AppController {
 	public function deleteImageAction(){
 		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
 		$src = isset($_POST['src']) ? $_POST['src'] : null; // путь к картинке
-		$upload = isset($_POST['upload']) ? $_POST['upload'] : null; // тип загруженной картинки (single - базовая, gallery - галлерея)
+		// тип загруженной картинки (single - базовая, gallery - галлерея)
+		$upload = isset($_POST['upload']) ? $_POST['upload'] : null;
 		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
 		if(!$src || !$upload){
 			return;

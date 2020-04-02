@@ -10,14 +10,13 @@ class UserController extends AppController {
 
 	// экшен просмотра списка пользователей
 	public function indexAction(){
+		// list — Присваивает переменным из списка значения подобно массиву
 		//$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		//$perpage = 3; // число записей на 1 странице
 		//$count = \R::count('user'); // число пользователей
 		//$pagination = new Pagination($page, $perpage, $count); // объект пагинации
 		//$start = $pagination->getStart(); // иницилизируем объект пагинации
 		//$users = \R::findAll('user', "LIMIT $start, $perpage"); // получаем список пользователей для текущей страницы пагинации
-
-		// list — Присваивает переменным из списка значения подобно массиву
 		list($users, $pagination) = [User::getAll(), User::$pagination];
 		$this->setMeta('Список пользователей'); // устанавливаем мета-данные
 		$this->set(compact('users', 'pagination'/*, 'count'*/)); // передаем данные в вид
@@ -30,12 +29,11 @@ class UserController extends AppController {
 
 	// экшен отображения данных пользователя
 	public function viewAction(){
-  //      $user_id = $this->getRequestID();
-  //      $user = \R::load('user', $user_id);
+		//$user_id = $this->getRequestID();
+		//$user = \R::load('user', $user_id);
   //      $orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   //JOIN `order_product` ON `order`.`id` = `order_product`.`order_id`
   //WHERE user_id = {$user_id} GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id`");
-
 		list($user, $orders, $pagination) = [User::getById($this->getRequestID()), User::$orders, User::$pagination];
 		$this->setMeta('Редактирование профиля пользователя');
 		$this->set(compact('user', 'orders', 'pagination'));
@@ -64,7 +62,6 @@ class UserController extends AppController {
 			//if($user->update('user', $id)){
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//}
-
 			new User($_POST, $this->getRequestID(), 'update'); // объект модели пользователя
 			redirect();
 		}
