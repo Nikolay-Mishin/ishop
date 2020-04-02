@@ -21,8 +21,6 @@ class UserController extends AppController {
 
 		// если получены данные методом POST, обрабатываем их и регистрируем пользователя
 		if(!empty($_POST)){
-			$user = new User('signup', $_POST); // объект модели пользователя
-
 			//$user = new User(); // объект модели пользователя
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$user->load($data); // загружаем данные в модель
@@ -40,6 +38,7 @@ class UserController extends AppController {
 			//    }
 			//}
 
+			$user = new User('signup', $_POST); // объект модели пользователя
 			redirect($_SESSION['redirect']); // перезапрашиваем страницу
 		}
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
@@ -56,9 +55,6 @@ class UserController extends AppController {
 
 		// если получены данные методом POST, обрабатываем их и регистрируем пользователя
 		if(!empty($_POST)){
-			// авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
-			$user = new User('login'); // объект модели пользователя
-
 			//$user = new User(); // объект модели пользователя
 			//// сохраняем данные в БД
 			//if($user->login()){
@@ -67,6 +63,8 @@ class UserController extends AppController {
 			//    $_SESSION['error'] = 'Логин/пароль введены неверно';
 			//}
 
+			// авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
+			$user = new User('login'); // объект модели пользователя
 			redirect($_SESSION['redirect']); // перезапрашиваем страницу
 		}
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Регистрация'); // хлебные крошки
