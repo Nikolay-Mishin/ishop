@@ -14,10 +14,9 @@ if (!array_key_exists (0, $files)) sort ($files);
 foreach ($files as $k => $v) $done_files[] = load ($files[$k]['tmp_name'], $files[$k]['error'], 'uploads');
 
 // Запишем в переменную ассоциативный массив с результатом загрузки файла
-$data = $done_files ? array ('files' => $files, 'info' => $done_files) : array ('error' => 'Ошибка загрузки файлов.');
-$json = json_encode ($data); // Конвертируем полученный массив данных в json формат
+$result = $done_files ? array ('files' => $files, 'info' => $done_files) : array ('error' => 'Ошибка загрузки файлов.');
+$json = json_encode ($result); // Конвертируем полученный массив данных в json формат
 echo $json; // Выведем в ответ сформированные данные
 
-/* print_r ($files);
-print_r ($data); */
-?>
+//print_r ($files);
+//print_r ($result);

@@ -17,14 +17,16 @@ function msg ($uploadPath, $name, $format) {
 }
 
 // Функция, возвращающая ассоциативный массив с сообщением об ошибке
-function error ($error) { return array ('error' => $error); }
+function error ($error) {
+    return array ('error' => $error);
+}
 
 // функция для обработки загрузки файла в единичном экземляре
 function load ($filePath, $errorCode, $uploadPath = 'pics') {
     // Зададим ограничения для картинок
     $formats = array ('jpg', 'jpeg', 'png', 'gif');
     $mBytes = 1048576;
-    $limitBytes  = 10 * $mBytes;
+    $limitBytes = 10 * $mBytes;
     
     if (!is_dir ($uploadPath)) mkdir ($uploadPath, 0777); // Создадим директорию, если она отсутсвует
 
@@ -56,15 +58,16 @@ function load ($filePath, $errorCode, $uploadPath = 'pics') {
     if (strpos ($mime, 'image') === false) return error ('Можно загружать только изображения.');
     $str = implode (", ", $formats); // Проверим форматы image (jpeg, png и т. д.)
     if (strpos ($str, explode ('/', $mime)[1]) === false) return error ("Можно загружать только изображения в форматах: $str");
-    
-    $image = getimagesize ($filePath); // Результат функции запишем в переменную
 
     // Проверим нужные параметры
     if (filesize ($filePath) > $limitBytes) return error ("Размер изображения не должен превышать $limitBytes Мбайт.");
-    /* $limitWidth  = 2000;
-    $limitHeight = 1500;
-    if ($image[1] > $limitHeight) return error ("Высота изображения не должна превышать $limitHeight точек.");
-    if ($image[0] > $limitWidth)  return error ("Ширина изображения не должна превышать $limitWidth точек."); */
+
+    $image = getimagesize ($filePath); // Результат функции запишем в переменную
+
+    //$limitWidth  = 2000;
+    //$limitHeight = 1500;
+    //if ($image[0] > $limitWidth) return error ("Ширина изображения не должна превышать $limitWidth точек.");
+    //if ($image[1] > $limitHeight) return error ("Высота изображения не должна превышать $limitHeight точек.");
     
     $name = md5_file ($filePath); // Сгенерируем новое имя файла на основе MD5-хеша
     $extension = image_type_to_extension ($image[2]); // Сгенерируем расширение файла на основе типа картинки
@@ -74,4 +77,3 @@ function load ($filePath, $errorCode, $uploadPath = 'pics') {
     if (move_uploaded_file ($filePath, __DIR__ . "/$uploadPath/$name$format")) return msg ($uploadPath, $name, $format);
     else return error ('При записи изображения на диск произошла ошибка.');
 }
-?>
