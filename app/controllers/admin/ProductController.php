@@ -5,7 +5,8 @@ namespace app\controllers\admin;
 use app\models\admin\Product;
 use app\models\admin\Modification;
 use app\models\Gallery;
-use app\models\AppModel;
+//use app\models\AppModel;
+use ishop\base\Upload;
 use ishop\App;
 
 class ProductController extends AppController {
@@ -161,7 +162,8 @@ class ProductController extends AppController {
 			//$product->uploadImg($name, $wmax, $hmax); // загружаем изображения на сервер
 			$wmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_width' : 'gallery_width');
 			$hmax = App::$app->getProperty($_POST['name'] == 'single' ? 'img_height' : 'gallery_height');
-			Gallery::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
+			//Gallery::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
+			Upload::uploadImg($_POST['name'], $wmax, $hmax); // загружаем изображения на сервер
 		}
 	}
 
