@@ -13,6 +13,10 @@ abstract class Upload {
 	public static $limitWidth  = 2000;
 	public static $limitHeight = 1500;
 
+	public static $upload_dir = WWW . '/images/'; // директория для загрузки изображений
+	// массив допустимых расширений
+	public static $types = array("image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png");
+
 	// Массив с названиями ошибок
 	public static $errorMessages = array(
 		UPLOAD_ERR_INI_SIZE   => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP.',
@@ -96,37 +100,30 @@ abstract class Upload {
 	}
 
 	public static function uploadImg($name, $wmax, $hmax){
-		$upload_dir = WWW . '/images/'; // директория для загрузки изображений
-		$ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES[$name]['name'])); // расширение картинки
-		$types = array("image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png"); // массив допустимых расширений
-
 		if($_FILES[$name]['size'] > 1048576){
-			$res = array("error" => "Ошибка! Максимальный вес файла - 1 Мб!");
-			exit(json_encode($res));
+			exit(json_encode(array("error" => "Ошибка! Максимальный вес файла - 1 Мб!")));
 		}
 		if($_FILES[$name]['error']){
-			$res = array("error" => "Ошибка! Возможно, файл слишком большой.");
-			exit(json_encode($res));
+			exit(json_encode(array("error" => "Ошибка! Возможно, файл слишком большой.")));
 		}
-		if(!in_array($_FILES[$name]['type'], $types)){
-			$res = array("error" => "Допустимые расширения - .gif, .jpg, .png");
-			exit(json_encode($res));
+		if(!in_array($_FILES[$name]['type'], self::$types)){
+			exit(json_encode(array("error" => "Допустимые расширения - .gif, .jpg, .png")));
 		}
 
+		$ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES[$name]['name'])); // расширение картинки
 		$new_name = md5(time()).".$ext"; // формируем новое имя файла
-		$upload_file = $upload_dir.$new_name; // полное имя картинки (с учетом директории загрузки)
+		$upload_file = self::$upload_dir.$new_name; // полное имя картинки (с учетом директории загрузки)
 		// записываем в сессию имена загруженных файлов
 		// move_uploaded_file - перемещает загруженный файл в указанную директорию
 		// @ - игнорирует ошобки, возникающие при работе функции/метода
 		if(@move_uploaded_file($_FILES[$name]['tmp_name'], $upload_file)){
-			self::saveSession($name);
+			self::saveSession($name, $new_name);
 			self::resize($upload_file, $upload_file, $wmax, $hmax, $ext); // изменяем размер картинки
-			$res = array("file" => $new_name); // массив с результом работы метода
-			exit(json_encode($res));
+			exit(json_encode(array("file" => $new_name)));
 		}
 	}
 
-	protected static function saveSession($name){
+	protected static function saveSession($name, $new_name){
 		if($name == 'single'){
 			$_SESSION['single'] = $new_name;
 		}else{
