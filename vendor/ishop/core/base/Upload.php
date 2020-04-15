@@ -8,7 +8,7 @@ abstract class Upload {
 	public static $json; // хранение json
 
 	// Зададим ограничения для картинок
-	public static $formats = array('jpg', 'jpeg', 'png', 'gif');
+	public static $formats = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
 	public static $limitBytes = 10 * 1048576;
 	public static $limitWidth  = 2000;
 	public static $limitHeight = 1500;
@@ -27,6 +27,18 @@ abstract class Upload {
 		UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск.',
 		UPLOAD_ERR_EXTENSION  => 'PHP-расширение остановило загрузку файла.',
 	);
+
+	public static function canUpload($file){
+		if($file['name'] == '') return 'Вы не выбрали файл.'; // если имя пустое, значит файл не выбран
+		// если размер файла 0, значит его не пропустили настройки сервера из-за того, что он слишком большой
+		if($file['size'] == 0) return 'Файл слишком большой или пустой.';
+		if($error = self::checkMime($file['tmp_name'])) return $error; // Проверим MIME-тип
+		return true;
+	}
+
+	public static function makeUpload($file, $name){
+		copy($file['tmp_name'], 'img/' . $name);
+	}
 
 	/**
 	 * Загрузка картинки из формы
@@ -48,7 +60,12 @@ abstract class Upload {
 		$uploadPath = WWW . "/$uploadPath";
 		$name = self::validateImg($filePath, $errorCode, $uploadPath);
 		// Переместим картинку с новым именем и расширением в папку /uploads
-		if(@move_uploaded_file($filePath, WWW . "/$uploadPath/$name")) return self::msg($uploadPath, $name);
+		if(@move_uploaded_file($filePath, WWW . "/$uploadPath/$name")){
+			//self::saveSession($name, $new_name, $name == 'gallery');
+			//self::resize($upload_file, $upload_file, $wmax, $hmax, $ext); // изменяем размер картинки
+			//exit(json_encode(array("file" => $name)));
+			return self::msg($uploadPath, $name);
+		}
 		else return self::error('При записи изображения на диск произошла ошибка.');
 	}
 
@@ -64,8 +81,37 @@ abstract class Upload {
 	}
 
 	// Функция, возвращающая ассоциативный массив с сообщением об ошибке
-	protected static function error($error){
-		return array('error' => $error);
+	protected static function error($error, $outArray = true){
+		return $outArray ? array('error' => $error) : $error;
+	}
+
+	protected static function getMime($filePath){
+		$fi = finfo_open(FILEINFO_MIME_TYPE); // Создадим ресурс FileInfo
+		$mime = (string) finfo_file($fi, $filePath); // Получим MIME-тип
+		finfo_close($fi); // Закроем ресурс
+		return $mime;
+	}
+
+	protected static function checkMime($filePath){
+		$mime = self::getMime($filePath); // Получим MIME-тип
+		// Проверим ключевое слово image (image/jpeg, image/png и т. д.)
+		if(strpos($mime, 'image') === false) return 'Можно загружать только изображения.';
+		$str = implode(", ", self::$formats); // Проверим форматы image (jpeg, png и т. д.)
+		if(strpos($str, explode('/', $mime)[1]) === false) return "Можно загружать только изображения в форматах: $str";
+		return false;
+	}
+
+	protected static function checkSize($filePath, $image){
+		// Проверим нужные параметры
+		if(filesize($filePath) > self::$limitBytes) return "Размер изображения не должен превышать " . self::$limitBytes . " Мбайт.";
+		//if($image[0] > self::$limitWidth) return "Ширина изображения не должна превышать " . self::$limitWidth . " точек.";
+		//if($image[1] > self::$limitHeight) return "Высота изображения не должна превышать " . self::$limitHeight . " точек.";
+		return false;
+	}
+
+	protected static function getExt($image){
+		// Сгенерируем расширение файла на основе типа картинки и сократим .jpeg до .jpg
+		return str_replace('jpeg', 'jpg', image_type_to_extension($image[2]));
 	}
 
 	protected static function validateImg($filePath, $errorCode, $uploadPath){
@@ -77,26 +123,12 @@ abstract class Upload {
 			// Если в массиве нет кода ошибки, скажем, что ошибка неизвестна
 			return self::error(self::$errorMessages[$errorCode] ?? $unknownMessage); // Выведем название ошибки
 		}
-	
-		$fi = finfo_open(FILEINFO_MIME_TYPE); // Создадим ресурс FileInfo
-		$mime = (string) finfo_file($fi, $filePath); // Получим MIME-тип
-		finfo_close($fi); // Закроем ресурс
-
-		// Проверим ключевое слово image (image/jpeg, image/png и т. д.)
-		if(strpos($mime, 'image') === false) return self::error('Можно загружать только изображения.');
-		$str = implode(", ", self::$formats); // Проверим форматы image (jpeg, png и т. д.)
-		if(strpos($str, explode('/', $mime)[1]) === false) return self::error("Можно загружать только изображения в форматах: $str");
-
-		// Проверим нужные параметры
-		if(filesize($filePath) > self::$limitBytes) return self::error("Размер изображения не должен превышать " . self::$limitBytes . " Мбайт.");
-
+		
+		if($error = self::checkMime($filePath)) return self::error($error); // Проверим MIME-тип
 		$image = getimagesize($filePath); // Результат функции запишем в переменную
-		//if($image[0] > self::$limitWidth) return self::error("Ширина изображения не должна превышать " . self::$limitWidth . " точек.");
-		//if($image[1] > self::$limitHeight) return self::error("Высота изображения не должна превышать " . self::$limitHeight . " точек.");
-		$ext = image_type_to_extension($image[2]); // Сгенерируем расширение файла на основе типа картинки
-		$ext = str_replace('jpeg', 'jpg', $ext); // Сократим .jpeg до .jpg
+		if($error = checkSize($filePath, $image)) return self::error($error); // Проверим размер
 
-		return md5_file($filePath).$ext; // Сгенерируем новое имя файла на основе MD5-хеша
+		return md5_file($filePath).self::getExt($image); // Сгенерируем новое имя файла на основе MD5-хеша
 	}
 
 	public static function uploadImg($name, $wmax, $hmax){
@@ -117,17 +149,17 @@ abstract class Upload {
 		// move_uploaded_file - перемещает загруженный файл в указанную директорию
 		// @ - игнорирует ошобки, возникающие при работе функции/метода
 		if(@move_uploaded_file($_FILES[$name]['tmp_name'], $upload_file)){
-			self::saveSession($name, $new_name);
+			self::saveSession($name, $new_name, $name == 'gallery');
 			self::resize($upload_file, $upload_file, $wmax, $hmax, $ext); // изменяем размер картинки
 			exit(json_encode(array("file" => $new_name)));
 		}
 	}
 
-	protected static function saveSession($name, $new_name){
-		if($name == 'single'){
-			$_SESSION['single'] = $new_name;
+	protected static function saveSession($name, $new_name, $multy = false){
+		if(!$multy){
+			$_SESSION[$name] = $new_name;
 		}else{
-			$_SESSION['gallery'][] = $new_name;
+			$_SESSION[$name][] = $new_name;
 		}
 	}
 
