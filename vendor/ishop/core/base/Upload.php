@@ -37,7 +37,11 @@ abstract class Upload {
 	}
 
 	public static function makeUpload($file, $name){
-		copy($file['tmp_name'], 'img/' . $name);
+		copy($file['tmp_name'], WWW.'img/' . $name);
+	}
+
+	public static function getHandler(){
+		return self::$json = json_encode(self::handler()); // Конвертируем полученный массив данных в json формат
 	}
 
 	/**
@@ -50,9 +54,7 @@ abstract class Upload {
 		// Загружаем все картинки по порядку
 		foreach($_FILES as $k => $v) $done_files[] = self::load($_FILES[$k]['tmp_name'], $_FILES[$k]['error']);
 		// Запишем в переменную ассоциативный массив с результатом загрузки файла
-		self::$result = $done_files ? array('files' => $_FILES, 'info' => $done_files) : array('error' => 'Ошибка загрузки файлов');
-		self::$json = json_encode(self::$result); // Конвертируем полученный массив данных в json формат
-		return self::$result;
+		return self::$result = $done_files ? array('files' => $_FILES, 'info' => $done_files) : array('error' => 'Ошибка загрузки файлов');
 	}
 
 	// функция для обработки загрузки файла в единичном экземляре
