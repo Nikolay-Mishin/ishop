@@ -1,15 +1,6 @@
 <?php
-// Контроллер продукта - карточка товара
-/**
- * информация о текущем продукте
- * хлебные крошки
- * связанные товары
- * запись в куки запрошенного товара
- * просмотренные товары
- * галерея
- * модификации */
 
-namespace app\controllers\admin;
+namespace app\controllers;
 
 class CalendarController extends AppController {
 
@@ -28,7 +19,7 @@ class CalendarController extends AppController {
 			'plugins/fullcalendar-timegrid/main.min',
 			'plugins/fullcalendar-interaction/main.min',
 			'plugins/fullcalendar-bootstrap/main.min',
-			'/calendar/calendar'
+			'js/calendar'
 		);
 		$this->setMeta('Calendar');
 	}
