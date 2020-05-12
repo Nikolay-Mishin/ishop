@@ -12,7 +12,7 @@ class UploadController extends AppController {
 			// проверяем, можно ли загружать изображение
 			$check = Upload::canUpload($_FILES['file']);
 			$check_2 = Upload::canUpload($_FILES['file-2']);
-
+			
 			// запись в файл
 			date_default_timezone_set('Europe/Moscow');
 			$today = date('Y-m-d H:i:s');
