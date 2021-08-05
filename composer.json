@@ -3,6 +3,7 @@
 		"psr-4": {
 			"ishop\\": "vendor/ishop/core",
 			"app\\": "app"
+			//"RB\\": "vendor/RedBeanPHP_5_7"
 		}
 	},
 	"require": {
