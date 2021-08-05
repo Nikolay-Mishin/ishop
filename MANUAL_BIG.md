@@ -576,6 +576,92 @@ int(1)
 Fatal error: Uncaught TypeError: Argument 1 passed to array_baz() must be of the type array, int given, called in %s on line %d
 ```
 
+#### [Использование типизированных свойств](https://www.php.net/manual/ru/language.oop5.properties.php)
+
+Начиная с PHP 7.4.0, определения свойств могут включать Объявление типов, за исключением типа callable.
+
+##### Пример #4.2 Пример использования типизированных свойств
+
+```php
+
+class User
+{
+	public int $id;
+	public ?string $name;
+
+	public function __construct(int $id, ?string $name)
+	{
+		$this->id = $id;
+		$this->name = $name;
+	}
+}
+
+$user = new User(1234, null);
+
+var_dump($user->id);
+var_dump($user->name);
+```
+
+###### Результат выполнения данного примера:
+
+```
+int(1234)
+NULL
+Перед обращением к типизированному свойству у него должно быть задано значение, иначе будет выброшено исключение Error.
+```
+
+##### Пример #4.3 Обращение к свойствам
+
+```php
+
+class Shape
+{
+	public int $numberOfSides;
+	public string $name;
+
+	public function setNumberOfSides(int $numberOfSides): void
+	{
+		$this->numberOfSides = $numberOfSides;
+	}
+
+	public function setName(string $name): void
+	{
+		$this->name = $name;
+	}
+
+	public function getNumberOfSides(): int
+	{
+		return $this->numberOfSides;
+	}
+
+	public function getName(): string
+	{
+		return $this->name;
+	}
+}
+
+$triangle = new Shape();
+$triangle->setName("triangle");
+$triangle->setNumberofSides(3);
+var_dump($triangle->getName());
+var_dump($triangle->getNumberOfSides());
+
+$circle = new Shape();
+$circle->setName("circle");
+var_dump($circle->getName());
+var_dump($circle->getNumberOfSides());
+```
+
+###### Результат выполнения данного примера:
+
+```
+string(8) "triangle"
+int(3)
+string(6) "circle"
+
+Fatal error: Uncaught Error: Typed property Shape::$numberOfSides must not be accessed before initialization
+```
+
 ### Обнуляемые типы
 
 Начиная с PHP 7.1.0, объявления типов могут быть помечены как обнуляемые, путём добавления префикса в виде знака вопроса(?). Это означает, что значение может быть как объявленного типа, так и быть равным null.

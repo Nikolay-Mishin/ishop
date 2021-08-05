@@ -24,8 +24,8 @@ abstract class Controller {
     public $style = ['lib' => [], 'added' => [], 'main' => []];
     public $script = ['lib' => [], 'init' => [], 'added' => [], 'main' => []];
 
-    public function __construct($route){
-        if(!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
+    public function __construct(array $route) {
+        if (!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
 
         $this->route = $route;
         $this->controller = $route['controller'];
@@ -39,7 +39,7 @@ abstract class Controller {
     }
 
     // получает объект вида и вызывает рендер
-    public function getView(){
+    public function getView(): void {
         $viewObject = new View($this->route, $this->layout, $this->view, $this->meta, $this); // объект класса Вида
         $viewObject->render($this->data); // вызов метода для рендера и передаем данные из контроллера в вид
     }
@@ -48,7 +48,7 @@ abstract class Controller {
     // внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu, Filter), где подключается шаблон
     // в видах, подключаемых через loadView() доступен объект класса, в котором был вызван метод ($this - CartController)
     // в видах, подключаемых через класс вида доступен объект класса View ($this - View)
-    public function loadView($view, $vars = []){
+    public function loadView(string $view, array $vars = []): void {
         extract($vars); // извлекаем переменные из массива
         require APP . "/views/{$this->prefix}{$this->controller}/{$view}.php"; // подключаем вид
         die;
@@ -60,42 +60,42 @@ abstract class Controller {
     //}
 
     // записывает полученные данные в массив (свойство)
-    public function set($data){
+    public function set(array $data): void {
         $this->data = $data;
     }
 
     // задает массив мета-данных
-    public function setMeta($title = '', $desc = '', $keywords = ''){
+    public function setMeta(string $title = '', string $desc = '', string $keywords = ''): void {
         $this->meta['title'] = h($title); // заголовок
         $this->meta['desc'] = h($desc); // описание
         $this->meta['keywords'] = h($keywords); // ключевые слова
     }
 
     // задает каноническую ссылку
-    public function setCanonical($url = ''){
+    public function setCanonical(string $url = ''): void {
         $this->canonical = h($url); // каноническая ссылка
     }
 
-    public function setStyle(...$styles){
+    public function setStyle(iterable ...$styles): void {
         $this->setFiles('style', ...$styles); // подключаем файл конфигурации стилей
     }
 
-    public function setScript(...$scripts){
+    public function setScript(iterable ...$scripts): void {
         $this->setFiles('script', ...$scripts); // подключаем файл конфигурации скриптов
         
     }
 
-    public function setFiles($type, ...$files){
+    public function setFiles(string $type, iterable ...$files): void {
         $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
 
         //$this->$type = $file === true ? $this->$type : $file;
-        if($file !== true){
+        if ($file !== true) {
             foreach($file as $file_type => $file_list){
                 $this->$type[$file_type] = $file_list;
             }
         }
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $this->$type['added'][] = $file;
         }
     }
