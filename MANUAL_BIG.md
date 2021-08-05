@@ -1,6 +1,4 @@
-### Класс ReflectionClass
-
-https://www.php.net/manual/ru/class.reflectionclass.php
+### Класс [ReflectionClass](https://www.php.net/manual/ru/class.reflectionclass.php)
 
 Класс ReflectionClass сообщает информацию о классе.
 
@@ -200,34 +198,22 @@ var_dump($ref->getDocComment());
 
 
 
-### Аргументы функции
-
-https://www.php.net/manual/ru/functions.arguments.php
+### [Аргументы функции](https://www.php.net/manual/ru/functions.arguments.php)
 
 Функция может принимать информацию в виде списка аргументов, который является списком разделенных запятыми выражений. Аргументы вычисляются слева направо.
 
-PHP поддерживает передачу аргументов по значению (по умолчанию), `передачу аргументов по ссылке`, и `значения по умолчанию`. `Списки аргументов переменной длины` также поддерживаются, смотрите также описания функций `func_num_args()`, `func_get_arg()` и `func_get_args()` для более детальной информации.
-
-https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference
-https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.default
-https://www.php.net/manual/ru/functions.arguments.php#functions.variable-arg-list
-
-https://www.php.net/manual/ru/function.func-num-args.php
-https://www.php.net/manual/ru/function.func-get-arg.php
-https://www.php.net/manual/ru/function.func-get-args.php
+PHP поддерживает передачу аргументов по значению (по умолчанию), [передачу аргументов по ссылке](https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference), и [значения по умолчанию](https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.default). [Списки аргументов переменной длины](https://www.php.net/manual/ru/functions.arguments.php#functions.variable-arg-list) также поддерживаются, смотрите также описания функций [func_num_args()](https://www.php.net/manual/ru/function.func-num-args.php), [func_get_arg()](https://www.php.net/manual/ru/function.func-get-arg.php) и [func_get_args()](https://www.php.net/manual/ru/function.func-get-args.php) для более детальной информации.
 
 ##### Пример #1 Передача массива в функцию
 
 ```php
 function takes_array($input)
 {
-    echo "$input[0] + $input[1] = ", $input[0]+$input[1];
+	echo "$input[0] + $input[1] = ", $input[0]+$input[1];
 }
 ```
 
-### Передача аргументов по ссылке
-
-https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference
+### [Передача аргументов по ссылке](https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference)
 
 По умолчанию аргументы в функцию передаются по значению (это означает, что если вы измените значение аргумента внутри функции, то вне ее значение все равно останется прежним). Если вы хотите разрешить функции модифицировать свои аргументы, вы должны передавать их по ссылке.
 
@@ -238,16 +224,14 @@ https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-ref
 ```php
 function add_some_extra(&$string)
 {
-    $string .= 'и кое-что еще.';
+	$string .= 'и кое-что еще.';
 }
 $str = 'Это строка, ';
 add_some_extra($str);
 echo $str;    // выведет 'Это строка, и кое-что еще.'
 ```
 
-### Значения аргументов по умолчанию
-
-https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.default
+### [Значения аргументов по умолчанию](https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.default)
 
 Функция может определять значения по умолчанию в стиле C++ для скалярных аргументов, например:
 
@@ -256,7 +240,7 @@ https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.defaul
 ```php
 function makecoffee($type = "капучино")
 {
-    return "Готовим чашку $type.\n";
+	return "Готовим чашку $type.\n";
 }
 echo makecoffee();
 echo makecoffee(null);
@@ -277,8 +261,8 @@ PHP также позволяет использовать массивы (array
 ```php
 function makecoffee($types = array("капучино"), $coffeeMaker = NULL)
 {
-    $device = is_null($coffeeMaker) ? "вручную" : $coffeeMaker;
-    return "Готовлю чашку ".join(", ", $types)." $device.\n";
+	$device = is_null($coffeeMaker) ? "вручную" : $coffeeMaker;
+	return "Готовлю чашку ".join(", ", $types)." $device.\n";
 }
 echo makecoffee();
 echo makecoffee(array("капучино", "лавацца"), "в чайнике");
@@ -293,7 +277,7 @@ echo makecoffee(array("капучино", "лавацца"), "в чайнике"
 ```php
 function makeyogurt($type = "ацидофил", $flavour)
 {
-    return "Готовим чашку из бактерий $type со вкусом $flavour.\n";
+	return "Готовим чашку из бактерий $type со вкусом $flavour.\n";
 }
  
 echo makeyogurt("малины");   // Не будет работать так, как мы могли бы ожидать
@@ -314,7 +298,7 @@ Warning: Missing argument 2 in call to makeyogurt() in
 ```php
 function makeyogurt($flavour, $type = "ацидофил")
 {
-    return "Готовим чашку из бактерий $type со вкусом $flavour.\n";
+	return "Готовим чашку из бактерий $type со вкусом $flavour.\n";
 }
  
 echo makeyogurt("малины");   // отрабатывает правильно
@@ -343,17 +327,11 @@ $foo = 5 * "10 Little Piggies"; // $foo - это целое число (50)
 $foo = 5 * "10 Small Pigs";     // $foo - это целое число (50)
 ```
 
-Если последние два приведённых выше примера кажутся странными, посмотрите, как `строки, содержащие числа`, преобразуются в целые числа.
+Если последние два приведённых выше примера кажутся странными, посмотрите, как [строки, содержащие числа](https://www.php.net/manual/ru/language.types.numeric-strings.php), преобразуются в целые числа.
 
-https://www.php.net/manual/ru/language.types.numeric-strings.php
+Если вы хотите, чтобы переменная принудительно вычислялась как определённый тип, смотрите раздел приведение типов. Если вы хотите изменить тип переменной, смотрите [settype()](https://www.php.net/manual/ru/function.settype.php).
 
-Если вы хотите, чтобы переменная принудительно вычислялась как определённый тип, смотрите раздел приведение типов. Если вы хотите изменить тип переменной, смотрите `settype()`.
-
-https://www.php.net/manual/ru/function.settype.php
-
-Если вы хотите протестировать любой из примеров, приведённых в данном разделе, вы можете использовать функцию `var_dump()`.
-
-https://www.php.net/manual/ru/function.var-dump.php
+Если вы хотите протестировать любой из примеров, приведённых в данном разделе, вы можете использовать функцию [var_dump()](https://www.php.net/manual/ru/function.var-dump.php).
 
 ###### Замечание:
 
@@ -369,9 +347,7 @@ $a[0] = 'b';   // $a всё ещё строка
 echo $a;       // bar
 ```
 
-Более подробно смотрите в разделе `доступ к символу в строке`.
-
-https://www.php.net/manual/ru/language.types.string.php#language.types.string.substr
+Более подробно смотрите в разделе [доступ к символу в строке](https://www.php.net/manual/ru/language.types.string.php#language.types.string.substr).
 
 #### Приведение типов
 
@@ -421,61 +397,52 @@ $fst = (string) $foo; // $fst - это тоже строка
 
 // Это напечатает "они одинаковы"
 if ($fst === $str) {
-    echo "они одинаковы";
+	echo "они одинаковы";
 }
 ```
 
 Может быть не совсем ясно, что именно происходит при приведении между типами. Для дополнительной информации смотрите разделы:
 
-* Преобразование в булев тип
-https://www.php.net/manual/ru/language.types.boolean.php#language.types.boolean.casting
-* Преобразование в целое число
-https://www.php.net/manual/ru/language.types.integer.php#language.types.integer.casting
-* Преобразование в число с плавающей точкой
-https://www.php.net/manual/ru/language.types.float.php#language.types.float.casting
-* Преобразование в строку
-https://www.php.net/manual/ru/language.types.string.php#language.types.string.casting
-* Преобразование в массив
-https://www.php.net/manual/ru/language.types.array.php#language.types.array.casting
-* Преобразование в объект
-https://www.php.net/manual/ru/language.types.object.php#language.types.object.casting
-* Преобразование в ресурс
-https://www.php.net/manual/ru/language.types.resource.php#language.types.resource.casting
-* Преобразование в NULL
-https://www.php.net/manual/ru/language.types.null.php#language.types.null.casting
-* Таблицы сравнения типов
-https://www.php.net/manual/ru/types.comparisons.php
+* [Преобразование в булев тип](https://www.php.net/manual/ru/language.types.boolean.php#language.types.boolean.casting)
+* [Преобразование в целое число](https://www.php.net/manual/ru/language.types.integer.php#language.types.integer.casting)
+* [Преобразование в число с плавающей точкой](https://www.php.net/manual/ru/language.types.float.php#language.types.float.casting)
+* [Преобразование в строку](https://www.php.net/manual/ru/language.types.string.php#language.types.string.casting)
+* [Преобразование в массив](https://www.php.net/manual/ru/language.types.array.php#language.types.array.casting)
+* [Преобразование в объект](https://www.php.net/manual/ru/language.types.object.php#language.types.object.casting)
+* [Преобразование в ресурс](https://www.php.net/manual/ru/language.types.resource.php#language.types.resource.casting)
+* [Преобразование в NULL](https://www.php.net/manual/ru/language.types.null.php#language.types.null.casting)
+* [Таблицы сравнения типов](https://www.php.net/manual/ru/types.comparisons.php)
 
 
 
-### Объявление типов
-
-https://www.php.net/manual/ru/language.types.declarations.php
+### [Объявление типов](https://www.php.net/manual/ru/language.types.declarations.php)
 
 ```
 Замечание:
 Объявление типов также известно, как подсказки для типов в PHP 5.
 ```
 
-Объявления типов позволяют функциям строго задавать тип передаваемых параметров. Передача в функцию значений несоответствующего типа будет приводить к ошибке: в PHP 5 это будет обрабатываемая фатальная ошибка, а в PHP 7 будет выбрасываться исключение `TypeError`.
-
-https://www.php.net/manual/ru/class.typeerror.php
+Объявления типов позволяют функциям строго задавать тип передаваемых параметров. Передача в функцию значений несоответствующего типа будет приводить к ошибке: в PHP 5 это будет обрабатываемая фатальная ошибка, а в PHP 7 будет выбрасываться исключение [TypeError](https://www.php.net/manual/ru/class.typeerror.php).
 
 Чтобы объявить тип аргумента, необходимо перед его именем добавить имя требуемого типа. Объявление типов может принимать значения NULL, если значение по умолчанию для аргумента является NULL.
 
 #### Допустимые типы
 
-Тип	Описание	Минимальная версия PHP
-Имя класса/интерфейса	Аргумент должен быть instanceof, что и имя класса или интерфейса.	PHP 5.0.0
-self	Этот параметр должен быть instanceof того же класса, в методе которого он указан. Это можно использовать только в методах класса или экземпляра.	PHP 5.0.0
-array	Аргумент должен быть типа array.	PHP 5.1.0
-callable	Аргумент должен быть корректным callable-типом.	PHP 5.4.0
-bool	Аргумент должен быть типа boolean.	PHP 7.0.0
-float	Аргумент должен быть типа float.	PHP 7.0.0
-int	Аргумент должен быть типа integer.	PHP 7.0.0
-string	Аргумент должен иметь тип string.	PHP 7.0.0
-iterable	Параметр должен быть либо массивом, либо экземпляром класса, реализующего Traversable.	PHP 7.1.0
-object	Параметр должен быть объектом (object).	PHP 7.2.0
+Тип	| Описание | Минимальная версия PHP
+--- | --- | ---
+Имя класса/интерфейса| Значение должно представлять собой [instanceof](https://www.php.net/manual/ru/language.operators.type.php) заданного класса или интерфейса.
+self | Значение должно представлять собой `instanceof` того же класса, в котором используется объявление типа. Может использоваться только в классах.
+parent | Значение должно представлять собой `instanceof` родительского класса, в котором используется объявление типа. Может использоваться только в классах.
+array | Значение должно быть типа array.
+[callable](https://www.php.net/manual/ru/language.types.callable.php) | Значение должно быть корректным `callable`. Нельзя использовать в качестве объявления для свойств класса.
+bool | Значение должно быть логического типа.
+float | Значение должно быть числом с плавающей точкой.
+int | Значение должно быть целым числом.
+string | Значение должно быть строкой (тип string).
+[iterable](https://www.php.net/manual/ru/language.types.iterable.php) | Значение может быть либо массивом (тип array), либо представлять собой `instanceof` [Traversable](https://www.php.net/manual/ru/class.traversable.php). | PHP 7.1.0
+object | Значение должно быть объектом (тип object). | PHP 7.2.0
+
+[mixed](https://www.php.net/manual/ru/language.types.declarations.php#language.types.declarations.mixed)	Значение может иметь любой тип.	PHP 8.0.0
 
 `Внимание`
 Псевдонимы для вышеперечисленных скалярных типов не поддерживаются. Вместо этого они рассматриваются как имена классов или интерфейсов. К примеру, используя boolean как параметр или возвращаемое значение, потребует, чтобы эти аргумент или возвращаемое значение были `instanceof` класса или интерфейса boolean, а не типа `bool`:
@@ -501,7 +468,7 @@ class D extends C {}
 class E {}
 
 function f(C $c) {
-    echo get_class($c)."\n";
+	echo get_class($c)."\n";
 }
 
 f(new C);
@@ -532,7 +499,7 @@ class C implements I { public function f() {} }
 class E {}
 
 function f(I $i) {
-    echo get_class($i)."\n";
+	echo get_class($i)."\n";
 }
 
 f(new C);
@@ -555,7 +522,7 @@ Stack trace:
 
 ```php
 function sum($a, $b): float {
-    return $a + $b;
+	return $a + $b;
 }
 
 // Обратите внимание, что будет возвращено число с плавающей точкой.
@@ -574,7 +541,7 @@ float(3)
 class C {}
 
 function getC(): C {
-    return new C;
+	return new C;
 }
 
 var_dump(getC());
@@ -594,7 +561,7 @@ object(C)#1 (0) {
 ```php
 function array_baz(array &$param)
 {
-    $param = 1;
+	$param = 1;
 }
 $var = [];
 array_baz($var);
@@ -606,7 +573,7 @@ array_baz($var);
 
 ```
 int(1)
-     
+	 
 Fatal error: Uncaught TypeError: Argument 1 passed to array_baz() must be of the type array, int given, called in %s on line %d
 ```
 
@@ -620,7 +587,7 @@ Fatal error: Uncaught TypeError: Argument 1 passed to array_baz() must be of the
 class C {}
 
 function f(?C $c) {
-    var_dump($c);
+	var_dump($c);
 }
 
 f(new C);
@@ -639,11 +606,11 @@ NULL
 
 ```php
 function get_item(): ?string {
-    if (isset($_GET['item'])) {
-        return $_GET['item'];
-    } else {
-        return null;
-    }
+	if (isset($_GET['item'])) {
+		return $_GET['item'];
+	} else {
+		return null;
+	}
 }
 ```
 
@@ -657,7 +624,7 @@ function get_item(): ?string {
 class C {}
 
 function f(C $c = null) {
-    var_dump($c);
+	var_dump($c);
 }
 
 f(new C);
@@ -739,9 +706,7 @@ function foo(): X|Y {} // Допустимо (повторение будет о
 
 Для отдельных файлов можно включать режим строгой типизации. В этом режиме в функцию можно передавать значения только тех типов, которые объявлены для аргументов. В противном случае будет выбрасываться исключение `TypeError`. Есть лишь одно исключение - целое число (`integer`) можно передать в функцию, которая ожидает значение типа `float`. Вызовы функций внутри встроенных функций не будут затронуты директивой strict_types.
 
-Для включения режима строгой типизации используется выражение `declare` в объявлении strict_types:
-
-https://www.php.net/manual/ru/control-structures.declare.php
+Для включения режима строгой типизации используется выражение [declare](https://www.php.net/manual/ru/control-structures.declare.php) в объявлении strict_types:
 
 `Предостережение`
 Включение режима строгой типизации также повлияет на `объявления типов возвращаемых значений`.
@@ -760,7 +725,7 @@ https://www.php.net/manual/ru/control-structures.declare.php
 declare(strict_types=1);
 
 function sum(int $a, int $b) {
-    return $a + $b;
+	return $a + $b;
 }
 
 var_dump(sum(1, 2));
@@ -783,7 +748,7 @@ Stack trace:
 
 ```php
 function sum(int $a, int $b) {
-    return $a + $b;
+	return $a + $b;
 }
 
 var_dump(sum(1, 2));
@@ -805,14 +770,14 @@ int(3)
 declare(strict_types=1);
 
 function sum(int $a, int $b) {
-    return $a + $b;
+	return $a + $b;
 }
 
 try {
-    var_dump(sum(1, 2));
-    var_dump(sum(1.5, 2.5));
+	var_dump(sum(1, 2));
+	var_dump(sum(1.5, 2.5));
 } catch (TypeError $e) {
-    echo 'Ошибка: '.$e->getMessage();
+	echo 'Ошибка: '.$e->getMessage();
 }
 ```
 
@@ -823,15 +788,9 @@ int(3)
 Ошибка: Argument 1 passed to sum() must be of the type integer, float given, called in - on line 10
 ```
 
-### Списки аргументов переменной длины
+### [Списки аргументов переменной длины](https://www.php.net/manual/ru/functions.arguments.php#functions.variable-arg-list)
 
-https://www.php.net/manual/ru/functions.arguments.php#functions.variable-arg-list
-
-PHP поддерживает списки аргументов переменной длины для функций, определяемых пользователем. Для версий PHP 5.6 и выше это делается добавлением многоточия (...). Для версий 5.5 и старше используются функции `func_num_args()`, `func_get_arg()` и `func_get_args()`.
-
-https://www.php.net/manual/ru/function.func-num-args.php
-https://www.php.net/manual/ru/function.func-get-arg.php
-https://www.php.net/manual/ru/function.func-get-args.php
+PHP поддерживает списки аргументов переменной длины для функций, определяемых пользователем. Для версий PHP 5.6 и выше это делается добавлением многоточия (...). Для версий 5.5 и старше используются функции [func_num_args()](https://www.php.net/manual/ru/function.func-num-args.php), [func_get_arg()](https://www.php.net/manual/ru/function.func-get-arg.php) и [func_get_args()](https://www.php.net/manual/ru/function.func-get-args.php).
 
 `... в PHP 5.6+`
 
@@ -841,11 +800,11 @@ https://www.php.net/manual/ru/function.func-get-args.php
 
 ```php
 function sum(...$numbers) {
-    $acc = 0;
-    foreach ($numbers as $n) {
-        $acc += $n;
-    }
-    return $acc;
+	$acc = 0;
+	foreach ($numbers as $n) {
+		$acc += $n;
+	}
+	return $acc;
 }
 
 echo sum(1, 2, 3, 4);
@@ -857,15 +816,13 @@ echo sum(1, 2, 3, 4);
 10
 ```
 
-Многоточие (...) можно использовать при вызове функции, чтобы распаковать массив (`array`) или `Traversable` переменную в список аргументов:
-
-https://www.php.net/manual/ru/class.traversable.php
+Многоточие (...) можно использовать при вызове функции, чтобы распаковать массив (`array`) или [Traversable](https://www.php.net/manual/ru/class.traversable.php) переменную в список аргументов:
 
 ##### Пример #15 Использование ... для передачи аргументов
 
 ```php
 function add($a, $b) {
-    return $a + $b;
+	return $a + $b;
 }
 
 echo add(...[1, 2])."\n";
@@ -889,11 +846,11 @@ echo add(...$a);
 
 ```php
 function total_intervals($unit, DateInterval ...$intervals) {
-    $time = 0;
-    foreach ($intervals as $interval) {
-        $time += $interval->$unit;
-    }
-    return $time;
+	$time = 0;
+	foreach ($intervals as $interval) {
+		$time += $interval->$unit;
+	}
+	return $time;
 }
 
 $a = new DateInterval('P1D');
@@ -910,6 +867,4 @@ echo total_intervals('d', null);
 Catchable fatal error: Argument 2 passed to total_intervals() must be an instance of DateInterval, null given, called in - on line 14 and defined in - on line 2
 ```
 
-В конце концов, можно передавать аргументы `по ссылке`. Для этого перед ... нужно поставить амперсанд (&).
-
-https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference
+В конце концов, можно передавать аргументы [по ссылке](https://www.php.net/manual/ru/functions.arguments.php#functions.arguments.by-reference). Для этого перед ... нужно поставить амперсанд (&).

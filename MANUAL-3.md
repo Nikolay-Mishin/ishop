@@ -1,8 +1,6 @@
 ### Часть 3. Написание администраторской части CMS интернет-магазин
 
-### SQL Работа с датами
-
-http://lifeexample.ru/razrabotka-i-optimizacia-saita/sql-rabota-s-datami.html
+### [SQL Работа с датами](http://lifeexample.ru/razrabotka-i-optimizacia-saita/sql-rabota-s-datami.html)
 
 ```php
 NOW() — Возвращает текущую дату и время.
@@ -122,9 +120,7 @@ WHERE MONTH(birth) = MOD(MONTH(NOW()), 12) + 1;
 
 
 
-### call_user_func_array
-
-https://www.php.net/manual/ru/function.call-user-func-array.php
+### [call_user_func_array](https://www.php.net/manual/ru/function.call-user-func-array.php)
 
 ` call_user_func_array ( callable $callback , array $param_arr ) : mixed `
 
@@ -185,9 +181,7 @@ Hello Philip!
 
 
 
-### list
-
-https://www.php.net/manual/ru/function.list.php
+### [list](https://www.php.net/manual/ru/function.list.php)
 
 ` list ( mixed $var1 [, mixed $... ] ) : array `
 
@@ -266,9 +260,7 @@ var_dump($a);
 
 
 
-### get_called_class
-
-https://www.php.net/manual/ru/function.get-called-class.php
+### [get_called_class](https://www.php.net/manual/ru/function.get-called-class.php)
 
 `get_called_class` — Имя класса, полученное с помощью позднего статического связывания
 
@@ -302,9 +294,7 @@ string(3) "bar"
 
 
 
-### get_parent_class
-
-https://www.php.net/manual/ru/function.get-parent-class.php
+### [get_parent_class](https://www.php.net/manual/ru/function.get-parent-class.php)
 
 `get_parent_class` — Возвращает имя родительского класса для объекта или класса
 
@@ -354,9 +344,7 @@ I'm dad's son too
 
 
 
-### is_subclass_of
-
-https://www.php.net/manual/ru/function.is-subclass-of.php
+### [is_subclass_of](https://www.php.net/manual/ru/function.is-subclass-of.php)
 
 `is_subclass_of` — Проверяет, содержит ли объект в своем дереве предков указанный класс либо прямо реализует его
 
@@ -425,9 +413,7 @@ if (is_subclass_of('WidgetFactory_Child', 'WidgetFactory')) {
 да, WidgetFactory_Child наследует WidgetFactory
 ```
 
-### ReflectionClass::getShortName
-
-https://www.php.net/manual/ru/reflectionclass.getshortname.php
+### [ReflectionClass::getShortName](https://www.php.net/manual/ru/reflectionclass.getshortname.php)
 
 `ReflectionClass::getShortName` — Возвращает короткое имя
 
@@ -474,9 +460,7 @@ string(3) "Foo"
 ```
 
 
-### method_exists
-
-https://www.php.net/manual/ru/function.method-exists
+### [method_exists](https://www.php.net/manual/ru/function.method-exists)
 
 `method_exists` — Проверяет, существует ли метод в данном классе
 
@@ -524,9 +508,7 @@ bool(true)
 
 
 
-### property_exists
-
-https://www.php.net/manual/ru/function.property-exists.php
+### [property_exists](https://www.php.net/manual/ru/function.property-exists.php)
 
 `property_exists` — Проверяет, содержит ли объект или класс указанный атрибут
 
@@ -573,9 +555,7 @@ myClass::test();
 
 
 
-### in_array
-
-https://www.php.net/manual/ru/function.in-array.php
+### [in_array](https://www.php.net/manual/ru/function.in-array.php)
 
 `in_array` — Проверяет, присутствует ли в массиве значение
 
@@ -684,9 +664,7 @@ class_exists ( string $class_name [, bool $autoload = TRUE ] ) : bool
 
 ##### Список изменений
 
-Больше не возвращает TRUE для объявленных интерфейсов. Используйте для этого `interface_exists()`.
-
-https://www.php.net/manual/ru/function.interface-exists.php
+Больше не возвращает TRUE для объявленных интерфейсов. Используйте для этого [interface_exists()](https://www.php.net/manual/ru/function.interface-exists.php).
 
 ##### Пример #1 Пример использования class_exists()
 
@@ -717,9 +695,7 @@ if (class_exists('MyClass')) {
 
 
 
-### is_callable
-
-https://www.php.net/manual/ru/function.is-callable.php
+### [is_callable](https://www.php.net/manual/ru/function.is-callable.php)
 
 `is_callable` — Проверяет, может ли значение переменной быть вызвано в качестве функции
 

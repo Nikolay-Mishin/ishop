@@ -1,8 +1,6 @@
 ### Часть 2. Написание пользовательской части CMS интернет-магазина
 
-### HAVING оператор MySQL
-
-https://expange.ru/e/Having_count_(MySQL)
+### [HAVING оператор MySQL](https://expange.ru/e/Having_count_(MySQL))
 
 При применении в запросе агрегирующих функций (COUNT(), SUM(), AVG() и др.), чтобы выполнить условие придется использовать параметр HAVING (WHERE не получится использовать).
 
@@ -244,9 +242,7 @@ function doSomething(args) {
 doSomething({notify: true}); // {arg1: false, notify: true}
 ```
 
-### Передача аргументов по ссылке
-
-https://www.php.net/manual/ru/functions.arguments.php
+### [Передача аргументов по ссылке](https://www.php.net/manual/ru/functions.arguments.php)
 
 По умолчанию аргументы в функцию передаются по значению (это означает, что если вы измените значение аргумента внутри функции, то вне ее значение все равно останется прежним). Если вы хотите разрешить функции модифицировать свои аргументы, вы должны передавать их по ссылке.
 
@@ -262,9 +258,7 @@ add_some_extra($str);
 echo $str;    // выведет 'Это строка, и кое-что еще.'
 ```
 
-### Исключения - throw new \Exception('Страница не найдена', 404);
-
-https://www.php.net/manual/ru/language.exceptions.php
+### [Исключения - throw new \Exception('Страница не найдена', 404);](https://www.php.net/manual/ru/language.exceptions.php)
 
 ### htmlspecialchars() является подмножеством htmlentities().
 
@@ -331,9 +325,7 @@ implode( "\t", array_values( get_html_translation_table( HTML_SPECIALCHARS ) ) )
 "& <>
 ```
 
-### Valitron\Validator
-
-https://github.com/vlucas/valitron
+### [Valitron\Validator](https://github.com/vlucas/valitron)
 
 #### Встроенные правила проверки
 * required - Поле, обязательное для заполнения
