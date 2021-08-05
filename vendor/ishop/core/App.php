@@ -27,7 +27,7 @@ class App {
 		Router::dispatch($query); // передаем в маршрутизатор для обработки запрошенный url адрес
 	}
 
-	protected function getParams(){
+	protected function getParams(): void {
 		$params = require_once CONF . '/params.php'; // массив параметров (настроек) приложения
 		// записываем каждый из параметров в реестр
 		if(!empty($params)){

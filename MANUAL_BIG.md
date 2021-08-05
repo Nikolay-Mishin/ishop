@@ -441,8 +441,7 @@ int | Значение должно быть целым числом.
 string | Значение должно быть строкой (тип string).
 [iterable](https://www.php.net/manual/ru/language.types.iterable.php) | Значение может быть либо массивом (тип array), либо представлять собой `instanceof` [Traversable](https://www.php.net/manual/ru/class.traversable.php). | PHP 7.1.0
 object | Значение должно быть объектом (тип object). | PHP 7.2.0
-
-[mixed](https://www.php.net/manual/ru/language.types.declarations.php#language.types.declarations.mixed)	Значение может иметь любой тип.	PHP 8.0.0
+[mixed](https://www.php.net/manual/ru/language.types.declarations.php#language.types.declarations.mixed) | Значение может иметь любой тип. | PHP 8.0.0
 
 `Внимание`
 Псевдонимы для вышеперечисленных скалярных типов не поддерживаются. Вместо этого они рассматриваются как имена классов или интерфейсов. К примеру, используя boolean как параметр или возвращаемое значение, потребует, чтобы эти аргумент или возвращаемое значение были `instanceof` класса или интерфейса boolean, а не типа `bool`:

@@ -3,7 +3,7 @@
 
 // распечатывает массив
 // если параметр $die = true, завершает выполнение скрипта
-function debug($arr, $die = false){
+function debug($arr, $die = false): void {
 	echo '<pre>' . print_r($arr, true) . '</pre>';
 	if($die) die;
 }
@@ -25,26 +25,26 @@ function redirect($http = false){
 }
 
 // обертка для функции htmlspecialchars() - обрабатывет спец символы от html-инъекций
-function h($str){
+function h(string $str): string {
 	// ENT_QUOTES - чтобы преобразовывать и " (двойные кавычки)
 	// return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	return htmlspecialchars($str, ENT_QUOTES);
 }
 
-function referer_url($url = ''){
+function referer_url(string $url = ''): string {
 	$referer_url = isset($_SERVER['HTTP_REFERER']) ? rtrim($_SERVER['HTTP_REFERER'], '/') : PATH;
 	return $_SESSION['redirect'] = $url && $referer_url == PATH ? $url : $referer_url;
 }
 
 // добавление разрядов к цене (1000 => 1 000)
-function price_format($price, $precision = 0, $round = false, $mode = 'up'){
+function price_format(int $price, int $precision = 0, bool $round = false, string $mode = 'up'): string {
 	// $precision - Количество десятичных знаков, до которых производится округление
 	// (default) $mode - PHP_ROUND_HALF_UP
 	return number_format($round ? number_round($price, $precision, $mode) : $price, 0, '', ' ');
 }
 
 // округление числа (при пересчеты цены)
-function number_round($price, $precision = 0, $mode = 'up'){
+function number_round(int $price, int $precision = 0, string $mode = 'up'): int {
 	// $precision - Количество десятичных знаков, до которых производится округление
 	// mode - Используйте одну из этих констант для задания способа округления.
 	/**
