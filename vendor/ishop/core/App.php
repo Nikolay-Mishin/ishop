@@ -17,7 +17,7 @@ class App {
 	public static $controller;
 	public static $action;
 
-	public function __construct(){
+	public function __construct() {
 		// отсекаем концевой '/' строки запроса (после доменного имени http://ishop2.loc/)
 		$query = trim($_SERVER['QUERY_STRING'], '/');
 		session_start(); // стартуем сессию
@@ -30,8 +30,8 @@ class App {
 	protected function getParams(): void {
 		$params = require_once CONF . '/params.php'; // массив параметров (настроек) приложения
 		// записываем каждый из параметров в реестр
-		if(!empty($params)){
-			foreach($params as $k => $v){
+		if (!empty($params)) {
+			foreach ($params as $k => $v) {
 				self::$app->setProperty($k, $v);
 			}
 		}

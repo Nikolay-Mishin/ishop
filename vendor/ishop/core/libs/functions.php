@@ -1,25 +1,29 @@
 <?php
 // функции приложения
 
-// распечатывает массив
-// если параметр $die = true, завершает выполнение скрипта
-function debug($arr, $die = false): void {
+/**
+ * Распечатывает массив и, если параметр $die = true, завершает выполнение скрипта
+ * @param  {array}   $arr Properties from this object will be returned
+ * @param  {boolean} $die флаг на завершение выполнения скрипта
+ * @return {void}         ничего не возвращает
+ */
+function debug(array $arr, bool $die = false): void {
 	echo '<pre>' . print_r($arr, true) . '</pre>';
 	if($die) die;
 }
 
 // перенаправляет на указанную страницу
-function redirect($http = false){
+function redirect(bool $http = false): void {
 	// $http - адрес перенаправления
 	// если $http передан то $redirect = адресу перенаправления, иначе обновить/перезапросить текущую страницу
-	if($http){
+	if ($http) {
 		$redirect = $http;
-	}else{
+	} else {
 		// если в массиве $_SERVER есть страница, с которой пришел пользователь (предыдущая страница), то берем ее, иначе главную
 		$redirect = referer_url();
 	}
 	$redirect = $redirect !== true ? $redirect : PATH . $_SERVER['REQUEST_URI'];
-	if(isset($_SESSION['redirect'])) unset($_SESSION['redirect']);
+	if (isset($_SESSION['redirect'])) unset($_SESSION['redirect']);
 	header("Location: $redirect"); // перенаправляем на сформированный адрес
 	exit; // завершаем скрипт
 }
@@ -72,7 +76,7 @@ function number_round(int $price, int $precision = 0, string $mode = 'up'): int 
 }
 
 // BLOG - cropping a title in a post
-function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
+function mbCutString(string $string, int $length, string $postfix = '...', string $encoding = 'UTF-8'): string {
 	if (mb_strlen($string, $encoding) <= $length) {
 		return $string;
 	}
@@ -84,22 +88,22 @@ function mbCutString($string, $length, $postfix = '...', $encoding = 'UTF-8') {
 }
 
 // CamelCase - для изменения имен контроллеров (каждое слово в верхнем регистре)
-function lowerCamelCase($name){
+function lowerCamelCase(string $name): string {
 	// ThisMethodName => this_method_name
 	return strtolower(preg_replace('/([^A-Z])([A-Z])/', "$1_$2", $name));
 }
 
-function upperCamelCase($name){
+function upperCamelCase(string $name): string {
 	// this_method_name => ThisMethodName
-	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){return strtoupper($matches[1]);}, $name);
+	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){ return strtoupper($matches[1]); }, $name);
 }
 
-function callMethod($class, $method, $attrs = []){
+function callMethod(object $class, string $method, array $attrs = []): bool {
 	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
 
-function callPrivateMethod($obj, $method, $args){
-	if(isCallable($obj, $method)){
+function callPrivateMethod(object $obj, string $method, array $args): mixed {
+	if (isCallable($obj, $method)) {
 		$method = getReflector($obj)->getMethod($method);
 		$method->setAccessible(true);
 		$result = $method->invokeArgs($obj, $args);
@@ -109,52 +113,52 @@ function callPrivateMethod($obj, $method, $args){
 }
 
 // возвращает информацию о классе (app\models\User)
-function getReflector($class){
+function getReflector(object $class): \ReflectionClass {
 	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
 }
 
 // возвращает короткое имя класса (app\models\User => User)
-function getClassShortName($class){
+function getClassShortName(object $class): string {
 	return getReflector($class)->getShortName();
 }
 
 // возвращает короткое имя класса (app\models\User)
-function getClassName($class){
+function getClassName(object $class): string {
 	return getReflector($class)->getName();
 }
 
-function isCallable($class, $method){
+function isCallable(object $class, string $method): bool {
 	return method_exists($class, $method) && is_callable([$class, $method]);
 }
 
 // метод для преобразования массива в объект (stdClass Object)
-function dataDecode(&$data, $output = null){
+function dataDecode(&$data, $output = null): object {
 	$data_type = gettype($data); // получаем тип переданных данных
-	if($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данных
+	if ($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данных
 	$isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
 	$json = json_encode($data); // кодируем данные в json
 	return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
 }
 
-function arrayUnset(&$array, $items){
-	foreach(toArray($items) as $item){
-		if(isset($array[$item])){
+function arrayUnset(array &$array, $items): array {
+	foreach (toArray($items) as $item) {
+		if (isset($array[$item])) {
 			unset($array[$item]);
 		}
 	}
 	return $array;
 }
 
-function objectUnset($obj, $props){
-	foreach(toArray($props) as $prop){
-		if(property_exists($obj, $prop)){
+function objectUnset($obj, $props) {
+	foreach (toArray($props) as $prop) {
+		if (property_exists($obj, $prop)) {
 			unset($obj->$prop);
 		}
 	}
 	return $obj;
 }
 
-function arrayMultiKeyExists(array $arr, array $keys){
+function arrayMultiKeyExists(array $arr, array $keys): array {
 	// array_diff_key - Вычисляет расхождение массивов, сравнивая ключи
 	// Сравнивает ключи array1 с ключами array2 и возвращает разницу
 	return !array_diff_key($keys, array_keys($arr));
@@ -171,7 +175,7 @@ function arrayMultiKeyExists(array $arr, array $keys){
 	//)
 }
 
-function arrayGetValues(array $arr, array $keys){
+function arrayGetValues(array $arr, array $keys): array {
 	// array_intersect_key - Вычислить пересечение массивов, сравнивая ключи.
 	// возвращает массив, содержащий все элементы array1, имеющие ключи, содержащиеся во всех последующих параметрах.
 	// array_flip - Меняет местами ключи с их значениями в массиве.
@@ -190,22 +194,22 @@ function arrayGetValues(array $arr, array $keys){
 	//)
 }
 
-function array_multi_key_exists(array $arrNeedles, array $arrHaystack, $matchAll = true){
+function array_multi_key_exists(array $arrNeedles, array $arrHaystack, bool $matchAll = true): bool {
 	// array_shift - Извлекает первый элемент массива
 	// извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент.
 	// Все числовые ключи будут изменены таким образом, что нумерация массива начнётся с нуля, строковые ключи останутся прежними.
 	$found = array_key_exists(array_shift($arrNeedles), $arrHaystack);
    
-	if($found && (count($arrNeedles) == 0 || !$matchAll))
+	if ($found && (count($arrNeedles) == 0 || !$matchAll))
 		return true;
    
-	if(!$found && count($arrNeedles) == 0 || $matchAll)
+	if (!$found && count($arrNeedles) == 0 || $matchAll)
 		return false;
    
 	return array_multi_key_exists($arrNeedles, $arrHaystack, $matchAll);
 }
 
-function arrayMerge(array $arr1, array $arr2){
+function arrayMerge(array $arr1, array $arr2): array {
 	// array_intersect_key - Вычислить пересечение массивов, сравнивая ключи.
 	// возвращает массив, содержащий все элементы array1, имеющие ключи, содержащиеся во всех последующих параметрах.
 	// array_flip - Меняет местами ключи с их значениями в массиве.
@@ -247,58 +251,58 @@ function arrayMerge(array $arr1, array $arr2){
 
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
-function toArray($attrs, $attrToArray = false, $data = [], $result = 'attrs'){
+function toArray($attrs, bool $attrToArray = false, array $data = [], string $result = 'attrs'): array {
 	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
 	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
-	if($data){
-		foreach($data as $item){
-			if(!in_array($item, $attrs)) $attrs[] = $item;
+	if ($data) {
+		foreach ($data as $item) {
+			if (!in_array($item, $attrs)) $attrs[] = $item;
 		}
 	}
-	if($attrToArray){
-		foreach($attrs as $key => $attr){
+	if ($attrToArray) {
+		foreach ($attrs as $key => $attr) {
 			$attrs[$key] = is_array($attr) ? $attr : toArray([$attr]);
 		}
 	}
 	return ${$result};
 }
 
-function getTrace($id = 0, $args = false){
+function getTrace(int $id = 0, bool $args = false): object {
 	$args = $args ? DEBUG_BACKTRACE_PROVIDE_OBJECT : DEBUG_BACKTRACE_IGNORE_ARGS;
 	$trace = debug_backtrace($args, $id ? $id + 1 : $id);
 	return $id ? (object) $trace[$id] : $trace;
 }
 
-function getCaller($id = 0){
+function getCaller(int $id = 0): array {
 	// position 0 would be the line that called debug_backtrace (getTrace) function so we ignore it
 	// position 1 would be the line that called this (getCaller) function so we ignore it
 	// position 2 would be the line that called getCaller function so we ignore it
 	return getTrace($id + 3);
 }
 
-function getParentCaller($id = 0){
+function getParentCaller(int $id = 0): array {
 	return getTrace($id + 4);
 }
 
-function getContext($pattern = '/^__(get|set|call)$/'){
+function getContext(string $pattern = '/^__(get|set|call)$/'): array {
 	return getMethodTrace($pattern) ?? getParentCaller();
 }
 
-function getMethodTrace($pattern){
+function getMethodTrace(string $pattern): ?array {
 	$search = preg_grep($pattern, array_column(getTrace(), 'function'));
 	$key = array_keys($search)[0] ?? null;
 	return $key ? getTrace($key + 1) : null;
 }
 
-function validateAttrs($class, $attrs){
-	foreach($attrs as $key => $attr){
+function validateAttrs(object $class, array $attrs): array {
+	foreach ($attrs as $key => $attr) {
 		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
 	}
 	return $attrs;
 }
 
-function getProp($class, $attr){
-	if(property_exists($class, $attr)){
+function getProp($class, mixed $attr): mixed {
+	if (property_exists($class, $attr)) {
 		$isStatic = array_key_exists($attr, getReflector($class)->getStaticProperties());
 		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::${$attr};
 	}
@@ -307,7 +311,7 @@ function getProp($class, $attr){
 
 // определяет является ли переданная строка регулярным выраженияем
 	// This doesn't test validity; but it looks like the question is Is there a good way of test if a string is a regex or normal string in PHP? and it does do that.
-function isRegex($str){
+function isRegex(string $str): bool {
 	return preg_match("/^\/[\s\S]+\/$/", $str);
 }
 
@@ -315,16 +319,16 @@ function isRegex($str){
 // сортирует массив в по ключам/значениям в зависимости от переданного типа $sort_key ('key'/'value')
 // $sort_flag - флаги сортировки
 // newArray($info->getProperties(), 'name', ['Value' => [',', '.', 'floatval']])
-function newArray($array, $key = '', $patterns = [], $sort_key = 'key', $sort_flag = SORT_NATURAL){
+function newArray(array $array, string $key = '', array $patterns = [], string $sort_key = 'key', string $sort_flag = SORT_NATURAL): array {
 	// формируем массив
 	$newArray = []; // новый массив
-	foreach ($array as $k => $v){
+	foreach ($array as $k => $v) {
 		// если переданы паттерны для замены значений, производим замену для каждого переданного паттерна
-		if($patterns){
-			foreach ($patterns as $key_p => $pattern){
+		if ($patterns) {
+			foreach ($patterns as $key_p => $pattern) {
 				$value = is_array($v) ? $v[$key_p] : $v->$key_p;
 				// если передан массив паттернов, работаем с ним
-				if(is_array($pattern)){
+				if (is_array($pattern)) {
 					// $pattern[0] - паттерн для поиска совпадения
 					// $pattern[1] - паттерн для замены совпадения
 					// $pattern[2] - если передана не пустая строка, вызывает указанную пользовательскую функцию
@@ -334,8 +338,7 @@ function newArray($array, $key = '', $patterns = [], $sort_key = 'key', $sort_fl
 					$val = call_user_func_array($func, [$pattern[0], $pattern[1], $value]);
 					// call_user_func - Вызывает callback-функцию, заданную в первом параметре
 					$val = !isset($pattern[2]) ? $value : call_user_func($pattern[2], $val);
-				}
-				elseif(is_string($pattern)){
+				} elseif (is_string($pattern)) {
 					$val = call_user_func($pattern, $value);
 				}
 				$v[$key_p] = $val;
@@ -348,7 +351,7 @@ function newArray($array, $key = '', $patterns = [], $sort_key = 'key', $sort_fl
 	}
 
 	// сортируем массив
-	switch($sort_key){
+	switch ($sort_key) {
 		case 'key':
 			ksort($newArray, $sort_flag); // Сортирует массив по ключам
 		break;
