@@ -7,11 +7,11 @@ namespace ishop\traits;
 
 trait T_Ajax {
 
-    protected $isAjax;
-    private $request;
+    protected bool $isAjax;
+    private string $request;
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
-    public function isAjax(){
+    public function isAjax(): bool {
         $this->request = $_SERVER['HTTP_X_REQUESTED_WITH'] ?? null;
         return $this->isAjax = $this->request === 'XMLHttpRequest';
     }

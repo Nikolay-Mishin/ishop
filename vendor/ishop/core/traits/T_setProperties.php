@@ -12,12 +12,12 @@ trait T_SetProperties {
 	use T_Closure;
 
 	// получает опции
-	protected function setProperties($options, $condition = null, Closure $callback = null){
+	protected function setProperties(object $options, ?bool $condition = null, ?Closure $callback = null): void {
 		list($condition, $callback, $isClosure) = $this->setArgs($condition, $callback);
 		// если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
-		foreach($options as $k => $v){
+		foreach ($options as $k => $v) {
 			// проверяем существет ли такое свойство у класса
-			if($isClosure ? $condition($k) : $condition){
+			if ($isClosure ? $condition($k) : $condition) {
 				$this->$k = $v;
 				$callback($k, $v);
 			}
@@ -25,8 +25,8 @@ trait T_SetProperties {
 		//debug($this);
 	}
 
-	protected function setArgs($condition, $callback){
-		$base_condition = function($k){ return property_exists($this, $k); };
+	protected function setArgs(bool $condition, ?Closure $callback): array { 
+		$base_condition = function($k) { return property_exists($this, $k); };
 		$isClosure = $this->isClosure($condition);
 		$reverse = $isClosure && !$this->isClosure($callback) && $callback !== false;
 		$callback = $reverse ? $condition : ($callback ?? function(){});

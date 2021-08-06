@@ -40,3 +40,127 @@
 =================
 [2021-08-05 21:26:10] Текст ошибки: Argument 2 passed to ishop\Cache::set() must be of the type array, string given, called in D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\app\widgets\menu\Menu.php on line 89 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\OSPanel\domains\ishop\vendor\ishop\core\Cache.php | Строка: 14
 =================
+[2021-08-05 22:25:18] Текст ошибки: SQLSTATE[42S02]: Base table or view not found: 1932 Table 'ishop.currency' doesn't exist in engine | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\Driver\RPDO.php | Строка: 186
+=================
+[2021-08-05 22:27:17] Текст ошибки: Argument 2 passed to ishop\Cache::set() must be of the type string, array given, called in D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\app\controllers\AppController.php on line 39 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\vendor\ishop\core\Cache.php | Строка: 14
+=================
+[2021-08-05 22:29:12] Текст ошибки: Argument 2 passed to ishop\Cache::set() must be of the type array, string given, called in D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\app\widgets\menu\Menu.php on line 89 | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\vendor\ishop\core\Cache.php | Строка: 14
+=================
+[2021-08-05 22:31:10] Текст ошибки: syntax error, unexpected namespaced name "implements\IteratorAggregate", expecting "{" | Файл: D:\YandexDisk\__Web_dev\_.server\open_server\5.4\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\OODBBean.php | Строка: 35
+=================
+[2021-08-06 17:44:14] Текст ошибки: Typed property ishop\App::$controller must be an instance of ishop\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 40
+=================
+[2021-08-06 17:44:15] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2021-08-06 17:45:08] Текст ошибки: Argument 1 passed to debug() must be of the type array, string given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 40 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 10
+=================
+[2021-08-06 17:46:15] Текст ошибки: Typed property ishop\App::$controller must be an instance of ishop\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 41
+=================
+[2021-08-06 19:39:30] Текст ошибки: Typed property ishop\App::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 40
+=================
+[2021-08-06 19:39:31] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2021-08-06 19:41:03] Текст ошибки: Typed property ishop\App::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 40
+=================
+[2021-08-06 19:45:02] Текст ошибки: Typed property ishop\App::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 41
+=================
+[2021-08-06 21:56:54] Текст ошибки: Страница не найдена | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 55
+=================
+[2021-08-06 21:58:06] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 114
+=================
+[2021-08-06 21:59:09] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 114
+=================
+[2021-08-06 22:13:09] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 114
+=================
+[2021-08-06 22:13:37] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 114
+=================
+[2021-08-06 22:15:55] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 115
+=================
+[2021-08-06 22:16:05] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 115
+=================
+[2021-08-06 22:16:18] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 116
+=================
+[2021-08-06 22:17:36] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 116
+=================
+[2021-08-06 22:18:02] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 35 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 60
+=================
+[2021-08-06 22:19:02] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:19:03] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:19:14] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:22:49] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:23:12] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:23:22] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:23:24] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:23:25] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:26:30] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:26:31] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:26:32] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:26:33] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:26:34] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:27:48] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:00] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:01] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:01] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:01] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:01] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:02] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:28:57] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:29:51] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:30:09] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 37 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 62
+=================
+[2021-08-06 22:31:41] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:31:42] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:32:35] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:33:47] Текст ошибки: Argument 1 passed to ishop\Router::matchRoute() must be of the type string, null given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php on line 36 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 61
+=================
+[2021-08-06 22:38:51] Текст ошибки: Typed property ishop\base\Controller::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 31
+=================
+[2021-08-06 22:40:11] Текст ошибки: Typed property ishop\base\Controller::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 31
+=================
+[2021-08-06 22:42:14] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 113
+=================
+[2021-08-06 22:42:36] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string or null, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 113
+=================
+[2021-08-06 22:43:02] Текст ошибки: Return value of ishop\Router::removeQueryString() must be of the type string, none returned | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\Router.php | Строка: 114
+=================
+[2021-08-06 22:44:05] Текст ошибки: Typed property ishop\base\Controller::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 31
+=================
+[2021-08-06 22:47:39] Текст ошибки: Typed property ishop\base\Controller::$controller must be an instance of ishop\base\Controller, string used | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 32
+=================
+[2021-08-06 22:55:47] Текст ошибки: Typed property ishop\base\Controller::$layout must not be accessed before initialization | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 43
+=================
+[2021-08-06 22:58:50] Текст ошибки: Typed property ishop\base\Controller::$layout must not be accessed before initialization | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 43
+=================
+[2021-08-06 22:59:52] Текст ошибки: Typed property ishop\base\Controller::$layout must not be accessed before initialization | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 43
+=================
+[2021-08-06 23:00:33] Текст ошибки: Argument 1 passed to ishop\base\View::setProperties() must be of the type array, object given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-06 23:02:16] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type bool or null, object given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-06 23:04:45] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type bool or null, object given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================

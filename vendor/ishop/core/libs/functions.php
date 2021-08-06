@@ -7,7 +7,7 @@
  * @param  {boolean} $die флаг на завершение выполнения скрипта
  * @return {void}         ничего не возвращает
  */
-function debug(array $arr, bool $die = false): void {
+function debug($arr, bool $die = false): void {
 	echo '<pre>' . print_r($arr, true) . '</pre>';
 	if($die) die;
 }
@@ -102,7 +102,7 @@ function callMethod(object $class, string $method, array $attrs = []): bool {
 	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
 
-function callPrivateMethod(object $obj, string $method, array $args): mixed {
+function callPrivateMethod(object $obj, string $method, array $args) {
 	if (isCallable($obj, $method)) {
 		$method = getReflector($obj)->getMethod($method);
 		$method->setAccessible(true);
@@ -301,7 +301,7 @@ function validateAttrs(object $class, array $attrs): array {
 	return $attrs;
 }
 
-function getProp($class, mixed $attr): mixed {
+function getProp($class, $attr) {
 	if (property_exists($class, $attr)) {
 		$isStatic = array_key_exists($attr, getReflector($class)->getStaticProperties());
 		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::${$attr};

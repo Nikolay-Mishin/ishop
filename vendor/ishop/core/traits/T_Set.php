@@ -7,16 +7,16 @@ namespace ishop\traits;
 
 trait T_Set {
 
-    protected $properties = ['get' => [], 'set' => []];
+    protected array $properties = ['get' => [], 'set' => []];
 
-    public function get($property){
+    public function get(string $property): ?string {
         $exist = property_exists($this, $property);
         $inSet = in_array($property, $this->properties['set']);
         $inGet = in_array($property, $this->properties['get']);
         return $inSet && $exist || $inGet && $exist ? $this->$property : null;
     }
 
-    public function set($property, $value){
+    public function set(string $property, $value): ?string {
         $exist = property_exists($this, $property);
         $inSet = in_array($property, $this->properties['set']);
         return $inSet && $exist ? $this->$property = $value : null;

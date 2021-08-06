@@ -4,7 +4,7 @@ namespace ishop;
 
 class Logger {
 
-    public static function getLog(){
+    public static function getLog(): void {
         // выводим все запросы выполняемые RedBeanPHP
         $logs = \R::getDatabaseAdapter()->getDatabase()->getLogger();
         debug($logs->grep('SELECT'));

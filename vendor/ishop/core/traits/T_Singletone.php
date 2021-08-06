@@ -7,11 +7,11 @@ namespace ishop\traits;
 
 trait T_Singletone {
 
-    private static $instance; // хранит экземляр класса
+    private static ?object $instance = null; // хранит экземляр класса
 
-    public static function instance(){
+    public static function instance(): object {
         // если свойство текущего класса не инициализировано (пусто), то в него записываем объект данного класса и вернем его
-        if(self::$instance === null){
+        if (self::$instance === null) {
             self::$instance = new self;
         }
         return self::$instance;

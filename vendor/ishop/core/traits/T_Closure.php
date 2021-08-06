@@ -10,7 +10,7 @@ use \Closure;
 trait T_Closure {
 
 	// получает опции
-	protected function isClosure($object){
+	protected function isClosure(object $object): bool {
 		return $object instanceof Closure;
 	}
 

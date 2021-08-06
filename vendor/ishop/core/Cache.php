@@ -11,7 +11,7 @@ class Cache {
     use \ishop\traits\T_Singletone; // шаблон Одининочка
 
     // запись в кэш
-    public function set(string $key, string $data, int $seconds = 3600): bool {
+    public function set(string $key, $data, int $seconds = 3600): bool {
         // $key - уникальное имя файла кэша
         // $data - данные для кэширования
         // $seconds - время кэширования данных в сек (на 1ч)

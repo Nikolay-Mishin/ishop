@@ -10,13 +10,13 @@ class View {
 
 	use \ishop\traits\T_SetProperties;
 
-	public $route;
+	public array $route;
 	public $controller;
 	public $model;
 	public $view;
 	public $prefix;
 	public $layout;
-	public $data = [];
+	public array $data = [];
 	public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
 
 	public $canonical;
@@ -125,10 +125,10 @@ class View {
 
 	protected function getFilesList($files, $type_file) {
 		$files_list = '';
-		foreach($files as $type => $file_list){
+		foreach ($files as $type => $file_list) {
 			$files_list .= "<!-- $type -->" . PHP_EOL;
 			$file_list = toArray($file_list);
-			foreach($file_list as $file){
+			foreach ($file_list as $file) {
 				if ($type_file == 'style') {
 					$file = "<link " . 'href="' . $file . '.css" rel="stylesheet" type="text/css" media="all" />';
 				} else {

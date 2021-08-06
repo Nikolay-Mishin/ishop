@@ -10,19 +10,19 @@ abstract class Controller {
     use \ishop\traits\T_Ajax;
     use \ishop\traits\T_Protect;
     
-    public $route; // массив с маршрутами
-    public $controller; // контроллер
-    public $model; // модель
-    public $view; // вид
-    public $prefix; // префикс
-    public $layout; // шаблон
-    public $data = []; // обычные данные (контент)
-    public $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
+    public array $route; // массив с маршрутами
+    public string $controller; // контроллер
+    public string $model; // модель
+    public string $view; // вид
+    public string $prefix; // префикс
+    public string $layout = ''; // шаблон
+    public array $data = []; // обычные данные (контент)
+    public array $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
 
-    public $canonical = ''; // каноническая ссылка
-    public $file_prefix; // префикс
-    public $style = ['lib' => [], 'added' => [], 'main' => []];
-    public $script = ['lib' => [], 'init' => [], 'added' => [], 'main' => []];
+    public string $canonical = ''; // каноническая ссылка
+    public string $file_prefix; // префикс
+    public array $style = ['lib' => [], 'added' => [], 'main' => []];
+    public array $script = ['lib' => [], 'init' => [], 'added' => [], 'main' => []];
 
     public function __construct(array $route) {
         if (!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
@@ -76,16 +76,16 @@ abstract class Controller {
         $this->canonical = h($url); // каноническая ссылка
     }
 
-    public function setStyle(iterable ...$styles): void {
+    public function setStyle(array ...$styles): void {
         $this->setFiles('style', ...$styles); // подключаем файл конфигурации стилей
     }
 
-    public function setScript(iterable ...$scripts): void {
+    public function setScript(array ...$scripts): void {
         $this->setFiles('script', ...$scripts); // подключаем файл конфигурации скриптов
         
     }
 
-    public function setFiles(string $type, iterable ...$files): void {
+    public function setFiles(string $type, array ...$files): void {
         $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
 
         //$this->$type = $file === true ? $this->$type : $file;

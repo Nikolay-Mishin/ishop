@@ -13,9 +13,9 @@ namespace ishop;
 
 class App {
 
-	public static $app; // контейнер (реестр) для приложения (хранение свойств/объектов)
-	public static $controller;
-	public static $action;
+	public static Registry $app; // контейнер (реестр) для приложения (хранение свойств/объектов)
+	public static string $controller;
+	public static string $action;
 
 	public function __construct() {
 		// отсекаем концевой '/' строки запроса (после доменного имени http://ishop2.loc/)
