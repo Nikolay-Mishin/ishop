@@ -8,7 +8,7 @@ use ishop\base\Model;
 class AppModel extends Model {
 
 	// обновляет алиас
-	public static function updateAlias($table, $title, $id, $col = 'alias'){
+	public static function updateAlias(string $table, string $title, int $id, string $col = 'alias'): void {
 		$alias = self::createAlias($table, $col, $title, $id); // создаем алиас на основе ее названия и id
 		// get_called_class — Имя класса, полученное с помощью позднего статического связывания
 		$model = (get_called_class())::getById($id); // загружаем из БД бин (bean - структура/свойства объекта)
@@ -18,17 +18,17 @@ class AppModel extends Model {
 
 	// статичный метод для создания алиаса - уникальное траслитерированное название строки (продукта/категории и тд)
 	// категория электронные => elektronnye
-	public static function createAlias($table, $field, $str, $id){
+	public static function createAlias(string $table, string $field, string $str, int $id): string {
 		// $table - таблица в БД
 		// $field - поле в данной таблице
 		$str = self::str2url($str); // формируем алиас - преобразуем полученную строку в url (транслитерированная строка)
 		$res = \R::findOne($table, "$field = ?", [$str]); // находим совпадение сформированного алиаса с уже имеющимися в таблице БД
 		// если такой алиас уже есть в БД, добавляем к нему id
-		if($res){
+		if ($res) {
 			$str = "{$str}-{$id}"; // добавляем id к строке
 			$res = \R::count($table, "$field = ?", [$str]); // ищем совпадение данной строки с уже имеющимися алиасами
 			// если совпадение найдено, рекурсивно вызываем метод создания алиаса
-			if($res){
+			if ($res) {
 				$str = self::createAlias($table, $field, $str, $id);
 			}
 		}
@@ -36,7 +36,7 @@ class AppModel extends Model {
 	}
 
 	// статичный метод для преобразования строки в url
-	public static function str2url($str) {
+	public static function str2url(string $str): string {
 		// переводим в транслит
 		$str = self::rus2translit($str);
 		// в нижний регистр
@@ -49,7 +49,7 @@ class AppModel extends Model {
 	}
 
 	// статичный метод для перевода строки в символьный ряд на основе массива соответствий (ключ => значение)
-	public static function rus2translit($string) {
+	public static function rus2translit(string $string): string {
 		// массив (ключ => значение) для перевода строки в заданное символьное соответствие
 		$converter = array(
 			'а' => 'a',   'б' => 'b',   'в' => 'v',

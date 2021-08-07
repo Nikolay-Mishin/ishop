@@ -20,7 +20,7 @@ use app\models\Comment; // модель комментариев
 class ProductController extends AppController {
 
 	// экшен вида (отображения) карточки товара
-	public function viewAction(){
+	public function viewAction() {
 		$alias = $this->route['alias']; // получаем алиас текущего продукта
 		// получаем по алиасу информацию о текущем продукте из БД
 		// SELECT `product`.*  FROM `product`  WHERE alias = ? AND status = '1' LIMIT 1

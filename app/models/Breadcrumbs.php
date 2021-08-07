@@ -8,15 +8,15 @@ use ishop\App;
 class Breadcrumbs {
 
     // получаем хлебные крошки - строит хлебные крошки
-    public static function getBreadcrumbs($category_id = null, $name = ''){
+    public static function getBreadcrumbs(?int $category_id = null, string $name = ''): string {
         // $name - наименование товара
         $cats = App::$app->getProperty('cats'); // получаем категории
         $breadcrumbs_array = self::getParts($cats, $category_id); // формируем массив хлебных крошек
         // формируем html-разметку для хлебных крошек
         $breadcrumbs = "<li><a href='" . PATH . "'>Главная</a></li>"; // ссылка на главную
         // если массив хлебных крошек не пуст, формируем ссылки на категории (для элементов массива)
-        if($breadcrumbs_array){
-            foreach($breadcrumbs_array as $alias => $title){
+        if ($breadcrumbs_array) {
+            foreach ($breadcrumbs_array as $alias => $title) {
                 $link = "<a href='" . PATH . "/category/{$alias}'>{$title}</a>"; // ссылка на категорию
                 // если не передано наименование товара последнюю категорюю выводим текст
                 $link = $title == end($breadcrumbs_array) && !$name ? $title : $link;
@@ -25,7 +25,7 @@ class Breadcrumbs {
             }
         }
         // если передано наименование товара, добавляем его
-        if($name){
+        if ($name) {
             $breadcrumbs .= "<li class='active'>$name</li>";
         }
         return $breadcrumbs;
@@ -49,17 +49,17 @@ class Breadcrumbs {
     }
 
     // служебный метод
-    public static function getParts($cats, $id){
-        if(!$id) return false; // если не передан id категории возвращаем false
+    public static function getParts(array $cats, int $id): array {
+        if (!$id) return false; // если не передан id категории возвращаем false
         $breadcrumbs = [];
-        foreach($cats as $k => $v){
+        foreach ($cats as $k => $v) {
             // $k - идентификаторы элементов массива
             // $v - массивы (значения элементов массива)
             // если в массиве категорий существует переданный id, в массив хлебных крошек записываем ['алиас категории' => наименование]
-            if(isset($cats[$id])){
+            if (isset($cats[$id])) {
                 $breadcrumbs[$cats[$id]['alias']] = $cats[$id]['title'];
                 $id = $cats[$id]['parent_id']; // в id записываем значение родительской категории
-            }else break; // прерываем работу цикла если более не найдено совпадений
+            } else break; // прерываем работу цикла если более не найдено совпадений
         }
         // возвращаем массив хлебных крошек, перевернув элементы в обратном порядке
         return array_reverse($breadcrumbs, true); // true - по умолчанию (сохранять ключи элементов)

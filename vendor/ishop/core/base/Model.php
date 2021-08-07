@@ -12,25 +12,25 @@ abstract class Model extends Sql {
 	use \ishop\traits\T_SetProperties;
 	use \ishop\traits\T_Protect;
 
-	public $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
-	public $errors = []; // хранение ошибок
-	public $rules = []; // правила валидации данных
-	public $id; // id последней сохраненной записи (метод save())
-	protected $bean;
+	public array $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
+	public array $errors = []; // хранение ошибок
+	public array $rules = []; // правила валидации данных
+	public int $id; // id последней сохраненной записи (метод save())
+	protected \Bean $bean;
 
-	public function __construct($data = [], $attrs = [], $action = 'save', $valid = []){
-		if(CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save', array $valid = []) {
+		if (CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
 
 		$this->addProtectProperties('bean');
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
-		if($data){
+		if ($data) {
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
 			$this->load($data); // загружаем полученные данные в модель
 			// валидируем данные
 			// in_array(,,true) - при поиске будет использовано строгое сравнение (проверит соответствие типов)
-			if(!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)){
+			if (!$this->validate($data) || in_array(false, validateAttrs($this, $valid), true)) {
 				$this->getErrors(); // получаем список ошибок
-				if($action == 'save') $_SESSION['form_data'] = $data;
+				if ($action == 'save') $_SESSION['form_data'] = $data;
 				redirect();
 			}
 			$this->table = self::getTable(); // имя таблицы в БД
@@ -50,17 +50,17 @@ abstract class Model extends Sql {
 	// данного поля нет в свойстве $attributes
 	'login1' => '', // поле, которого не было в форме (если со стороны клиенты, например будет попытка подмены формы)
 	*/
-	public function load($data){
+	public function load(array $data): void {
 		foreach($this->attributes as $name => $value){
 			// если в данных есть поле, соответствующее полю в $attributes, то записываем значение из данных в аттрибуты
-			if(isset($data[$name])){
+			if (isset($data[$name])) {
 				$this->attributes[$name] = $data[$name];
 			}
 		}
 	}
 
 	// сохраняем данные в таблицу в БД
-	public function save($table = '', $valid = true){
+	public function save(string $table = '', bool $valid = true): \Bean {
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
@@ -81,7 +81,7 @@ abstract class Model extends Sql {
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update($id, $table = ''){
+	public function update(int $id, string $table = ''): \Bean {
 		//$bean = \R::load($table, $id);
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		//// для каждого аттрибута модели заполняем поля записи в БД
@@ -94,9 +94,9 @@ abstract class Model extends Sql {
 	}
 
 	// метод сохранения бина (представления таблицы) в БД
-	protected function saveBean($bean){
+	protected function saveBean(\Bean $bean): void {
 		// для каждого аттрибута модели заполняем поля записи в БД
-		foreach($this->attributes as $name => $value){
+		foreach ($this->attributes as $name => $value) {
 			$bean->$name = $value;
 		}
 		$this->bean = $bean;
@@ -105,13 +105,13 @@ abstract class Model extends Sql {
 	}
 
 	// метод валидации данных
-	public function validate($data){
+	public function validate(array $data): bool {
 		Validator::langDir(WWW . '/validator/lang'); // указываем Валидатору директорию для языков
 		Validator::lang('ru'); // устанавливаем язык Валидатора
 		$v = new Validator($data); // объект Валидатора (передаем данные в конструктор)
 		$v->rules($this->rules); // передаем в Валидатор набор правил валидации
 		// если валидация прошла успешно, возвращаем true
-		if($v->validate()){
+		if ($v->validate()) {
 			return true;
 		}
 		$this->errors = $v->errors(); // записываем ошибки валидации в свойство модели
@@ -119,11 +119,11 @@ abstract class Model extends Sql {
 	}
 
 	// получает ошибки валидации
-	public function getErrors(){
+	public function getErrors(): void {
 		// формируем список ошибок
 		$errors = '<ul>';
-		foreach($this->errors as $error){
-			foreach($error as $item){
+		foreach ($this->errors as $error) {
+			foreach ($error as $item) {
 				$errors .= "<li>$item</li>";
 			}
 		}
@@ -131,14 +131,14 @@ abstract class Model extends Sql {
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
 	}
 
-	public function setRequired($data, ...$required){
+	public function setRequired(array $data, ...$required): void {
 		$this->rules['required'] = [];
 		$this->addRequired($data, ...$required);
 	}
 
-	public function addRequired($data, ...$required){
+	public function addRequired(array $data, ...$required): void {
 		$data = arrayGetValues($data, $required);
-		foreach($data as $k => $v){
+		foreach ($data as $k => $v) {
 			$this->rules['required'][] = toArray($k);
 		}
 	}

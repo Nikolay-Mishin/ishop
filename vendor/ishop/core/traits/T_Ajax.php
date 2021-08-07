@@ -7,8 +7,8 @@ namespace ishop\traits;
 
 trait T_Ajax {
 
-    protected bool $isAjax;
-    private string $request;
+    protected bool $isAjax = false;
+    private ?string $request;
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
     public function isAjax(): bool {

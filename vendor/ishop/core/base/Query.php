@@ -4,143 +4,143 @@ namespace ishop\base;
 
 abstract class Query {
 
-	protected $table = null;
+	protected ?string $table = null;
 
-	protected static $class = null;
-	protected static $model = null;
+	protected static ?string $class = null;
+	protected static ?self $model = null;
 
-	protected static $models = [];
+	protected static array $models = [];
 
-	protected static $query = '';
+	protected static string $query = '';
 
-	protected $from = '';
-	protected $select = '';
-	protected $join = '';
-	protected $where = '';
-	protected $group = '';
-	protected $sort = '';
-	protected $order = '';
-	protected $limit = '';
+	protected string $from = '';
+	protected string $select = '';
+	protected string $join = '';
+	protected string $where = '';
+	protected string $group = '';
+	protected string $sort = '';
+	protected string $order = '';
+	protected string $limit = '';
 
-	protected $update = '';
-	protected $set = '';
+	protected string $update = '';
+	protected string $set = '';
 
-	protected $insert = '';
-	protected $into = '';
-	protected $values = '';
+	protected string $insert = '';
+	protected string $into = '';
+	protected string $values = '';
 
-	protected $delete = '';
+	protected string $delete = '';
 
-	protected static function init(){
+	protected static function init(): self {
 		self::$class = self::$class == static::class ? self::$class : static::class;
-		if(!array_key_exists(self::$class, self::$models)){
+		if (!array_key_exists(self::$class, self::$models)) {
 			self::$models[self::$class] = new self::$class;
 		}
 		return self::getModel();
 	}
 
-	protected static function getModel(){
+	protected static function getModel(): self {
 		return self::$model = self::$model instanceof self::$class ? self::$model : self::$models[self::$class];
 	}
 
-	protected static function getTable(){
+	protected static function getTable(): string {
 		return self::init()->table = self::init()->table ?? self::getTableName();
 	}
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	public static function getTableName($class = null){
+	public static function getTableName(?string $class = null): string {
 		return lowerCamelCase(getClassShortName($class ?? get_called_class()));
 	}
 
-	protected static function getSql(){
+	protected static function getSql(): string {
 		self::init();
 		self::$query = '';
-		if(self::init()->select){
+		if (self::init()->select) {
 			self::init()->select()->from()->join()->where()->group()->order()->limit();
 		}
-		elseif(self::init()->set){
+		elseif (self::init()->set) {
 			self::init()->update_sql()->set()->where();
 		}
-		elseif(self::init()->into && self::init()->values){
+		elseif (self::init()->into && self::init()->values) {
 			self::init()->insert()->into()->values();
 		}
-		elseif(self::init()->delete){
+		elseif (self::init()->delete) {
 			self::init()->delete_sql()->where();
 		}
 		return self::$query;
 	}
 
-	protected function select($select = null){
+	protected function select(string $select = ''): self {
 		self::$query .= $this->select = "SELECT " . ($select ?: $this->select);
 		return $this;
 	}
 
-	protected function from($from = ''){
+	protected function from(string $from = ''): self {
 		self::$query .= $this->from = PHP_EOL . "FROM `" . ($from ?: ($this->from ?: self::getTable())) . '`';
 		return $this;
 	}
 
-	protected function join($join = ''){
+	protected function join(string $join = ''): self {
 		$join = explode(', ', $join ?: $this->join);
 		$sql_part = '';
-		foreach($join as $joinItem){
+		foreach ($join as $joinItem) {
 			$sql_part .= $joinItem ? "JOIN $joinItem" . PHP_EOL : '';
 		}
 		self::$query .= $this->join = rtrim($sql_part ? PHP_EOL . $sql_part : '', PHP_EOL);
 		return $this;
 	}
 
-	protected function where($where = ''){
+	protected function where(string $where = ''): self {
 		self::$query .= $this->where = $where || $this->where ? PHP_EOL . "WHERE " . ($where ?: $this->where) : $this->where;
 		return $this;
 	}
 
-	protected function group($group = ''){
+	protected function group(string $group = ''): self {
 		self::$query .= $this->group = $group || $this->group ? PHP_EOL . "GROUP BY " . ($group ?: $this->group) : $this->group;
 		return $this;
 	}
 
-	protected function order($order = '', $sort = ''){
+	protected function order(string $order = '', string $sort = ''): self {
 		$order = explode(', ', $order ?: $this->order);
 		$sql_part = '';
-		foreach($order as $orderItem){
+		foreach ($order as $orderItem) {
 			$sql_part .= $orderItem ? "$orderItem " . $this->sort . ', ' : '';
 		}
 		self::$query .= $this->order = rtrim($sql_part ? PHP_EOL . "ORDER BY $sql_part" : $this->order, ', ');
 		return $this;
 	}
 
-	protected function limit($limit = ''){
+	protected function limit(string $limit = ''): self {
 		self::$query .= $this->limit = $limit || $this->limit ? PHP_EOL . "LIMIT " . ($limit ?: $this->limit) : $this->limit;
 		return $this;
 	}
 
-	protected function update_sql($update = ''){
+	protected function update_sql(string $update = ''): self {
 		self::$query .= $this->update = "UPDATE `" . ($update ?: ($this->update ?: self::getTable())) . '`';
 		return $this;
 	}
 
-	protected function set($set = ''){
+	protected function set(string $set = ''): self {
 		self::$query .= $this->set = PHP_EOL . "SET " . ($set ?: $this->set);
 		return $this;
 	}
 
-	protected function insert($insert = ''){
+	protected function insert(string $insert = ''): self {
 		self::$query .= $this->insert = "INSERT INTO `" . ($insert ?: ($this->insert ?: self::getTable())) . '`';
 		return $this;
 	}
 
-	protected function into($into = ''){
+	protected function into(string $into = ''): self {
 		self::$query .= $this->into = PHP_EOL . "(" . ($into ?: $this->into) . ")";
 		return $this;
 	}
 
-	protected function values($values = ''){
+	protected function values(string $values = ''): self {
 		self::$query .= $this->values = PHP_EOL . "VALUES " . ($values ?: $this->values);
 		return $this;
 	}
 
-	protected function delete_sql($delete = ''){
+	protected function delete_sql(string $delete = ''): self {
 		self::$query .= $this->delete = "DELETE FROM `" . ($delete ?: ($this->delete ?: self::getTable())) . '`';
 		return $this;
 	}

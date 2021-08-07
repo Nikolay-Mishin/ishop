@@ -10,8 +10,8 @@ use \Closure;
 
 trait T_Protect {
 
-	protected $protectProperties = [];
-	protected $protectMethods = [];
+	protected array $protectProperties = [];
+	protected array $protectMethods = [];
 
 	public function __get($property) {
 		return $this->exist($property, function($obj, $property) {
@@ -40,21 +40,21 @@ trait T_Protect {
 		return $this->protectMethods;
 	}
 
-	protected function setProtectProperties(array ...$protectProperties) {
+	protected function setProtectProperties(string ...$protectProperties) {
 		$this->protectProperties = [];
 		$this->addProtectProperties($protectMethods);
 	}
 
-	protected function addProtectProperties(array ...$protectProperties) {
+	protected function addProtectProperties(string ...$protectProperties) {
 		$this->structuredProtect($protectProperties);
 	}
 
-	protected function setProtectMethods(array ...$protectMethods) {
+	protected function setProtectMethods(string ...$protectMethods) {
 		$this->protectMethods = [];
 		$this->addProtectMethods($protectMethods);
 	}
 
-	protected function addProtectMethods(array ...$protectMethods) {
+	protected function addProtectMethods(string ...$protectMethods) {
 		$this->structuredProtect($protectMethods, 'protectMethods');
 	}
 

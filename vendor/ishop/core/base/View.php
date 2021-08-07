@@ -10,20 +10,20 @@ class View {
 
 	use \ishop\traits\T_SetProperties;
 
-	public array $route;
-	public $controller;
-	public $model;
-	public $view;
-	public $prefix;
-	public $layout;
+	public array $route = [];
+	public string $controller = '';
+	public string $model = '';
+	public string $view = '';
+	public string $prefix = '';
+	public string $layout = '';
 	public array $data = [];
-	public $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
+	public array $meta = []; // массив с мета-тегами, заданными через метод setMeta() в базовом контроллере
 
-	public $canonical;
-	public $style = [];
-	public $script = [];
+	public string $canonical = '';
+	public array $style = [];
+	public array $script = [];
 
-	public function __construct($route, $layout = '', $view = '', $meta = '', $controller = null) {
+	public function __construct(array $route, string $layout = '', string $view = '', array $meta = [], ?Controller $controller = null) {
 		// $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
 		// $view - вид для отображения
 
@@ -42,7 +42,7 @@ class View {
 		//}
 
 		//$this->setProperties(objectUnset(clone $controller, 'data'), function($controller, $k){
-		$this->setProperties(objectUnset(clone $controller, 'data'), function($k) use($controller) {
+		$this->setProperties([objectUnset(clone $controller, 'data')], function($k) use($controller) {
 			// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
 			if ($k === 'layout') {
 				if($controller->$k === false){
@@ -69,9 +69,9 @@ class View {
 	//}
 
 	// рендерит (формирует) страницу для пользователя на основе полученных данных
-	public function render($data) {
+	public function render(array $data): void {
 		// если $data - массив, то извлечем данные из массива и сформируем из них соответствующие переменные
-		if (is_array($data)) extract($data);
+		extract($data);
 		// prefix - имя префикса (админки)
 		// controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
 		// view - имя вида, который должен быть отображен
@@ -98,7 +98,7 @@ class View {
 	}
 
 	// возвращает готовую разметку (или массив) с мета-тегами (title, description, keywords)
-	public function getMeta() {
+	public function getMeta(): string {
 		// разметку для вывода в шаблон запишем в переменную и вернем ее
 		$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
 		$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
@@ -107,23 +107,23 @@ class View {
 	}
 
 	// возвращает готовую разметку с канонической ссылкой
-	public function getCanonical() {
+	public function getCanonical(): string {
 		// разметку для вывода в шаблон запишем в переменную и вернем ее
 		// PHP_EOL - перенос строк
 		return $this->canonical ? '<link rel="canonical" href="' . $this->canonical . '">' : '';
 	}
 
 	// возвращает готовую разметку (или массив) со стилями
-	public function getStyles() {
+	public function getStyles(): string  {
 		return $this->getFilesList($this->style, 'style');
 	}
 
 	// возвращает готовую разметку (или массив) со стилями
-	public function getScripts() {
+	public function getScripts(): string  {
 		return $this->getFilesList($this->script, 'script');
 	}
 
-	protected function getFilesList($files, $type_file) {
+	protected function getFilesList(array $files, string $type_file): string {
 		$files_list = '';
 		foreach ($files as $type => $file_list) {
 			$files_list .= "<!-- $type -->" . PHP_EOL;

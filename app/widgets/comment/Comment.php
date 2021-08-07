@@ -9,7 +9,6 @@ class Comment extends Menu {
 
 	use \ishop\traits\T_Ajax;
 
-	protected $isAjax = false;
 	protected $isMenu = true;
 	protected $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
 	protected $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария

@@ -164,3 +164,135 @@
 =================
 [2021-08-06 23:04:45] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type bool or null, object given, called in D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: D:\YandexDisk\__Web_dev\_.server\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
 =================
+[2021-08-07 15:21:03] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type bool or null, object given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:28:10] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type array, object given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:34:01] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:35:08] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be of the type array, object given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:37:09] Текст ошибки: Argument 2 passed to ishop\base\View::setProperties() must be iterable, object given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:37:17] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:38:11] Текст ошибки: Argument 1 passed to ishop\base\View::setProperties() must be iterable, object given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 55 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:40:06] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:46:32] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:46:48] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:47:03] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:47:26] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:48:01] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:48:56] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:49:08] Текст ошибки: Cannot use object of type Closure as array | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 31
+=================
+[2021-08-07 17:49:18] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:50:31] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::setProperties() must be an object, array given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 38 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
+[2021-08-07 17:53:42] Текст ошибки: Return value of objectUnset() must be an object, array returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 158
+=================
+[2021-08-07 17:57:38] Текст ошибки: Argument 1 passed to ishop\base\View::isClosure() must be an object, array given, called in W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php on line 17 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Closure.php | Строка: 13
+=================
+[2021-08-07 18:04:40] Текст ошибки: Argument 1 passed to app\widgets\menu\Menu::isClosure() must be an object, null given, called in W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php on line 21 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Closure.php | Строка: 13
+=================
+[2021-08-07 18:18:29] Текст ошибки: Argument 1 passed to isObject() must be an object, null given, called in W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php on line 17 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 134
+=================
+[2021-08-07 18:19:08] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 30
+=================
+[2021-08-07 18:20:01] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 31
+=================
+[2021-08-07 18:20:15] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 30
+=================
+[2021-08-07 18:20:52] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 30
+=================
+[2021-08-07 18:21:16] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 30
+=================
+[2021-08-07 18:21:53] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 30
+=================
+[2021-08-07 18:24:20] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 32
+=================
+[2021-08-07 18:25:04] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 32
+=================
+[2021-08-07 18:31:50] Текст ошибки: Argument 1 passed to isObject() must be an object or null, string given, called in W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php on line 17 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 134
+=================
+[2021-08-07 18:32:59] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 33
+=================
+[2021-08-07 18:34:24] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 32
+=================
+[2021-08-07 18:53:17] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 33
+=================
+[2021-08-07 19:35:15] Текст ошибки: Argument 4 passed to ishop\base\View::__construct() must be of the type string, array given, called in W:\domains\ishop\vendor\ishop\core\base\Controller.php on line 43 | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 26
+=================
+[2021-08-07 20:48:54] Текст ошибки: Argument 1 passed to ishop\base\Model::addProtectProperties() must be of the type array, string given, called in W:\domains\ishop\vendor\ishop\core\base\Model.php on line 24 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 48
+=================
+[2021-08-07 20:59:18] Текст ошибки: Typed property ishop\base\Query::$model must be string or null, app\models\Comment used | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 43
+=================
+[2021-08-07 21:00:04] Текст ошибки: Return value of ishop\base\Query::getModel() must be of the type string, object returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 43
+=================
+[2021-08-07 21:00:36] Текст ошибки: Return value of ishop\base\Query::init() must be of the type string, object returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 39
+=================
+[2021-08-07 21:00:47] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:00:59] Текст ошибки: syntax error, unexpected 'static' (T_STATIC) | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 34
+=================
+[2021-08-07 21:01:07] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:01:16] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:01:31] Текст ошибки: syntax error, unexpected '$this' (T_VARIABLE) | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 34
+=================
+[2021-08-07 21:01:36] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:02:26] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:03:36] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:05:28] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:09:45] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:09:50] Текст ошибки: Argument 1 passed to getClassShortName() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\base\Query.php on line 52 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 121
+=================
+[2021-08-07 21:12:43] Текст ошибки: Argument 1 passed to getReflector() must be an object, string given, called in W:\domains\ishop\vendor\ishop\core\libs\functions.php on line 122 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 116
+=================
+[2021-08-07 21:17:14] Текст ошибки: Typed property app\widgets\comment\Comment::$isAjax must not be accessed before initialization | Файл: W:\domains\ishop\app\widgets\comment\Comment.php | Строка: 39
+=================
+[2021-08-07 21:21:07] Текст ошибки: Typed property app\widgets\comment\Comment::$isAjax must not be accessed before initialization | Файл: W:\domains\ishop\app\widgets\comment\Comment.php | Строка: 38
+=================
+[2021-08-07 21:23:28] Текст ошибки: Typed property ishop\base\Controller::$layout must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 43
+=================
+[2021-08-07 21:26:17] Текст ошибки: Typed static property ishop\base\Query::$models must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 36
+=================
+[2021-08-07 21:26:35] Текст ошибки: Typed property ishop\base\Query::$from must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Query.php | Строка: 79
+=================
+[2021-08-07 21:34:23] Текст ошибки: Argument 1 passed to h() must be of the type string, null given, called in W:\domains\ishop\app\controllers\SearchController.php on line 35 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 32
+=================
+[2021-08-07 22:00:37] Текст ошибки: Typed property ishop\base\Controller::$request must be string, null used | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Ajax.php | Строка: 15
+=================
+[2021-08-07 22:05:00] Текст ошибки: Argument 1 passed to app\models\Breadcrumbs::getParts() must be of the type string, array given, called in W:\domains\ishop\app\models\Breadcrumbs.php on line 14 | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 52
+=================
+[2021-08-07 22:11:11] Текст ошибки: Argument 3 passed to app\models\Cart::addToCart() must be an instance of RedBeanPHP\R or null, instance of RedBeanPHP\OODBBean given, called in W:\domains\ishop\app\controllers\CartController.php on line 52 | Файл: W:\domains\ishop\app\models\Cart.php | Строка: 11
+=================
+[2021-08-07 22:11:47] Текст ошибки: Argument 3 passed to app\models\Cart::addToCart() must be an instance of RedBeanPHP\R or null, instance of RedBeanPHP\OODBBean given, called in W:\domains\ishop\app\controllers\CartController.php on line 52 | Файл: W:\domains\ishop\app\models\Cart.php | Строка: 11
+=================
+[2021-08-07 22:16:38] Текст ошибки: Return value of app\models\Category::getIds() must be of the type string, null returned | Файл: W:\domains\ishop\app\models\Category.php | Строка: 39
+=================
+[2021-08-07 23:04:03] Текст ошибки: Return value of app\models\Product::getAllRecentlyViewed() must be of the type array or null, string returned | Файл: W:\domains\ishop\app\models\Product.php | Строка: 47
+=================
+[2021-08-07 23:05:02] Текст ошибки: Return value of app\models\Product::getAllRecentlyViewed() must be of the type array or null, string returned | Файл: W:\domains\ishop\app\models\Product.php | Строка: 48
+=================
+[2021-08-07 23:13:48] Текст ошибки: Return value of app\controllers\ProductController::viewAction() must be an instance of RedBeanPHP\R, instance of RedBeanPHP\OODBBean returned | Файл: W:\domains\ishop\app\controllers\ProductController.php | Строка: 73
+=================
+[2021-08-07 23:14:46] Текст ошибки: Return value of app\controllers\ProductController::viewAction() must be an instance of OODBBean, instance of RedBeanPHP\OODBBean returned | Файл: W:\domains\ishop\app\controllers\ProductController.php | Строка: 73
+=================
+[2021-08-07 23:25:33] Текст ошибки: Return value of app\controllers\ProductController::viewAction() must be an instance of RedBeanPHP\OODBBean, none returned | Файл: W:\domains\ishop\app\controllers\ProductController.php | Строка: 71
+=================

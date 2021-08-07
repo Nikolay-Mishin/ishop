@@ -113,31 +113,42 @@ function callPrivateMethod(object $obj, string $method, array $args) {
 }
 
 // возвращает информацию о классе (app\models\User)
-function getReflector(object $class): \ReflectionClass {
+function getReflector(string $class): \ReflectionClass {
 	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
 }
 
 // возвращает короткое имя класса (app\models\User => User)
-function getClassShortName(object $class): string {
+function getClassShortName(string $class): string {
 	return getReflector($class)->getShortName();
 }
 
 // возвращает короткое имя класса (app\models\User)
-function getClassName(object $class): string {
+function getClassName(string $class): string {
 	return getReflector($class)->getName();
 }
 
-function isCallable(object $class, string $method): bool {
+function isCallable(string $class, string $method): bool {
 	return method_exists($class, $method) && is_callable([$class, $method]);
 }
 
+function isObject($var): bool {
+	return gettype($var) == 'object';
+}
+
+function isArray($var): bool {
+	return gettype($var) == 'array';
+}
+
+function isBool($var): bool {
+	return gettype($var) == 'boolean';
+}
+
 // метод для преобразования массива в объект (stdClass Object)
-function dataDecode(&$data, $output = null): object {
+function dataDecode(&$data, string $output = null): object {
 	$data_type = gettype($data); // получаем тип переданных данных
-	if ($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данных
-	$isObject = $data_type == 'object'; // получаем boolean, является ли данный тип объектом
+	if ($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данные
 	$json = json_encode($data); // кодируем данные в json
-	return json_decode($json, $isObject); // декодируем json в объект (true - ассоциативный массив)
+	return json_decode($json, isObject($data_type)); // декодируем json в объект (true - ассоциативный массив)
 }
 
 function arrayUnset(array &$array, $items): array {
@@ -149,7 +160,7 @@ function arrayUnset(array &$array, $items): array {
 	return $array;
 }
 
-function objectUnset($obj, $props) {
+function objectUnset(object $obj, $props): object {
 	foreach (toArray($props) as $prop) {
 		if (property_exists($obj, $prop)) {
 			unset($obj->$prop);

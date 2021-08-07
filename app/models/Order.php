@@ -14,32 +14,32 @@ use Swift_SmtpTransport; // класс smtp-сервера
 class Order extends AppModel {
 
 	public static $pagination; // пагинация
-	public static $count; // число заказов
+	public static int $count; // число заказов
 
 	// аттрибуты модели (параметры/поля формы)
-	public $attributes = [
+	public array $attributes = [
 		'user_id' => '',
 		'note' => '',
 		'currency' => '',
 		'sum' => ''
 	];
 
-	public function __construct($data){
+	public function __construct(array $data) {
 		parent::__construct($data); // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		// если заказ не сохранен, прекращаем работу метода
-		if(!$this->id) return false; // id сохраненного заказа
+		if (!$this->id) return false; // id сохраненного заказа
 		$this->saveOrderProduct(); // сохраняем продукты заказа
 		// устанавливаем данные для оплаты заказа и отправляем письмо пользователю и администратору/менеджеру
 		$this->mailOrder($data['user_email'], Payment::setData($this->id, $data['pay']));
 	}
 
 	// получает заказ
-	public static function getById($id){
-		return \R::load('order', (int)$id);
+	public static function getById(int $id): \Bean {
+		return \R::load('order', (int) $id);
 	}
 
 	// получает заказы пользователя
-	public static function getByCurrentUserId(){
+	public static function getByCurrentUserId(): array {
 		return \R::findAll('order', 'user_id = ? ORDER BY status DESC, id DESC', [$_SESSION['user']['id']]);
 	}
 
@@ -58,10 +58,10 @@ class Order extends AppModel {
 
 	// сохраняет продукты данного заказа
 	// public static function saveOrderProduct($order_id)
-	public function saveOrderProduct(){
+	public function saveOrderProduct(): void {
 		$sql_part = ''; // переменная для хранения sql запроса
 		// для каждого товара формируем sql строку значений и разделяем товары через запятую (',')
-		foreach($_SESSION['cart'] as $product_id => $product){
+		foreach ($_SESSION['cart'] as $product_id => $product) {
 			$product_id = (int)$product_id; // приводим id товара к числу
 			// берем выражение в фигурные скобки {}, чтобы можно было в строке использовать элементы массив и свойства объекта
 			$sql_part .= "({$this->id}, $product_id, {$product['qty']}, '{$product['title']}', {$product['price']}),";
@@ -72,11 +72,11 @@ class Order extends AppModel {
 	}
 
 	// отправляет письмо с информацией о заказе клиенту и администратору/менеджеру
-	public function mailOrder($user_email, $pay){
+	public function mailOrder(string $user_email, array $pay): void {
 		// $user_email - почта пользователя для отправки письма
 		// $pay - checkbox хочет ли пользователь сразу оплатить заказ
-		if($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
-		try{
+		if ($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
+		try {
 			// Create the Transport
 			// создаем объект smtp и передаем параметры для настройки smtp-сервера
 			$transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
@@ -112,7 +112,7 @@ class Order extends AppModel {
 			// отправляем письма клиенту и администратору
 			$result = $mailer->send($message_client);
 			$result = $mailer->send($message_admin);
-		} catch (Exception $e){
+		} catch (Exception $e) {
 			
 		}
 
@@ -120,7 +120,7 @@ class Order extends AppModel {
 		// выводим сообщение об успешном офрмлении заказа
 		$_SESSION['success'] = 'Спасибо за Ваш заказ. В ближайшее время с Вами свяжется менеджер для согласования заказа';
 
-		if($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
+		if ($pay) redirect('/payment/pay'); // если пользователь хочет оплатить заказ сразу, перенаправляем его на форму оплаты
 	}
 
 }

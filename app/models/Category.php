@@ -8,7 +8,7 @@ use ishop\App;
 class Category extends AppModel {
 
 	// аттрибуты модели категорий
-	public $attributes = [
+	public array $attributes = [
 		'title' => '',
 		'parent_id' => '',
 		'keywords' => '',
@@ -17,20 +17,20 @@ class Category extends AppModel {
 	];
 
 	// правила валидации категорий
-	public $rules = [
+	public array $rules = [
 		'required' => [
 			['title'],
 		]
 	];
 
 	// генерирует список id (1, 2, 3...) вложенных категорий по id запрошенной категории
-	public function getIds($id){
+	public function getIds(int $id): ?string {
 		$cats = App::$app->getProperty('cats'); // получаем категории из контейнера
 		$ids = null; // значение по умолчанию для списка вложенных категорий
 		// рекурсивно проходим по списку категорий
-		foreach($cats as $k => $v){
+		foreach ($cats as $k => $v) {
 			// если parent_id данной категории совпадает с id запрошенной категории, значит данная категория является дочерней
-			if($v['parent_id'] == $id){
+			if ($v['parent_id'] == $id) {
 				$ids .= $k . ','; // формируем строку со списком вложенных категорий
 				// ищем вложенные категории для найденной дочерней категории
 				$ids .= $this->getIds($k); // рекурсивно вызываем функцию и передаем параметром id дочерней категории
