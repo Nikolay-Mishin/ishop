@@ -41,7 +41,7 @@ class Cache {
             }
             unlink($file);
         }
-        return false;
+        return null;
     }
 
     // удаление/очистка кэша

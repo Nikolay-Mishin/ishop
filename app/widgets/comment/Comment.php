@@ -9,23 +9,23 @@ class Comment extends Menu {
 
 	use \ishop\traits\T_Ajax;
 
-	protected $isMenu = true;
-	protected $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
-	protected $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария
-	protected $form_id = 'comment_add';
-	protected $editor = true;
-	protected $editor_id = 'comment_editor';
-	protected $editor_options = [
+	protected bool $isMenu = true;
+	protected string $tpl = __DIR__ . '/comment_tpl.php'; // шаблон
+	protected string $comments_tpl = __DIR__ . '/comments_tpl.php'; // шаблон комментария
+	protected string $form_id = 'comment_add';
+	protected ?Editor $editor = null;
+	protected string $editor_id = 'comment_editor';
+	protected array $editor_options = [
 		'tpl' => __DIR__ . '/editor_tpl.php',
 		'label' => 'Новый комментарий',
 		'isRequired' => true
 	];
-	protected $title = 'Комментарии';
-	public $count;
-	protected $container = 'span'; // контейнер
-	protected $container_id = 'comments-count';
+	protected string $title = 'Комментарии';
+	public int $count;
+	protected string $container = 'span'; // контейнер
+	protected string $container_id = 'comments-count';
 
-	public function __construct($options = []){
+	public function __construct($options = []) {
 		parent::__construct($options);
 		$this->count = count($this->data) ?: null;
 		$this->editor_options['id'] = $this->editor_id;
@@ -34,38 +34,38 @@ class Comment extends Menu {
 		$this->getEditor();
 	}
 
-	public function __toString(){
+	public function __toString(): string {
 		return !$this->isAjax ? $this->getComments(parent::__toString(), $this->editor) : parent::__toString();
 	}
 
-	public function getEditor(){
-		return $this->editor = $this->editor ? new Editor($this->editor_options) : null;
+	public function getEditor(): ?Editor {
+		return $this->editor = $this->editor ?? new Editor($this->editor_options);
 	}
 
-	public function getCount(){
+	public function getCount(): int {
 		return $this->count;
 	}
 
-	protected function run(){
+	protected function run(): void {
 		$this->getTree();
 	}
 
 	// получает html-разметку
-	protected function getComments($comments, $editor = null){
+	protected function getComments(string $comments, ?Editor $editor = null): string {
 		ob_start(); // включаем буферизацию
 		require $this->comments_tpl; // подключаем шаблон
 		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
 	}
 
-	protected function getTitle(){
+	protected function getTitle(): string {
 		return $this->count ? "{$this->title} ({$this->getTitleHtml()})" : $this->getTitleHtml();
 	}
 
-	private function getTitleHtml(){
+	private function getTitleHtml(): string {
 		return "<$this->container id=$this->container_id>$this->count</$this->container>";
 	}
 
-	public function getInfo(){
+	public function getInfo(): array {
 		return [
 			'data' => $this->data, 'editor' => $this->editor, 'type' => gettype($this->editor), 'options' => $this->editor_options,
 			'form_id' => $this->meta('form_id'), 'id' => $this->meta('id'), 'parent' => $this->meta('parent_id')

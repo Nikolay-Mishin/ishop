@@ -6,12 +6,12 @@ use app\widgets\menu\Menu;
 
 class Editor extends Menu {
 
-	protected $isMenu = false;
-	protected $tpl = __DIR__ . '/editor_tpl.php'; // шаблон
-	protected $label = 'Контент'; // наименование поля
-	protected $isRequired = false;
-	protected $id = 'editor';
-	protected $cols = 80;
-	protected $rows = 10;
+	protected bool $isMenu = false;
+	protected string $tpl = __DIR__ . '/editor_tpl.php'; // шаблон
+	protected string $label = 'Контент'; // наименование поля
+	protected bool $isRequired = false;
+	protected string $id = 'editor';
+	protected int $cols = 80;
+	protected int $rows = 10;
 
 }

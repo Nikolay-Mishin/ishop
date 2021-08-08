@@ -296,3 +296,17 @@
 =================
 [2021-08-07 23:25:33] Текст ошибки: Return value of app\controllers\ProductController::viewAction() must be an instance of RedBeanPHP\OODBBean, none returned | Файл: W:\domains\ishop\app\controllers\ProductController.php | Строка: 71
 =================
+[2021-08-08 17:17:32] Текст ошибки: Return value of app\widgets\menu\Menu::getTree() must be of the type string, array returned | Файл: W:\domains\ishop\app\widgets\menu\Menu.php | Строка: 130
+=================
+[2021-08-08 17:28:21] Текст ошибки: Typed property app\widgets\filter\Filter::$filter must be string, null used | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 15
+=================
+[2021-08-08 17:28:40] Текст ошибки: Typed property app\widgets\filter\Filter::$groups must be array, bool used | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 23
+=================
+[2021-08-08 17:30:04] Текст ошибки: Typed property app\widgets\filter\Filter::$groups must be array, null used | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 23
+=================
+[2021-08-08 17:30:32] Текст ошибки: Typed property app\widgets\filter\Filter::$attrs must be array, null used | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 29
+=================
+[2021-08-08 17:30:41] Текст ошибки: Return value of ishop\Cache::get() must be of the type array or null, string returned | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 40
+=================
+[2021-08-08 17:32:46] Текст ошибки: Return value of app\widgets\filter\Filter::getFilter() must be of the type string, null returned | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 88
+=================
