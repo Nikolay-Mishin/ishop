@@ -12,7 +12,8 @@ class ErrorHandler {
         // уровень вывода ошибок устанавливаем в зависимости от значения констатнты дебага
         if (DEBUG) {
             error_reporting(-1);
-        } else {
+        }
+        else {
             error_reporting(0);
         }
         set_exception_handler([$this, 'exceptionHandler']); // назначаем свою функцию для обработки исключений

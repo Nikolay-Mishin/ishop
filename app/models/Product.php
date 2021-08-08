@@ -18,7 +18,8 @@ class Product extends AppModel {
 		// если нет просмотренных товаров, записываем его в куки
 		if (!$recentlyViewed) {
 			setcookie('recentlyViewed', $id, time() + 3600*24, '/');
-		} else {
+		}
+		else {
 			$recentlyViewed = explode('.', $recentlyViewed); // разбиваем строку по разделителю '.' и получаем массив
 			// если в массиве есть id запрошенного товара, записываем его в куки
 			if (!in_array($id, $recentlyViewed)) {

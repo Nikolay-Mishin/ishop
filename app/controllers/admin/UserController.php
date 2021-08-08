@@ -81,7 +81,8 @@ class UserController extends AppController {
 			// иначе направляем на главную сайта
 			if (User::isAdmin()) {
 				redirect(ADMIN);
-			} else {
+			}
+			else {
 				redirect();
 			}
 		}

@@ -25,11 +25,14 @@ class Ban {
 	public static function getIP(): string {
 		if (isset($_SERVER["HTTP_X_REAL_IP"])) {
 			return self::$user_ip = $_SERVER["HTTP_X_REAL_IP"];
-		} elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+		}
+		elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
 			return self::$user_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-		} elseif (isset($_SERVER["HTTP_CLIENT_IP"])) {
+		}
+		elseif (isset($_SERVER["HTTP_CLIENT_IP"])) {
 			return self::$user_ip = $_SERVER["HTTP_CLIENT_IP"];
-		} else {
+		}
+		else {
 			return self::$user_ip = $_SERVER["REMOTE_ADDR"];
 		}
 	}

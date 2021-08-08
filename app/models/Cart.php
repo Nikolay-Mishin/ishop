@@ -18,7 +18,8 @@ class Cart extends AppModel {
             $ID = "{$product->id}-{$mod->id}"; // ID товара с модификатором
             $title = "{$product->title} ({$mod->title})"; // наименование товара с модификатором
             $price = $mod->price; // цена товара с модификатором
-        } else {
+        }
+        else {
             $ID = $product->id; // ID базового товара
             $title = $product->title; // наименование базового товара
             $price = $product->price; // цена базового товара
@@ -26,7 +27,8 @@ class Cart extends AppModel {
         // если товар уже есть в сессии, то добавляем его к уже существующему, иначе добавляем товар в сессию
         if (isset($_SESSION['cart'][$ID])) {
             $_SESSION['cart'][$ID]['qty'] += $qty; // прибавляем количество переданного товара к уже существующему
-        } else {
+        }
+        else {
             // создаем товар с заданным ID в сессии
             $_SESSION['cart'][$ID] = [
                 'qty' => $qty,
@@ -62,14 +64,16 @@ class Cart extends AppModel {
             // если товар в корзину положен в базовой валюте, переводим в небазовую валюту
             if ($_SESSION['cart.currency']['base']) {
                 $_SESSION['cart.sum'] *= $curr->value; // переводим из базовой валюты в небазовую
-            } else {
+            }
+            else {
                 $_SESSION['cart.sum'] *= $unbaseCurr; // переводим из небазовой в небазовую/базовую
             }
             // пересчитываем цену каждого товара в корзине
             foreach ($_SESSION['cart'] as $k => $v) {
                 if ($_SESSION['cart.currency']['base']) {
                     $_SESSION['cart'][$k]['price'] *= $curr->value;
-                } else {
+                }
+                else {
                     $_SESSION['cart'][$k]['price'] *= $unbaseCurr;
                 }
             }

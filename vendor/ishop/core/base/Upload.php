@@ -160,7 +160,8 @@ abstract class Upload {
 	protected static function saveSession(string $name, string $new_name, bool $multy = false): void {
 		if (!$multy) {
 			$_SESSION[$name] = $new_name;
-		} else {
+		}
+		else {
 			$_SESSION[$name][] = $new_name;
 		}
 	}
@@ -180,7 +181,8 @@ abstract class Upload {
 
 		if (($wmax / $hmax) > $ratio) {
 			$wmax = $hmax * $ratio;
-		} else {
+		}
+		else {
 			$hmax = $wmax / $ratio;
 		}
 

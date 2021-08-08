@@ -36,7 +36,8 @@ class View {
 		//// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
 		//if ($layout === false) {
 		//    $this->layout = false;
-		//} else {
+		//}
+		//else {
 		//    // если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
 		//    $this->layout = $layout ?: LAYOUT;
 		//}
@@ -47,7 +48,8 @@ class View {
 			if ($k === 'layout') {
 				if($controller->$k === false){
 					$this->$k = false;
-				} else {
+				}
+				else {
 					// если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
 					$this->$k = $controller->$k ?: LAYOUT;
 				}
@@ -82,7 +84,8 @@ class View {
 			ob_start(); // включаем буферизацию, чтобы вид не выводился
 			require_once $viewFile; // подключаем файл вида
 			$content = ob_get_clean(); // возвращаем все данные из буфера в переменную и одновременно очистим буфер
-		} else {
+		}
+		else {
 			throw new Exception("Не найден вид {$viewFile}", 500);
 		}
 		// если свойство layout не равно false (подключение шаблона включено)
@@ -91,7 +94,8 @@ class View {
 			// если такой файл существует - подключаем его, иначе выбрасываем исключение - такой шаблон не найден
 			if (is_file($layoutFile)) {
 				require_once $layoutFile;
-			} else {
+			}
+			else {
 				throw new Exception("Не найден шаблон {$this->layout}", 500);
 			}
 		}
@@ -131,10 +135,12 @@ class View {
 			foreach ($file_list as $file) {
 				if ($type_file == 'style') {
 					$file = "<link " . 'href="' . $file . '.css" rel="stylesheet" type="text/css" media="all" />';
-				} else {
+				}
+				else {
 					if ($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)) {
 						$file = (require_once $match[2] ?? $file);
-					} else {
+					}
+					else {
 						$file = "<$type_file " . 'src="' . $file . '.js">' . "</$type_file>";
 					}
 				}

@@ -45,13 +45,16 @@ class Router {
                 if (method_exists($controllerObject, $action)) {
                     $controllerObject->$action(); // вызываем экшен у заданного класса
                     $controllerObject->getView(); // вызываем метод для отображения вида
-                } else {
+                }
+                else {
                     throw new Exception("Метод $controller::$action не найден", 404);
                 }
-            } else {
+            }
+            else {
                 throw new Exception("Контроллер $controller не найден", 404);
             }
-        } else {
+        }
+        else {
             throw new Exception("Страница не найдена", 404);
         }
     }
@@ -74,7 +77,8 @@ class Router {
                 // prefix по умолчанию = ''
                 if (!isset($route['prefix'])) {
                     $route['prefix'] = '';
-                } else {
+                }
+                else {
                     $route['prefix'] .= '\\'; // добавляем обратный слэш (2 слэш - экранирование)
                 }
                 $route['controller'] = self::upperCamelCase($route['controller']); // меняем имя контроллера для вызова

@@ -119,7 +119,8 @@ class Menu {
 			// если parent_id = 0 - это корневой элемент (нет родителя) - помещаем в корень
 			if (!$node['parent_id']) {
 				$tree[$id] = &$node;
-			} else {
+			}
+			else {
 				// в элементе с parent_id создаем элемент (childs) и помещаем в него дочерние элементы (ветки)
 				$data[$node['parent_id']]['childs'][$id] = &$node;
 			}

@@ -37,7 +37,8 @@ class Currency {
         // array_key_exists() - проверяет существует ли в массиве $currencies элемент $_COOKIE['currency']
         if (isset($_COOKIE['currency']) && array_key_exists($_COOKIE['currency'], $currencies)) {
             $key = $_COOKIE['currency']; // берем код валюты из кук
-        } else {
+        }
+        else {
             $key = key($currencies); // берем базовую валюту из списка доступных валют (возвращает текущий (первый) элемент массива)
         }
         $currency = $currencies[$key]; // текущая валюта из списка доступных (по коду выбранной валюты)

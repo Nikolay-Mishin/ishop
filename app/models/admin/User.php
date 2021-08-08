@@ -42,7 +42,8 @@ class User extends baseUser {
 		// иначе хэшируем полученный пароль
 		if (!$data['password']) {
 			unset($this->attributes['password']);
-		} else {
+		}
+		else {
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)

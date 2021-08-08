@@ -135,7 +135,8 @@ class Product extends AppModel {
 					$dataAttrs[$key][$attr_name] = $attr;
 				}
 			}
-		} else {
+		}
+		else {
 			$dataAttrs = \R::getCol("SELECT $attr_id FROM $table WHERE $condition = ?", [$id]);
 		}
 
@@ -159,7 +160,8 @@ class Product extends AppModel {
 				foreach ($target as $key => $item) {
 					$result = !empty($result) ? $result : array_diff($item, $compare[$key]); // возвращает разницу между массивами
 				}
-			} else {
+			}
+			else {
 				$result = array_diff($dataAttrs, $data); // возвращает разницу между массивами
 			}
 			// если есть разница между массивами, удаляем имеющиеся аттрибуты товара и добавляем новые
@@ -193,7 +195,8 @@ class Product extends AppModel {
 				}
 				$value = rtrim($value, ', '); // удаляем конечную ', '
 				$sql_part .= "($id, $value), ";
-			} else {
+			}
+			else {
 				$val = ($val === (string)(int) $val) ? (int) $val : "'$val'";
 				$sql_part .= "($id, $val), ";
 			}
