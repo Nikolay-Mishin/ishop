@@ -103,7 +103,7 @@ abstract class Upload {
 		return false;
 	}
 
-	protected static function checkSize(string $filePath, $image) {
+	protected static function checkSize(string $filePath, array $image) {
 		// Проверим нужные параметры
 		if (filesize($filePath) > self::$limitBytes) return "Размер изображения не должен превышать " . self::$limitBytes . " Мбайт.";
 		//if($image[0] > self::$limitWidth) return "Ширина изображения не должна превышать " . self::$limitWidth . " точек.";
@@ -116,7 +116,7 @@ abstract class Upload {
 		return str_replace('jpeg', 'jpg', image_type_to_extension($image[2]));
 	}
 
-	protected static function validateImg(string $filePath, $errorCode, string $uploadPath) {
+	protected static function validateImg(string $filePath, string $errorCode, string $uploadPath) {
 		if (!is_dir($uploadPath)) mkdir($uploadPath, 0777); // Создадим директорию, если она отсутсвует
 
 		// Проверим на ошибки
