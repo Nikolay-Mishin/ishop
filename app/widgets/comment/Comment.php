@@ -21,7 +21,7 @@ class Comment extends Menu {
 		'isRequired' => true
 	];
 	protected string $title = 'Комментарии';
-	public int $count;
+	public ?int $count;
 	protected string $container = 'span'; // контейнер
 	protected string $container_id = 'comments-count';
 

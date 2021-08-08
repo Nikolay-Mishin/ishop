@@ -316,3 +316,5 @@
 =================
 [2021-08-08 22:20:27] Текст ошибки: Return value of app\models\Breadcrumbs::getParts() must be of the type array, bool returned | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 53
 =================
+[2021-08-08 22:29:31] Текст ошибки: Typed property app\widgets\comment\Comment::$count must be int, null used | Файл: W:\domains\ishop\app\widgets\comment\Comment.php | Строка: 30
+=================
