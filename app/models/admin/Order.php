@@ -10,14 +10,14 @@ use ishop\libs\Pagination; // класс пагинации
 
 class Order extends AppModel {
 
-	public static $pagination; // пагинация
-	protected $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
-	protected $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
-	protected $where = '';
-	protected $group = '`order`.`id`';
-	protected $sort = '';
-	protected $order = '`order`.`status`, `order`.`id`';
-	protected $limit = '1';
+	public static Pagination $pagination; // пагинация
+	protected string $select = '`order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`';
+	protected string $join = '`user` ON `order`.`user_id` = `user`.`id`, `order_product` ON `order`.`id` = `order_product`.`order_id`';
+	protected string $where = '';
+	protected string $group = '`order`.`id`';
+	protected string $sort = '';
+	protected string $order = '`order`.`status`, `order`.`id`';
+	protected string $limit = '1';
 
 	// получает общее число заказов
 	//public static function getCount(){
@@ -25,12 +25,12 @@ class Order extends AppModel {
 	//}
 
 	// получает число новых заказов
-	public static function getCountNew(){
+	public static function getCountNew(): int {
 		return self::getCount("status = '0'");
 	}
 
 	// получает заказы
-	public static function getAll($pagination = true, $perpage = 3){
+	public static function getAll(bool $pagination = true, int $perpage = 3): array {
 		// `order`* => `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`
 		/* "SELECT `order`.*, `user`.`name`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
   JOIN `user` ON `order`.`user_id` = `user`.`id`
@@ -65,7 +65,7 @@ class Order extends AppModel {
 	}
 
 	// получает заказ
-	public static function getById($id){
+	public static function getById(int $id): array {
 		// `order`* => `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`
 		/* "SELECT `order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum`, `user`.`name` FROM `order`
   JOIN `user` ON `order`.`user_id` = `user`.`id`
@@ -75,14 +75,14 @@ class Order extends AppModel {
 		list(self::init()->select, self::init()->where) = [self::init()->select . ', `user`.`name`', '`order`.`id` = ?'];
 		$order = \R::getRow(self::getSql(), [$id]); // получаем данные заказа
 		// если заказ не найден, выбрасываем исключение
-		if(!$order){
+		if (!$order) {
 			throw new Exception('Страница не найдена', 404);
 		}
 		return $order;
 	}
 
 	// получает заказы пользователя
-	public static function getByUserId($id, $limit = ''){
+	public static function getByUserId(int $id, string $limit = ''): array {
 		// `order`.* => `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`
 		/*
 		"SELECT `order`.*, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
@@ -95,16 +95,16 @@ class Order extends AppModel {
 	}
 
 	// удаляет заказ
-	public static function delete($id){
+	public static function delete(int $id): void {
 		\R::trash(\R::load('order', $id)); // получаем данные заказа по его id и удаляем заказ
 		$_SESSION['success'] = 'Заказ удален';
 	}
 
 	// экшен изменения статуса заказа
-	public static function updateStatus($id, $status){
+	public static function updateStatus(int $id, string $status): void {
 		$order = \R::load('order', $id); // получаем данные заказа по его id
 		// если заказ не найден, выбрасываем исключение
-		if(!$order){
+		if (!$order) {
 			throw new Exception('Страница не найдена', 404);
 		}
 		$order->status = $status; // записываем статус заказа

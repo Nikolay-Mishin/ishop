@@ -8,11 +8,11 @@ use ishop\libs\Pagination;
 
 class User extends baseUser {
 
-	public static $pagination; // пагинация
-	public static $orders; // заказы пользователя
+	public static Pagination $pagination; // пагинация
+	public static array $orders; // заказы пользователя
 
 	// переопределяем аттрибуты родительской модели
-	public $attributes = [
+	public array $attributes = [
 		'id' => '',
 		'login' => '',
 		'password' => '',
@@ -23,7 +23,7 @@ class User extends baseUser {
 	];
 
 	// переопределяем правила валидации формы родительской модели
-	public $rules = [
+	public array $rules = [
 		'required' => [
 			['login'],
 			['name'],
@@ -35,14 +35,14 @@ class User extends baseUser {
 		],
 	];
 
-	public function __construct($data = [], $attrs = [], $action = 'save', $valid = 'checkUnique'){
-		if(!$data) return false;
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save', string $valid = 'checkUnique') {
+		if (!$data) return false;
 		$valid = toArray($valid, false, 'checkUnique');
 		// если пароль не изменен, удаляем его из списка аттрибутов
 		// иначе хэшируем полученный пароль
-		if(!$data['password']){
+		if (!$data['password']) {
 			unset($this->attributes['password']);
-		}else{
+		} else {
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 		}
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
@@ -50,7 +50,7 @@ class User extends baseUser {
 		//debug(['User', $data, $attrs, $valid]);
 		parent::__construct('', $data, $attrs, $action, $valid);
 		// сохраняем изменения в БД
-		if($this->id){
+		if ($this->id) {
 			$_SESSION['success'] = 'Изменения сохранены';
 		}
 	}
@@ -61,7 +61,7 @@ class User extends baseUser {
 	//}
 
 	// получаем список пользователей
-	public static function getAll($pagination = true, $perpage = 3){
+	public static function getAll(bool $pagination = true, int $perpage = 3): array {
 		/*
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		$perpage = 3; // число записей на 1 странице
@@ -75,7 +75,7 @@ class User extends baseUser {
 	}
 
 	// получаем данные пользователя из БД
-	public static function getById($id, $pagination = true, $perpage = 3){
+	public static function getById(int $id, bool $pagination = true, int $perpage = 3): \Bean {
 		/*
 		// пагинация заказов пользователя
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
@@ -90,15 +90,15 @@ class User extends baseUser {
 	}
 
 	// переопределяем метод родительской модели для проверки уникальных полей с данными
-	public function checkUnique(){
+	public function checkUnique(): bool {
 		// получаем пользователя с соответствующими значениями login или email из аттрибутов
 		$user = \R::findOne('user', '(login = ? OR email = ?) AND id <> ?', [$this->attributes['login'], $this->attributes['email'], $this->attributes['id']]);
 		// если пользователь найден, то формируем ошибки проверки уникальности
-		if($user){
-			if($user->login == $this->attributes['login']){
+		if ($user) {
+			if ($user->login == $this->attributes['login']) {
 				$this->errors['unique'][] = 'Этот логин уже занят';
 			}
-			if($user->email == $this->attributes['email']){
+			if ($user->email == $this->attributes['email']) {
 				$this->errors['unique'][] = 'Этот email уже занят';
 			}
 			return false;

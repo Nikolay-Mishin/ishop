@@ -6,25 +6,25 @@ use app\models\AppModel;
 
 class FilterGroup extends AppModel {
 
-	protected $table = 'attribute_group';
+	protected string $table = 'attribute_group';
 
 	// переопределяем аттрибуты родительской модели
-	public $attributes = [
+	public array $attributes = [
 		'title' => '',
 	];
 
 	// переопределяем правила валидации формы родительской модели
-	public $rules = [
+	public array $rules = [
 		'required' => [
 			['title'],
 		],
 	];
 
-	public function __construct($data = [], $attrs = [], $action = 'save'){
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save'){
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем группу фильтров в БД
-		if($this->id){
+		if ($this->id) {
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Группа добавлена';
 		}
 	}
@@ -35,7 +35,7 @@ class FilterGroup extends AppModel {
 	//}
 
 	// считаем число аттрибутов в данной группе фильтров
-	public static function getAttrsInGroup($id){
+	public static function getAttrsInGroup(int $id): int {
 		return \R::count('attribute_value', 'attr_group_id = ?', [$id]);
 	}
 
@@ -50,10 +50,10 @@ class FilterGroup extends AppModel {
 	//}
 
 	// удаляет группу фильтров
-	public static function delete($id){
+	public static function delete(int $id): void {
 		$count = self::getAttrsInGroup($id); // считаем число аттрибутов в данной группе фильтров
 		// если есть вложенные фильтры в данной группе, показываем ошибку
-		if($count){
+		if ($count) {
 			$_SESSION['error'] = 'Удаление невозможно, в группе есть аттрибуты';
 			redirect();
 		}

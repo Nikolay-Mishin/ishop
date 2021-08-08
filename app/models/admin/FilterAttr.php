@@ -6,16 +6,16 @@ use app\models\AppModel;
 
 class FilterAttr extends AppModel {
 
-	protected $table = 'attribute_value';
+	protected string $table = 'attribute_value';
 
 	// переопределяем аттрибуты родительской модели
-	public $attributes = [
+	public array $attributes = [
 		'value' => '',
 		'attr_group_id' => '',
 	];
 
 	// переопределяем правила валидации формы родительской модели
-	public $rules = [
+	public array $rules = [
 		'required' => [
 			['value'],
 			['attr_group_id'],
@@ -25,11 +25,11 @@ class FilterAttr extends AppModel {
 		]
 	];
 
-	public function __construct($data = [], $attrs = [], $action = 'save'){
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем валюту в БД
-		if($this->id){
+		if ($this->id) {
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Аттрибут добавлена';
 		}
 	}
@@ -40,7 +40,7 @@ class FilterAttr extends AppModel {
 	//}
 
 	// получаем список аттрибутов фильтров
-	public static function getAll(){
+	public static function getAll(): array {
 		return \R::getAssoc("SELECT attribute_value.*, attribute_group.title FROM attribute_value JOIN attribute_group ON attribute_group.id = attribute_value.attr_group_id");
 	}
 
@@ -50,7 +50,7 @@ class FilterAttr extends AppModel {
 	//}
 
 	// удаляет аттрибут фильтров
-	public static function delete($id){
+	public static function delete(int $id): void {
 		\R::exec("DELETE FROM attribute_product WHERE attr_id = ?", [$id]); // удаляем фильтр из списка фильтров товаров
 		\R::exec("DELETE FROM attribute_value WHERE id = ?", [$id]); // удаляем фильтр из БД
 		$_SESSION['success'] = 'Удалено';

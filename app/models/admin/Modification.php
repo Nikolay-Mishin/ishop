@@ -17,7 +17,7 @@ class Modification extends baseModification {
 	//}
 
 	// получаем информацию по всем модификаторам данного товара
-	public static function getByProductId($id){
+	public static function getByProductId(int $id): array {
 		return \R::findAll('modification', 'product_id = ?', [$id]);
 	}
 

@@ -6,7 +6,7 @@ use app\models\Category as Cat;
 
 class Category extends Cat {
 
-	public function __construct($data = [], $attrs = [], $action = 'save'){
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		/*
@@ -19,7 +19,7 @@ class Category extends Cat {
 		*/
 		// сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
 		// if($this->update('category', $id)){
-		if($this->id){
+		if ($this->id) {
 			self::updateAlias('category', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Категория добавлена';
 		}
@@ -36,7 +36,7 @@ class Category extends Cat {
 	//}
 
 	// удаляет категорию
-	public static function delete($id){
+	public static function delete(int $id): void {
 		self::checkDelete($id); // проверяем возможно ли удаление категории
 		\R::trash(self::getById($id)); // получаем данную категорию из БД и удаляем
 		$_SESSION['success'] = 'Категория удалена';
@@ -44,29 +44,29 @@ class Category extends Cat {
 	}
 
 	// проверяет возможно ли удаление категории
-	public static function checkDelete($id){
+	public static function checkDelete(int $id): void {
 		$children = self::countChildren($id); // считаем количество вложенных категорий
 		$errors = '';
-		if($children){
+		if ($children) {
 			$errors .= '<li>Удаление невозможно, в категории есть вложенные категории</li>';
 		}
 		$products = self::countProduct($id); // считаем количество товаров в данной категории
-		if($products){
+		if ($products) {
 			$errors .= '<li>Удаление невозможно, в категории есть товары</li>';
 		}
-		if($errors){
+		if ($errors) {
 			$_SESSION['error'] = "<ul>$errors</ul>";
 			redirect();
 		}
 	}
 
 	// считает количество вложенных категорий
-	public static function countChildren($id){
+	public static function countChildren(int $id): int {
 		return \R::count('category', 'parent_id = ?', [$id]);
 	}
 
 	// считает количество товаров в данной категории
-	public static function countProduct($id){
+	public static function countProduct(int $id): int {
 		return \R::count('product', 'category_id = ?', [$id]);
 	}
 
