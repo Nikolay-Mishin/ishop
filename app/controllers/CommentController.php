@@ -9,24 +9,24 @@ use app\widgets\comment\Comment as W_Comment; // модель виджета к�
 class CommentController extends AppController {
 
 	// метод добавления комментария
-	public function addAction(){
+	public function addAction(): void {
 		$data = $_POST;
-		if(!empty($data)){
+		if (!empty($data)) {
 			$comment = new Comment($data);
 			$w_Comment = $this->getComments($data['product_id'], $data);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
-			if($this->isAjax()){
+			if ($this->isAjax()) {
 				exit(json_encode(['html' => "$w_Comment", 'count' => $w_Comment->getCount(), 'data' => $data, 'info' => $w_Comment->getInfo()]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
 
-	public function rateAction(){
+	public function rateAction(): void {
 		$data = $_GET;
-		if(!empty($data)){
+		if (!empty($data)) {
 			$rate = Comment::getRate($id = $data['id']);
-			if($rate === null) exit(json_encode(['error' => "Невозможно получить оценку для комментария с id = $id!"]));
+			if ($rate === null) exit(json_encode(['error' => "Невозможно получить оценку для комментария с id = $id!"]));
 			switch($data['action']){
 				case 'plus': $rate++;
 					break;
@@ -35,16 +35,16 @@ class CommentController extends AppController {
 			}
 			$comment = $this->changeRate($rate, $id);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
-			if($this->isAjax()){
+			if ($this->isAjax()) {
 				exit(json_encode(['rate' => "$comment->rate"]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
 
-	public function replyAction(){
+	public function replyAction(): void {
 		$data = $_GET;
-		if(!empty($data)){
+		if (!empty($data)) {
 			$w_Comment = new W_Comment([
 				'editor_id' => 'reply_editor',
 				'isAjax' => true,
@@ -55,14 +55,14 @@ class CommentController extends AppController {
 				]
 			]);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
-			if($this->isAjax()){
+			if ($this->isAjax()) {
 				exit(json_encode(['editor' => "{$w_Comment->getEditor()}"]));
 			}
 			redirect(); // перезапрашиваем текущую страницу
 		}
 	}
 
-	private function getComments($product_id, $data = []){
+	private function getComments(int $product_id, array $data = []): W_Comment {
 		$comments = Comment::getByProductId($product_id);
 		$comments[] = [
 			'parent_id' => $data['parent_id'],
@@ -85,7 +85,7 @@ class CommentController extends AppController {
 		]);
 	}
 
-	private function changeRate($rate, $id){
+	private function changeRate(int $rate, int $id): Comment {
 		return new Comment(['rate' => $rate], $id, 'update');
 	}
 

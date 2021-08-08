@@ -8,12 +8,12 @@ use app\models\Breadcrumbs; // модель хлебных крошек
 class SearchController extends AppController {
 
     // обрабатывает поисковый ajax-запрос
-    public function typeaheadAction(){
-        if($this->isAjax()){
+    public function typeaheadAction(): void {
+        if ($this->isAjax()) {
             // trim - обрезает пробелы с обоих сторон
             $query = !empty(trim($_GET['query'])) ? trim($_GET['query']) : null; // пришедший поисковый запрос
             // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
-            if($query){
+            if ($query) {
                 // LIKE - сравниваемое выражение похоже на 'title'
                 // %{$query}% - слева и справа от выражения в запросе могут быть любые символы
                 // возвращаем данные на 1 больше, чем мы хотим увидеть (10)
@@ -25,10 +25,10 @@ class SearchController extends AppController {
     }
 
     // страница с результатими поиска
-    public function indexAction(){
+    public function indexAction(): void {
         $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null; // пришедший поисковый запрос
         // если поисковый запрос не пуст, получаем товары соответствующие строке запроса
-        if($query){
+        if ($query) {
             // SELECT `product`.*  FROM `product`  WHERE title LIKE ? AND status = '1'
             $products = \R::find('product', "title LIKE ? AND status = '1'", ["%{$query}%"]);
         }

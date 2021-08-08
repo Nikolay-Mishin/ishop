@@ -4,7 +4,7 @@ namespace app\controllers;
 
 class CalendarController extends AppController {
 
-	public function indexAction(){
+	public function indexAction(): void {
 		$this->setStyle(
 			'plugins/fontawesome-free/css/all.min',
 			'plugins/fullcalendar/main.min',

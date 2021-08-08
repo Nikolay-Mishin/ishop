@@ -13,12 +13,12 @@ use app\widgets\filter\Filter; // виджет фильтров
 
 class CategoryController extends AppController {
 
-    public function viewAction(){
+    public function viewAction(): void {
         $alias = $this->route['alias']; // алиас запрошенной категории
         // SELECT `category`.*  FROM `category`  WHERE alias = ? LIMIT 1
         $category = \R::findOne('category', 'alias = ?', [$alias]); // получаем категорию из БД
         // если категория не получаена выбрасываем исключение
-        if(!$category){
+        if (!$category) {
             throw new Exception('Страница не найдена', 404);
         }
 
@@ -38,11 +38,11 @@ class CategoryController extends AppController {
         // сложный фильтр - отображает только товары со вмесем фильтрами (1,5) => товар 1-3
         // формируем sql-запрос выборки товаров по фильтрам, если передан get-параметр 'filter'
         $sql_part = '';
-        if(!empty($_GET['filter'])){
+        if (!empty($_GET['filter'])) {
             // выбираем товары из категории 6 и во 2 выборку IN идет вложенный sql-запрос
             // для товаров attribute_product мы выбираем те товары, для которых поле attr_id = 1,5
             $filter = Filter::getFilter(); // получаем список выбранных фильтров
-            if($filter){
+            if ($filter) {
                 $cnt = Filter::getCountGroups($filter); // получаем число групп
                 // группируем результат выборки по полю product_id, таким образом получаем
                 // AND id IN
@@ -71,7 +71,7 @@ class CategoryController extends AppController {
         $products = \R::find('product', "status = '1' AND category_id IN ($ids) $sql_part LIMIT $start, $perpage");
 
         // если данные пришли ajax, загружаем вид фильтра и передаем соответствующие данные
-        if($this->isAjax()){
+        if ($this->isAjax()) {
             $this->loadView('filter', compact('products', 'total', 'pagination'));
         }
 

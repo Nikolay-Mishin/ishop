@@ -9,7 +9,7 @@
  */
 function debug($arr, bool $die = false): void {
 	echo '<pre>' . print_r($arr, true) . '</pre>';
-	if($die) die;
+	if ($die) die;
 }
 
 // перенаправляет на указанную страницу

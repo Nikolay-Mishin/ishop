@@ -58,7 +58,7 @@ abstract class Upload {
 	}
 
 	// функция для обработки загрузки файла в единичном экземляре
-	protected static function load($filePath, $errorCode, $uploadPath = 'uploads') {
+	protected static function load(string $filePath, string $errorCode, string $uploadPath = 'uploads') {
 		$uploadPath = WWW . "/$uploadPath";
 		$name = self::validateImg($filePath, $errorCode, $uploadPath);
 		// Переместим картинку с новым именем и расширением в папку /uploads
@@ -133,7 +133,7 @@ abstract class Upload {
 		return md5_file($filePath).self::getExt($image); // Сгенерируем новое имя файла на основе MD5-хеша
 	}
 
-	public static function uploadImg(string $name, int $wmax, int $hmax): string {
+	public static function uploadImg(string $name, int $wmax, int $hmax): void {
 		if ($_FILES[$name]['size'] > 1048576) {
 			exit(json_encode(array("error" => "Ошибка! Максимальный вес файла - 1 Мб!")));
 		}
@@ -157,7 +157,7 @@ abstract class Upload {
 		}
 	}
 
-	protected static function saveSession(string $name, string $new_name, bool $multy = false) {
+	protected static function saveSession(string $name, string $new_name, bool $multy = false): void {
 		if (!$multy) {
 			$_SESSION[$name] = $new_name;
 		} else {
@@ -174,7 +174,7 @@ abstract class Upload {
 	 * @param string $hmax максимальная высота
 	 * @param string $ext расширение файла
 	 */
-	public static function resize(string $target, string $dest, string $wmax, string $hmax, string $ext) {
+	public static function resize(string $target, string $dest, string $wmax, string $hmax, string $ext): void {
 		list($w_orig, $h_orig) = getimagesize($target); // записываем в переменные ширину и высоту изображения
 		$ratio = $w_orig / $h_orig; // ориентация расположения изображения (=1 - квадрат, <1 - альбомная, >1 - книжная)
 

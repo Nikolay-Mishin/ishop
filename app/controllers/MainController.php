@@ -8,7 +8,7 @@ use app\models\Breadcrumbs; // модель хлебных крошек
 class MainController extends AppController {
 
     // главная страница
-    public function indexAction(){
+    public function indexAction(): void {
         // SELECT `brand`.*  FROM `brand` LIMIT 3
         $brands = \R::find('brand', 'LIMIT 3'); // выбираем из таблицы brand первые 3 записи
         // выбираем 8 записей из таблицы product, которые являются хитами (hit = '1') и имеют статус 'отображать' (status = '1')

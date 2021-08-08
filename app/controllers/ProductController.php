@@ -20,13 +20,13 @@ use app\models\Comment; // модель комментариев
 class ProductController extends AppController {
 
 	// экшен вида (отображения) карточки товара
-	public function viewAction() {
+	public function viewAction(): void {
 		$alias = $this->route['alias']; // получаем алиас текущего продукта
 		// получаем по алиасу информацию о текущем продукте из БД
 		// SELECT `product`.*  FROM `product`  WHERE alias = ? AND status = '1' LIMIT 1
 		$product = \R::findOne('product', "alias = ? AND status = '1'", [$alias]);
 		// если продукт не найден выбрасываем исключение
-		if(!$product){
+		if (!$product) {
 			throw new Exception('Страница не найдена', 404);
 		}
 
@@ -46,7 +46,7 @@ class ProductController extends AppController {
 		$r_viewed = $p_model->getRecentlyViewed(); // получаем просмотренные товары
 		$recentlyViewed = null; // переменная для хранения просмотренных товаров, полученных из БД
 		// если просмотренные товары получены из кук, получаем их из БД
-		if($r_viewed){
+		if ($r_viewed) {
 			// find запрос типа IN - ищет совпадение в таблице (по заданному полю) из переданных значений (массива)
 			// \R::genSlots - формирует подстановку из '?' по числу элементов массива (?,?,?)
 			// SQL - SELECT column-names FROM table-name WHERE column-name IN (values)

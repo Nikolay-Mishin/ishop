@@ -7,18 +7,18 @@ use app\widgets\chat\ChatWorker;
 
 class ChatController extends AppController {
 
-    private $server = APP . "/widgets/chat/ChatWorker.php";
-    private $server_name = 'ChatWorker';
+    private string $server = APP . "/widgets/chat/ChatWorker.php";
+    private string $server_name = 'ChatWorker';
 
-    public function startAction(){
+    public function startAction(): void {
         debug("php $this->server");
         //$handle = popen("php $this->server", "r"); // server.php
     }
 
-    public function stopAction(){
+    public function stopAction(): void {
         $output = passthru("ps ax | grep $this->server_name\.php"); // server
         $ar = preg_split('/ /', $output);
-        if(in_array('/usr/bin/php', $ar)){
+        if (in_array('/usr/bin/php', $ar)) {
             $pid = (int) $ar[0];
             posix_kill($pid, SIGKILL);
         }

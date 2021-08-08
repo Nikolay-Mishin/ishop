@@ -6,9 +6,9 @@ use ishop\base\Upload;
 
 class UploadController extends AppController {
 
-	public function fileAction(){
+	public function fileAction(): void {
 		// если была произведена отправка формы
-		if(isset($_FILES['file']) && isset($_FILES['file-2'])){
+		if (isset($_FILES['file']) && isset($_FILES['file-2'])) {
 			// проверяем, можно ли загружать изображение
 			$check = Upload::canUpload($_FILES['file']);
 			$check_2 = Upload::canUpload($_FILES['file-2']);
@@ -24,25 +24,25 @@ class UploadController extends AppController {
 			$date_of_birth =  $_POST['date_of_birth'];
 			$rang = $_POST['rang'];
 
-			if(!empty($name) && !empty($surname) && !empty($rang)){
-				if(!is_dir($dir)) mkdir($dir, 0777); // Создадим директорию, если она отсутсвует
-				if(!is_file($filename)){
+			if (!empty($name) && !empty($surname) && !empty($rang)) {
+				if (!is_dir($dir)) mkdir($dir, 0777); // Создадим директорию, если она отсутсвует
+				if (!is_file($filename)) {
 					$file = fopen($filename, 'a');
 					//fwrite($file, "{\n}");
 					fclose($file);
 				}
 				// проверка, что файл существует и доступен для записи.
-				if(is_writable($filename)){
+				if (is_writable($filename)) {
 					$file = fopen($filename, 'a');
 					//$file = fopen($filename, 'r+');
-					if(!$file) die("Не могу открыть файл ($filename)");
+					if (!$file) die("Не могу открыть файл ($filename)");
 					//fseek($file, -2, SEEK_END); // поместим указатель в конец со смещением на 1 символ назад
 					// Записываем в открытый файл данные
 					$msg = "";
-					if(file_get_contents($filename) != '') $msg .= ",\n";
+					if (file_get_contents($filename) != '') $msg .= ",\n";
 					$msg .= "array('Фамилия' => $surname, 'Имя' => $name, 'Отчество' => $patronymic, 'Дата рождения' => $date_of_birth, 'Спортивный разряд' => $rang, 'Дата/время регистрации' => $today)";
 					//$msg .= "\n}";
-					if(fwrite($file, $msg) === FALSE) die("Не могу произвести запись в файл ($filename)");
+					if (fwrite($file, $msg) === FALSE) die("Не могу произвести запись в файл ($filename)");
 					echo 'Ура! Данные отправлены.' . '<br>';
 					fclose($file);
 			
@@ -61,7 +61,7 @@ class UploadController extends AppController {
 			else echo 'Заполните форму!' . '<br>';
 
 			// загружаем изображение на сервер
-			if($check === true && $check_2 === true){
+			if ($check === true && $check_2 === true) {
 				$today = date('d.m.Y_H-i-s', strtotime($today));
 				$filename = $today . '_' . $_FILES['file']['name'];
 				echo $filename . '<br>';
@@ -79,8 +79,8 @@ class UploadController extends AppController {
 		$this->setScript('js/_upload', 'js/upload-file');
 	}
 
-	public function multyAction(){
-		if($this->isAjax()) exit(Upload::getHandler());
+	public function multyAction(): void {
+		if ($this->isAjax()) exit(Upload::getHandler());
 		$this->setMeta('Загрузка нескольких файлов'); // устанавливаем мета-данные
 		$this->setStyle('css/upload-multy');
 		$this->setScript('js/_upload', 'js/upload-multy');
