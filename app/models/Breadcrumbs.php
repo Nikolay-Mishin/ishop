@@ -49,8 +49,8 @@ class Breadcrumbs {
     }
 
     // служебный метод
-    public static function getParts(array $cats, int $id): array {
-        if (!$id) return false; // если не передан id категории возвращаем false
+    public static function getParts(array $cats, ?int $id): ?array {
+        if (!$id) return null; // если не передан id категории возвращаем false
         $breadcrumbs = [];
         foreach ($cats as $k => $v) {
             // $k - идентификаторы элементов массива

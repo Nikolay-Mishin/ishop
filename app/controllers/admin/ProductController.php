@@ -175,7 +175,7 @@ class ProductController extends AppController {
 		$upload = isset($_POST['upload']) ? $_POST['upload'] : null;
 		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
 		if (!$src || !$upload) {
-			return;
+			return null;
 		}
 		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
 		//if(\R::exec("DELETE FROM gallery WHERE product_id = ? AND img = ?", [$id, $src])){

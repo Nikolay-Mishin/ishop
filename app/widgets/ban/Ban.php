@@ -55,7 +55,7 @@ class Ban {
 				}
 			}
 		}
-		return;
+		return null;
 	}
 
 }

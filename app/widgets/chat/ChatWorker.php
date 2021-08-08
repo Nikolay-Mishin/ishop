@@ -165,7 +165,7 @@ class ChatWorker {
         self::$worker->onClose = function($connection) use (&$connections) {
             // Эта функция выполняется при закрытии соединения
             if (!isset($connections[$connection->id])) {
-                return;
+                return null;
             }
     
             // Удаляем соединение из списка

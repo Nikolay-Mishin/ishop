@@ -142,13 +142,13 @@ class Product extends AppModel {
 		// если менеджер убрал связанные товары - удаляем их
 		if (empty($data) && !empty($dataAttrs)) {
 			$this->deleteAttrs($id, $table, $condition); // удаляем связанные товары продукта
-			return;
+			return null;
 		}
 
 		// если добавляются связанные товары
 		if (empty($dataAttrs) && !empty($data)) {
 			$this->addAttrs($id, $data, $table, $condition, $attr_id); // добавляем товар в БД
-			return;
+			return null;
 		}
 
 		// если изменились связанные товары - удалим и запишем новые

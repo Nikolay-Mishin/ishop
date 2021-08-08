@@ -19,7 +19,7 @@ class Menu {
 	protected bool $isMenu = true;
 	protected $data; // данные для меню
 	protected array $tree = []; // массив (дерево), который строится из данных
-	protected string $menuHtml; // html-разметка меню
+	protected ?string $menuHtml; // html-разметка меню
 	protected string $tpl = __DIR__ . '/menu_tpl/menu.php'; // шаблон для меню - в старых версиях php такая запись запрещена
 	protected string $container = 'ul'; // контейнер для меню (классическое - 'ul', например в админке для выпадающих пунктов - 'select')
 	protected string $class = 'menu'; // класс по умолчанию
@@ -72,7 +72,7 @@ class Menu {
 
 	// формирует меню
 	protected function run() {
-		if (!$this->isMenu) return;
+		if (!$this->isMenu) return null;
 		$cache = Cache::instance(); // получаем объект кэша
 		$this->menuHtml = $cache->get($this->cacheKey); // получаем данные html-разметки из кэша по ключу
 		// если данные не получены из кэша, то формируем (получаем) их

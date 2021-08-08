@@ -310,3 +310,9 @@
 =================
 [2021-08-08 17:32:46] Текст ошибки: Return value of app\widgets\filter\Filter::getFilter() must be of the type string, null returned | Файл: W:\domains\ishop\app\widgets\filter\Filter.php | Строка: 88
 =================
+[2021-08-08 22:17:08] Текст ошибки: Typed property app\widgets\menu\Menu::$menuHtml must be string, null used | Файл: W:\domains\ishop\app\widgets\menu\Menu.php | Строка: 77
+=================
+[2021-08-08 22:19:15] Текст ошибки: Argument 2 passed to app\models\Breadcrumbs::getParts() must be of the type int, null given, called in W:\domains\ishop\app\models\Breadcrumbs.php on line 14 | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 52
+=================
+[2021-08-08 22:20:27] Текст ошибки: Return value of app\models\Breadcrumbs::getParts() must be of the type array, bool returned | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 53
+=================

@@ -114,7 +114,7 @@ function callPrivateMethod(object $obj, string $method, array $args) {
 
 // возвращает информацию о классе (app\models\User)
 function getReflector(string $class): \ReflectionClass {
-	return new \ReflectionClass(gettype($class) === 'object' ? get_class($class) : $class);
+	return new \ReflectionClass(isObject($class) ? get_class($class) : $class);
 }
 
 // возвращает короткое имя класса (app\models\User => User)
@@ -141,6 +141,10 @@ function isArray($var): bool {
 
 function isBool($var): bool {
 	return gettype($var) == 'boolean';
+}
+
+function isInt($var): bool {
+	return gettype($var) == 'integer';
 }
 
 // метод для преобразования массива в объект (stdClass Object)

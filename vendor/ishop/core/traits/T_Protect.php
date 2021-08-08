@@ -69,7 +69,7 @@ trait T_Protect {
 	}
 
 	private function reverseProtectProperty($property, $mod, $protectList, $new) {
-		list($isConst, $isMethod) = [gettype($property) == 'integer', $this->isMethod($protectList)];
+		list($isConst, $isMethod) = [isInt($property), $this->isMethod($protectList)];
 		$reverse = $new ? !$isMethod && $isConst && !array_key_exists($property, $this->$protectList) : !$isMethod && $isConst;
 		list($key, $property) = [$property, $isConst ? $mod : $property];
 		//debug(['new' => $new, 'reverse' => $reverse, 'property' => $property, 'mod' => $mod, 'protectList' => $protectList]);
@@ -109,7 +109,7 @@ trait T_Protect {
 	}
 
 	private function propertyExist($obj, $property, Closure $callback, $protectList = 'protectProperties', $inProperty = false) {
-		if(gettype($obj) !== 'object') return;
+		if (isObject($obj)) return null;
 
 		$exist = $this->getExists($protectList, $property, $obj);
 		list($isBean, $isMethod) = [$this->isBean($obj), $this->isMethod($protectList)];
