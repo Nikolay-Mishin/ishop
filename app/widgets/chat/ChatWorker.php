@@ -12,9 +12,9 @@ require_once __DIR__ . '/../../../config/chat.php';
 
 class ChatWorker {
 
-    public static $websocket = PROTOCOL."://".IP_LISTEN.":".PORT;
-    public static $worker;
-    public static $connections = []; // сюда будем складывать все подключения
+    public static string $websocket = PROTOCOL."://".IP_LISTEN.":".PORT;
+    public static Worker $worker;
+    public static array $connections = []; // сюда будем складывать все подключения
 
     public static function start() {
         self::$worker = new Worker(self::$websocket);
@@ -29,10 +29,10 @@ class ChatWorker {
         Worker::runAll();
     }
 
-    public static function onWorkerStart(&$connections) {
-        self::$worker->onWorkerStart = function($worker) use (&$connections) {
+    public static function onWorkerStart(array &$connections): void {
+        self::$worker->onWorkerStart = function(Worker $worker) use (&$connections): void {
             $interval = 5; // пингуем каждые 5 секунд
-            Timer::add($interval, function() use (&$connections) {
+            Timer::add($interval, function() use (&$connections): void {
                 foreach ($connections as $c) {
                     // Если ответ не пришел 3 раза, то удаляем соединение из списка
                     // и оповещаем всех участников об "отвалившемся" пользователе
@@ -63,10 +63,10 @@ class ChatWorker {
         };
     }
 
-    public static function onConnect(&$connections) {
-        self::$worker->onConnect = function($connection) use (&$connections) {
+    public static function onConnect(array &$connections): void {
+        self::$worker->onConnect = function(Worker $connection) use (&$connections): void {
             // Эта функция выполняется при подключении пользователя к WebSocket-серверу
-            $connection->onWebSocketConnect = function($connection) use (&$connections) {
+            $connection->onWebSocketConnect = function(Worker $connection) use (&$connections) {
                 // Достаём имя пользователя, если оно было указано
                 if (isset($_GET['userName'])) {
                     $originalUserName = preg_replace('/[^a-zA-Zа-яА-ЯёЁ0-9\-\_ ]/u', '', trim($_GET['userName']));
@@ -112,7 +112,7 @@ class ChatWorker {
                         }
                     }
                 } 
-                while($duplicate);
+                while ($duplicate);
         
                 // Добавляем соединение в список
                 $connection->userName = $userName;
@@ -161,8 +161,8 @@ class ChatWorker {
         };
     }
 
-    public static function onClose(&$connections) {
-        self::$worker->onClose = function($connection) use (&$connections) {
+    public static function onClose(array &$connections): void {
+        self::$worker->onClose = function(Worker $connection) use (&$connections) {
             // Эта функция выполняется при закрытии соединения
             if (!isset($connections[$connection->id])) {
                 return null;
@@ -187,8 +187,8 @@ class ChatWorker {
         };
     }
 
-    public static function onMessage(&$connections) {
-        self::$worker->onMessage = function($connection, $message) use (&$connections) {
+    public static function onMessage(array &$connections) {
+        self::$worker->onMessage = function(Worker $connection, string $message) use (&$connections): void {
             $messageData = json_decode($message, true);
             $toUserId = isset($messageData['toUserId']) ? (int) $messageData['toUserId'] : 0;
             $action = isset($messageData['action']) ? $messageData['action'] : '';
