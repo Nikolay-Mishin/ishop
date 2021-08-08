@@ -8,7 +8,7 @@ use app\models\admin\FilterGroup;
 class FilterController extends AppController {
 
 	// экшен просмотра списка групп фильтров
-	public function attributeGroupAction(){
+	public function attributeGroupAction(): void {
 		//$attrs_group = \R::findAll('attribute_group'); // получаем список групп фильтров
 		$attrs_group = FilterGroup::getAll(); // получаем список групп фильтров
 		$this->setMeta('Группы фильтров'); // устанавливаем мета-данные
@@ -16,7 +16,7 @@ class FilterController extends AppController {
 	}
 
 	// экшен удаления групп фильтров
-	public function groupDeleteAction(){
+	public function groupDeleteAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$count = \R::count('attribute_value', 'attr_group_id = ?', [$id]); // считаем число аттрибутов в данной группе фильтров
 		//// если есть вложенные фильтры в данной группе, показываем ошибку
@@ -30,7 +30,7 @@ class FilterController extends AppController {
 	}
 
 	// экшен отображения группы фильтров
-	public function groupViewAction(){
+	public function groupViewAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$group = \R::load('attribute_group', $id); // получаем данные группы фильтров из БД
 		$group = FilterGroup::getById($this->getRequestID()); // получаем данные группы фильтров из БД
@@ -39,9 +39,9 @@ class FilterController extends AppController {
 	}
 
 	// экшен редактирования группы фильтров
-	public function groupEditAction(){
+	public function groupEditAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$group = new FilterGroup(); // объект модели групп фильтров
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -62,9 +62,9 @@ class FilterController extends AppController {
 	}
 
 	// экшен добавления групп фильтров
-	public function groupAddAction(){
+	public function groupAddAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$group = new FilterGroup(); // объект модели групп фильтров
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$group->load($data); // получаем данные групп фильтров из БД
@@ -84,7 +84,7 @@ class FilterController extends AppController {
 	}
 
 	// экшен просмотра списка аттрибутов фильтров
-	public function attributeAction(){
+	public function attributeAction(): void {
 		//// получаем список аттрибутов фильтров
 		//$attrs = \R::getAssoc("SELECT attribute_value.*, attribute_group.title FROM attribute_value JOIN attribute_group ON attribute_group.id = attribute_value.attr_group_id");
 		$attrs = FilterAttr::getAll(); // получаем список аттрибутов фильтров
@@ -93,7 +93,7 @@ class FilterController extends AppController {
 	}
 
 	// экшен удаления аттрибутов фильтров
-	public function attributeDeleteAction(){
+	public function attributeDeleteAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//\R::exec("DELETE FROM attribute_product WHERE attr_id = ?", [$id]); // удаляем фильтр из списка фильтров товаров
 		//\R::exec("DELETE FROM attribute_value WHERE id = ?", [$id]); // удаляем фильтр из БД
@@ -102,7 +102,7 @@ class FilterController extends AppController {
 	}
 
 	// экшен редактирования аттрибутов фильтров
-	public function attributeViewAction(){
+	public function attributeViewAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$attr = \R::load('attribute_value', $id); // получаем данные аттрибутов фильтров из БД
 		//$attrs_group = \R::findAll('attribute_group'); // получаем список групп фильтров
@@ -112,9 +112,9 @@ class FilterController extends AppController {
 	}
 
 	// экшен редактирования аттрибутов фильтров
-	public function attributeEditAction(){
+	public function attributeEditAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$attr = new FilterAttr(); // объект модели аттрибутов фильтров
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -135,9 +135,9 @@ class FilterController extends AppController {
 	}
 
 	// экшен добавления аттрибутов фильтров
-	public function attributeAddAction(){
+	public function attributeAddAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$attr = new FilterAttr(); // объект модели аттрибутов фильтров
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$attr->load($data); // получаем данные аттрибутов фильтров из БД

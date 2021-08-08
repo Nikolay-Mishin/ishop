@@ -8,12 +8,12 @@ use ishop\App;
 class CategoryController extends AppController {
 
 	// экшен для отображения страницы со списком категорий
-	public function indexAction(){
+	public function indexAction(): void {
 		$this->setMeta('Список категорий');
 	}
 
 	// экшен удаления категории
-	public function deleteAction(){
+	public function deleteAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$children = \R::count('category', 'parent_id = ?', [$id]); // считаем количество вложенных категорий
 		//$errors = '';
@@ -35,7 +35,7 @@ class CategoryController extends AppController {
 	}
 
 	// экшен отображения данных категории
-	public function viewAction(){
+	public function viewAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$category = \R::load('category', $id); // загружаем категорию из БД
 		$category = Category::getById($this->getRequestID()); // загружаем категорию из БД
@@ -45,9 +45,9 @@ class CategoryController extends AppController {
 	}
 
 	// экшен редактирования категории
-	public function editAction(){
+	public function editAction(): void {
 		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$category = new Category(); // объект модели категории
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -72,9 +72,9 @@ class CategoryController extends AppController {
 	}
 
 	// экшен добавления новой категории
-	public function addAction(){
+	public function addAction(): void {
 		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$category = new Category(); // объект модели категории
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$category->load($data); // загружаем категорию из БД

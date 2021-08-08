@@ -7,7 +7,7 @@ use app\models\admin\Currency;
 class CurrencyController extends AppController {
 
 	// экшен просмотра списка валют
-	public function indexAction(){
+	public function indexAction(): void {
 		//$currencies = \R::findAll('currency'); // получаем список валют
 		$currencies = Currency::updateCourse(); // получаем список валют
 		$this->setMeta('Валюты магазина'); // устанавливаем мета-данные
@@ -15,7 +15,7 @@ class CurrencyController extends AppController {
 	}
 
 	// экшен удаления валют
-	public function deleteAction(){
+	public function deleteAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$currency = \R::load('currency', $id); // получаем валюту из БД
 		//\R::trash($currency); // удаляем валюту из БД
@@ -25,7 +25,7 @@ class CurrencyController extends AppController {
 	}
 
 	// экшен редактирования валют
-	public function viewAction(){
+	public function viewAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$currency = \R::load('currency', $id); // получаем валюту из БД
 		list($currency, $courses, $codeList) = [Currency::getById($this->getRequestID()), Currency::getCourses(), Currency::getCodeList()];
@@ -34,9 +34,9 @@ class CurrencyController extends AppController {
 	}
 
 	// экшен редактирования валют
-	public function editAction(){
+	public function editAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$currency = new Currency(); // объект модели валюты
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -58,9 +58,9 @@ class CurrencyController extends AppController {
 	}
 
 	// экшен добавления валют
-	public function addAction(){
+	public function addAction(): void {
 		// если получены данные из формы, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$currency = new Currency(); // объект модели валюты
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$currency->load($data); // получаем данные групп фильтров из БД

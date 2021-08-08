@@ -8,7 +8,7 @@ use app\models\admin\OrderProduct; // модель товаров заказа
 class OrderController extends AppController {
 
 	// экшен просмотра страницы с заказами
-	public function indexAction(){
+	public function indexAction(): void {
 		//$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		//$perpage = 3; // число записей на 1 странице
 		//$count = \R::count('order'); // число заказов
@@ -35,7 +35,7 @@ class OrderController extends AppController {
 	}
 
 	// экшен для отображения вида отдельного заказа
-	public function viewAction(){
+	public function viewAction(): void {
 		$order_id = $this->getRequestID(); // получаем id заказа
 
   //      // получаем данные заказа
@@ -56,7 +56,7 @@ class OrderController extends AppController {
 	}
 
 	// экшен удаления заказа
-	public function deleteAction(){
+	public function deleteAction(): void {
 		$order_id = $this->getRequestID(); // получаем id заказа
 		//$order = \R::load('order', $order_id); // получаем данные заказа из БД
 		//\R::trash($order); // удаляем заказ
@@ -67,7 +67,7 @@ class OrderController extends AppController {
 	}
 
 	// экшен изменения статуса заказа
-	public function changeAction(){
+	public function changeAction(): void {
 		// если передан статус и он не равен 0 (false), присваием ему 1
 		//$order_id = $this->getRequestID(); // получаем id
 		//$status = !empty($_GET['status']) ? '1' : '0'; // статус

@@ -9,7 +9,7 @@ use app\models\User as BaseUser;
 class UserController extends AppController {
 
 	// экшен просмотра списка пользователей
-	public function indexAction(){
+	public function indexAction(): void {
 		// list — Присваивает переменным из списка значения подобно массиву
 		//$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		//$perpage = 3; // число записей на 1 странице
@@ -23,12 +23,12 @@ class UserController extends AppController {
 	}
 
 	// экшен добавления нового пользователя
-	public function addAction(){
+	public function addAction(): void {
 		$this->setMeta('Новый пользователь');
 	}
 
 	// экшен отображения данных пользователя
-	public function viewAction(){
+	public function viewAction(): void {
 		//$user_id = $this->getRequestID();
 		//$user = \R::load('user', $user_id);
   //      $orders = \R::getAll("SELECT `order`.`id`, `order`.`user_id`, `order`.`status`, `order`.`date`, `order`.`update_at`, `order`.`currency`, ROUND(SUM(`order_product`.`price`), 2) AS `sum` FROM `order`
@@ -40,9 +40,9 @@ class UserController extends AppController {
 	}
 
 	// экшен редактирования пользователя
-	public function editAction(){
+	public function editAction(): void {
 		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$user = new \app\models\admin\User(); // объект модели пользователя
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -68,9 +68,9 @@ class UserController extends AppController {
 	}
 
 	// экшен страницы авторизации
-	public function loginAdminAction(){
+	public function loginAdminAction(): void {
 		// если данные получены методом POST, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$user = new User(); // объект модели пользователя
 			////авторизовываем пользователя
 			//if(!$user->login(true)){
@@ -79,9 +79,9 @@ class UserController extends AppController {
 			$user = new BaseUser('login', [], [$_POST, true]); // объект модели пользователя
 			// если авторизованный пользователь является админом, перенаправляем на гланую админки
 			// иначе направляем на главную сайта
-			if(User::isAdmin()){
+			if (User::isAdmin()) {
 				redirect(ADMIN);
-			}else{
+			} else {
 				redirect();
 			}
 		}

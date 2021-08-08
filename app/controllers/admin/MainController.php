@@ -14,7 +14,7 @@ use app\models\admin\User;
 
 class MainController extends AppController {
 
-    public function indexAction(){
+    public function indexAction(): void {
         $countNewOrders = Order::getCountNew(); // получаем новые заказы
         $countUsers = User::getCount(); // получаем общее число зарегистрированных пользователей
         $countProducts = Product::getCount(); // получаем общее число товаров

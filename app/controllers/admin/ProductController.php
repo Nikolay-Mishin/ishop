@@ -12,7 +12,7 @@ use ishop\App;
 class ProductController extends AppController {
 
 	// экшен отображения списка продуктов
-	public function indexAction(){
+	public function indexAction(): void {
 		//$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 		//$perpage = 10; // число записей на 1 странице
 		//$count = \R::count('product'); // число товаров
@@ -27,7 +27,7 @@ class ProductController extends AppController {
 	}
 
 	// экшен отображения данных товара
-	public function viewAction(){
+	public function viewAction(): void {
 		//$id = $this->getRequestID(); // получаем id
 		//$product = \R::load('product', $id); // получаем данные товара из БД
 		//App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
@@ -44,9 +44,9 @@ class ProductController extends AppController {
 	}
 
 	// экшен редактирования товара
-	public function editAction(){
+	public function editAction(): void {
 		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$id = $this->getRequestID(false); // получаем id
 			//$product = new Product(); // объект модели товара
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -78,9 +78,9 @@ class ProductController extends AppController {
 	}
 
 	// экшен добавления нового товара
-	public function addAction(){
+	public function addAction(): void {
 		// если данные из формы получены, обрабатываем их
-		if(!empty($_POST)){
+		if (!empty($_POST)) {
 			//$product = new Product(); // объект модели товара
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$product->load($data); // получаем данные товара из БД
@@ -125,15 +125,15 @@ class ProductController extends AppController {
 		]
 	];*/
 	// экшен получения списка товаров из поискового запроса
-	public function relatedProductAction(){
+	public function relatedProductAction(): void {
 		$q = isset($_GET['q']) ? $_GET['q'] : ''; // строка запроса
 		$data['items'] = []; // массив данных из запроса
 		// получаем товары совпадающие по названию со строкой запроса
 		$products = \R::getAssoc('SELECT id, title FROM product WHERE title LIKE ? LIMIT 10', ["%{$q}%"]);
 		// если получены товары, формируем массив данных
-		if($products){
+		if ($products) {
 			$i = 0;
-			foreach($products as $id => $title){
+			foreach ($products as $id => $title) {
 				$data['items'][$i]['id'] = $id;
 				$data['items'][$i]['text'] = $title;
 				$i++;
@@ -144,9 +144,9 @@ class ProductController extends AppController {
 	}
 
 	// экшен загрузки картинок
-	public function addImageAction(){
+	public function addImageAction(): void {
 		// если есть загружаемые файлы, обрабатываем их
-		if(isset($_GET['upload'])){
+		if (isset($_GET['upload'])) {
 			// устанавливаем max значения ширины и высоты изображений в зависимости от того какие картинки пришли
 			// (основная - 'single' или галлереи)
 			// получаем необходимые значения из контейнера приложения
@@ -168,13 +168,13 @@ class ProductController extends AppController {
 	}
 
 	// экшен удаления картинок галлереи
-	public function deleteImageAction(){
+	public function deleteImageAction(): void {
 		$id = isset($_POST['id']) ? $_POST['id'] : null; // id текущего товара
 		$src = isset($_POST['src']) ? $_POST['src'] : null; // путь к картинке
 		// тип загруженной картинки (single - базовая, gallery - галлерея)
 		$upload = isset($_POST['upload']) ? $_POST['upload'] : null;
 		// если не получен id или src или тип загруженной картинки, останавливаем работу скрипта
-		if(!$src || !$upload){
+		if (!$src || !$upload) {
 			return;
 		}
 		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
