@@ -16,12 +16,25 @@ class ChatWorker {
     public static Worker $worker;
     public static array $connections = []; // сюда будем складывать все подключения
 
-    public static function start() {
-        self::$worker = new Worker(self::$websocket);
+    public static function start(): void {
+        exec('php '.SERVER_PATH); // server.php
+        //new Process('php');
+        //new Process('php '.SERVER_PATH);
     }
 
-    public static function run() {
-        self::start();
+    public static function stop(): void {
+        passthru("ps ax | grep ".SERVER_PATH, $output); // server.php
+        $ar = preg_split('/ /', $output);
+        print_r($ar);
+        if (in_array('/usr/bin/php', $ar)) {
+            $pid = (int) $ar[0];
+            echo $pid;
+            //posix_kill($pid, SIGKILL);
+        }
+    }
+
+    public static function run(): void {
+        self::$worker = new Worker(self::$websocket);
         self::onWorkerStart(self::$connections);
         self::onConnect(self::$connections);
         self::onClose(self::$connections);

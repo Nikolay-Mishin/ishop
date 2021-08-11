@@ -25,7 +25,6 @@ class AppController extends Controller {
         if (Currency::checkChangeCurrency($curr)) {
             Cart::recalc($curr); // вызываем метод пересчита корзины
         }
-
     }
 
     // метод для кэширования массива категорий
