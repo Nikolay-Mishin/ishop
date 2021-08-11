@@ -3,12 +3,11 @@
 namespace app\widgets\chat;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../../config/chat.php';
 
 // Подключаем библиотеку Workerman
 use Workerman\Lib\Timer;
 use Workerman\Worker;
-
-require_once __DIR__ . '/../../../config/chat.php';
 
 class ChatWorker {
 
