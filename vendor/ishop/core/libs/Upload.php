@@ -1,6 +1,6 @@
 <?php
 
-namespace ishop\base;
+namespace ishop\libs;
 
 abstract class Upload {
 

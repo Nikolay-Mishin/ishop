@@ -15,10 +15,10 @@ trait T_SetProperties {
 		$base_callback = function($k, $v){};
 		$base_condition = function($k) { return property_exists($this, $k); };
 
-		$options = isObject(current($options)) ? current($options) : $options;
+		$options = is_object(current($options)) ? current($options) : $options;
 		$callback = $args[0] ?? $base_callback;
-		$condition = !isBool($callback) && $callback && ($args[1] ?? null) ? $arg_3 : $base_condition;
-		if (isBool($callback)) {
+		$condition = !is_bool($callback) && $callback && ($args[1] ?? null) ? $arg_3 : $base_condition;
+		if (is_bool($callback)) {
 			$condition = $callback;
 			$callback = $base_callback;
 		}
@@ -26,7 +26,7 @@ trait T_SetProperties {
 		// если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
 		foreach ($options as $k => $v) {
 			// проверяем существет ли такое свойство у класса
-			if (!isBool($condition) && $this->isClosure($condition) ? $condition($k) : $condition) {
+			if (!is_bool($condition) && $this->isClosure($condition) ? $condition($k) : $condition) {
 				$this->$k = $v;
 				$callback($k, $v);
 			}

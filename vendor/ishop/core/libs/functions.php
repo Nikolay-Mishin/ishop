@@ -114,7 +114,7 @@ function callPrivateMethod(object $obj, string $method, array $args) {
 
 // возвращает информацию о классе (app\models\User)
 function getReflector(string $class): \ReflectionClass {
-	return new \ReflectionClass(isObject($class) ? get_class($class) : $class);
+	return new \ReflectionClass(is_object($class) ? get_class($class) : $class);
 }
 
 // возвращает короткое имя класса (app\models\User => User)
@@ -131,19 +131,7 @@ function isCallable(string $class, string $method): bool {
 	return method_exists($class, $method) && is_callable([$class, $method]);
 }
 
-function isObject($var): bool {
-	return gettype($var) == 'object';
-}
-
-function isArray($var): bool {
-	return gettype($var) == 'array';
-}
-
-function isBool($var): bool {
-	return gettype($var) == 'boolean';
-}
-
-function isInt($var): bool {
+function is_int($var): bool {
 	return gettype($var) == 'integer';
 }
 
@@ -152,7 +140,7 @@ function dataDecode(&$data, string $output = null): object {
 	$data_type = gettype($data); // получаем тип переданных данных
 	if ($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данные
 	$json = json_encode($data); // кодируем данные в json
-	return json_decode($json, isObject($data_type)); // декодируем json в объект (true - ассоциативный массив)
+	return json_decode($json, is_object($data_type)); // декодируем json в объект (true - ассоциативный массив)
 }
 
 function arrayUnset(array &$array, $items): array {

@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use ishop\base\Upload;
+use ishop\libs\Upload;
 
 class UploadController extends AppController {
 

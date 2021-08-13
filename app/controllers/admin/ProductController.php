@@ -6,7 +6,7 @@ use app\models\admin\Product;
 use app\models\admin\Modification;
 use app\models\Gallery;
 //use app\models\AppModel;
-use ishop\base\Upload;
+use ishop\libs\Upload;
 use ishop\App;
 
 class ProductController extends AppController {

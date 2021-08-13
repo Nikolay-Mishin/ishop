@@ -60,7 +60,7 @@ class Menu {
 
 	// получает опции
 	protected function getOptions($options, string ...$unset) {
-		$isObj = isObject($options);
+		$isObj = is_object($options);
 		foreach ($unset as $property) {
 			if ($isObj ? property_exists($options, $property) : in_array($options, $property)) {
 				if ($isObj) unset($options->$property);
