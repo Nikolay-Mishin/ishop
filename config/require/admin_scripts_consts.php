@@ -1,6 +1,6 @@
 <?php
 
-$consts = json_encode(get_defined_constants(true)['user']);
+$consts = getConsts();
 $path = PATH;
 $adminpath = ADMIN;
 

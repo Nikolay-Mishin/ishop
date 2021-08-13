@@ -21,7 +21,7 @@ class CalendarController extends AppController {
 			'plugins/fullcalendar-bootstrap/main.min',
 			'js/calendar'
 		);
-		$this->setMeta('Calendar');
+		$this->setMeta('Календарь');
 	}
 
 }

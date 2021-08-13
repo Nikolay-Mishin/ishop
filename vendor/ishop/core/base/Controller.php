@@ -16,7 +16,7 @@ abstract class Controller {
     public string $view; // вид
     public string $prefix; // префикс
     public string $layout = ''; // шаблон
-    public array $data; // обычные данные (контент)
+    public array $data = []; // обычные данные (контент)
     public array $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
 
     public string $canonical = ''; // каноническая ссылка

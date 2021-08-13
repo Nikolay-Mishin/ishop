@@ -98,6 +98,10 @@ function upperCamelCase(string $name): string {
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){ return strtoupper($matches[1]); }, $name);
 }
 
+function getConsts(bool $categorize = true, string $part = 'user'): string {
+	return json_encode(get_defined_constants($categorize)[$part]);
+}
+
 function callMethod(object $class, string $method, array $attrs = []): bool {
 	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
@@ -129,10 +133,6 @@ function getClassName(string $class): string {
 
 function isCallable(string $class, string $method): bool {
 	return method_exists($class, $method) && is_callable([$class, $method]);
-}
-
-function is_int($var): bool {
-	return gettype($var) == 'integer';
 }
 
 // метод для преобразования массива в объект (stdClass Object)

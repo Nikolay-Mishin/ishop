@@ -3,7 +3,7 @@
 // получаем активную валюту из контейнера 
 $curr = \ishop\App::$app->getProperty('currency');
 
-$consts = json_encode(get_defined_constants(true)['user']);
+$consts = getConsts();
 $path = PATH;
 $symboleLeft = $curr["symbol_left"];
 $symboleRight = $curr["symbol_right"];

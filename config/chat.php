@@ -1,8 +1,10 @@
 <?php
 
 define('PROTOCOL', 'websocket');
-define('HOST', 'chat'); // 'localhost/chat'
-define('IP_LISTEN', '0.0.0.0');
+define('PROTOCOL_SHORT', 'ws');
+define('HOST', 'ishop');
 define('PORT', 8090);
-define('SERVER_PATH', 'WebForMyself');
-define('SERVER', SERVER_PATH.'/server.php');
+define('IP_LISTEN', '0.0.0.0');
+
+define('SERVER_PATH',  '/chat');
+define('SERVER',  APP.'/widgets/chat/server.php');

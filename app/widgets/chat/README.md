@@ -1,5 +1,10 @@
 ### [SimpleChat-server | Чат на WebSocket'ах](https://timeweb.com/ru/community/articles/chat-na-websocket-ah-1)
 
+```php
+cd ../../domains/chat/Workerman
+php server.php start
+```
+
 ![Скриншот окна терминала](https://wxmaper.ru/pub/simplychat/scr3-1.png)
 ![Скриншот окна клиента](https://wxmaper.ru/pub/simplychat/scr1.png)
 

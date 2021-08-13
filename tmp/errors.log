@@ -318,3 +318,23 @@
 =================
 [2021-08-08 22:29:31] Текст ошибки: Typed property app\widgets\comment\Comment::$count must be int, null used | Файл: W:\domains\ishop\app\widgets\comment\Comment.php | Строка: 30
 =================
+[2021-08-13 22:54:25] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-13 22:54:26] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-13 22:54:30] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-13 22:54:41] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-13 22:54:51] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-13 23:07:37] Текст ошибки: Argument 1 passed to ishop\base\Controller::setStyle() must be of the type array, string given, called in W:\domains\ishop\app\controllers\ChatController.php on line 11 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 79
+=================
+[2021-08-13 23:08:27] Текст ошибки: Argument 1 passed to ishop\base\Controller::setScript() must be of the type array, string given, called in W:\domains\ishop\app\controllers\ChatController.php on line 12 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 83
+=================
+[2021-08-13 23:08:38] Текст ошибки: Class 'app\widgets\chat\Chat' not found | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 15
+=================
+[2021-08-13 23:09:29] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 15
+=================
+[2021-08-13 23:12:02] Текст ошибки: Typed property ishop\base\Controller::$data must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 44
+=================

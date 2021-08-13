@@ -2,34 +2,32 @@
 
 namespace app\widgets\chat;
 
-require_once __DIR__ . '/../../../vendor/autoload.php';
-require_once __DIR__ . '/../../../config/chat.php';
+require_once CONF.'/chat.php';
 
 // Подключаем библиотеку Workerman
 use Workerman\Lib\Timer;
 use Workerman\Worker;
 
-class ChatWorker {
+use ishop\libs\Process;
+
+class Chat {
 
     public static string $websocket = PROTOCOL."://".IP_LISTEN.":".PORT;
     public static Worker $worker;
     public static array $connections = []; // сюда будем складывать все подключения
+    public static ?Process $process = null;
+    public static string $pkey = 'chat';
 
     public static function start(): void {
-        exec('php '.SERVER_PATH); // server.php
-        //new Process('php');
-        //new Process('php '.SERVER_PATH);
+        //Process::add('php '.SERVER, self::$pkey);
+        debug(Process::$log);
+        //exit(json_encode(Process::$log));
     }
 
     public static function stop(): void {
-        passthru("ps ax | grep ".SERVER_PATH, $output); // server.php
-        $ar = preg_split('/ /', $output);
-        print_r($ar);
-        if (in_array('/usr/bin/php', $ar)) {
-            $pid = (int) $ar[0];
-            echo $pid;
-            //posix_kill($pid, SIGKILL);
-        }
+        //Process::killProc(self::$pkey);
+        debug(Process::$log);
+        //exit(json_encode(Process::$log));
     }
 
     public static function run(): void {
