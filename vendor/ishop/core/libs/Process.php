@@ -71,14 +71,11 @@ class Process {
     }
 
     public static function add(string $cmd, ?string $pkey = null, ?array $descriptorspec = null, ?string $cwd = null, ?array $env = null, ?int $terminate_after = null): ?self {
-        if (!isset($_SESSION['process'])) {
-            $_SESSION['process'] = [];
-        }
         if (self::getProcess($pkey)) return null;
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
         //debug($process);
         self::$log['start']['process'] = $process;
-        return $_SESSION['process'][$process->getPid()] = $process;
+        return self::getProcessList()[$process->getPid()] = $process;
     }
     
     public static function killProc($pkey): ?self {
@@ -101,10 +98,10 @@ class Process {
     }
 
     public static function getProcessList(): array {
-        if (!isset($_SESSION['process'])) {
-            $_SESSION['process'] = [];
+        if (!$process_list = App::$app->getProperty('process'))) {
+            App::$app->setProperty('process', []);
         }
-        return $_SESSION['process'];
+        return $process_list;
     }
 
     public static function clean() {
@@ -112,7 +109,7 @@ class Process {
             foreach ($process_list as $process) {
                 $process->kill();
             }
-            unset($_SESSION['process']);
+            unset($process_list);
         }
     }
 
