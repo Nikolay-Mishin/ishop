@@ -40,7 +40,7 @@ class UploadController extends AppController {
 					// Записываем в открытый файл данные
 					$msg = "";
 					if (file_get_contents($filename) != '') $msg .= ",\n";
-					$msg .= "array('Фамилия' => $surname, 'Имя' => $name, 'Отчество' => $patronymic, 'Дата рождения' => $date_of_birth, 'Спортивный разряд' => $rang, 'Дата/время регистрации' => $today)";
+					$msg .= "['Фамилия' => $surname, 'Имя' => $name, 'Отчество' => $patronymic, 'Дата рождения' => $date_of_birth, 'Спортивный разряд' => $rang, 'Дата/время регистрации' => $today]";
 					//$msg .= "\n}";
 					if (fwrite($file, $msg) === FALSE) die("Не могу произвести запись в файл ($filename)");
 					echo 'Ура! Данные отправлены.' . '<br>';
@@ -50,7 +50,7 @@ class UploadController extends AppController {
 					$split = preg_split("/\n/", $str);
 					/* unset($split[0], $split[count ($split)]);
 					sort($split); */
-					$json = json_encode(array('lines' => $split));
+					$json = json_encode(['lines' => $split]);
 					/* echo '<pre>';
 					print_r($split);
 					echo '</pre>';

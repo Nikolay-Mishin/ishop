@@ -29,17 +29,17 @@ class Gallery extends AppModel {
 	//public static function uploadImg($name, $wmax, $hmax){
 	//    $uploaddir = WWW . '/images/'; // директория для загрузки изображений
 	//    $ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES[$name]['name'])); // расширение картинки
-	//    $types = array("image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png"); // массив допустимых расширений
+	//    $types = ["image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png"]; // массив допустимых расширений
 	//    if($_FILES[$name]['size'] > 1048576){
-	//        $res = array("error" => "Ошибка! Максимальный вес файла - 1 Мб!");
+	//        $res = ["error" => "Ошибка! Максимальный вес файла - 1 Мб!"];
 	//        exit(json_encode($res));
 	//    }
 	//    if($_FILES[$name]['error']){
-	//        $res = array("error" => "Ошибка! Возможно, файл слишком большой.");
+	//        $res = ["error" => "Ошибка! Возможно, файл слишком большой."];
 	//        exit(json_encode($res));
 	//    }
 	//    if(!in_array($_FILES[$name]['type'], $types)){
-	//        $res = array("error" => "Допустимые расширения - .gif, .jpg, .png");
+	//        $res = ["error" => "Допустимые расширения - .gif, .jpg, .png"];
 	//        exit(json_encode($res));
 	//    }
 	//    $new_name = md5(time()).".$ext"; // формируем новое имя файла
@@ -54,7 +54,7 @@ class Gallery extends AppModel {
 	//            $_SESSION['gallery'][] = $new_name;
 	//        }
 	//        self::resize($uploadfile, $uploadfile, $wmax, $hmax, $ext); // изменяем размер картинки
-	//        $res = array("file" => $new_name); // массив с результом работы метода
+	//        $res = ["file" => $new_name]; // массив с результом работы метода
 	//        exit(json_encode($res));
 	//    }
 	//}

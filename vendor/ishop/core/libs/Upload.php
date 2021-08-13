@@ -8,17 +8,17 @@ abstract class Upload {
 	public static string $json; // хранение json
 
 	// Зададим ограничения для картинок
-	public static array $formats = array('jpg', 'jpeg', 'png', 'gif', 'bmp');
+	public static array $formats = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
 	public static int $limitBytes = 10 * 1048576;
 	public static int $limitWidth  = 2000;
 	public static int $limitHeight = 1500;
 
 	public static string $upload_dir = WWW . '/images/'; // директория для загрузки изображений
 	// массив допустимых расширений
-	public static array $types = array("image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png");
+	public static array $types = ["image/gif", "image/png", "image/jpeg", "image/pjpeg", "image/x-png"];
 
 	// Массив с названиями ошибок
-	public static array $errorMessages = array(
+	public static array $errorMessages = [
 		UPLOAD_ERR_INI_SIZE   => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP.',
 		UPLOAD_ERR_FORM_SIZE  => 'Размер загружаемого файла превысил значение MAX_FILE_SIZE в HTML-форме.',
 		UPLOAD_ERR_PARTIAL    => 'Загружаемый файл был получен только частично.',
@@ -26,7 +26,7 @@ abstract class Upload {
 		UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная папка.',
 		UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск.',
 		UPLOAD_ERR_EXTENSION  => 'PHP-расширение остановило загрузку файла.',
-	);
+	];
 
 	public static function canUpload(array $file) {
 		if ($file['name'] == '') return 'Вы не выбрали файл.'; // если имя пустое, значит файл не выбран
@@ -49,12 +49,12 @@ abstract class Upload {
 	 * @see https://denisyuk.by/all/polnoe-rukovodstvo-po-zagruzke-izobrazheniy-na-php/#paragraph-6
 	 */
 	public static function handler(): array {
-		$done_files = array(); // Массив для хранения данных об результате загрузки файлов
+		$done_files = []; // Массив для хранения данных об результате загрузки файлов
 		if (!array_key_exists(0, $_FILES)) sort($_FILES);
 		// Загружаем все картинки по порядку
 		foreach ($_FILES as $k => $v) $done_files[] = self::load($_FILES[$k]['tmp_name'], $_FILES[$k]['error']);
 		// Запишем в переменную ассоциативный массив с результатом загрузки файла
-		return self::$result = $done_files ? array('files' => $_FILES, 'info' => $done_files) : array('error' => 'Ошибка загрузки файлов');
+		return self::$result = $done_files ? ['files' => $_FILES, 'info' => $done_files] : ['error' => 'Ошибка загрузки файлов'];
 	}
 
 	// функция для обработки загрузки файла в единичном экземляре
@@ -65,7 +65,7 @@ abstract class Upload {
 		if (@move_uploaded_file($filePath, WWW . "/$uploadPath/$name")) {
 			//self::saveSession($name, $new_name, $name == 'gallery');
 			//self::resize($upload_file, $upload_file, $wmax, $hmax, $ext); // изменяем размер картинки
-			//exit(json_encode(array("file" => $name)));
+			//exit(json_encode(["file" => $name]));
 			return self::msg($uploadPath, $name);
 		}
 		else return self::error('При записи изображения на диск произошла ошибка.');
@@ -73,18 +73,18 @@ abstract class Upload {
 
 	// Функция, возвращающая ассоциативный массив с сообщением об успешной записи файла и сопутствующие данные
 	protected static function msg(string $uploadPath, string $name): array {
-		return array(
+		return [
 			'status' => 'Sucess!',
 			'path' => __DIR__ . "/$uploadPath/$name",
 			'dir' => __DIR__,
 			'folder' => $uploadPath,
 			'name' => $name
-		);
+		];
 	}
 
 	// Функция, возвращающая ассоциативный массив с сообщением об ошибке
 	protected static function error(string $error, bool $outArray = true) {
-		return $outArray ? array('error' => $error) : $error;
+		return $outArray ? ['error' => $error] : $error;
 	}
 
 	protected static function getMime(string $filePath): string {
@@ -135,13 +135,13 @@ abstract class Upload {
 
 	public static function uploadImg(string $name, int $wmax, int $hmax): void {
 		if ($_FILES[$name]['size'] > 1048576) {
-			exit(json_encode(array("error" => "Ошибка! Максимальный вес файла - 1 Мб!")));
+			exit(json_encode(["error" => "Ошибка! Максимальный вес файла - 1 Мб!"]));
 		}
 		if ($_FILES[$name]['error']) {
-			exit(json_encode(array("error" => "Ошибка! Возможно, файл слишком большой.")));
+			exit(json_encode(["error" => "Ошибка! Возможно, файл слишком большой."]));
 		}
 		if (!in_array($_FILES[$name]['type'], self::$types)) {
-			exit(json_encode(array("error" => "Допустимые расширения - .gif, .jpg, .png")));
+			exit(json_encode(["error" => "Допустимые расширения - .gif, .jpg, .png"]));
 		}
 
 		$ext = strtolower(preg_replace("#.+\.([a-z]+)$#i", "$1", $_FILES[$name]['name'])); // расширение картинки
@@ -153,7 +153,7 @@ abstract class Upload {
 		if (@move_uploaded_file($_FILES[$name]['tmp_name'], $upload_file)) {
 			self::saveSession($name, $new_name, $name == 'gallery');
 			self::resize($upload_file, $upload_file, $wmax, $hmax, $ext); // изменяем размер картинки
-			exit(json_encode(array("file" => $new_name)));
+			exit(json_encode(["file" => $new_name]));
 		}
 	}
 

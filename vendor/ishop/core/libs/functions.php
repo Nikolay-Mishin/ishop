@@ -167,8 +167,8 @@ function arrayMultiKeyExists(array $arr, array $keys): array {
 	return !array_diff_key($keys, array_keys($arr));
 
 	// Example
-	$arr = array('blue' => 1, 'red' => 2, 'green' => 3, 'purple' => 4);
-	$keys = array('green', 'yellow','cyan');
+	$arr = ['blue' => 1, 'red' => 2, 'green' => 3, 'purple' => 4];
+	$keys = ['green', 'yellow','cyan'];
 	arrayMultiKeyExists($arr, $keys);
 	// Will return
 	//Array
@@ -185,8 +185,8 @@ function arrayGetValues(array $arr, array $keys): array {
 	return array_intersect_key($arr, array_flip($keys));
 
 	// Example
-	$arr = array('a' => 123, 'b' => 213, 'c' => 321);
-	$keys = array('b', 'c');
+	$arr = ['a' => 123, 'b' => 213, 'c' => 321];
+	$keys = ['b', 'c'];
 	arrayGetValues($arr, $keys);
 
 	// Will return
@@ -245,10 +245,10 @@ function arrayMerge(array $arr1, array $arr2): array {
 	//    [id]            => 123456
 	//    [client_id]     => 789
 	//    [client_secret] => '5ebe2294ecd0e0f08eab7690d2a6ee69'
-	//    [options]       => array(
+	//    [options]       => [
 	//        'trusted'   => false
 	//        'active'    => true
-	//    )
+	//    ]
 	//)
 }
 

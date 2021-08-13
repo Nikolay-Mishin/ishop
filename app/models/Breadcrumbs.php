@@ -31,7 +31,7 @@ class Breadcrumbs {
         return $breadcrumbs;
 
         // работает только если явно задать ключи
-        // $array = array('1' => '1','2' => '2','3' => '3', '4'=>'4','5'=>'5');
+        // $array = ['1' => '1','2' => '2','3' => '3', '4'=>'4','5'=>'5'];
         /* foreach ($breadcrumbs_array as $alias => $title) {
             if ($title != end($breadcrumbs_array)) {
                 // делаем что-либо с каждым элементом
