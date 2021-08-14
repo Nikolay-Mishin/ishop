@@ -422,3 +422,5 @@
 =================
 [2021-08-14 23:52:19] Текст ошибки: Class 'R' not found | Файл: W:\domains\ishop\vendor\ishop\core\Db.php | Строка: 18
 =================
+[2021-08-14 23:53:44] Текст ошибки: syntax error, unexpected namespaced name "implements\IteratorAggregate", expecting "{" | Файл: W:\domains\ishop\vendor\gabordemooij\redbean\RedBeanPHP\OODBBean.php | Строка: 35
+=================
