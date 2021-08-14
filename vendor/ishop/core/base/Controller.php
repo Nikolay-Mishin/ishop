@@ -21,8 +21,8 @@ abstract class Controller {
 
     public string $canonical = ''; // каноническая ссылка
     public string $file_prefix = ''; // префикс
-    public array $style = ['lib' => [], 'added' => [], 'main' => []];
-    public array $script = ['lib' => [], 'init' => [], 'added' => [], 'main' => []];
+    public array $style = ['lib' => [], 'main' => [], 'add' => []];
+    public array $script = ['lib' => [], 'init' => [], 'main' => [], 'add' => []];
 
     public function __construct(array $route) {
         if (!CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
@@ -76,27 +76,26 @@ abstract class Controller {
         $this->canonical = h($url); // каноническая ссылка
     }
 
-    public function setStyle(array ...$styles): void {
+    public function setStyle(string ...$styles): void {
         $this->setFiles('style', ...$styles); // подключаем файл конфигурации стилей
     }
 
-    public function setScript(array ...$scripts): void {
+    public function setScript(string ...$scripts): void {
         $this->setFiles('script', ...$scripts); // подключаем файл конфигурации скриптов
         
     }
 
-    public function setFiles(string $type, array ...$files): void {
+    public function setFiles(string $type, string ...$files): void {
         $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
 
-        //$this->$type = $file === true ? $this->$type : $file;
         if ($file !== true) {
-            foreach($file as $file_type => $file_list){
+            foreach ($file as $file_type => $file_list) {
                 $this->$type[$file_type] = $file_list;
             }
         }
 
         foreach ($files as $file) {
-            $this->$type['added'][] = $file;
+            $this->$type['add'][] = $file;
         }
     }
 

@@ -23,7 +23,8 @@ function ajax_chat(url, target) {
 }
 
 $(document).ready(function ($) {
-	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Ishop.consts;
+	console.log(Chat);
+	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Chat;
 
 	//let server = "ws://chat:8090/WebForMyself/server.php",
 	//let server = `${PROTOCOL_SHORT}://${HOST}:${PORT}/${SERVER_PATH}`,

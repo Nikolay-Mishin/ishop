@@ -338,3 +338,13 @@
 =================
 [2021-08-13 23:12:02] Текст ошибки: Typed property ishop\base\Controller::$data must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 44
 =================
+[2021-08-14 15:18:34] Текст ошибки: Too few arguments to function debug(), 0 passed in W:\domains\ishop\vendor\ishop\core\base\Controller.php on line 80 and at least 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 10
+=================
+[2021-08-14 15:23:29] Текст ошибки: Argument 1 passed to ishop\base\Controller::setStyle() must be of the type string, array given, called in W:\domains\ishop\app\controllers\ChatController.php on line 11 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 79
+=================
+[2021-08-14 15:23:50] Текст ошибки: Argument 2 passed to ishop\base\Controller::setFiles() must be of the type array, string given, called in W:\domains\ishop\vendor\ishop\core\base\Controller.php on line 82 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 90
+=================
+[2021-08-14 15:24:15] Текст ошибки: Argument 2 passed to ishop\base\Controller::setFiles() must be of the type array, string given, called in W:\domains\ishop\vendor\ishop\core\base\Controller.php on line 82 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 90
+=================
+[2021-08-14 15:24:45] Текст ошибки: Argument 1 passed to ishop\base\Controller::setScript() must be of the type array, string given, called in W:\domains\ishop\app\controllers\ChatController.php on line 12 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 85
+=================
