@@ -3,7 +3,7 @@
 return [
     'lib' => [
         "js/jquery-1.11.0.min",
-        "/jquery-ui-1.12.1/jquery-ui.min",
+        "jquery-ui-1.12.1/jquery-ui.min",
         "js/bootstrap.min",
         "js/validator",
         "js/typeahead.bundle",

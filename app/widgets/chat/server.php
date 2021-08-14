@@ -1,6 +1,7 @@
 <?php
 
-require_once CONF . '/chat.php';
+require_once dirname(__DIR__)."/../../config/init.php";
+require_once CONF.'/chat.php';
 
 // Подключаем библиотеку Workerman
 use Workerman\Lib\Timer;

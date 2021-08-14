@@ -77,10 +77,11 @@ class Process {
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
         //debug($process);
         self::$log['start']['process'] = $process;
-        return self::getProcessList()[$process->getPid()] = $process;
+        return $_SESSION['process'][$process->getPid()] = $process;
+        return App::$app->addInProperty('process', $process->getPid(), $process);
     }
     
-    public static function killProc($pkey): ?self {
+    public static function killProc($pkey): bool {
         if ($process = self::getProcess($pkey)) {
             $process->kill();
             //debug($process);
@@ -90,9 +91,9 @@ class Process {
             self::$log['kill']['process'] = $process;
             self::$log['kill']['isRun'][] = self::isRun($process->pid);
             self::$log['kill']['result'] = $process->result;
-            return $process;
+            return true;
         }
-        return null;
+        return false;
     }
 
     public static function getProcess($pkey): ?self {
@@ -100,13 +101,26 @@ class Process {
     }
 
     public static function getProcessList(): array {
-        if (!$process_list = App::$app->getProperty('process'))) {
+        if (!isset($_SESSION['process'])) {
+            $_SESSION['process'] = [];
+        }
+        return $_SESSION['process'];
+
+        if (!$process_list = App::$app->getProperty('process')) {
             $process_list = App::$app->setProperty('process', []);
         }
         return $process_list;
     }
 
     public static function clean() {
+        if ($process_list = self::getProcessList()) {
+            foreach ($process_list as $process) {
+                $process->kill();
+            }
+            unset($_SESSION['process']);
+        }
+        return true;
+
         if ($process_list = self::getProcessList()) {
             foreach ($process_list as $process) {
                 $process->kill();
@@ -158,6 +172,7 @@ class Process {
         if (!self::isRun($this->pid)) return true;
 
         if (self::getProcess($this->getPid())) {
+            //App::$app->deleteInProperty('process', $this->getPid());
             unset($_SESSION['process'][$this->getPid()]);
         }
 

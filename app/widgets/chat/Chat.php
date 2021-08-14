@@ -18,19 +18,16 @@ class Chat {
 	public static ?Process $process = null;
 	public static string $pkey = 'chat';
 
-	public static function start(): void {
-		//Process::add('php '.SERVER, self::$pkey);
-		//debug(Process::$log);
-		if ($this->isAjax()) {
-			//exit(json_encode(['rate' => "$comment->rate"]));
-			exit(json_encode(['log' => Process::$log]));
-		}
+	public static function start(): array {
+		$process = Process::add('php '.SERVER, self::$pkey);
+		debug(Process::getProcessList());
+		return ['start' => $process ? true : false, 'log' => Process::$log];
 	}
 
-	public static function stop(): void {
-		//Process::killProc(self::$pkey);
-		debug(Process::$log);
-		//exit(json_encode(Process::$log));
+	public static function stop(): array {
+		$result = Process::killProc(self::$pkey);
+		debug(Process::getProcessList());
+		return ['stop' => $result, 'log' => Process::$log];
 	}
 
 	public static function run(): void {

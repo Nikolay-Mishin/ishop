@@ -352,3 +352,41 @@
 =================
 [2021-08-14 18:58:47] Текст ошибки: syntax error, unexpected '?>' | Файл: W:\domains\ishop\app\views\Chat\index.php | Строка: 15
 =================
+[2021-08-14 19:13:13] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 19:13:31] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 19:18:52] Текст ошибки: Class 'app\controllers\Breadcrumbs' not found | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 15
+=================
+[2021-08-14 19:39:08] Текст ошибки: Access to undeclared static property: app\models\Breadcrumbs::$layout | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 33
+=================
+[2021-08-14 19:52:25] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 19:55:26] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 20:03:34] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 20:04:07] Текст ошибки: Argument 1 passed to app\models\Modification::getModByProductId() must be of the type int, null given, called in W:\domains\ishop\app\controllers\CartController.php on line 50 | Файл: W:\domains\ishop\app\models\Modification.php | Строка: 8
+=================
+[2021-08-14 20:22:36] Текст ошибки: Метод app\controllers\ChatController::actionAction не найден | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 50
+=================
+[2021-08-14 20:22:36] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-14 20:26:07] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-14 20:37:08] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 24
+=================
+[2021-08-14 20:37:52] Текст ошибки: syntax error, unexpected ')' | Файл: W:\domains\ishop\vendor\ishop\core\libs\Process.php | Строка: 103
+=================
+[2021-08-14 20:54:46] Текст ошибки: Function name must be a string | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 14
+=================
+[2021-08-14 21:07:36] Текст ошибки: Return value of ishop\libs\Process::getProcessList() must be of the type array, object returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\Process.php | Строка: 107
+=================
+[2021-08-14 21:10:49] Текст ошибки: Return value of ishop\libs\Process::add() must be an instance of ishop\libs\Process or null, array returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\Process.php | Строка: 82
+=================
+[2021-08-14 21:40:49] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-14 22:51:20] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-14 22:57:22] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================

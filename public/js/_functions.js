@@ -1,68 +1,93 @@
-// плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (callback функция)
-function showPreloader(target = '.product-one', delay = 300, preloader = '.preloader') {
-	$(preloader).fadeIn(delay, function() {
-		$(target).hide();
-	});
-}
+/* Comments */
 
-function hidePreloader(callback = function(){}, delay = 500, fadeOut = 'slow', preloader = '.preloader') {
-	$(preloader).delay(delay).fadeOut(fadeOut, callback);
-}
-
-// Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, success = null, data = {}, args = {}, errorMsg = null, beforeSend = null, type = 'GET') {
-	success = success ? success : function(){};
-	errorMsg = errorMsg ? errorMsg : 'Ошибка! Попробуйте позже';
-	beforeSend = beforeSend ? beforeSend : function(){};
-	$.ajax({
-		url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
-		data: data, // объект с данными для отправки на серевер
-		type: type, // метод отправки запроса
-		//processData: false,
-		//contentType: false,
-		// функция, вызываемая перед отправкой запроса
-		beforeSend: beforeSend,
-		success: res => success.call(this, res, args, data),
-		//success: function(res){
-		//	success.call(this, res, args, data);
-		//},
-		/* success: function(res){
-			// res - ответ от сервера
-			success(res); // отображаем корзину (showCart())
-		}, */
-		// success: stage.bind(this), // или success: stage.bind(this, data, text) если нужно какие то аргументы передавать
-		// Ответ от сервера будет последний в списке аргументов, передаваемых в функцию (text - response).
-		// То есть: data = arguments[arguments.length-1];
-		error: function() {
-			console.log(errorMsg);
-		},
-		error: function(jqXHR, exception) {
-			var msg = '';
-			if (jqXHR.status === 0) {
-				msg = 'Not connect.\n Verify Network.';
-			}
-			else if (jqXHR.status == 404) {
-				msg = 'Requested page not found. [404]';
-			}
-			else if (jqXHR.status == 500) {
-				msg = 'Internal Server Error [500].';
-			}
-			else if (exception === 'parsererror') {
-				msg = 'Requested JSON parse failed.';
-			}
-			else if (exception === 'timeout') {
-				msg = 'Time out error.';
-			}
-			else if (exception === 'abort') {
-				msg = 'Ajax request aborted.';
-			}
-			else {
-				msg = 'Uncaught Error.\n' + jqXHR.responseText;
-			}
-			console.log({ errorMsg: errorMsg + '\n' + msg, jqXHR: jqXHR, exception: exception });
+function setEditorOnChange(editor, btn, callback = null) {
+	editorOnChange(editor, callback !== null ? callback : function (value) {
+		content = value;
+		if (content) {
+			btn.attr('disabled', false);
+		}
+		else {
+			btn.attr('disabled', true);
 		}
 	});
+	btn.attr('disabled', true);
 }
+
+function addComment(e, comment_form, content, comments, count) {
+	// блокируем отправку формы, если тип отправки Ajax
+	e.preventDefault();
+	console.log({ addComment: content, this: this });
+	// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
+	if (content) {
+		var product_id = comment_form.find('[name=product_id]').val(),
+			user_id = comment_form.find('[name=user_id]').val(),
+			parent_id = comment_form.find('[name=parent_id]').val(),
+			args = { target: comments, count: count };
+		data = { content: content, product_id: product_id, user_id: user_id, parent_id: parent_id };
+		// ajax-запрос
+		ajax(comment_form.attr('action'), getComments, data, args, 'Ошибка!', showPreloader(comments), 'POST');
+	}
+	else {
+		window.location = location.pathname; // /category/men
+	}
+}
+
+function getComments(comments, args) {
+	comments = JSON.parse(comments);
+	console.log({ comments: comments });
+	var { target, count } = args;
+	hidePreloader(function () {
+		target.html(comments.html).fadeIn();
+		count.text(comments.count);
+	});
+}
+
+function getRate(res, args, rating) {
+	res = JSON.parse(res);
+	var rate = res.rate;
+	if (rate != undefined) {
+		var add_class = rate > 0 ? 'plus' : (rate < 0 ? 'minus' : ''),
+			remove_class = rate > 0 ? 'minus' : (rate < 0 ? 'plus' : 'plus minus');
+		rating.text(rate > 0 ? `+${rate}` : rate);
+		rating.removeClass(remove_class).addClass(add_class);
+	}
+}
+
+function getReply(reply, args, comment) {
+	reply = JSON.parse(reply);
+	var editor = reply.editor,
+		comments = args.comments,
+		reply_editor = getReplyEditor(comments, args.reply_editor);
+
+	getReplyParent(reply_editor).remove();
+	comment.append(editor);
+	editor = comment.find('.editor');
+	editorInstance(editor);
+
+	console.log({ editor: editor, comment: comment });
+
+	var comment_reply = getReplyParent(editor),
+		btn = comment_reply.find('button');
+
+	setEditorOnChange(editor, btn);
+
+	// блокируем отправку формы, если тип отправки Ajax
+	if (comment_reply.data('ajax')) {
+		comment_reply.on('submit', e => addComment(e, comment_reply, content, comments, count));
+	}
+}
+
+function getReplyParent(reply, closest = 'form') {
+	return reply.parent().closest(closest);
+}
+
+function getReplyEditor(comments, find) {
+	return comments.find(find);
+}
+
+/* // Comments */
+
+/* Filters */
 
 // плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
 function showFilter(res, data) {
@@ -82,6 +107,10 @@ function showFilter(res, data) {
 		history.pushState({}, '', newURL); // объект истории браузера (позволяет запоминать состояние строки url)
 	});
 }
+
+/* // Filters */
+
+/* Cart */
 
 // отображает корзину
 function showCart(cart) {
@@ -149,3 +178,5 @@ function cartRecalc() {
 	});
 	ajax('/cart/recalc', changeCart, {productsChange: productsChange}); // ajax-запрос
 }
+
+/* // Cart */

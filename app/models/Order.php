@@ -16,6 +16,8 @@ class Order extends AppModel {
 	public static $pagination; // пагинация
 	public static int $count; // число заказов
 
+	public string $tpl = APP . '/views/mail/mail_order.php'; // шаблон письма
+
 	// аттрибуты модели (параметры/поля формы)
 	public array $attributes = [
 		'user_id' => '',
@@ -90,7 +92,7 @@ class Order extends AppModel {
 			// создаем сообщение письма и записываем его в переменную
 			// для письма администратору можно создать отдельный шаблон и подключать его ($body_admin)
 			ob_start();
-			require APP . '/views/mail/mail_order.php';
+			require $this->tpl;
 			$body = ob_get_clean();
 
 			// письмо для клиента

@@ -26,7 +26,7 @@ $(document).ready(function($) {
 	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Consts;
 
 	//let server = "ws://chat:8090/WebForMyself/server.php",
-	//let server = `${PROTOCOL_SHORT}://${HOST}:${PORT}/${SERVER_PATH}`,
+	//let server = `${PROTOCOL_SHORT}://${HOST}:${PORT}/${SERVER_PATH}/`,
 	let server = `${PROTOCOL_SHORT}://${HOST}:${PORT}`,
 		socket = new WebSocket(server);
 
@@ -78,8 +78,8 @@ $(document).ready(function($) {
 });
 
 function chat_action(data) {
-	console.log(data);
-	//data = JSON.parse(data);
+	json = data;
+	//data = JSON.parse(json);
 	//console.log(data);
-	$("#result").html(`<br>${data}`);
+	$("#result").html(`<br>${json}`);
 }

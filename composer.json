@@ -3,11 +3,11 @@
 		"psr-4": {
 			"ishop\\": "vendor/ishop/core",
 			"app\\": "app"
-			//"RB\\": "vendor/RedBeanPHP_5_7"
+			//"RedBeanPHP\\": "vendor/RedBeanPHP_5_7/RedBeanPHP"
 		}
 	},
 	"require": {
-		"gabordemooij/redbean": "dev-master",
+		//"gabordemooij/redbean": "dev-master",
 		"vlucas/valitron": "^1.4",
 		"swiftmailer/swiftmailer": "^5.4",
 		"workerman/workerman": "^3.5",

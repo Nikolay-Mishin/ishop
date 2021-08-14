@@ -4,6 +4,7 @@
 
 namespace ishop;
 
+use \Exception;
 use \Error;
 
 class ErrorHandler {
@@ -20,7 +21,7 @@ class ErrorHandler {
     }
 
     // метод для обработки исключений (курс по фреймворку)
-    public function exceptionHandler(Error $e): void {
+    public function exceptionHandler($e): void {
         // $e - оъект, содержащий всю информацию об выброшенном исключении
         // getMessage() - текст исключения
         // getFile() - файл, в котором было выброшено исключение

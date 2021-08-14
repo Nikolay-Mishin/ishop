@@ -8,6 +8,72 @@ let Asdf = new asdf();
 Asdf.dsa();
 */
 
+// плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (callback функция)
+function showPreloader(target = '.product-one', delay = 300, preloader = '.preloader') {
+	$(preloader).fadeIn(delay, function () {
+		$(target).hide();
+	});
+}
+
+function hidePreloader(callback = function () { }, delay = 500, fadeOut = 'slow', preloader = '.preloader') {
+	$(preloader).delay(delay).fadeOut(fadeOut, callback);
+}
+
+// Ajax-запрос - отправляет стандартный ajax-запрос
+function ajax(url, success = null, data = {}, args = {}, errorMsg = null, beforeSend = null, type = 'GET') {
+	success = success ? success : function () { };
+	errorMsg = errorMsg ? errorMsg : 'Ошибка! Попробуйте позже';
+	beforeSend = beforeSend ? beforeSend : function () { };
+	$.ajax({
+		url: url, // адрес для отправки запроса на серевер ('/' вначале - путь будет идти от корня или path + '/cart/add')
+		data: data, // объект с данными для отправки на серевер
+		type: type, // метод отправки запроса
+		//processData: false,
+		//contentType: false,
+		// функция, вызываемая перед отправкой запроса
+		beforeSend: beforeSend,
+		success: res => success.call(this, res, args, data),
+		//success: function(res){
+		//	success.call(this, res, args, data);
+		//},
+		/* success: function(res){
+			// res - ответ от сервера
+			success(res); // отображаем корзину (showCart())
+		}, */
+		// success: stage.bind(this), // или success: stage.bind(this, data, text) если нужно какие то аргументы передавать
+		// Ответ от сервера будет последний в списке аргументов, передаваемых в функцию (text - response).
+		// То есть: data = arguments[arguments.length-1];
+		error: function () {
+			console.log(errorMsg);
+		},
+		error: function (jqXHR, exception) {
+			var msg = '';
+			if (jqXHR.status === 0) {
+				msg = 'Not connect.\n Verify Network.';
+			}
+			else if (jqXHR.status == 404) {
+				msg = 'Requested page not found. [404]';
+			}
+			else if (jqXHR.status == 500) {
+				msg = 'Internal Server Error [500].';
+			}
+			else if (exception === 'parsererror') {
+				msg = 'Requested JSON parse failed.';
+			}
+			else if (exception === 'timeout') {
+				msg = 'Time out error.';
+			}
+			else if (exception === 'abort') {
+				msg = 'Ajax request aborted.';
+			}
+			else {
+				msg = 'Uncaught Error.\n' + jqXHR.responseText;
+			}
+			console.log({ errorMsg: errorMsg + '\n' + msg, jqXHR: jqXHR, exception: exception });
+		}
+	});
+}
+
 function delegate(selector, event, callback = function(){}, delegate = document) {
 	$(delegate).on(event, selector, function(e) {
 		callback.call(this, e, $(selector), $(delegate), event);

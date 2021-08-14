@@ -10,6 +10,11 @@ class Registry {
 
     protected static array $properties = [];
 
+    // возвращает контейнер (свойство) $properties
+    public function getProperties(): array {
+        return self::$properties;
+    }
+
     // сеттер - инициализирует (устанавливает) свойство реестра (ключ - значение)
     public function setProperty(string $name, $value) {
         return self::$properties[$name] = $value;
@@ -24,14 +29,20 @@ class Registry {
         return null;
     }
 
-    // возвращает контейнер (свойство) $properties
-    public function getProperties(): array {
-        return self::$properties;
-    }
-
-    // возвращает контейнер (свойство) $properties
     public function deleteProperty(string $name): void {
         unset(self::$properties[$name]);
+    }
+
+    public function addInProperty(string $name, string $key, $value) {
+        // если значение есть в реестре возвращаем его, иначе null
+        $property = self::getProperty($name) ?: self::setProperty($name, []);
+        $property[$key] = $value;
+        self::setProperty($name, $property);
+        return $value;
+    }
+
+    public function deleteInProperty(string $name, string $key): void {
+        if (is_array(self::$properties[$name])) unset(self::$properties[$name][$key]);
     }
 
 }

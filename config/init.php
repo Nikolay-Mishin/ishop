@@ -37,3 +37,5 @@ define("ROOT_BASE", '/'); // кореневой каталог проекта
 define("ADMIN_BASE", '/adminlte/'); // кореневой каталог админки
 
 require_once VENDOR.'/autoload.php'; // подключаем скрипт автозагрузки (composer)
+require_once LIBS.'/functions.php'; // подключаем файл с функциями
+require_once CONF.'/routes.php'; // подключаем файл с шаблонами маршрутов (путей)

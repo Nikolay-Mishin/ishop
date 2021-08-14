@@ -7,6 +7,8 @@ use ishop\App;
 
 class Breadcrumbs {
 
+    private static string $tpl = APP . '/views/breadcrumbs/breadcrumbs_tpl.php';
+
     // получаем хлебные крошки - строит хлебные крошки
     public static function getBreadcrumbs(?int $category_id = null, string $name = ''): string {
         // $name - наименование товара
@@ -28,7 +30,9 @@ class Breadcrumbs {
         if ($name) {
             $breadcrumbs .= "<li class='active'>$name</li>";
         }
-        return $breadcrumbs;
+        ob_start();
+        require_once self::$tpl;
+        return ob_get_clean();
 
         // работает только если явно задать ключи
         // $array = ['1' => '1','2' => '2','3' => '3', '4'=>'4','5'=>'5'];
