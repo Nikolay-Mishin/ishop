@@ -2,6 +2,8 @@
 
 namespace ishop\libs;
 
+use ishop\App;
+
 class Process {
     
     public static array $log = ['start' => [], 'kill' => []];
@@ -99,7 +101,7 @@ class Process {
 
     public static function getProcessList(): array {
         if (!$process_list = App::$app->getProperty('process'))) {
-            App::$app->setProperty('process', []);
+            $process_list = App::$app->setProperty('process', []);
         }
         return $process_list;
     }
@@ -109,7 +111,7 @@ class Process {
             foreach ($process_list as $process) {
                 $process->kill();
             }
-            unset($process_list);
+            App::$app->deleteProperty('process');
         }
     }
 

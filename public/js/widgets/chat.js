@@ -22,7 +22,7 @@ function ajax_chat(url, target) {
 	})
 }
 
-$(document).ready(function ($) {
+$(document).ready(function($) {
 	console.log(Chat);
 	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Chat;
 

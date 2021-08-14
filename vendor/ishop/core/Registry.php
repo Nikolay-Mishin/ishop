@@ -11,8 +11,8 @@ class Registry {
     protected static array $properties = [];
 
     // сеттер - инициализирует (устанавливает) свойство реестра (ключ - значение)
-    public function setProperty(string $name, $value): void {
-        self::$properties[$name] = $value;
+    public function setProperty(string $name, $value) {
+        return self::$properties[$name] = $value;
     }
 
     // геттер - получает свойство из реестра по имени
@@ -27,6 +27,11 @@ class Registry {
     // возвращает контейнер (свойство) $properties
     public function getProperties(): array {
         return self::$properties;
+    }
+
+    // возвращает контейнер (свойство) $properties
+    public function deleteProperty(string $name): void {
+        unset(self::$properties[$name]);
     }
 
 }
