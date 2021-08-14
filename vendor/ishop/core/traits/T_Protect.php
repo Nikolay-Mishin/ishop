@@ -7,6 +7,7 @@ namespace ishop\traits;
 
 use \Exception;
 use \Closure;
+use \Bean;
 
 trait T_Protect {
 
@@ -141,11 +142,11 @@ trait T_Protect {
 	}
 
 	private function isBean($obj) {
-		return $obj instanceof \RedBeanPHP\OODBBean;
+		return $obj instanceof Bean;
 	}
 
 
-	private function getException($code, $error, $exist = true, $access = true, $isMethod) {
+	private function getException($code, $error, $exist = true, $access = true, $isMethod = true) {
 		$context = getContext();
 		$msg = $exist && !$access ? "$context->class::$context->function (строка $context->line)" : '';
 		$msg = $msg ? "недоступ" . ($isMethod ? 'ен' : 'но') . " в области видимости $msg" : "отсутствует в объекте";
