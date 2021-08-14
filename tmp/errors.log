@@ -348,3 +348,7 @@
 =================
 [2021-08-14 15:24:45] Текст ошибки: Argument 1 passed to ishop\base\Controller::setScript() must be of the type array, string given, called in W:\domains\ishop\app\controllers\ChatController.php on line 12 | Файл: W:\domains\ishop\vendor\ishop\core\base\Controller.php | Строка: 85
 =================
+[2021-08-14 18:16:20] Текст ошибки: Call to undefined function getConsts() | Файл: W:\domains\ishop\config\require\chat_consts.php | Строка: 5
+=================
+[2021-08-14 18:58:47] Текст ошибки: syntax error, unexpected '?>' | Файл: W:\domains\ishop\app\views\Chat\index.php | Строка: 15
+=================

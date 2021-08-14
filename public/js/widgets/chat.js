@@ -23,8 +23,7 @@ function ajax_chat(url, target) {
 }
 
 $(document).ready(function($) {
-	console.log(Chat);
-	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Chat;
+	const { PROTOCOL_SHORT, HOST, PORT, SERVER_PATH } = Consts;
 
 	//let server = "ws://chat:8090/WebForMyself/server.php",
 	//let server = `${PROTOCOL_SHORT}://${HOST}:${PORT}/${SERVER_PATH}`,
@@ -72,7 +71,8 @@ $(document).ready(function($) {
 		console.log(event.target);
 		console.log(event.target.value);
 		//ajax_chat(SERVER_ACTION, event.target);
-		let data = { action: target.value };
+		let data = { action: event.target.value };
+		$("#result").html(data.action);
 		ajax(SERVER_PATH, chat_action, data);
 	});
 });
@@ -81,5 +81,5 @@ function chat_action(data) {
 	console.log(data);
 	//data = JSON.parse(data);
 	//console.log(data);
-	$("#result").html(`${target.value}<br>${data}`);
+	$("#result").html(`<br>${data}`);
 }

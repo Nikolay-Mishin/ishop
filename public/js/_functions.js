@@ -1,16 +1,16 @@
 // плавно отображаем прелоадер (fadeIn = 300) и скрываем товары (callback функция)
-function showPreloader(target = '.product-one', delay = 300, preloader = '.preloader'){
-	$(preloader).fadeIn(delay, function(){
+function showPreloader(target = '.product-one', delay = 300, preloader = '.preloader') {
+	$(preloader).fadeIn(delay, function() {
 		$(target).hide();
 	});
 }
 
-function hidePreloader(callback = function(){}, delay = 500, fadeOut = 'slow', preloader = '.preloader'){
+function hidePreloader(callback = function(){}, delay = 500, fadeOut = 'slow', preloader = '.preloader') {
 	$(preloader).delay(delay).fadeOut(fadeOut, callback);
 }
 
 // Ajax-запрос - отправляет стандартный ajax-запрос
-function ajax(url, success = null, data = {}, args = [], errorMsg = null, beforeSend = null, type = 'GET'){
+function ajax(url, success = null, data = {}, args = {}, errorMsg = null, beforeSend = null, type = 'GET') {
 	success = success ? success : function(){};
 	errorMsg = errorMsg ? errorMsg : 'Ошибка! Попробуйте позже';
 	beforeSend = beforeSend ? beforeSend : function(){};
@@ -33,24 +33,30 @@ function ajax(url, success = null, data = {}, args = [], errorMsg = null, before
 		// success: stage.bind(this), // или success: stage.bind(this, data, text) если нужно какие то аргументы передавать
 		// Ответ от сервера будет последний в списке аргументов, передаваемых в функцию (text - response).
 		// То есть: data = arguments[arguments.length-1];
-		error: function () {
+		error: function() {
 			console.log(errorMsg);
 		},
-		error: function (jqXHR, exception) {
+		error: function(jqXHR, exception) {
 			var msg = '';
 			if (jqXHR.status === 0) {
 				msg = 'Not connect.\n Verify Network.';
-			} else if (jqXHR.status == 404) {
+			}
+			else if (jqXHR.status == 404) {
 				msg = 'Requested page not found. [404]';
-			} else if (jqXHR.status == 500) {
+			}
+			else if (jqXHR.status == 500) {
 				msg = 'Internal Server Error [500].';
-			} else if (exception === 'parsererror') {
+			}
+			else if (exception === 'parsererror') {
 				msg = 'Requested JSON parse failed.';
-			} else if (exception === 'timeout') {
+			}
+			else if (exception === 'timeout') {
 				msg = 'Time out error.';
-			} else if (exception === 'abort') {
+			}
+			else if (exception === 'abort') {
 				msg = 'Ajax request aborted.';
-			} else {
+			}
+			else {
 				msg = 'Uncaught Error.\n' + jqXHR.responseText;
 			}
 			console.log({ errorMsg: errorMsg + '\n' + msg, jqXHR: jqXHR, exception: exception });
@@ -59,9 +65,9 @@ function ajax(url, success = null, data = {}, args = [], errorMsg = null, before
 }
 
 // плавно скрываем прелоадер (fadeOut = 'slow') с задержкой (delay = 500) и отображаем товары (call-back функция)
-function showFilter(res, data){
+function showFilter(res, data) {
 	//$('.preloader').delay(500).fadeOut('slow', function(){
-	hidePreloader(function(){
+	hidePreloader(function() {
 		$('.product-one').html(res).fadeIn();
 		// удаляем из строки поиска выражение 'filter=1,' (начиная со слова filter, поле могут идти любые символы (=1,) до знака &)
 		// ?filter=1,&page=2 => ?page=2
@@ -78,33 +84,35 @@ function showFilter(res, data){
 }
 
 // отображает корзину
-function showCart(cart){
+function showCart(cart) {
 	changeCart(cart); // изменяем содержимое корзины
 	$('#cart').modal(); // показываем модальное окно
 }
 
 // изменяет содержимое корзины
-function changeCart(cart){
+function changeCart(cart) {
 	$('#cart .modal-body').html(cart); // в тело модального окна записываем полученный из запроса ответ (контент)
 	// если есть элемент с классом 'cart-sum' (корзина не пуста), меняем значение общей сумму у иконки с корзиной
-	if($('.cart-sum').text()){
+	if ($('.cart-sum').text()) {
 		$('.simpleCart_total').html($('#cart .cart-sum').text()); // в элемент с классом 'simpleCart_total' добавляем сумму заказа
-	}else{
+	}
+	else {
 		$('.simpleCart_total').text('Empty Cart');
 	}
 	// если корзина пуста - скрываем в футере кнопки для взаимодействия с содержимым (оформить заказ и очистить корзину)
 	// trim - обрезаем пробелы по бокам
-	if($.trim(cart) == '<h3>Корзина пуста</h3>'){
+	if ($.trim(cart) == '<h3>Корзина пуста</h3>') {
 		// скрываем ссылку для оформления заказа и кнопку для очистки корзины
 		$('#cart-order, #cart-clean').css('display', 'none');
-	}else{
+	}
+	else {
 		// отображаем ссылку для оформления заказа и кнопку для очистки корзины
 		$('#cart-order, #cart-clean').css('display', 'inline-block');
 	}
 }
 
 // отображает корзину при клике по ней
-function getCart(){
+function getCart() {
 	ajax('/cart/show', showCart); // ajax-запрос
 	/* $.ajax({
 		url: '/cart/show',
@@ -119,7 +127,7 @@ function getCart(){
 }
 
 // очищает корзину
-function clearCart(){
+function clearCart() {
 	ajax('/cart/clear', changeCart); // ajax-запрос
 	/* $.ajax({
 		url: '/cart/clear',
@@ -134,9 +142,9 @@ function clearCart(){
 }
 
 // пересчитывает корзину при изменении количества товаров
-function cartRecalc(){
+function cartRecalc() {
 	var productsChange = {}; // количество товара (если нет = 1)
-	cartRecalc.productsChange.forEach(function(item){
+	cartRecalc.productsChange.forEach(function(item) {
 		productsChange[$(item).data('id')] = $(item).val() - $(item).data('qty');
 	});
 	ajax('/cart/recalc', changeCart, {productsChange: productsChange}); // ajax-запрос

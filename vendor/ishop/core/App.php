@@ -27,6 +27,26 @@ class App {
 		Router::dispatch($query); // передаем в маршрутизатор для обработки запрошенный url адрес
 	}
 
+	public static function getConsts(array $vars = [], bool $categorize = true, string $part = 'user'): string {
+		/**
+		* Метод Object.freeze() замораживает объект: это значит, что он предотвращает добавление новых свойств к объекту, удаление старых свойств из объекта и изменение существующих свойств или значения их атрибутов перечисляемости, настраиваемости и записываемости. В сущности, объект становится эффективно неизменным. Метод возвращает замороженный объект.
+		*/
+		//debug(varName($vars));
+		$project = self::$app->getProperty('project');
+		$consts = json_encode(get_defined_constants($categorize)[$part]);
+		$vars = json_encode($vars);
+		return "<!-- _variables - ряд основных переменных, которые будут использоваться в главном скрипте -->
+		<script>
+			const $project = {
+				Consts: $consts,
+				Vars: $vars
+			};
+			freeze($project); // замораживает объект
+			freeze($project.consts); // замораживает объект
+			freeze($project.vars); // замораживает объект
+		</script>";
+	}
+
 	protected function getParams(): void {
 		$params = require_once CONF . '/params.php'; // массив параметров (настроек) приложения
 		// записываем каждый из параметров в реестр

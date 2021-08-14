@@ -1,11 +1,11 @@
-(function(){
+(function() {
 	console.log(Ishop);
 })();
 
 /* Comments */
 var comments = $('#comments');
 
-if(notEmpty(comments)){
+if (notEmpty(comments)) {
 	var comment_add = comments.find('#comment_add'),
 		editor = comment_add.find('.editor'),
 		btn = comment_add.find('button'),
@@ -21,11 +21,11 @@ if(notEmpty(comments)){
 	console.log(content);
 	
 	// блокируем отправку формы, если тип отправки Ajax
-	if(comment_add.data('ajax')){
+	if (comment_add.data('ajax')) {
 		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));
 	}
 
-	delegate(vote, 'click touchstart', function(e, vote){
+	delegate(vote, 'click touchstart', function(e, vote) {
 		var $this = $(this),
 			url = $this.data('url'),
 			rating = $this.siblings('.rating');
@@ -33,7 +33,7 @@ if(notEmpty(comments)){
 		ajax(url, getRate, rating); // ajax-запрос
 	}, comments);
 
-	delegate(reply, 'click touchstart', function(e, reply){
+	delegate(reply, 'click touchstart', function(e, reply) {
 		e.preventDefault();
 		var $this = $(this),
 			url = $this.attr('href'),
@@ -46,9 +46,9 @@ if(notEmpty(comments)){
 }
 
 function setEditorOnChange(editor, btn, callback = null){
-	editorOnChange(editor, callback !== null ? callback : function(value){
+	editorOnChange(editor, callback !== null ? callback : function(value) {
 		content = value;
-		if(content){
+		if (content) {
 			btn.attr('disabled', false);
 		}
 		else{
@@ -58,12 +58,12 @@ function setEditorOnChange(editor, btn, callback = null){
 	btn.attr('disabled', true);
 }
 
-function addComment(e, comment_form, content, comments, count){
+function addComment(e, comment_form, content, comments, count) {
 	// блокируем отправку формы, если тип отправки Ajax
 	e.preventDefault();
 	console.log({ addComment: content, this: this });
 	// если список данных не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
-	if(content){
+	if (content) {
 		var product_id = comment_form.find('[name=product_id]').val(),
 			user_id = comment_form.find('[name=user_id]').val(),
 			parent_id = comment_form.find('[name=parent_id]').val(),
@@ -71,25 +71,26 @@ function addComment(e, comment_form, content, comments, count){
 		data = { content: content, product_id: product_id, user_id: user_id, parent_id: parent_id };
 		// ajax-запрос
 		ajax(comment_form.attr('action'), getComments, data, args, 'Ошибка!', showPreloader(comments), 'POST');
-	}else{
+	}
+	else {
 		window.location = location.pathname; // /category/men
 	}
 }
 
-function getComments(comments, args){
+function getComments(comments, args) {
 	comments = JSON.parse(comments);
 	console.log({ comments: comments });
 	var { target, count } = args;
-	hidePreloader(function(){
+	hidePreloader(function() {
 		target.html(comments.html).fadeIn();
 		count.text(comments.count);
 	});
 }
 
-function getRate(res, args, rating){
+function getRate(res, args, rating) {
 	res = JSON.parse(res);
 	var rate = res.rate;
-	if(rate != undefined){
+	if (rate != undefined) {
 		var add_class = rate > 0 ? 'plus' : (rate < 0 ? 'minus' : ''),
 			remove_class = rate > 0 ? 'minus' : (rate < 0 ? 'plus' : 'plus minus');
 		rating.text(rate > 0 ? `+${rate}` : rate);
@@ -97,7 +98,7 @@ function getRate(res, args, rating){
 	}
 }
 
-function getReply(reply, args, comment){
+function getReply(reply, args, comment) {
 	reply = JSON.parse(reply);
 	var editor = reply.editor,
 		comments = args.comments,
@@ -116,7 +117,7 @@ function getReply(reply, args, comment){
 	setEditorOnChange(editor, btn);
 
 	// блокируем отправку формы, если тип отправки Ajax
-	if(comment_reply.data('ajax')){
+	if (comment_reply.data('ajax')) {
 		comment_reply.on('submit', e => addComment(e, comment_reply, content, comments, count));
 	}
 }
@@ -125,7 +126,7 @@ function getReplyParent(reply, closest = 'form') {
 	return reply.parent().closest(closest);
 }
 
-function getReplyEditor(comments, find){
+function getReplyEditor(comments, find) {
 	return comments.find(find);
 }
 
@@ -133,7 +134,7 @@ function getReplyEditor(comments, find){
 
 /* Filters */
 // делигируем событие изменения от body инпутам в сайдбаре (списке фильтров)
-$('body').on('change', '.w_sidebar input', function(){
+$('body').on('change', '.w_sidebar input', function() {
 	var checked = $('.w_sidebar input:checked'), // список выбранных фильтров
 		data = '';
 	// проходим в фикле по выбранным фильтрам и формируем строку со списком id фильтров, разделенных ','
@@ -141,7 +142,7 @@ $('body').on('change', '.w_sidebar input', function(){
 		data += this.value + ',';
 	});
 	// если список фильтров не пуст обрабатываем его, иначе перезапрашиваем текущую страницу
-	if(data){
+	if (data) {
 		ajax(location.href, showFilter, { filter: data }, data, 'Ошибка!', showPreloader); // ajax-запрос
 		/* $.ajax({
 			url: location.href, // url для отправки на сервер (абсолютный адрес текущей страницы - http://ishop/category/men)
@@ -156,7 +157,8 @@ $('body').on('change', '.w_sidebar input', function(){
 				alert('Ошибка!');
 			}
 		}); */
-	}else{
+	}
+	else {
 		window.location = location.pathname; // /category/men
 	}
 });
@@ -202,14 +204,16 @@ var products = new Bloodhound({
 
 products.initialize(); // инициализируем объект для поискового запроса
 
-$("#typeahead").typeahead({
-	// hint: false,
-	highlight: true // подсветка вводимого текста
-},{
-	name: 'products',
-	display: 'title', // то, что хотим показывать
-	limit: 10, // на 1 меньше, чем будет приходить (LIMIT 11)
-	source: products // источник данных
+$("#typeahead").typeahead(
+	{
+		// hint: false,
+		highlight: true // подсветка вводимого текста
+	},
+	{
+		name: 'products',
+		display: 'title', // то, что хотим показывать
+		limit: 10, // на 1 меньше, чем будет приходить (LIMIT 11)
+		source: products // источник данных
 });
 
 // при выборе результата из выпадающего списка срабатывает событие (typeahead:select)
@@ -225,7 +229,7 @@ $('#typeahead').bind('typeahead:select', function(ev, suggestion) {
 // событие при клике по сслыке для добавления в корзину
 // Урок - делегирование событий в JS (для элементов которых изначально не было на странице - добавлены динамически)
 // берем элемент 'body' (он есть всегда) и от него делегируем событие 'click' для элементов с классом 'add-to-cart-link'
-$('body').on('click', '.add-to-cart-link', function(e){
+$('body').on('click', '.add-to-cart-link', function(e) {
 	e.preventDefault(); // отменяем действие по умолчанию (запретить переход по ссылке и тд) - также можно return false;
 	var id = $(this).data('id'), // id с номером товара
 		qty = $('.quantity input').val() ? $('.quantity input').val() : 1, // количество товара (если нет = 1)
@@ -248,7 +252,7 @@ $('body').on('click', '.add-to-cart-link', function(e){
 
 // событие при клике на ссылку для удаления товара из корзины
 // делегируем событие клика от тела модального окна корзины элементу с классом 'del-item'
-$('#cart .modal-body').on('click', '.del-item', function(){
+$('#cart .modal-body').on('click', '.del-item', function() {
 	var id = $(this).data('id'); // id товара, который хотим удалить из корзины
 	ajax('/cart/delete', changeCart, { id: id }, id, 'Error!'); // ajax-запрос
 	/* $.ajax({
@@ -321,13 +325,13 @@ $('#cart .modal-body').on('click', '.del-item', function(){
 //}
 
 // при изменении инпута корзины
-$('body').on('change', '#cart input', function(){
+$('body').on('change', '#cart input', function() {
 	// если кнопка пересчета корзины заблокирована, разблокируем ее
-	if($('#cart-recalc').attr('disabled')){
+	if ($('#cart-recalc').attr('disabled')) {
 		$('#cart-recalc').attr('disabled', false);
 		cartRecalc.productsChange = [];
 	}
-	if (!cartRecalc.productsChange.includes(this)){
+	if (!cartRecalc.productsChange.includes(this)) {
 		cartRecalc.productsChange.push(this);
 	}
 });
@@ -343,20 +347,21 @@ $('body').on('change', '#cart input', function(){
 /* // Cart */
 
 // отслеживаем изменение выпадающего списка валют
-$('#currency').change(function(){
+$('#currency').change(function() {
 	window.location = 'currency/change?curr=' + $(this).val(); // запрашиваем страницу и передаем управление контроллеру валюты
 });
 
 // отслеживаем изменение выпадающего списка модификаций
-$('.available select').on('change', function(){
+$('.available select').on('change', function() {
 	var modId = $(this).val(), // идентификатор (id) выбранного модификатора
 		color = $(this).find('option').filter(':selected').data('title'), // цвет выбранного модификатора
 		price = $(this).find('option').filter(':selected').data('price'), // цена выбранного модификатора
 		basePrice = $('#base-price').data('base'); // базовая цена товара
 	// если цена установалена (выбран модификатор), устанавливаем цену модификатора
-	if(price){
+	if (price) {
 		$('#base-price').text(symboleLeft + price + symboleRight);
-	}else{
+	}
+	else {
 		$('#base-price').text(symboleLeft + basePrice + symboleRight); // если пользователь вернулся к базовой версии товара
 	}
 });

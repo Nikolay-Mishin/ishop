@@ -12,4 +12,4 @@
 	</div>
 </form>
 
-<?= require_once CONF.'/require/chat_consts.php'; ?>
+<? require_once CONF.'/chat.php'; ?>

@@ -98,10 +98,6 @@ function upperCamelCase(string $name): string {
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){ return strtoupper($matches[1]); }, $name);
 }
 
-function getConsts(bool $categorize = true, string $part = 'user'): string {
-	return json_encode(get_defined_constants($categorize)[$part]);
-}
-
 function callMethod(object $class, string $method, array $attrs = []): bool {
 	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
@@ -268,6 +264,15 @@ function toArray($attrs, bool $attrToArray = false, array $data = [], string $re
 		}
 	}
 	return ${$result};
+}
+
+function varName($v): ?string {
+	$trace = debug_backtrace();
+	$vLine = file(__FILE__);
+	$fLine = $vLine[$trace[0]['line'] - 1];
+    debug([$vLine, $fLine, $trace]);
+	preg_match("#\\$(\w+)#", $fLine, $match);
+	return $match[1] ?? null;
 }
 
 function getTrace(int $id = 0, bool $args = false): object {
