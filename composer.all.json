@@ -1,20 +1,22 @@
 {
 	//cd domains/ishop
 	//composer dumpautoload
+	//composer update --lock
+	//composer install
+	// ~1.2.3 => до 1.3 не включительно (будет меняться только последняя цифра) - 1.2.5, 1.2.8 и тд.
+	// ^1.2.3 => вплоть до 2.0 (не меняется только первая цифра) - 1.3, 1.4 и 1.9 подходят, в то время как 2.0 — нет.
 	"autoload": {
 		"psr-4": {
 			"ishop\\": "vendor/ishop/core",
-			"app\\": "app"
-			//"RedBeanPHP\\": "vendor/RedBeanPHP_5_7",
-			//"RedBeanPHP\\": "vendor/gabordemooij/redbean/RedBeanPHP"
+			"app\\": "app",
+			"RedBeanPHP\\": "vendor/RedBeanPHP_5_7"
 		}
 	},
 	"require": {
-		//"gabordemooij/redbean": "dev-master",
+		"gabordemooij/redbean": "dev-master",
 		"vlucas/valitron": "^1.4",
 		"swiftmailer/swiftmailer": "^5.4",
 		"workerman/workerman": "^3.5",
 		"cboden/ratchet": "^0.4.2"
-		//"cboden/ratchet": "0.3.*"
 	}
 }
