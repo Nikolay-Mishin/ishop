@@ -9,6 +9,7 @@ use \Exception;
 class View {
 
 	use \ishop\traits\T_SetProperties;
+	use \ishop\traits\T_GetContents;
 
 	public array $route = [];
 	public string $controller = '';
@@ -73,7 +74,7 @@ class View {
 	// рендерит (формирует) страницу для пользователя на основе полученных данных
 	public function render(array $data): void {
 		// если $data - массив, то извлечем данные из массива и сформируем из них соответствующие переменные
-		extract($data);
+		//extract($data);
 		// prefix - имя префикса (админки)
 		// controller - имя папки, в которой лежат соответствующие вызванному контроллеру виды
 		// view - имя вида, который должен быть отображен
@@ -81,9 +82,7 @@ class View {
 		$viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
 		// если такой файл существует - подключаем его, иначе выбрасываем исключение - такой вид не найден
 		if (is_file($viewFile)) {
-			ob_start(); // включаем буферизацию, чтобы вид не выводился
-			require_once $viewFile; // подключаем файл вида
-			$content = ob_get_clean(); // возвращаем все данные из буфера в переменную и одновременно очистим буфер
+			$content = self::getFileContents($viewFile, $data); // получаем контент из буфера
 		}
 		else {
 			throw new Exception("Не найден вид {$viewFile}", 500);

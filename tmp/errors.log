@@ -436,3 +436,103 @@
 =================
 [2021-08-15 14:06:30] Текст ошибки: Class 'R' not found | Файл: W:\domains\ishop\vendor\ishop\core\Db.php | Строка: 18
 =================
+[2021-08-15 15:13:41] Текст ошибки: Call to undefined function app\models\getContents() | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 33
+=================
+[2021-08-15 15:14:02] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 33
+=================
+[2021-08-15 15:14:42] Текст ошибки: Call to undefined method app\models\Breadcrumbs::getContents() | Файл: W:\domains\ishop\app\models\Breadcrumbs.php | Строка: 33
+=================
+[2021-08-15 15:30:50] Текст ошибки: Argument 1 passed to ishop\base\View::getContents() must be of the type string, null given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 88 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_GetContents.php | Строка: 10
+=================
+[2021-08-15 15:34:56] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 15:34:56] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:34:56] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:34:56] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:34:56] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:36:24] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 15:36:24] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:36:24] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:36:24] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:36:24] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:53:44] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 15:53:44] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:53:44] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:53:44] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:53:44] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:57:35] Текст ошибки: Return value of ishop\base\Model::getFileContents() must be of the type string, object returned | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_GetContents.php | Строка: 17
+=================
+[2021-08-15 15:58:04] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 15:58:04] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:58:04] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:58:04] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:58:04] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:59:18] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 15:59:18] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:59:18] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:59:18] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 15:59:18] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:00:48] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 16:00:48] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:00:48] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:00:48] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:00:48] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:37] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 16:03:37] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:37] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:37] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:37] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:52] Текст ошибки: Cannot re-assign $this | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_GetContents.php | Строка: 13
+=================
+[2021-08-15 16:03:52] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:53] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:53] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:03:53] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:05:59] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\comment\comments_tpl.php | Строка: 3
+=================
+[2021-08-15 16:05:59] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:05:59] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:05:59] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 16:05:59] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================

@@ -6,6 +6,8 @@ use ishop\Cache;
 
 class Filter {
 
+	use \ishop\traits\T_GetContents;
+
 	public ?array $groups; // группы фильтров
 	public ?array $attrs; // аттрибуты групп фильтров
 	public string $tpl; // шаблон для формирования списка фильтров
@@ -37,13 +39,7 @@ class Filter {
 
 	// получает html-разметку
 	protected function getHtml(): string {
-		ob_start(); // включаем буферизацию
-		$filter = self::getFilter();
-		if (!empty($filter)) {
-			$filter = explode(',', $filter);
-		}
-		require $this->tpl; // подключаем шаблон
-		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
+		return $this->getContents($this->tpl, compact('filter')); // получаем контент из буфера
 	}
 
 	// получает список групп фильтров

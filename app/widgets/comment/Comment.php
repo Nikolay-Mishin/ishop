@@ -52,9 +52,7 @@ class Comment extends Menu {
 
 	// получает html-разметку
 	protected function getComments(string $comments, ?Editor $editor = null): string {
-		ob_start(); // включаем буферизацию
-		require $this->comments_tpl; // подключаем шаблон
-		return ob_get_clean(); // получаем контент из буфера и очищаем буфер
+		return $this->getContents($this->comments_tpl, compact('comments', 'editor')); // получаем контент из буфера
 	}
 
 	protected function getTitle(): string {

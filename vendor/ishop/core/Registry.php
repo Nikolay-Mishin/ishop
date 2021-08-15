@@ -6,7 +6,7 @@ namespace ishop;
 
 class Registry {
 
-    use \ishop\traits\T_Singletone; // подключаем трейт Singletone с помощью директивы (служебного слова) use
+    use traits\T_Singletone; // подключаем трейт Singletone с помощью директивы (служебного слова) use
 
     protected static array $properties = [];
 

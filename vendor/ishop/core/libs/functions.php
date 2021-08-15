@@ -270,7 +270,7 @@ function varName($v): ?string {
 	$trace = debug_backtrace();
 	$vLine = file(__FILE__);
 	$fLine = $vLine[$trace[0]['line'] - 1];
-    debug([$vLine, $fLine, $trace]);
+	debug([$vLine, $fLine, $trace]);
 	preg_match("#\\$(\w+)#", $fLine, $match);
 	return $match[1] ?? null;
 }

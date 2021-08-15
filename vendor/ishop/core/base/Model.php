@@ -11,6 +11,7 @@ abstract class Model extends Sql {
 
 	use \ishop\traits\T_SetProperties;
 	use \ishop\traits\T_Protect;
+	use \ishop\traits\T_GetContents;
 
 	public array $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public array $errors = []; // хранение ошибок

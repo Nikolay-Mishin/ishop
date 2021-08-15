@@ -1,63 +1,12 @@
-a:2:{s:4:"data";s:1455:"<li>
-    <a href="category/men">Men</a>
-            <ul>
-            <li>
-    <a href="category/elektronnye">Электронные</a>
-            <ul>
-            <li>
-    <a href="category/casio">Casio</a>
+a:2:{s:4:"data";s:577:"<li>
+    <a href="category/<br />
+<b>Notice</b>:  Undefined variable: item in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
+<br />
+<b>Notice</b>:  Trying to access array offset on value of type null in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
+"><br />
+<b>Notice</b>:  Undefined variable: item in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
+<br />
+<b>Notice</b>:  Trying to access array offset on value of type null in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
+</a>
     </li>
-<li>
-    <a href="category/citizen">Citizen</a>
-    </li>
-        </ul>
-    </li>
-<li>
-    <a href="category/mehanicheskie">Механические</a>
-            <ul>
-            <li>
-    <a href="category/royal-london">Royal London</a>
-    </li>
-<li>
-    <a href="category/seiko">Seiko</a>
-    </li>
-<li>
-    <a href="category/epos">Epos</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-<li>
-    <a href="category/women">Women</a>
-            <ul>
-            <li>
-    <a href="category/elektronnye-11">Электронные</a>
-            <ul>
-            <li>
-    <a href="category/adriatica">Adriatica</a>
-    </li>
-        </ul>
-    </li>
-<li>
-    <a href="category/mehanicheskie-12">Механические</a>
-            <ul>
-            <li>
-    <a href="category/anne-klein">Anne Klein</a>
-    </li>
-        </ul>
-    </li>
-        </ul>
-    </li>
-<li>
-    <a href="category/kids">Kids</a>
-    </li>
-<li>
-    <a href="category/testovaya-kategoriya">Тестовая категория</a>
-            <ul>
-            <li>
-    <a href="category/testovaya-kategoriya-2">Тестовая категория 2</a>
-    </li>
-        </ul>
-    </li>
-";s:8:"end_time";i:1629026842;}
+";s:8:"end_time";i:1629037138;}

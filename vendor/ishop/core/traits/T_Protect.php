@@ -14,52 +14,52 @@ trait T_Protect {
 	protected array $protectProperties = [];
 	protected array $protectMethods = [];
 
-	public function __get($property) {
-		return $this->exist($property, function($obj, $property) {
+	public function __get(string $property) {
+		return $this->exist($property, function(object $obj, string $property) {
 			return $obj->$property;
 		});
 	}
 
-	public function __set($property, $value) {
-		$this->exist($property, function($obj, $property, $const, $class) use($value) {
+	public function __set(string $property, $value): void {
+		$this->exist($property, function(object $obj, string $property, bool $const, string $class) use($value) {
 			!$const ? $obj->$property = $value : $this->getException(500, "Изменение значения свойства $class::$property");
 		});
 	}
 
-	public function __call($method, array $args) {
-		return $this->exist($method, function($obj, $method, $const, $class, $isBean, $exist) use($args) {
+	public function __call(string $method, array $args) {
+		return $this->exist($method, function(object $obj, string $method, $const, string $class, bool $isBean, bool $exist) use($args) {
 			//debug(['class' => getClassName($obj), 'method' => $method, 'isBean' => $isBean, 'exist' => $exist]);
 			return $isBean && $exist ? call_user_func_array([$obj, $method], $args) : callPrivateMethod($obj, $method, $args);
 		}, 'protectMethods');
 	}
 
-	public function getProtectProperties() {
+	public function getProtectProperties(): array {
 		return $this->protectProperties;
 	}
 
-	public function getProtectMethods() {
+	public function getProtectMethods(): array {
 		return $this->protectMethods;
 	}
 
-	protected function setProtectProperties(string ...$protectProperties) {
+	protected function setProtectProperties(string ...$protectProperties): void {
 		$this->protectProperties = [];
 		$this->addProtectProperties($protectMethods);
 	}
 
-	protected function addProtectProperties(string ...$protectProperties) {
+	protected function addProtectProperties(string ...$protectProperties): void {
 		$this->structuredProtect($protectProperties);
 	}
 
-	protected function setProtectMethods(string ...$protectMethods) {
+	protected function setProtectMethods(string ...$protectMethods): void {
 		$this->protectMethods = [];
 		$this->addProtectMethods($protectMethods);
 	}
 
-	protected function addProtectMethods(string ...$protectMethods) {
+	protected function addProtectMethods(string ...$protectMethods): void {
 		$this->structuredProtect($protectMethods, 'protectMethods');
 	}
 
-	private function structuredProtect($protectProperties, $protectList = 'protectProperties', $new = true) {
+	private function structuredProtect($protectProperties, string $protectList = 'protectProperties', bool $new = true): void {
 		if($new) $this->structuredProtect($this->$protectList, $protectList, false);
 		//debug(["$protectList - start" => $this->$protectList]);
 		foreach (toArray($protectProperties) as $property => $mod) {
@@ -69,7 +69,7 @@ trait T_Protect {
 		//debug(["$protectList - end" => $this->$protectList]);
 	}
 
-	private function reverseProtectProperty($property, $mod, $protectList, $new) {
+	private function reverseProtectProperty($property, $mod, string $protectList, bool $new): void {
 		list($isConst, $isMethod) = [is_int($property), $this->isMethod($protectList)];
 		$reverse = $new ? !$isMethod && $isConst && !array_key_exists($property, $this->$protectList) : !$isMethod && $isConst;
 		list($key, $property) = [$property, $isConst ? $mod : $property];
@@ -88,16 +88,16 @@ trait T_Protect {
 		//debug([$property => $mod, 'isMethod' => $isMethod, 'key' => $key, 'exist' => $exist, 'del' => !$new && !$exist]);
 	}
 
-	private function isMethod($protectList) {
+	private function isMethod(string $protectList): string {
 		return $protectList == 'protectMethods';
 	}
 
-	private function getExists($protectList, $property, $obj = null) {
+	private function getExists(string $protectList, string $property, ?object $obj = null) {
 		$exist = $this->isMethod($protectList) ? 'isCallable' : 'property_exists';
 		return call_user_func_array($exist, [$obj ?? $this, $property]);
 	}
 
-	private function exist($property, Closure $callback, $protectList = 'protectProperties') {
+	private function exist(string $property, Closure $callback, string $protectList = 'protectProperties') {
 		$this->structuredProtect($this->$protectList, $protectList, false);
 		$class = getClassName($this);
 		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";
@@ -109,7 +109,7 @@ trait T_Protect {
 		return $_property;
 	}
 
-	private function propertyExist($obj, $property, Closure $callback, $protectList = 'protectProperties', $inProperty = false) {
+	private function propertyExist(object $obj, string $property, Closure $callback, string $protectList = 'protectProperties', bool $inProperty = false): ?array {
 		if (is_object($obj)) return null;
 
 		$exist = $this->getExists($protectList, $property, $obj);
@@ -127,7 +127,8 @@ trait T_Protect {
 		if ($propertyExist && $access) {
 			$isConst = ($this->$protectList[$property] ?? 'get') === 'get';
 			$_property = $callback($obj, $property, $isConst, getClassName($obj), $isBean, $exist);
-		} elseif (!$access && !$isBean && !$inProperty) {
+		}
+		elseif (!$access && !$isBean && !$inProperty) {
 			//debug(['protectProperties' => $this->protectProperties]);
 			foreach ($this->protectProperties as $protect => $mod) {
 				//debug([$protect => $mod]);
@@ -141,12 +142,12 @@ trait T_Protect {
 		return [$_property ?? null, $propertyExist, $access];
 	}
 
-	private function isBean($obj) {
+	private function isBean(object $obj): Bean {
 		return $obj instanceof Bean;
 	}
 
 
-	private function getException($code, $error, $exist = true, $access = true, $isMethod = true) {
+	private function getException(int $code, string $error, bool $exist = true, bool $access = true, bool $isMethod = false): void {
 		$context = getContext();
 		$msg = $exist && !$access ? "$context->class::$context->function (строка $context->line)" : '';
 		$msg = $msg ? "недоступ" . ($isMethod ? 'ен' : 'но') . " в области видимости $msg" : "отсутствует в объекте";

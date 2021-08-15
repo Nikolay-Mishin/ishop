@@ -7,6 +7,8 @@ use ishop\App; // подключаем класс базовый приложе�
 
 class Currency {
 
+    use \ishop\traits\T_GetContents;
+
     protected string $tpl; // шаблон валюты
     protected array $currencies; // список всех доступных валют
     protected array $currency; // текущая валюта
@@ -53,9 +55,7 @@ class Currency {
 
     // формирует html-разметку
     protected function getHtml(): string {
-        ob_start(); // включаем буферизацию
-        require_once $this->tpl; // подключаем шаблон
-        return ob_get_clean(); // возвращаем контент из буфера и очищаем его
+        return $this->getContents($this->tpl); // получаем контент из буфера
     }
 
 }

@@ -15,6 +15,7 @@ use ishop\Cache;
 class Menu {
 
 	use \ishop\traits\T_SetProperties;
+	use \ishop\traits\T_GetContents;
 
 	protected bool $isMenu = true;
 	protected $data; // данные для меню
@@ -156,13 +157,11 @@ class Menu {
 
 	// метод для формирования куска html-разметки конкретной категории по шаблону
 	// код взят из бесплатного курса по созданию фреймворка
-	protected function getHtml(?array $item = null, ?int $id = null, string $tab = ''){
+	protected function getHtml(?array $item = null, ?int $id = null, string $tab = ''): string {
 		// $category - категория (участок дерева)
 		// $tab - разделитель
 		// $id - id категории
-		ob_start(); // включаем буферизацию
-		require $this->tpl; // подключаем шаблон меню
-		return ob_get_clean(); // возвращаем данные из буфера
+		return $this->getContents($this->tpl, compact('item', 'id', 'tab')); // получаем контент из буфера
 	}
 
 }
