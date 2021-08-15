@@ -5,7 +5,6 @@ namespace React\Dns\Query;
 use React\Dns\Model\Message;
 use React\Dns\Protocol\BinaryDumper;
 use React\Dns\Protocol\Parser;
-use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use React\Promise\Deferred;
 
@@ -18,7 +17,8 @@ use React\Promise\Deferred;
  * The following example looks up the `IPv6` address for `reactphp.org`.
  *
  * ```php
- * $executor = new TcpTransportExecutor('8.8.8.8:53');
+ * $loop = Factory::create();
+ * $executor = new TcpTransportExecutor('8.8.8.8:53', $loop);
  *
  * $executor->query(
  *     new Query($name, Message::TYPE_AAAA, Message::CLASS_IN)
@@ -27,6 +27,8 @@ use React\Promise\Deferred;
  *         echo 'IPv6: ' . $answer->data . PHP_EOL;
  *     }
  * }, 'printf');
+ *
+ * $loop->run();
  * ```
  *
  * See also [example #92](examples).
@@ -36,8 +38,9 @@ use React\Promise\Deferred;
  *
  * ```php
  * $executor = new TimeoutExecutor(
- *     new TcpTransportExecutor($nameserver),
- *     3.0
+ *     new TcpTransportExecutor($nameserver, $loop),
+ *     3.0,
+ *     $loop
  * );
  * ```
  *
@@ -63,8 +66,9 @@ use React\Promise\Deferred;
  * ```php
  * $executor = new CoopExecutor(
  *     new TimeoutExecutor(
- *         new TcpTransportExecutor($nameserver),
- *         3.0
+ *         new TcpTransportExecutor($nameserver, $loop),
+ *         3.0,
+ *         $loop
  *     )
  * );
  * ```
@@ -128,10 +132,10 @@ class TcpTransportExecutor implements ExecutorInterface
     private $readPending = false;
 
     /**
-     * @param string         $nameserver
-     * @param ?LoopInterface $loop
+     * @param string        $nameserver
+     * @param LoopInterface $loop
      */
-    public function __construct($nameserver, LoopInterface $loop = null)
+    public function __construct($nameserver, LoopInterface $loop)
     {
         if (\strpos($nameserver, '[') === false && \substr_count($nameserver, ':') >= 2 && \strpos($nameserver, '://') === false) {
             // several colons, but not enclosed in square brackets => enclose IPv6 address in square brackets
@@ -143,8 +147,8 @@ class TcpTransportExecutor implements ExecutorInterface
             throw new \InvalidArgumentException('Invalid nameserver address given');
         }
 
-        $this->nameserver = 'tcp://' . $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
-        $this->loop = $loop ?: Loop::get();
+        $this->nameserver = $parts['host'] . ':' . (isset($parts['port']) ? $parts['port'] : 53);
+        $this->loop = $loop;
         $this->parser = new Parser();
         $this->dumper = new BinaryDumper();
     }
@@ -162,7 +166,7 @@ class TcpTransportExecutor implements ExecutorInterface
         $length = \strlen($queryData);
         if ($length > 0xffff) {
             return \React\Promise\reject(new \RuntimeException(
-                'DNS query for ' . $query->describe() . ' failed: Query too large for TCP transport'
+                'DNS query for ' . $query->name . ' failed: Query too large for TCP transport'
             ));
         }
 
@@ -173,16 +177,13 @@ class TcpTransportExecutor implements ExecutorInterface
             $socket = @\stream_socket_client($this->nameserver, $errno, $errstr, 0, \STREAM_CLIENT_CONNECT | \STREAM_CLIENT_ASYNC_CONNECT);
             if ($socket === false) {
                 return \React\Promise\reject(new \RuntimeException(
-                    'DNS query for ' . $query->describe() . ' failed: Unable to connect to DNS server ' . $this->nameserver . ' ('  . $errstr . ')',
+                    'DNS query for ' . $query->name . ' failed: Unable to connect to DNS server ('  . $errstr . ')',
                     $errno
                 ));
             }
 
             // set socket to non-blocking and wait for it to become writable (connection success/rejected)
             \stream_set_blocking($socket, false);
-            if (\function_exists('stream_set_chunk_size')) {
-                \stream_set_chunk_size($socket, (int) ((1 << 31) - 1)); // @codeCoverageIgnore
-            }
             $this->socket = $socket;
         }
 
@@ -210,7 +211,7 @@ class TcpTransportExecutor implements ExecutorInterface
         });
 
         $this->pending[$request->id] = $deferred;
-        $this->names[$request->id] = $query->describe();
+        $this->names[$request->id] = $query->name;
 
         return $deferred->promise();
     }
@@ -223,19 +224,7 @@ class TcpTransportExecutor implements ExecutorInterface
         if ($this->readPending === false) {
             $name = @\stream_socket_get_name($this->socket, true);
             if ($name === false) {
-                // Connection failed? Check socket error if available for underlying errno/errstr.
-                // @codeCoverageIgnoreStart
-                if (\function_exists('socket_import_stream')) {
-                    $socket = \socket_import_stream($this->socket);
-                    $errno = \socket_get_option($socket, \SOL_SOCKET, \SO_ERROR);
-                    $errstr = \socket_strerror($errno);
-                } else {
-                    $errno = \defined('SOCKET_ECONNREFUSED') ? \SOCKET_ECONNREFUSED : 111;
-                    $errstr = 'Connection refused';
-                }
-                // @codeCoverageIgnoreEnd
-
-                $this->closeError('Unable to connect to DNS server ' . $this->nameserver . ' (' . $errstr . ')', $errno);
+                $this->closeError('Connection to DNS server rejected');
                 return;
             }
 
@@ -245,12 +234,7 @@ class TcpTransportExecutor implements ExecutorInterface
 
         $written = @\fwrite($this->socket, $this->writeBuffer);
         if ($written === false || $written === 0) {
-            $error = \error_get_last();
-            \preg_match('/errno=(\d+) (.+)/', $error['message'], $m);
-            $this->closeError(
-                'Unable to send query to DNS server ' . $this->nameserver . ' (' . (isset($m[2]) ? $m[2] : $error['message']) . ')',
-                isset($m[1]) ? (int) $m[1] : 0
-            );
+            $this->closeError('Unable to write to closed socket');
             return;
         }
 
@@ -272,7 +256,7 @@ class TcpTransportExecutor implements ExecutorInterface
         // any error is fatal, this is a stream of TCP/IP data
         $chunk = @\fread($this->socket, 65536);
         if ($chunk === false || $chunk === '') {
-            $this->closeError('Connection to DNS server ' . $this->nameserver . ' lost');
+            $this->closeError('Connection to DNS server lost');
             return;
         }
 
@@ -294,13 +278,13 @@ class TcpTransportExecutor implements ExecutorInterface
                 $response = $this->parser->parseMessage($data);
             } catch (\Exception $e) {
                 // reject all pending queries if we received an invalid message from remote server
-                $this->closeError('Invalid message received from DNS server ' . $this->nameserver);
+                $this->closeError('Invalid message received from DNS server');
                 return;
             }
 
             // reject all pending queries if we received an unexpected response ID or truncated response
             if (!isset($this->pending[$response->id]) || $response->tc) {
-                $this->closeError('Invalid response message received from DNS server ' . $this->nameserver);
+                $this->closeError('Invalid response message received from DNS server');
                 return;
             }
 
@@ -316,9 +300,8 @@ class TcpTransportExecutor implements ExecutorInterface
     /**
      * @internal
      * @param string $reason
-     * @param int    $code
      */
-    public function closeError($reason, $code = 0)
+    public function closeError($reason)
     {
         $this->readBuffer = '';
         if ($this->readPending) {
@@ -342,8 +325,7 @@ class TcpTransportExecutor implements ExecutorInterface
 
         foreach ($this->names as $id => $name) {
             $this->pending[$id]->reject(new \RuntimeException(
-                'DNS query for ' . $name . ' failed: ' . $reason,
-                $code
+                'DNS query for ' . $name . ' failed: ' . $reason
             ));
         }
         $this->pending = $this->names = array();

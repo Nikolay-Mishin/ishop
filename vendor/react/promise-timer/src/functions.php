@@ -2,28 +2,23 @@
 
 namespace React\Promise\Timer;
 
-use React\EventLoop\Loop;
-use React\EventLoop\LoopInterface;
 use React\Promise\CancellablePromiseInterface;
-use React\Promise\Promise;
+use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
+use React\Promise\Promise;
 
-function timeout(PromiseInterface $promise, $time, LoopInterface $loop = null)
+function timeout(PromiseInterface $promise, $time, LoopInterface $loop)
 {
     // cancelling this promise will only try to cancel the input promise,
     // thus leaving responsibility to the input promise.
     $canceller = null;
-    if ($promise instanceof CancellablePromiseInterface || (!\interface_exists('React\Promise\CancellablePromiseInterface') && \method_exists($promise, 'cancel'))) {
+    if ($promise instanceof CancellablePromiseInterface) {
         // pass promise by reference to clean reference after cancellation handler
         // has been invoked once in order to avoid garbage references in call stack.
         $canceller = function () use (&$promise) {
             $promise->cancel();
             $promise = null;
         };
-    }
-
-    if ($loop === null) {
-        $loop = Loop::get();
     }
 
     return new Promise(function ($resolve, $reject) use ($loop, $time, $promise) {
@@ -53,7 +48,7 @@ function timeout(PromiseInterface $promise, $time, LoopInterface $loop = null)
 
             // try to invoke cancellation handler of input promise and then clean
             // reference in order to avoid garbage references in call stack.
-            if ($promise instanceof CancellablePromiseInterface || (!\interface_exists('React\Promise\CancellablePromiseInterface') && \method_exists($promise, 'cancel'))) {
+            if ($promise instanceof CancellablePromiseInterface) {
                 $promise->cancel();
             }
             $promise = null;
@@ -61,12 +56,8 @@ function timeout(PromiseInterface $promise, $time, LoopInterface $loop = null)
     }, $canceller);
 }
 
-function resolve($time, LoopInterface $loop = null)
+function resolve($time, LoopInterface $loop)
 {
-    if ($loop === null) {
-        $loop = Loop::get();
-    }
-
     return new Promise(function ($resolve) use ($loop, $time, &$timer) {
         // resolve the promise when the timer fires in $time seconds
         $timer = $loop->addTimer($time, function () use ($time, $resolve) {
@@ -82,7 +73,7 @@ function resolve($time, LoopInterface $loop = null)
     });
 }
 
-function reject($time, LoopInterface $loop = null)
+function reject($time, LoopInterface $loop)
 {
     return resolve($time, $loop)->then(function ($time) {
         throw new TimeoutException($time, 'Timer expired after ' . $time . ' seconds');

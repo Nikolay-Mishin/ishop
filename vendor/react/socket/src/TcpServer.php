@@ -3,7 +3,6 @@
 namespace React\Socket;
 
 use Evenement\EventEmitter;
-use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use InvalidArgumentException;
 use RuntimeException;
@@ -13,7 +12,7 @@ use RuntimeException;
  * is responsible for accepting plaintext TCP/IP connections.
  *
  * ```php
- * $server = new React\Socket\TcpServer(8080);
+ * $server = new React\Socket\TcpServer(8080, $loop);
  * ```
  *
  * Whenever a client connects, it will emit a `connection` event with a connection
@@ -46,7 +45,7 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * for more details.
      *
      * ```php
-     * $server = new React\Socket\TcpServer(8080);
+     * $server = new React\Socket\TcpServer(8080, $loop);
      * ```
      *
      * As above, the `$uri` parameter can consist of only a port, in which case the
@@ -56,7 +55,7 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * In order to use a random port assignment, you can use the port `0`:
      *
      * ```php
-     * $server = new React\Socket\TcpServer(0);
+     * $server = new React\Socket\TcpServer(0, $loop);
      * $address = $server->getAddress();
      * ```
      *
@@ -65,14 +64,14 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * preceded by the `tcp://` scheme:
      *
      * ```php
-     * $server = new React\Socket\TcpServer('192.168.0.1:8080');
+     * $server = new React\Socket\TcpServer('192.168.0.1:8080', $loop);
      * ```
      *
      * If you want to listen on an IPv6 address, you MUST enclose the host in square
      * brackets:
      *
      * ```php
-     * $server = new React\Socket\TcpServer('[::1]:8080');
+     * $server = new React\Socket\TcpServer('[::1]:8080', $loop);
      * ```
      *
      * If the given URI is invalid, does not contain a port, any other scheme or if it
@@ -80,7 +79,7 @@ final class TcpServer extends EventEmitter implements ServerInterface
      *
      * ```php
      * // throws InvalidArgumentException due to missing port
-     * $server = new React\Socket\TcpServer('127.0.0.1');
+     * $server = new React\Socket\TcpServer('127.0.0.1', $loop);
      * ```
      *
      * If the given URI appears to be valid, but listening on it fails (such as if port
@@ -88,10 +87,10 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * throw a `RuntimeException`:
      *
      * ```php
-     * $first = new React\Socket\TcpServer(8080);
+     * $first = new React\Socket\TcpServer(8080, $loop);
      *
      * // throws RuntimeException because port is already in use
-     * $second = new React\Socket\TcpServer(8080);
+     * $second = new React\Socket\TcpServer(8080, $loop);
      * ```
      *
      * Note that these error conditions may vary depending on your system and/or
@@ -99,17 +98,11 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * See the exception message and code for more details about the actual error
      * condition.
      *
-     * This class takes an optional `LoopInterface|null $loop` parameter that can be used to
-     * pass the event loop instance to use for this object. You can use a `null` value
-     * here in order to use the [default loop](https://github.com/reactphp/event-loop#loop).
-     * This value SHOULD NOT be given unless you're sure you want to explicitly use a
-     * given event loop instance.
-     *
      * Optionally, you can specify [socket context options](https://www.php.net/manual/en/context.socket.php)
      * for the underlying stream socket resource like this:
      *
      * ```php
-     * $server = new React\Socket\TcpServer('[::1]:8080', null, array(
+     * $server = new React\Socket\TcpServer('[::1]:8080', $loop, array(
      *     'backlog' => 200,
      *     'so_reuseport' => true,
      *     'ipv6_v6only' => true
@@ -120,17 +113,16 @@ final class TcpServer extends EventEmitter implements ServerInterface
      * their defaults and effects of changing these may vary depending on your system
      * and/or PHP version.
      * Passing unknown context options has no effect.
-     * The `backlog` context option defaults to `511` unless given explicitly.
      *
-     * @param string|int     $uri
-     * @param ?LoopInterface $loop
-     * @param array          $context
+     * @param string|int    $uri
+     * @param LoopInterface $loop
+     * @param array         $context
      * @throws InvalidArgumentException if the listening address is invalid
      * @throws RuntimeException if listening on this address fails (already in use etc.)
      */
-    public function __construct($uri, LoopInterface $loop = null, array $context = array())
+    public function __construct($uri, LoopInterface $loop, array $context = array())
     {
-        $this->loop = $loop ?: Loop::get();
+        $this->loop = $loop;
 
         // a single port has been given => assume localhost
         if ((string)(int)$uri === (string)$uri) {
@@ -166,12 +158,12 @@ final class TcpServer extends EventEmitter implements ServerInterface
             $errno,
             $errstr,
             \STREAM_SERVER_BIND | \STREAM_SERVER_LISTEN,
-            \stream_context_create(array('socket' => $context + array('backlog' => 511)))
+            \stream_context_create(array('socket' => $context))
         );
         if (false === $this->master) {
             throw new \RuntimeException('Failed to listen on "' . $uri . '": ' . $errstr, $errno);
         }
-        \stream_set_blocking($this->master, false);
+        \stream_set_blocking($this->master, 0);
 
         $this->resume();
     }
@@ -187,7 +179,8 @@ final class TcpServer extends EventEmitter implements ServerInterface
         // check if this is an IPv6 address which includes multiple colons but no square brackets
         $pos = \strrpos($address, ':');
         if ($pos !== false && \strpos($address, ':') < $pos && \substr($address, 0, 1) !== '[') {
-            $address = '[' . \substr($address, 0, $pos) . ']:' . \substr($address, $pos + 1); // @codeCoverageIgnore
+            $port = \substr($address, $pos + 1);
+            $address = '[' . \substr($address, 0, $pos) . ']:' . $port;
         }
 
         return 'tcp://' . $address;
@@ -211,7 +204,7 @@ final class TcpServer extends EventEmitter implements ServerInterface
 
         $that = $this;
         $this->loop->addReadStream($this->master, function ($master) use ($that) {
-            $newSocket = @\stream_socket_accept($master, 0);
+            $newSocket = @\stream_socket_accept($master);
             if (false === $newSocket) {
                 $that->emit('error', array(new \RuntimeException('Error accepting new connection')));
 

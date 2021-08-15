@@ -1,37 +1,5 @@
 # Changelog
 
-## 1.7.0 (2021-07-11)
-
-A major new feature release, see [**release announcement**](https://clue.engineering/2021/announcing-reactphp-default-loop).
-
-*   Feature: Simplify usage by supporting new [default loop](https://reactphp.org/event-loop/#loop).
-    (#46 by @clue)
-
-    ```php
-    // old (still supported)
-    $promise = timeout($promise, $time, $loop);
-    $promise = resolve($time, $loop);
-    $promise = reject($time, $loop);
-
-    // new (using default loop)
-    $promise = timeout($promise, $time);
-    $promise = resolve($time);
-    $promise = reject($time);
-    ```
-
-*   Improve test suite, use GitHub actions for continuous integration (CI),
-    update PHPUnit config, run tests on PHP 8 and add full core team to the license.
-    (#43 by @WyriHaximus, #44 and #45 by @SimonFrings)
-
-## 1.6.0 (2020-07-10)
-
-*   Feature: Forward compatibility with react/promise v3.
-    (#37 by @WyriHaximus)
-
-*   Improve test suite and add `.gitattributes` to exclude dev files from exports.
-    Run tests on PHPUnit 9 and PHP 7.4 and clean up test suite.
-    (#38 by @WyriHaximus, #39 by @reedy, #41 by @clue and #42 by @SimonFrings)
-
 ## 1.5.1 (2019-03-27)
 
 *   Fix: Typo in readme

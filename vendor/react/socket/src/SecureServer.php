@@ -3,7 +3,6 @@
 namespace React\Socket;
 
 use Evenement\EventEmitter;
-use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use BadMethodCallException;
 use UnexpectedValueException;
@@ -16,8 +15,8 @@ use UnexpectedValueException;
  * TCP/IP connections and then performs a TLS handshake for each connection.
  *
  * ```php
- * $server = new React\Socket\TcpServer(8000);
- * $server = new React\Socket\SecureServer($server, null, array(
+ * $server = new React\Socket\TcpServer(8000, $loop);
+ * $server = new React\Socket\SecureServer($server, $loop, array(
  *     // tls context options here…
  * ));
  * ```
@@ -68,8 +67,8 @@ final class SecureServer extends EventEmitter implements ServerInterface
      * PEM encoded certificate file:
      *
      * ```php
-     * $server = new React\Socket\TcpServer(8000);
-     * $server = new React\Socket\SecureServer($server, null, array(
+     * $server = new React\Socket\TcpServer(8000, $loop);
+     * $server = new React\Socket\SecureServer($server, $loop, array(
      *     'local_cert' => 'server.pem'
      * ));
      * ```
@@ -83,8 +82,8 @@ final class SecureServer extends EventEmitter implements ServerInterface
      * like this:
      *
      * ```php
-     * $server = new React\Socket\TcpServer(8000);
-     * $server = new React\Socket\SecureServer($server, null, array(
+     * $server = new React\Socket\TcpServer(8000, $loop);
+     * $server = new React\Socket\SecureServer($server, $loop, array(
      *     'local_cert' => 'server.pem',
      *     'passphrase' => 'secret'
      * ));
@@ -94,12 +93,6 @@ final class SecureServer extends EventEmitter implements ServerInterface
      * their defaults and effects of changing these may vary depending on your system
      * and/or PHP version.
      * Passing unknown context options has no effect.
-     *
-     * This class takes an optional `LoopInterface|null $loop` parameter that can be used to
-     * pass the event loop instance to use for this object. You can use a `null` value
-     * here in order to use the [default loop](https://github.com/reactphp/event-loop#loop).
-     * This value SHOULD NOT be given unless you're sure you want to explicitly use a
-     * given event loop instance.
      *
      * Advanced usage: Despite allowing any `ServerInterface` as first parameter,
      * you SHOULD pass a `TcpServer` instance as first parameter, unless you
@@ -116,13 +109,13 @@ final class SecureServer extends EventEmitter implements ServerInterface
      * then close the underlying connection.
      *
      * @param ServerInterface|TcpServer $tcp
-     * @param ?LoopInterface $loop
+     * @param LoopInterface $loop
      * @param array $context
      * @throws BadMethodCallException for legacy HHVM < 3.8 due to lack of support
      * @see TcpServer
      * @link https://www.php.net/manual/en/context.ssl.php for TLS context options
      */
-    public function __construct(ServerInterface $tcp, LoopInterface $loop = null, array $context = array())
+    public function __construct(ServerInterface $tcp, LoopInterface $loop, array $context)
     {
         if (!\function_exists('stream_socket_enable_crypto')) {
             throw new \BadMethodCallException('Encryption not supported on your platform (HHVM < 3.8?)'); // @codeCoverageIgnore
@@ -134,7 +127,7 @@ final class SecureServer extends EventEmitter implements ServerInterface
         );
 
         $this->tcp = $tcp;
-        $this->encryption = new StreamEncryption($loop ?: Loop::get());
+        $this->encryption = new StreamEncryption($loop);
         $this->context = $context;
 
         $that = $this;

@@ -12,7 +12,7 @@ namespace React\Socket;
  * ```php
  * $connector = new React\Socket\FixedUriConnector(
  *     'unix:///var/run/docker.sock',
- *     new React\Socket\UnixConnector()
+ *     new React\Socket\UnixConnector($loop)
  * );
  *
  * // destination will be ignored, actually connects to Unix domain socket

@@ -2,7 +2,6 @@
 
 namespace React\Socket;
 
-use React\EventLoop\Loop;
 use React\EventLoop\LoopInterface;
 use React\Promise;
 use BadMethodCallException;
@@ -15,10 +14,10 @@ final class SecureConnector implements ConnectorInterface
     private $streamEncryption;
     private $context;
 
-    public function __construct(ConnectorInterface $connector, LoopInterface $loop = null, array $context = array())
+    public function __construct(ConnectorInterface $connector, LoopInterface $loop, array $context = array())
     {
         $this->connector = $connector;
-        $this->streamEncryption = new StreamEncryption($loop ?: Loop::get(), false);
+        $this->streamEncryption = new StreamEncryption($loop, false);
         $this->context = $context;
     }
 

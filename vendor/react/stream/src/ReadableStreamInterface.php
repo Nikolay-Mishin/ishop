@@ -236,7 +236,7 @@ interface ReadableStreamInterface extends EventEmitterInterface
      * ```php
      * $stream->pause();
      *
-     * Loop::addTimer(1.0, function () use ($stream) {
+     * $loop->addTimer(1.0, function () use ($stream) {
      *     $stream->resume();
      * });
      * ```

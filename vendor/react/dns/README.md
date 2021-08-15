@@ -1,6 +1,6 @@
-# DNS
+# Dns
 
-[![CI status](https://github.com/reactphp/dns/workflows/CI/badge.svg)](https://github.com/reactphp/dns/actions)
+[![Build Status](https://travis-ci.org/reactphp/dns.svg?branch=master)](https://travis-ci.org/reactphp/dns)
 
 Async DNS resolver for [ReactPHP](https://reactphp.org/).
 
@@ -33,17 +33,19 @@ factory. All you need to give it is a nameserver, then you can start resolving
 names, baby!
 
 ```php
+$loop = React\EventLoop\Factory::create();
+
 $config = React\Dns\Config\Config::loadSystemConfigBlocking();
-if (!$config->nameservers) {
-    $config->nameservers[] = '8.8.8.8';
-}
+$server = $config->nameservers ? reset($config->nameservers) : '8.8.8.8';
 
 $factory = new React\Dns\Resolver\Factory();
-$dns = $factory->create($config);
+$dns = $factory->create($server, $loop);
 
 $dns->resolve('igor.io')->then(function ($ip) {
     echo "Host: $ip\n";
 });
+
+$loop->run();
 ```
 
 See also the [first example](examples).
@@ -68,13 +70,13 @@ But there's more.
 You can cache results by configuring the resolver to use a `CachedExecutor`:
 
 ```php
+$loop = React\EventLoop\Factory::create();
+
 $config = React\Dns\Config\Config::loadSystemConfigBlocking();
-if (!$config->nameservers) {
-    $config->nameservers[] = '8.8.8.8';
-}
+$server = $config->nameservers ? reset($config->nameservers) : '8.8.8.8';
 
 $factory = new React\Dns\Resolver\Factory();
-$dns = $factory->createCached($config);
+$dns = $factory->createCached($server, $loop);
 
 $dns->resolve('igor.io')->then(function ($ip) {
     echo "Host: $ip\n";
@@ -85,6 +87,8 @@ $dns->resolve('igor.io')->then(function ($ip) {
 $dns->resolve('igor.io')->then(function ($ip) {
     echo "Host: $ip\n";
 });
+
+$loop->run();
 ```
 
 If the first call returns before the second, only one query will be executed.
@@ -102,8 +106,9 @@ You can also specify a custom cache implementing [`CacheInterface`](https://gith
 
 ```php
 $cache = new React\Cache\ArrayCache();
+$loop = React\EventLoop\Factory::create();
 $factory = new React\Dns\Resolver\Factory();
-$dns = $factory->createCached('8.8.8.8', null, $cache);
+$dns = $factory->createCached('8.8.8.8', $loop, $cache);
 ```
 
 See also the wiki for possible [cache implementations](https://github.com/reactphp/react/wiki/Users#cache-implementations).
@@ -206,7 +211,8 @@ For more advanced usages one can utilize this class directly.
 The following example looks up the `IPv6` address for `igor.io`.
 
 ```php
-$executor = new UdpTransportExecutor('8.8.8.8:53');
+$loop = Factory::create();
+$executor = new UdpTransportExecutor('8.8.8.8:53', $loop);
 
 $executor->query(
     new Query($name, Message::TYPE_AAAA, Message::CLASS_IN)
@@ -215,6 +221,8 @@ $executor->query(
         echo 'IPv6: ' . $answer->data . PHP_EOL;
     }
 }, 'printf');
+
+$loop->run();
 ```
 
 See also the [fourth example](examples).
@@ -224,8 +232,9 @@ want to use this in combination with a `TimeoutExecutor` like this:
 
 ```php
 $executor = new TimeoutExecutor(
-    new UdpTransportExecutor($nameserver),
-    3.0
+    new UdpTransportExecutor($nameserver, $loop),
+    3.0,
+    $loop
 );
 ```
 
@@ -236,8 +245,9 @@ combination with a `RetryExecutor` like this:
 ```php
 $executor = new RetryExecutor(
     new TimeoutExecutor(
-        new UdpTransportExecutor($nameserver),
-        3.0
+        new UdpTransportExecutor($nameserver, $loop),
+        3.0,
+        $loop
     )
 );
 ```
@@ -254,8 +264,9 @@ a `CoopExecutor` like this:
 $executor = new CoopExecutor(
     new RetryExecutor(
         new TimeoutExecutor(
-            new UdpTransportExecutor($nameserver),
-            3.0
+            new UdpTransportExecutor($nameserver, $loop),
+            3.0,
+            $loop
         )
     )
 );
@@ -278,7 +289,8 @@ For more advanced usages one can utilize this class directly.
 The following example looks up the `IPv6` address for `reactphp.org`.
 
 ```php
-$executor = new TcpTransportExecutor('8.8.8.8:53');
+$loop = Factory::create();
+$executor = new TcpTransportExecutor('8.8.8.8:53', $loop);
 
 $executor->query(
     new Query($name, Message::TYPE_AAAA, Message::CLASS_IN)
@@ -287,6 +299,8 @@ $executor->query(
         echo 'IPv6: ' . $answer->data . PHP_EOL;
     }
 }, 'printf');
+
+$loop->run();
 ```
 
 See also [example #92](examples).
@@ -296,8 +310,9 @@ want to use this in combination with a `TimeoutExecutor` like this:
 
 ```php
 $executor = new TimeoutExecutor(
-    new TcpTransportExecutor($nameserver),
-    3.0
+    new TcpTransportExecutor($nameserver, $loop),
+    3.0,
+    $loop
 );
 ```
 
@@ -323,8 +338,9 @@ combination with a `CoopExecutor` like this:
 ```php
 $executor = new CoopExecutor(
     new TimeoutExecutor(
-        new TcpTransportExecutor($nameserver),
-        3.0
+        new TcpTransportExecutor($nameserver, $loop),
+        3.0,
+        $loop
     )
 );
 ```
@@ -392,7 +408,7 @@ use this code:
 ```php
 $hosts = \React\Dns\Config\HostsFile::loadFromPathBlocking();
 
-$executor = new UdpTransportExecutor('8.8.8.8:53');
+$executor = new UdpTransportExecutor('8.8.8.8:53', $loop);
 $executor = new HostsFileExecutor($hosts, $executor);
 
 $executor->query(
@@ -402,27 +418,27 @@ $executor->query(
 
 ## Install
 
-The recommended way to install this library is [through Composer](https://getcomposer.org/).
+The recommended way to install this library is [through Composer](https://getcomposer.org).
 [New to Composer?](https://getcomposer.org/doc/00-intro.md)
 
 This project follows [SemVer](https://semver.org/).
 This will install the latest supported version:
 
 ```bash
-$ composer require react/dns:^1.8
+$ composer require react/dns:^1.2
 ```
 
 See also the [CHANGELOG](CHANGELOG.md) for details about version upgrades.
 
 This project aims to run on any platform and thus does not require any PHP
-extensions and supports running on legacy PHP 5.3 through current PHP 8+ and
+extensions and supports running on legacy PHP 5.3 through current PHP 7+ and
 HHVM.
 It's *highly recommended to use PHP 7+* for this project.
 
 ## Tests
 
 To run the test suite, you first need to clone this repo and then install all
-dependencies [through Composer](https://getcomposer.org/):
+dependencies [through Composer](https://getcomposer.org):
 
 ```bash
 $ composer install
