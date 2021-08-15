@@ -39,6 +39,10 @@ class Filter {
 
 	// получает html-разметку
 	protected function getHtml(): string {
+		$filter = self::getFilter();
+		if (!empty($filter)) {
+			$filter = explode(',', $filter);
+		}
 		return $this->getContents($this->tpl, compact('filter')); // получаем контент из буфера
 	}
 
