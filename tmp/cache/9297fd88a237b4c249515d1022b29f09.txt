@@ -1,12 +1,75 @@
-a:2:{s:4:"data";s:577:"<li>
-    <a href="category/<br />
-<b>Notice</b>:  Undefined variable: item in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
-<br />
-<b>Notice</b>:  Trying to access array offset on value of type null in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
-"><br />
-<b>Notice</b>:  Undefined variable: item in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
-<br />
-<b>Notice</b>:  Trying to access array offset on value of type null in <b>W:\domains\ishop\public\menu\menu.php</b> on line <b>3</b><br />
-</a>
+a:2:{s:4:"data";s:1867:"<li>
+    <a href="category/men">Men</a>
+            <ul>
+            <pre>Array
+(
+    [title] => Электронные
+    [alias] => elektronnye
+    [parent_id] => 1
+    [keywords] => Электронные
+    [description] => Электронные
+    [childs] => Array
+        (
+            [6] => Array
+                (
+                    [title] => Casio
+                    [alias] => casio
+                    [parent_id] => 4
+                    [keywords] => Casio
+                    [description] => Casio
+                )
+
+            [7] => Array
+                (
+                    [title] => Citizen
+                    [alias] => citizen
+                    [parent_id] => 4
+                    [keywords] => Citizen
+                    [description] => Citizen
+                )
+
+        )
+
+)
+</pre><pre>Array
+(
+    [title] => Механические
+    [alias] => mehanicheskie
+    [parent_id] => 1
+    [keywords] => mehanicheskie
+    [description] => mehanicheskie
+    [childs] => Array
+        (
+            [8] => Array
+                (
+                    [title] => Royal London
+                    [alias] => royal-london
+                    [parent_id] => 5
+                    [keywords] => Royal London
+                    [description] => Royal London
+                )
+
+            [9] => Array
+                (
+                    [title] => Seiko
+                    [alias] => seiko
+                    [parent_id] => 5
+                    [keywords] => Seiko
+                    [description] => Seiko
+                )
+
+            [10] => Array
+                (
+                    [title] => Epos
+                    [alias] => epos
+                    [parent_id] => 5
+                    [keywords] => Epos
+                    [description] => Epos
+                )
+
+        )
+
+)
+</pre>        </ul>
     </li>
-";s:8:"end_time";i:1629037138;}
+";s:8:"end_time";i:1629040623;}
