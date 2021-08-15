@@ -2,30 +2,30 @@
 
 return [
     'lib' => [
-        "js/jquery-1.11.0.min",
-        "jquery-ui-1.12.1/jquery-ui.min",
-        "js/bootstrap.min",
-        "js/validator",
-        "js/typeahead.bundle",
-        "js/imagezoom",
-        "megamenu/js/megamenu",
-        "js/jquery.easydropdown",
-        "js/accordion",
-        "js/responsiveslides.min",
-        "js/slider",
-        "js/jquery.flexslider",
-        "js/flexslider", // defer
-        "adminlte/bower_components/ckeditor/ckeditor",
-        "adminlte/bower_components/ckeditor/adapters/jquery",
+        "jquery-1.11.0.min",
+        "/jquery-ui-1.12.1/jquery-ui.min",
+        "bootstrap.min",
+        "validator",
+        "typeahead.bundle",
+        "imagezoom",
+        "/megamenu/js/megamenu",
+        "jquery.easydropdown",
+        "accordion",
+        "responsiveslides.min",
+        "slider",
+        "jquery.flexslider",
+        "flexslider", // defer
+        "/adminlte/bower_components/ckeditor/ckeditor",
+        "/adminlte/bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
-        "js/_base_functions",
+        "_base_functions",
         "@".CONF."/require/consts.php",
-        "js/_functions",
-        "js/_variables",
+        "_functions",
+        "_variables",
     ],
     'main' => [
-        "js/editor",
-        "js/main",
+        "editor",
+        "main",
     ]
 ];
