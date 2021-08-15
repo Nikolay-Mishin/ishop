@@ -24,6 +24,11 @@ class View {
 	public array $style = [];
 	public array $script = [];
 
+	private array $masks = [
+		'style' => 'link href="file.css" rel="stylesheet" type="text/css" media="all"',
+		'script' => 'script src="file.js"script'
+	];
+
 	public function __construct(array $route, string $layout = '', string $view = '', array $meta = [], ?Controller $controller = null) {
 		// $layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
 		// $view - вид для отображения
@@ -128,25 +133,44 @@ class View {
 
 	protected function getFilesList(array $files, string $type_file): string {
 		$files_list = '';
+		$files_list_2 = '';
+		$mask = $this->masks[$type_file];
+		$prefix = $type_file == 'style' ? 'css/' : 'js/';
 		foreach ($files as $type => $file_list) {
-			$files_list .= "<!-- $type -->" . PHP_EOL;
+			$files_list .= "<!-- $type -->".PHP_EOL;
 			$file_list = toArray($file_list);
 			foreach ($file_list as $file) {
+				$files_list_2 .= $this->checkFilePath($file, $mask, $prefix).PHP_EOL;
 				if ($type_file == 'style') {
-					$file = "<link " . 'href="' . $file . '.css" rel="stylesheet" type="text/css" media="all" />';
+				    $file = "<link ".'href="'.$file.'.css" rel="stylesheet" type="text/css" media="all" />';
 				}
 				else {
-					if ($type === 'init' && preg_match('/^(@\s*)(.+)$/', $file, $match)) {
-						$file = (require_once $match[2] ?? $file);
-					}
-					else {
-						$file = "<$type_file " . 'src="' . $file . '.js">' . "</$type_file>";
-					}
+				    if ($type === 'init' && preg_match('/^(@\s*)(.+)$/', $file, $match)) {
+				        $file = (require_once $match[2] ?? $file);
+				    }
+				    else {
+				        $file = "<$type_file ".'src="'.$file.'.js">'."</$type_file>";
+				    }
 				}
-				$files_list .= $file . PHP_EOL;
+				$files_list .= $file.PHP_EOL;
 			}
 		}
+		debug($files_list_2);
 		return $files_list;
+	}
+
+	protected function checkFilePath(string $file, string $mask, string $prefix = ''): string {
+		if (preg_match('/^(@\s*)(.+)$/', $file, $match)) {
+			return require_once $match[2];
+		}
+		elseif (preg_match('/^(\/)(.+)$/', $file, $match)) {
+			return $this->maskReplace($match[2], $mask);
+		}
+		return $this->maskReplace($file, $mask, $prefix);
+	}
+
+	protected function maskReplace(string|array $str, string $mask, string $prefix = '', string|array $search = 'file'): string|array|null {
+		return call_user_func_array(isRegex($search) ? 'preg_replace' : 'str_replace', [$search, $str, $mask]);
 	}
 
 }

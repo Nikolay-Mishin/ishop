@@ -346,7 +346,8 @@ function newArray(array $array, string $key = '', array $patterns = [], string $
 					$val = call_user_func_array($func, [$pattern[0], $pattern[1], $value]);
 					// call_user_func - Вызывает callback-функцию, заданную в первом параметре
 					$val = !isset($pattern[2]) ? $value : call_user_func($pattern[2], $val);
-				} elseif (is_string($pattern)) {
+				}
+				elseif (is_string($pattern)) {
 					$val = call_user_func($pattern, $value);
 				}
 				$v[$key_p] = $val;
