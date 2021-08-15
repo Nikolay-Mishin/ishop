@@ -5,6 +5,7 @@ namespace app\models\admin;
 use app\models\AppModel;
 use ishop\App;
 use ishop\libs\Pagination;
+use \Bean;
 
 class Product extends AppModel {
 
@@ -79,7 +80,7 @@ class Product extends AppModel {
 	}
 
 	// получаем данные товара из БД
-	public static function getById(int $id): \Bean {
+	public static function getById(int $id): Bean {
 		$product = \R::load('product', $id); // получаем данные товара из БД
 		App::$app->setProperty('parent_id', $product->category_id); // сохраняем в реестре id родительской категории
 		self::$filter = \R::getCol('SELECT attr_id FROM attribute_product WHERE product_id = ?', [$id]); // получаем фильры товара

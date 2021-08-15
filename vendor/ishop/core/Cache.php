@@ -11,7 +11,7 @@ class Cache {
     use \ishop\traits\T_Singletone; // шаблон Одининочка
 
     // запись в кэш
-    public function set(string $key, $data, int $seconds = 3600): bool {
+    public function set(string $key, array|string $data, int $seconds = 3600): bool {
         // $key - уникальное имя файла кэша
         // $data - данные для кэширования
         // $seconds - время кэширования данных в сек (на 1ч)
@@ -30,7 +30,7 @@ class Cache {
     }
 
     // получение кэша
-    public function get(string $key) {
+    public function get(string $key): array|string|null {
         $file = CACHE . '/' . md5($key) . '.txt'; // путь к файлу кэша по ключу
         // если файл существует вынимает контент из кэша
         if (file_exists($file)) {

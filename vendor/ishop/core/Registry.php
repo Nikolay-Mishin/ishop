@@ -16,12 +16,12 @@ class Registry {
     }
 
     // сеттер - инициализирует (устанавливает) свойство реестра (ключ - значение)
-    public function setProperty(string $name, $value) {
+    public function setProperty(string $name, mixed $value): mixed {
         return self::$properties[$name] = $value;
     }
 
     // геттер - получает свойство из реестра по имени
-    public function getProperty(string $name) {
+    public function getProperty(string $name): mixed {
         // если значение есть в реестре возвращаем его, иначе null
         if (isset(self::$properties[$name])) {
             return self::$properties[$name];
@@ -33,7 +33,7 @@ class Registry {
         unset(self::$properties[$name]);
     }
 
-    public function addInProperty(string $name, string $key, $value) {
+    public function addInProperty(string $name, string $key, mixed $value): mixed {
         // если значение есть в реестре возвращаем его, иначе null
         $property = self::getProperty($name) ?: self::setProperty($name, []);
         $property[$key] = $value;

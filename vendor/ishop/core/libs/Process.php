@@ -81,7 +81,7 @@ class Process {
         return App::$app->addInProperty('process', $process->getPid(), $process);
     }
     
-    public static function killProc($pkey): bool {
+    public static function killProc(int|string $pkey): bool {
         if ($process = self::getProcess($pkey)) {
             $process->kill();
             //debug($process);
@@ -96,7 +96,7 @@ class Process {
         return false;
     }
 
-    public static function getProcess($pkey): ?self {
+    public static function getProcess(int|string $pkey): ?self {
         return self::getProcessList()[$pkey] ?? null;
     }
 
@@ -112,7 +112,7 @@ class Process {
         return $process_list;
     }
 
-    public static function clean() {
+    public static function clean(): bool {
         if ($process_list = self::getProcessList()) {
             foreach ($process_list as $process) {
                 $process->kill();
@@ -193,7 +193,7 @@ class Process {
         return true;
     }
     
-    public function getPid() {
+    public function getPid(): int|string {
         return $this->pkey ?? $this->pid;
     }
 

@@ -4,11 +4,12 @@ namespace app\models;
 
 //use app\models\admin\Product;
 use app\models\AppModel;
+use \Bean;
 
 class Gallery extends AppModel {
 
 	// метод удаления базовой картинки из БД и с сервера
-	public static function deleteSingle(int $id, string $src, \Bean $data): int {
+	public static function deleteSingle(int $id, string $src, Bean $data): int {
 		//$data = Product::getById($id); // загружаем данные товара из БД
 		$data->img = 'no_image.jpg'; // записываем путь к заглушке
 		return \R::store($data) ? deleteImg($src) : 0; // удаляем картинку из БД

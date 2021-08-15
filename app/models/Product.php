@@ -4,10 +4,12 @@
 
 namespace app\models;
 
+use \Bean;
+
 class Product extends AppModel {
 
 	// получаем данные товара из БД
-	public static function getById(int $id): ?\Bean {
+	public static function getById(int $id): ?Bean {
 		return \R::findOne('product', 'id = ?', [$id]);
 	}
 

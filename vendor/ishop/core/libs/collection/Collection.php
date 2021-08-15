@@ -157,7 +157,7 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	* @param integer $offset Ключ
 	* @return mixed
 	*/
-	public function offsetGet(int $offset) {
+	public function offsetGet(int $offset): mixed {
 		if (isset($this->collection[$offset]) === false) {
 		    return null;
 		}

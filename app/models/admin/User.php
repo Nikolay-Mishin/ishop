@@ -5,6 +5,7 @@ namespace app\models\admin;
 use app\models\User as baseUser;
 use app\models\admin\Order; // модель заказа
 use ishop\libs\Pagination;
+use \Bean;
 
 class User extends baseUser {
 
@@ -76,7 +77,7 @@ class User extends baseUser {
 	}
 
 	// получаем данные пользователя из БД
-	public static function getById(int $id, bool $pagination = true, int $perpage = 3): \Bean {
+	public static function getById(int $id, bool $pagination = true, int $perpage = 3): Bean {
 		/*
 		// пагинация заказов пользователя
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации

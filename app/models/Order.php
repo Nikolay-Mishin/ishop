@@ -7,6 +7,8 @@ use \Exception;
 
 use app\models\Payment; // модель оплаты
 use ishop\App;
+
+use \Bean;
 use Swift_Mailer; // класс отправки писем
 use Swift_Message; // класс формирования писем
 use Swift_SmtpTransport; // класс smtp-сервера
@@ -36,7 +38,7 @@ class Order extends AppModel {
 	}
 
 	// получает заказ
-	public static function getById(int $id): \Bean {
+	public static function getById(int $id): Bean {
 		return \R::load('order', (int) $id);
 	}
 

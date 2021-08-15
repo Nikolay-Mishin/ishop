@@ -14,19 +14,19 @@ trait T_Protect {
 	protected array $protectProperties = [];
 	protected array $protectMethods = [];
 
-	public function __get(string $property) {
+	public function __get(string $property): mixed {
 		return $this->exist($property, function(object $obj, string $property) {
 			return $obj->$property;
 		});
 	}
 
-	public function __set(string $property, $value): void {
+	public function __set(string $property, mixed $value): void {
 		$this->exist($property, function(object $obj, string $property, bool $const, string $class) use($value) {
 			!$const ? $obj->$property = $value : $this->getException(500, "Изменение значения свойства $class::$property");
 		});
 	}
 
-	public function __call(string $method, array $args) {
+	public function __call(string $method, array $args): mixed {
 		return $this->exist($method, function(object $obj, string $method, $const, string $class, bool $isBean, bool $exist) use($args) {
 			//debug(['class' => getClassName($obj), 'method' => $method, 'isBean' => $isBean, 'exist' => $exist]);
 			return $isBean && $exist ? call_user_func_array([$obj, $method], $args) : callPrivateMethod($obj, $method, $args);
@@ -59,17 +59,17 @@ trait T_Protect {
 		$this->structuredProtect($protectMethods, 'protectMethods');
 	}
 
-	private function structuredProtect($protectProperties, string $protectList = 'protectProperties', bool $new = true): void {
+	private function structuredProtect(array|string $protectProperties, string $protectList = 'protectProperties', bool $new = true): void {
 		if($new) $this->structuredProtect($this->$protectList, $protectList, false);
 		//debug(["$protectList - start" => $this->$protectList]);
-		foreach (toArray($protectProperties) as $property => $mod) {
+		foreach ($protectProperties as $property => $mod) {
 			//debug(['class' => getClassName($this), $property => $mod]);
 			$this->reverseProtectProperty($property, $mod, $protectList, $new);
 		}
 		//debug(["$protectList - end" => $this->$protectList]);
 	}
 
-	private function reverseProtectProperty($property, $mod, string $protectList, bool $new): void {
+	private function reverseProtectProperty(string $property, string $mod, string $protectList, bool $new): void {
 		list($isConst, $isMethod) = [is_int($property), $this->isMethod($protectList)];
 		$reverse = $new ? !$isMethod && $isConst && !array_key_exists($property, $this->$protectList) : !$isMethod && $isConst;
 		list($key, $property) = [$property, $isConst ? $mod : $property];
@@ -97,7 +97,7 @@ trait T_Protect {
 		return call_user_func_array($exist, [$obj ?? $this, $property]);
 	}
 
-	private function exist(string $property, Closure $callback, string $protectList = 'protectProperties') {
+	private function exist(string $property, Closure $callback, string $protectList = 'protectProperties'): mixed {
 		$this->structuredProtect($this->$protectList, $protectList, false);
 		$class = getClassName($this);
 		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";

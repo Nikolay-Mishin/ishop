@@ -136,7 +136,7 @@ class View {
 					$file = "<link " . 'href="' . $file . '.css" rel="stylesheet" type="text/css" media="all" />';
 				}
 				else {
-					if ($type === 'init' && preg_match('/^(@\s+)(.+)$/', $file, $match)) {
+					if ($type === 'init' && preg_match('/^(@\s*)(.+)$/', $file, $match)) {
 						$file = (require_once $match[2] ?? $file);
 					}
 					else {

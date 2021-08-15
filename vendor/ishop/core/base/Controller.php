@@ -86,7 +86,7 @@ abstract class Controller {
     }
 
     public function setFiles(string $type, string ...$files): void {
-        $file = require_once CONF . "/require/{$this->file_prefix}{$type}s.php"; // подключаем файл конфигурации
+        $file = require_once CONF . "/require/{$this->file_prefix}{$type}.php"; // подключаем файл конфигурации
 
         if ($file !== true) {
             foreach ($file as $file_type => $file_list) {

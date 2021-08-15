@@ -132,12 +132,12 @@ abstract class Model extends Sql {
 		$_SESSION['error'] = $errors; // записываем список ошибок в сессию
 	}
 
-	public function setRequired(array $data, ...$required): void {
+	public function setRequired(array $data, string ...$required): void {
 		$this->rules['required'] = [];
 		$this->addRequired($data, ...$required);
 	}
 
-	public function addRequired(array $data, ...$required): void {
+	public function addRequired(array $data, string ...$required): void {
 		$data = arrayGetValues($data, $required);
 		foreach ($data as $k => $v) {
 			$this->rules['required'][] = toArray($k);

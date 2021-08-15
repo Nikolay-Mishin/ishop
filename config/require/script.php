@@ -20,7 +20,7 @@ return [
     ],
     'init' => [
         "js/_base_functions",
-        "@ ".CONF."/require/scripts_consts.php",
+        "@".CONF."/require/consts.php",
         "js/_functions",
         "js/_variables",
     ],

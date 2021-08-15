@@ -13,7 +13,7 @@ return [
     ],
     'init' => [
         "/js/_base_functions",
-        '@ '.CONF.'/require/admin_scripts_consts.php',
+        "@".CONF."/require/admin_consts.php",
         "_functions",
         "_variables",
     ],

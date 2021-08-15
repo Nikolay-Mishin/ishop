@@ -28,7 +28,7 @@ abstract class Upload {
 		UPLOAD_ERR_EXTENSION  => 'PHP-расширение остановило загрузку файла.',
 	];
 
-	public static function canUpload(array $file) {
+	public static function canUpload(array $file): bool|string {
 		if ($file['name'] == '') return 'Вы не выбрали файл.'; // если имя пустое, значит файл не выбран
 		// если размер файла 0, значит его не пропустили настройки сервера из-за того, что он слишком большой
 		if ($file['size'] == 0) return 'Файл слишком большой или пустой.';
@@ -58,7 +58,7 @@ abstract class Upload {
 	}
 
 	// функция для обработки загрузки файла в единичном экземляре
-	protected static function load(string $filePath, string $errorCode, string $uploadPath = 'uploads') {
+	protected static function load(string $filePath, string $errorCode, string $uploadPath = 'uploads'): array|string {
 		$uploadPath = WWW . "/$uploadPath";
 		$name = self::validateImg($filePath, $errorCode, $uploadPath);
 		// Переместим картинку с новым именем и расширением в папку /uploads
@@ -71,52 +71,7 @@ abstract class Upload {
 		else return self::error('При записи изображения на диск произошла ошибка.');
 	}
 
-	// Функция, возвращающая ассоциативный массив с сообщением об успешной записи файла и сопутствующие данные
-	protected static function msg(string $uploadPath, string $name): array {
-		return [
-			'status' => 'Sucess!',
-			'path' => __DIR__ . "/$uploadPath/$name",
-			'dir' => __DIR__,
-			'folder' => $uploadPath,
-			'name' => $name
-		];
-	}
-
-	// Функция, возвращающая ассоциативный массив с сообщением об ошибке
-	protected static function error(string $error, bool $outArray = true) {
-		return $outArray ? ['error' => $error] : $error;
-	}
-
-	protected static function getMime(string $filePath): string {
-		$fi = finfo_open(FILEINFO_MIME_TYPE); // Создадим ресурс FileInfo
-		$mime = (string) finfo_file($fi, $filePath); // Получим MIME-тип
-		finfo_close($fi); // Закроем ресурс
-		return $mime;
-	}
-
-	protected static function checkMime(string $filePath) {
-		$mime = self::getMime($filePath); // Получим MIME-тип
-		// Проверим ключевое слово image (image/jpeg, image/png и т. д.)
-		if (strpos($mime, 'image') === false) return 'Можно загружать только изображения.';
-		$str = implode(", ", self::$formats); // Проверим форматы image (jpeg, png и т. д.)
-		if (strpos($str, explode('/', $mime)[1]) === false) return "Можно загружать только изображения в форматах: $str";
-		return false;
-	}
-
-	protected static function checkSize(string $filePath, array $image) {
-		// Проверим нужные параметры
-		if (filesize($filePath) > self::$limitBytes) return "Размер изображения не должен превышать " . self::$limitBytes . " Мбайт.";
-		//if($image[0] > self::$limitWidth) return "Ширина изображения не должна превышать " . self::$limitWidth . " точек.";
-		//if($image[1] > self::$limitHeight) return "Высота изображения не должна превышать " . self::$limitHeight . " точек.";
-		return false;
-	}
-
-	protected static function getExt(array $image): string {
-		// Сгенерируем расширение файла на основе типа картинки и сократим .jpeg до .jpg
-		return str_replace('jpeg', 'jpg', image_type_to_extension($image[2]));
-	}
-
-	protected static function validateImg(string $filePath, string $errorCode, string $uploadPath) {
+	protected static function validateImg(string $filePath, string $errorCode, string $uploadPath): string|array {
 		if (!is_dir($uploadPath)) mkdir($uploadPath, 0777); // Создадим директорию, если она отсутсвует
 
 		// Проверим на ошибки
@@ -131,6 +86,51 @@ abstract class Upload {
 		if ($error = checkSize($filePath, $image)) return self::error($error); // Проверим размер
 
 		return md5_file($filePath).self::getExt($image); // Сгенерируем новое имя файла на основе MD5-хеша
+	}
+
+	// Функция, возвращающая ассоциативный массив с сообщением об успешной записи файла и сопутствующие данные
+	protected static function msg(string $uploadPath, string $name): array {
+		return [
+			'status' => 'Sucess!',
+			'path' => __DIR__ . "/$uploadPath/$name",
+			'dir' => __DIR__,
+			'folder' => $uploadPath,
+			'name' => $name
+		];
+	}
+
+	// Функция, возвращающая ассоциативный массив с сообщением об ошибке
+	protected static function error(string $error, bool $outArray = true): array|string {
+		return $outArray ? ['error' => $error] : $error;
+	}
+
+	protected static function checkMime(string $filePath): bool|string {
+		$mime = self::getMime($filePath); // Получим MIME-тип
+		// Проверим ключевое слово image (image/jpeg, image/png и т. д.)
+		if (strpos($mime, 'image') === false) return 'Можно загружать только изображения.';
+		$str = implode(", ", self::$formats); // Проверим форматы image (jpeg, png и т. д.)
+		if (strpos($str, explode('/', $mime)[1]) === false) return "Можно загружать только изображения в форматах: $str";
+		return false;
+	}
+
+	protected static function getMime(string $filePath): string {
+		$fi = finfo_open(FILEINFO_MIME_TYPE); // Создадим ресурс FileInfo
+		$mime = (string) finfo_file($fi, $filePath); // Получим MIME-тип
+		finfo_close($fi); // Закроем ресурс
+		return $mime;
+	}
+
+	protected static function checkSize(string $filePath, array $image): bool|string {
+		// Проверим нужные параметры
+		if (filesize($filePath) > self::$limitBytes) return "Размер изображения не должен превышать " . self::$limitBytes . " Мбайт.";
+		//if($image[0] > self::$limitWidth) return "Ширина изображения не должна превышать " . self::$limitWidth . " точек.";
+		//if($image[1] > self::$limitHeight) return "Высота изображения не должна превышать " . self::$limitHeight . " точек.";
+		return false;
+	}
+
+	protected static function getExt(array $image): string {
+		// Сгенерируем расширение файла на основе типа картинки и сократим .jpeg до .jpg
+		return str_replace('jpeg', 'jpg', image_type_to_extension($image[2]));
 	}
 
 	public static function uploadImg(string $name, int $wmax, int $hmax): void {

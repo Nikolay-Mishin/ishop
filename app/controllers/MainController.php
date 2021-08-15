@@ -2,9 +2,6 @@
 
 namespace app\controllers;
 
-use ishop\Cache;
-use app\models\Breadcrumbs; // модель хлебных крошек
-
 class MainController extends AppController {
 
     // главная страница

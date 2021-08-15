@@ -3,6 +3,8 @@
 
 namespace app\models;
 
+use \Bean;
+
 class User extends AppModel {
 
 	// аттрибуты модели (параметры/поля формы)
@@ -52,7 +54,7 @@ class User extends AppModel {
 	}
 
 	// проверяем роль пользователя и получаем из БД пользователя с соответствующей ролью (admin/user)
-	public static function getByLogin(string $login, bool $isAdmin = false): ?\Bean {
+	public static function getByLogin(string $login, bool $isAdmin = false): ?Bean {
 		//$role = $isAdmin ? "AND role = 'admin'" : '';
 		//return \R::findOne('user', "login = ? $role", [$login]);
 		$role = $isAdmin ? "AND role.role = 'admin'" : '';

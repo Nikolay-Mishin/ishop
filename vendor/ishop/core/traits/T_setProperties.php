@@ -5,12 +5,14 @@
 
 namespace ishop\traits;
 
+use \Closure;
+
 trait T_SetProperties {
 
 	use T_Closure;
 
 	// получает опции
-	protected function setProperties(array $options, ...$args): void {
+	protected function setProperties(array $options, Closure|bool ...$args): void {
 		if (count($args) > 2) throw new Exception("Число аргументов в методе $this"."->setProperties() не должно превышать 3", 500);
 		$base_callback = function($k, $v){};
 		$base_condition = function($k) { return property_exists($this, $k); };

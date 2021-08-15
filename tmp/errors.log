@@ -542,3 +542,17 @@
 =================
 [2021-08-15 20:16:05] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-08-15 21:46:30] Текст ошибки: ishop\Cache::set(): Argument #2 ($data) must be of type array, string given, called in W:\domains\ishop\app\widgets\menu\Menu.php on line 90 | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 14
+=================
+[2021-08-15 21:48:04] Текст ошибки: ishop\Cache::get(): Return value must be of type ?array, string returned | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 40
+=================
+[2021-08-15 21:48:19] Текст ошибки: syntax error, unexpected token "|", expecting ";" or "{" | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 33
+=================
+[2021-08-15 21:48:19] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-15 21:48:34] Текст ошибки: syntax error, unexpected token "?" | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 33
+=================
+[2021-08-15 21:48:44] Текст ошибки: syntax error, unexpected token "|" | Файл: W:\domains\ishop\vendor\ishop\core\Cache.php | Строка: 33
+=================
+[2021-08-15 22:07:10] Текст ошибки: ishop\base\View::setProperties(): Argument #2 must be of type ishop\traits\Closure|bool, Closure given, called in W:\domains\ishop\vendor\ishop\core\base\View.php on line 58 | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_SetProperties.php | Строка: 15
+=================
