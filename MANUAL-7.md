@@ -150,137 +150,6 @@ object(Ds\Vector)[3]
 
 
 
-## [Реализации наборов](https://ru.stackoverflow.com/questions/615126/%D0%A7%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%B2-php)
-
-Наборы представлены единственной реализацией UniqueStore. Объекты в хранилище UniqueStore. Уникальность объектов обеспечивается за счет метода getIdentity(), который возвращает идентификаторы объектов. В хранилище UniqueStore не могут присутствовать несколько объектов с одинаковыми идентификаторами. Внутренняя структура хранилища уникальных объектов UniqueStore построена на основе ассоциативных связей между объектами и их идентификаторами. Это дает возможность реализовывать все операции хранилища с помощью ассоциативных выборок, что очень сильно повышает скорость его работы. Сложность работы алгоритмов хранилища уникальных объектов равна O(1), что означает, что время установки/получения объектов не изменяется в зависимости от размера хранилища. Хранилище уникальных объектов UniqueStore поддерживает любые типы данных для значений.
-
-###### Примеры использования набора:
-
-```php
-namespace Rmk\Collection;
-
-use \UnexpectedValueException as UnexpectedValueException;
-use \InvalidArgumentException as InvalidArgumentException;
-use \stdClass as stdClass;
-
-include '../../bootstrap.php';
-
-$set = new UniqueStore('stdClass');
-
-$obj1 = new stdClass();
-$obj2 = new stdClass();
-$obj3 = new stdClass();
-
-// Добавление объектов в хранилище.
-$set->add($obj1);
-$set->add($obj2);
-$set->add($obj3);
-
-// Повторно объекты в хранилище добавлены не будут.
-$set->add($obj3);
-
-try {
-	$set->add(new UnexpectedValueException);
-} catch (InvalidArgumentException $exc) {
-	echo 'Значение не подходит по типу.';
-}
-
-// Обход хранилища.
-$set->each(function($value, $thisSet) {
-			/**
-			 * @TODO: Обработка хранилища.
-			 */
-		}
-);
-
-// Удаление объектов из хранилища.
-$set->remove($obj1);
-$set->remove($obj2);
-$set->remove($obj3);
-
-// Преобразование в массив.
-$array = $set->toArray();
-```
-
-```php
-Class Ticket {
-	protected $ticketType;
-	protected $person;
-
-	public function __construct($ticketType,$person) {
-		$this->ticketType = $ticketType;
-		$this->person     = $person;
-	}
-
-}
-
-Class Collection implements Iterator, Countable {
-
-	private $tickets = array();
-	private $position;
-
-	public function __construct(){
-		$this->position = 0;
-	}
-
-	//Добавить элемент в массив
-	public function push($ticket) {
-		if ($ticket instanceof Ticket === false) {
-			throw new InvalidArgumentException('Попытка добавить не верный тип');
-		}
-		array_push($this->tickets,$ticket);
-	}
-
-	//Взять последний добавленный
-	public function pop() {
-		array_prop($this->tickets,$ticket);
-	}
-
-	//Ниже Методы для реализации интерфейса Iterator
-	function rewind() {
-		$this->position = 0;
-	}
-
-	function current() {
-		return $this->tickets[$this->position];
-	}
-
-	function key() {
-		return $this->position;
-	}
-
-	function next() {
-		++$this->position;
-	}
-
-	function valid() {
-		return isset($this->tickets[$this->position]);
-	}
-
-
-	function count(){
-		return count($this->tickets);
-	}
-}
-
-$ticketJhon = new Ticket('emptyTicket',"John");
-$ticketJane = new Ticket('emptyTicket',"Jane");
-
-$collection = new Collection();
-
-$collection->push($ticketJhon);
-$collection->push($ticketJane);
-
-foreach($collection as $ticket) {
-	print_r($ticket);
-}
-
-$ticketStr = 'Не билет';
-$collection->push($ticketStr);
-```
-
-
-
 ## [Полноценные коллекции в PHP](https://habr.com/ru/post/64840/)
 
 [Скачать исходник](http://wonted.ru/upl/Collection.php.txt)
@@ -528,16 +397,16 @@ class BookStore {
 		// реализация
 	}
 
+	// Если тип коллекции не важен, можно указать базовый тип Collection
 	function addGoods(Collection $goods) {
-		Если тип коллекции не важен,
-	// можно указать базовый тип Collection
+		// реализация
 	}
 }
 
 class Book {
 	var $id;
 
-	function Book($id) {
+	function __construct($id) {
 		$this->id = $id;
 	}
 }
@@ -545,7 +414,7 @@ class Book {
 class Magazine {
 	var $id;
 
-	function Magazine($id) {
+	function __construct($id) {
 		$this->id = $id;
 	}
 }
@@ -560,19 +429,15 @@ $books->add(new Book(3))->add(new Book(2));
 $books[] = new Book(5);
 echo count($books); // 5
 
-
 foreach ($books as $book) {
 	echo $book->id;
 }
 // 12345
 
-
 $books->add(new Magazine(1)); // Ошибка (неверный тип)
-
 
 $magazines = CollectionFactory::create('Magazine');
 $magazines->add(new Magazine(1));
-
 
 $bookStore = new BookStore();
 $bookStore->addBooks($books); // Всё в порядке
@@ -582,6 +447,136 @@ $bookStore->addGoods($books); // Всё в порядке
 $bookStore->addGoods($magazines); // Всё в порядке
 ```
 
+
+
+## [Реализации наборов](https://ru.stackoverflow.com/questions/615126/%D0%A7%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%B2-php)
+
+Наборы представлены единственной реализацией UniqueStore. Объекты в хранилище UniqueStore. Уникальность объектов обеспечивается за счет метода getIdentity(), который возвращает идентификаторы объектов. В хранилище UniqueStore не могут присутствовать несколько объектов с одинаковыми идентификаторами. Внутренняя структура хранилища уникальных объектов UniqueStore построена на основе ассоциативных связей между объектами и их идентификаторами. Это дает возможность реализовывать все операции хранилища с помощью ассоциативных выборок, что очень сильно повышает скорость его работы. Сложность работы алгоритмов хранилища уникальных объектов равна O(1), что означает, что время установки/получения объектов не изменяется в зависимости от размера хранилища. Хранилище уникальных объектов UniqueStore поддерживает любые типы данных для значений.
+
+###### Примеры использования набора:
+
+```php
+namespace Rmk\Collection;
+
+use \UnexpectedValueException as UnexpectedValueException;
+use \InvalidArgumentException as InvalidArgumentException;
+use \stdClass as stdClass;
+
+include '../../bootstrap.php';
+
+$set = new UniqueStore('stdClass');
+
+$obj1 = new stdClass();
+$obj2 = new stdClass();
+$obj3 = new stdClass();
+
+// Добавление объектов в хранилище.
+$set->add($obj1);
+$set->add($obj2);
+$set->add($obj3);
+
+// Повторно объекты в хранилище добавлены не будут.
+$set->add($obj3);
+
+try {
+	$set->add(new UnexpectedValueException);
+} catch (InvalidArgumentException $exc) {
+	echo 'Значение не подходит по типу.';
+}
+
+// Обход хранилища.
+$set->each(function($value, $thisSet) {
+			/**
+			 * @TODO: Обработка хранилища.
+			 */
+		}
+);
+
+// Удаление объектов из хранилища.
+$set->remove($obj1);
+$set->remove($obj2);
+$set->remove($obj3);
+
+// Преобразование в массив.
+$array = $set->toArray();
+```
+
+```php
+Class Ticket {
+	protected $ticketType;
+	protected $person;
+
+	public function __construct($ticketType,$person) {
+		$this->ticketType = $ticketType;
+		$this->person     = $person;
+	}
+
+}
+
+Class Collection implements Iterator, Countable {
+
+	private $tickets = array();
+	private $position;
+
+	public function __construct(){
+		$this->position = 0;
+	}
+
+	//Добавить элемент в массив
+	public function push($ticket) {
+		if ($ticket instanceof Ticket === false) {
+			throw new InvalidArgumentException('Попытка добавить не верный тип');
+		}
+		array_push($this->tickets,$ticket);
+	}
+
+	//Взять последний добавленный
+	public function pop() {
+		array_prop($this->tickets,$ticket);
+	}
+
+	//Ниже Методы для реализации интерфейса Iterator
+	function rewind() {
+		$this->position = 0;
+	}
+
+	function current() {
+		return $this->tickets[$this->position];
+	}
+
+	function key() {
+		return $this->position;
+	}
+
+	function next() {
+		++$this->position;
+	}
+
+	function valid() {
+		return isset($this->tickets[$this->position]);
+	}
+
+
+	function count(){
+		return count($this->tickets);
+	}
+}
+
+$ticketJhon = new Ticket('emptyTicket',"John");
+$ticketJane = new Ticket('emptyTicket',"Jane");
+
+$collection = new Collection();
+
+$collection->push($ticketJhon);
+$collection->push($ticketJane);
+
+foreach($collection as $ticket) {
+	print_r($ticket);
+}
+
+$ticketStr = 'Не билет';
+$collection->push($ticketStr);
+```
 
 
 

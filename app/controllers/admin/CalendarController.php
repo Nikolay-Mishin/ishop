@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\admin\controllers;
 
 class CalendarController extends AppController {
 

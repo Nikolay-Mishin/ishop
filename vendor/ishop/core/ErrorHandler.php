@@ -4,8 +4,7 @@
 
 namespace ishop;
 
-use \Exception;
-use \Error;
+use \Throwable; // Exception, Error implements Throwable
 
 class ErrorHandler {
 
@@ -21,7 +20,7 @@ class ErrorHandler {
     }
 
     // метод для обработки исключений (курс по фреймворку)
-    public function exceptionHandler($e): void {
+    public function exceptionHandler(Throwable $e): void {
         // $e - оъект, содержащий всю информацию об выброшенном исключении
         // getMessage() - текст исключения
         // getFile() - файл, в котором было выброшено исключение

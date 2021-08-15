@@ -56,7 +56,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
 
                     <!-- смена языка -->
-                    <div class="box1">
+                    <div class="box">
                         <select tabindex="4" class="dropdown">
                             <option value="" class="label">English :</option>
                             <option value="1">English</option>
@@ -67,7 +67,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     
                     <!-- вход и регистрация -->
                     <div class="btn-group">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown">Аккаунт <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <?php if(!empty($_SESSION['user'])): ?>
                                 <li><a href="user/cabinet">Добро пожаловать, <?=h($_SESSION['user']['name']);?></a></li>
@@ -75,6 +75,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <?php else: ?>
                                 <li><a href="user/login">Вход</a></li>
                                 <li><a href="user/signup">Регистрация</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group">
+                        <a class="dropdown-toggle" data-toggle="dropdown">Виджеты <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <?php if(!empty($_SESSION['user'])): ?>
+                                <li><a href="calendar">Календарь</a></li>
+                            <?php else: ?>
+                                <li><a href="chat">Чат</a></li>
+                                <li><a href="collection">Коллекции</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>

@@ -1,9 +1,11 @@
 {
+	//cd domains/ishop
+	//composer dumpautoload
 	"autoload": {
 		"psr-4": {
 			"ishop\\": "vendor/ishop/core",
 			"app\\": "app"
-			//"RedBeanPHP\\": "vendor/RedBeanPHP_5_7/RedBeanPHP",
+			//"RedBeanPHP\\": "vendor/RedBeanPHP_5_7",
 			//"RedBeanPHP\\": "vendor/gabordemooij/redbean/RedBeanPHP"
 		}
 	},

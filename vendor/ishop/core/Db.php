@@ -8,7 +8,7 @@ use \Exception;
 
 class Db {
 
-	use \ishop\traits\T_Singletone;
+	use traits\T_Singletone;
 
 	protected function __construct() {
 		$db = require_once CONF . '/config_db.php'; // подключаем файл конфигурации БД
