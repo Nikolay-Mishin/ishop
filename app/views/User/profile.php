@@ -1,16 +1,4 @@
-<!--start-breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="breadcrumbs-main">
-            <ol class="breadcrumb">
-                <li><a href="<?= PATH ?>">Главная</a></li>
-                <li><a href="<?= PATH ?>/user/cabinet">Личный кабинет</a></li>
-                <li class="active">Профиль пользователя <?=$user->login;?></li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!--end-breadcrumbs-->
+<?=$breadcrumbs;?>
 
 <!--prdt-starts-->
 <div class="prdt">

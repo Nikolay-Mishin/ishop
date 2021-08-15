@@ -538,3 +538,7 @@
 =================
 [2021-08-15 17:17:24] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-08-15 20:16:05] Текст ошибки: getReflector(): Argument #1 ($objOrClass) must be of type object|string, null given, called in W:\domains\ishop\vendor\ishop\core\libs\functions.php on line 122 | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 116
+=================
+[2021-08-15 20:16:05] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================

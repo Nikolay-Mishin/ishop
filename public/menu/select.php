@@ -7,6 +7,6 @@ $parent_id = \ishop\App::$app->getProperty('parent_id');
     <?= $tab . $item['title']; ?>
 </option>
 <?php // если у текущей категории есть потомки
-if(isset($item['childs'])): ?>
+if (isset($item['childs'])): ?>
     <?= $this->getTreeHtml($item['childs'], '&nbsp;' . $tab. '-') ?>
 <?php endif; ?>

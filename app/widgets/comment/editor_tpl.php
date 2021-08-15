@@ -1,4 +1,4 @@
-<?php if(!empty($_SESSION['user'])): ?>
+<?php if (!empty($_SESSION['user'])): ?>
 	<form method="post" action="comment/add" id="<?=$this->meta('form_id');?>" data-ajax="true">
 		<?=new \app\widgets\editor\Editor($this->getOptions(clone $this, 'tpl'));?>
 		<input type="hidden" name="product_id" value="<?=$this->meta('id');?>">

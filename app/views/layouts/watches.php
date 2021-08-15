@@ -69,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="btn-group">
                         <a class="dropdown-toggle" data-toggle="dropdown">Аккаунт <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <?php if(!empty($_SESSION['user'])): ?>
+                            <?php if (!empty($_SESSION['user'])): ?>
                                 <li><a href="user/cabinet">Добро пожаловать, <?=h($_SESSION['user']['name']);?></a></li>
                                 <li><a href="user/logout">Выход</a></li>
                             <?php else: ?>
@@ -82,7 +82,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="btn-group">
                         <a class="dropdown-toggle" data-toggle="dropdown">Виджеты <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <?php if(!empty($_SESSION['user'])): ?>
+                            <?php if (!empty($_SESSION['user'])): ?>
                                 <li><a href="calendar">Календарь</a></li>
                             <?php else: ?>
                                 <li><a href="chat">Чат</a></li>
@@ -103,7 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="total">
                             <img src="images/cart-1.png" alt="" />
                             <!-- если корзина не пуста, выводим общую сумму заказа -->
-                            <?php if(!empty($_SESSION['cart'])): ?>
+                            <?php if (!empty($_SESSION['cart'])): ?>
                                 <span class="simpleCart_total"><?=$_SESSION['cart.currency']['symbol_left'] . price_format($_SESSION['cart.sum']) . $_SESSION['cart.currency']['symbol_right'];?></span>
                             <!-- если корзина пуста, выводим данное сообщение -->
                             <?php else: ?>
@@ -181,12 +181,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <?php if(isset($_SESSION['error'])): ?>
+                <?php if (isset($_SESSION['error'])): ?>
                     <div class="alert alert-danger">
                         <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
                     </div>
                 <?php endif; ?>
-                <?php if(isset($_SESSION['success'])): ?>
+                <?php if (isset($_SESSION['success'])): ?>
                     <div class="alert alert-success">
                         <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
                     </div>

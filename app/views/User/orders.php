@@ -1,16 +1,4 @@
-<!--start-breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="breadcrumbs-main">
-            <ol class="breadcrumb">
-                <li><a href="<?=PATH;?>">Главная</a></li>
-                <li><a href="<?=PATH;?>/user/cabinet">Личный кабинет</a></li>
-                <li class="active">История заказов</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!--end-breadcrumbs-->
+<?=$breadcrumbs;?>
 
 <!--prdt-starts-->
 <div class="prdt">
@@ -22,7 +10,7 @@
                 </div>
 
                 <div class="product-one">
-                    <?php if($orders): ?>
+                    <?php if ($orders): ?>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped table-condensed">
                                 <thead>
@@ -35,15 +23,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($orders as $order): ?>
+                                <?php foreach ($orders as $order): ?>
                                     <?php
-                                    if($order['status'] == '1'){
+                                    if ($order['status'] == '1') {
                                         $class = 'success';
                                         $text = 'Завершен';
-                                    }elseif($order['status'] == '2'){
+                                    }
+                                    elseif($order['status'] == '2') {
                                         $class = 'info';
                                         $text = 'Оплачен';
-                                    }else{
+                                    }
+                                    else{
                                         $class = '';
                                         $text = 'Новый';
                                     }

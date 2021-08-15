@@ -1,9 +1,10 @@
 <?php
 $parent = isset($item['childs']); // возвращает true/false в зависимости от наличия потомков в категории
 // если нет потомков формируем ссылку для удаления категории
-if(!$parent){
+if (!$parent) {
     $delete = '<a href="' . ADMIN . '/category/delete?id=' . $id . '" class="delete"><i class="fa fa-fw fa-close text-danger"></i></a>';
-}else{
+}
+else {
     $delete = '<i class="fa fa-fw fa-close"></i>';
 }
 ?>
@@ -13,7 +14,7 @@ if(!$parent){
     <span><?=$delete;?></span>
 </p>
 <!-- если есть потомки у данной категории, рекурсивно вызываем метод getMenuHtml и передаем ему параметром дерево потомков -->
-<?php if($parent): ?>
+<?php if ($parent): ?>
     <div class="list-group">
         <?= $this->getTreeHtml($item['childs']); ?>
     </div>

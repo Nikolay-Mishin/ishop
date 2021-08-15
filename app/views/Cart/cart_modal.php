@@ -1,5 +1,5 @@
 <?php // если корзина не пуста, отображаем шаблон ?>
-<?php if(!empty($_SESSION['cart'])): ?>
+<?php if (!empty($_SESSION['cart'])): ?>
 <!-- внутри отдельного шаблона доступны переменные метода и объект класса ($this - Menu), в котором подключается шаблон -->
 <!-- в видах, подключаемых через класс view доступен объект класса View ($this) -->
     <!-- адаптивная таблица (table-responsive) -->
@@ -18,7 +18,7 @@
             </thead>
             <!-- контент таблицы -->
             <tbody>
-            <?php foreach($_SESSION['cart'] as $id => $item): ?>
+            <?php foreach ($_SESSION['cart'] as $id => $item): ?>
                 <tr>
                     <td><a href="product/<?=$item['alias'];?>"><img src="images/<?=$item['img'];?>" alt="<?=$item['title'];?>"></a></td>
                     <td><a href="product/<?=$item['alias'];?>"><?=$item['title'];?></td>

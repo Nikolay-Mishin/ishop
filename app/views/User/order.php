@@ -1,17 +1,4 @@
-<!--start-breadcrumbs-->
-<div class="breadcrumbs">
-    <div class="container">
-        <div class="breadcrumbs-main">
-            <ol class="breadcrumb">
-                <li><a href="<?=PATH;?>">Главная</a></li>
-                <li><a href="<?=PATH;?>/user/cabinet">Личный кабинет</a></li>
-                <li><a href="<?=PATH;?>/user/orders">История заказов</a></li>
-                <li class="active">Заказ №<?=$order['id'];?></li>
-            </ol>
-        </div>
-    </div>
-</div>
-<!--end-breadcrumbs-->
+<?=$breadcrumbs;?>
 
 <!--prdt-starts-->
 <div class="prdt">
@@ -23,7 +10,7 @@
                 </div>
 
                 <div class="product-one">
-                    <?php if($order): ?>
+                    <?php if ($order): ?>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped table-condensed">
                                 <tbody>
@@ -55,11 +42,13 @@
                                         <td>Статус</td>
                                         <td>
                                             <?php
-                                            if($order['status'] == '1'){
+                                            if ($order['status'] == '1') {
                                                 echo 'Завершен';
-                                            }elseif($order['status'] == '2'){
+                                            }
+                                            elseif($order['status'] == '2') {
                                                 echo 'Оплачен';
-                                            }else{
+                                            }
+                                            else {
                                                 echo 'Новый';
                                             }
                                             ?>
@@ -74,7 +63,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <?php if($order_products): ?>
+                    <?php if ($order_products): ?>
                         <h3>Детали заказа</h3>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped table-condensed">
@@ -87,7 +76,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $qty = 0; foreach($order_products as $product): ?>
+                                <?php $qty = 0; foreach ($order_products as $product): ?>
                                     <tr>
                                         <td><?=$product->id;?></td>
                                         <td><?=$product->title;?></td>
@@ -107,7 +96,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <?php if($order['status'] == '0'): ?>
+                    <?php if ($order['status'] == '0'): ?>
                         <form method="post" action="payment/pay">
                             <input type="hidden" name="id" value="<?=$order['id'];?>" />
                             <input type="hidden" name="sum" value="<?=$order['sum'];?>" />

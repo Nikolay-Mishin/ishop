@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['success'])) unset($_SESSION['success']);
+if (isset($_SESSION['success'])) unset($_SESSION['success']);
 ?>
 <!doctype html>
 <html lang="en">

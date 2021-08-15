@@ -1,6 +1,6 @@
 <p>Через несколько секунд Вы будете перенаправлены на страницу оплаты. Нажмите кнопку, если не хотите ждать...</p>
 
-<?php if($pay): ?>
+<?php if ($pay): ?>
     <form id="payment" name="payment" method="post" action="<?=\ishop\App::$app->getProperty('ik_url');?>" enctype="utf-8">
         <input type="hidden" name="ik_co_id" value="<?=$pay['ik_id'];?>" />
         <input type="hidden" name="ik_pm_no" value="<?=$pay['id'];?>" />

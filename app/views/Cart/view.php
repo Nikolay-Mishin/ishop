@@ -10,7 +10,7 @@
                         <h2>Оформление заказа</h2>
                     </div>
                     <br><br>
-                    <?php if(!empty($_SESSION['cart'])):?>
+                    <?php if (!empty($_SESSION['cart'])):?>
                         <!-- получаем активную валюту из контейнера (реестра) -->
                         <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
                         <div class="table-responsive">
@@ -25,7 +25,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($_SESSION['cart'] as $id => $item): ?>
+                                <?php foreach ($_SESSION['cart'] as $id => $item): ?>
                                     <tr>
                                         <td><a href="product/<?=$item['alias'] ?>"><img src="images/<?= $item['img'] ?>" alt="<?=$item['title'] ?>"></a></td>
                                         <td><a href="product/<?=$item['alias'] ?>"><?=$item['title'] ?></a></td>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-6 account-left">
                             <form method="post" action="cart/checkout" role="form" data-toggle="validator">
-                                <?php if(!isset($_SESSION['user'])): ?>
+                                <?php if (!isset($_SESSION['user'])): ?>
                                     <div class="form-group has-feedback">
                                         <label for="login">Login</label>
                                         <input type="text" name="login" class="form-control" id="login" placeholder="Login" value="<?= isset($_SESSION['form_data']['login']) ? $_SESSION['form_data']['login'] : '' ?>" required>
@@ -86,7 +86,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-default">Оформить</button>
                             </form>
-                            <?php if(isset($_SESSION['form_data'])) unset($_SESSION['form_data']); ?>
+                            <?php if (isset($_SESSION['form_data'])) unset($_SESSION['form_data']); ?>
                         </div>
                     <?php else: ?>
                         <h3>Корзина пуста</h3>

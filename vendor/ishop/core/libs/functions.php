@@ -98,48 +98,48 @@ function upperCamelCase(string $name): string {
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){ return strtoupper($matches[1]); }, $name);
 }
 
-function callMethod(object $class, string $method, array $attrs = []): bool {
-	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
+function callMethod(object|string $objOrClass, string $method, array $attrs = []): bool {
+	return isCallable($objOrClass, $method) ? call_user_func_array([$objOrClass, $method], toArray($attrs)) : false;
 }
 
-function callPrivateMethod(object $obj, string $method, array $args) {
-	if (isCallable($obj, $method)) {
-		$method = getReflector($obj)->getMethod($method);
+function callPrivateMethod(object|string $objOrClass, string $method, array $args): mixed {
+	if (isCallable($objOrClass, $method)) {
+		$method = getReflector($objOrClass)->getMethod($method);
 		$method->setAccessible(true);
-		$result = $method->invokeArgs($obj, $args);
+		$result = $method->invokeArgs($objOrClass, $args);
 		$method->setAccessible(false);
 	}
 	return $result ?? null;
 }
 
 // возвращает информацию о классе (app\models\User)
-function getReflector(string $class): \ReflectionClass {
-	return new \ReflectionClass(is_object($class) ? get_class($class) : $class);
+function getReflector(object|string $objOrClass): \ReflectionClass {
+	return new \ReflectionClass(is_object($objOrClass) ? get_class($objOrClass) : $objOrClass);
 }
 
 // возвращает короткое имя класса (app\models\User => User)
-function getClassShortName(string $class): string {
-	return getReflector($class)->getShortName();
+function getClassShortName(object|string $objOrClass): string {
+	return getReflector($objOrClass)->getShortName();
 }
 
 // возвращает короткое имя класса (app\models\User)
-function getClassName(string $class): string {
-	return getReflector($class)->getName();
+function getClassName(object|string $objOrClass): string {
+	return getReflector($objOrClass)->getName();
 }
 
-function isCallable(string $class, string $method): bool {
-	return method_exists($class, $method) && is_callable([$class, $method]);
+function isCallable(object|string $objOrClass, string $method): bool {
+	return method_exists($objOrClass, $method) && is_callable([$objOrClass, $method]);
 }
 
 // метод для преобразования массива в объект (stdClass Object)
-function dataDecode(&$data, string $output = null): object {
+function dataDecode(array|object &$data, ?string $output = null): array|object {
 	$data_type = gettype($data); // получаем тип переданных данных
 	if ($data_type == $output) return $data; // если тип переданных данных = типу выходных данных, вернем переданные данные
 	$json = json_encode($data); // кодируем данные в json
 	return json_decode($json, is_object($data_type)); // декодируем json в объект (true - ассоциативный массив)
 }
 
-function arrayUnset(array &$array, $items): array {
+function arrayUnset(array &$array, array|string $items): array {
 	foreach (toArray($items) as $item) {
 		if (isset($array[$item])) {
 			unset($array[$item]);
@@ -148,7 +148,7 @@ function arrayUnset(array &$array, $items): array {
 	return $array;
 }
 
-function objectUnset(object $obj, $props): object {
+function objectUnset(object $obj, array|string $props): object {
 	foreach (toArray($props) as $prop) {
 		if (property_exists($obj, $prop)) {
 			unset($obj->$prop);
@@ -250,7 +250,7 @@ function arrayMerge(array $arr1, array $arr2): array {
 
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
-function toArray($attrs, bool $attrToArray = false, array $data = [], string $result = 'attrs'): array {
+function toArray(array|string $attrs, bool $attrToArray = false, array $data = [], string $result = 'attrs'): array {
 	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
 	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
 	if ($data) {
@@ -302,17 +302,17 @@ function getMethodTrace(string $pattern): ?array {
 	return $key ? getTrace($key + 1) : null;
 }
 
-function validateAttrs(object $class, array $attrs): array {
+function validateAttrs(object|string $objOrClass, array $attrs): array {
 	foreach ($attrs as $key => $attr) {
-		$attrs[$key] = callMethod($class, $attr) ?: getProp($class, $attr);
+		$attrs[$key] = callMethod($objOrClass, $attr) ?: getProp($objOrClass, $attr);
 	}
 	return $attrs;
 }
 
-function getProp($class, $attr) {
-	if (property_exists($class, $attr)) {
-		$isStatic = array_key_exists($attr, getReflector($class)->getStaticProperties());
-		$attr = is_object($class) && !$isStatic ? $class->$attr : getClassName($class)::${$attr};
+function getProp(object|string $objOrClass, string $attr): mixed {
+	if (property_exists($objOrClass, $attr)) {
+		$isStatic = array_key_exists($attr, getReflector($objOrClass)->getStaticProperties());
+		$attr = is_object($objOrClass) && !$isStatic ? $objOrClass->$attr : getClassName($objOrClass)::${$attr};
 	}
 	return $attr;
 }

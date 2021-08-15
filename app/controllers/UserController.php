@@ -81,7 +81,9 @@ class UserController extends AppController {
 	// экшен отображения личного кабинета пользователя
 	public function cabinetAction(): void {
 		if (!User::checkAuth()) redirect(); // если пользователь не авторизован, перенаправляем на главную
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Личный кабинет'); // хлебные крошки
 		$this->setMeta('Личный кабинет'); // устанавливаем мета-данные
+		$this->set(compact('breadcrumbs')); // передаем данные в вид
 	}
 
 	// экшен редактирования личных данных пользователя
@@ -89,8 +91,9 @@ class UserController extends AppController {
 		// если пользователь не авторизован, перенаправляем на страницу авторизации
 		if (!User::checkAuth()) redirect('/user/login');
 		$user = $_SESSION['user']; // записываем в переменную данные пользователя
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Личный кабинет'); // хлебные крошки
 		$this->setMeta('Изменение личных данных'); // устанавливаем мета-данные
-		$this->set(compact('user')); // передаем данные в вид
+		$this->set(compact('user', 'breadcrumbs')); // передаем данные в вид
 	}
 
 	// экшен редактирования личных данных пользователя
@@ -110,8 +113,9 @@ class UserController extends AppController {
 		if (!User::checkAuth()) redirect('user/login'); // если пользователь не авторизован, перенаправляем на страницу авторизации
 		// получаем заказы пользователя
 		$orders = Order::getByCurrentUserId();
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Личный кабинет'); // хлебные крошки
 		$this->setMeta('История заказов'); // устанавливаем мета-данные
-		$this->set(compact('orders')); // передаем данные в вид
+		$this->set(compact('orders', 'breadcrumbs')); // передаем данные в вид
 	}
 
 	// экшен отображения данных заказа пользователя
@@ -129,8 +133,9 @@ class UserController extends AppController {
 			throw new Exception('Страница не найдена', 404);
 		}
 		$order_products = OrderProduct::getByOrderId($order_id); // получаем данные товаров заказа
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Личный кабинет'); // хлебные крошки
 		$this->setMeta("Заказ №{$order_id}");
-		$this->set(compact('order', 'order_products'));
+		$this->set(compact('order', 'order_products', 'breadcrumbs'));
 	}
 
 	// экшен отображения личного кабинета пользователя
@@ -141,8 +146,9 @@ class UserController extends AppController {
 		if (!$user) {
 			throw new Exception('Страница не найдена', 404);
 		}
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Личный кабинет'); // хлебные крошки
 		$this->setMeta("Профиль пользователя {$user->login}"); // устанавливаем мета-данные
-		$this->set(compact('user'));
+		$this->set(compact('user', 'breadcrumbs'));
 	}
 
 }

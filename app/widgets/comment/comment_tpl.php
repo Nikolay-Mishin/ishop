@@ -1,4 +1,4 @@
-<?php if($item): ?>
+<?php if ($item): ?>
 	<?='<!-- Комментарий (Уровень ' . $this->parents[$item['parent_id']] . ') -->';?>
 	<<?=!$item['parent_id'] ? 'li' : 'div';?> class="media comment">
 		<div class="media-left">
@@ -46,7 +46,7 @@
 				</span>
 			</div>
 
-			<?php if(isset($item['childs'])): ?>
+			<?php if (isset($item['childs'])): ?>
 				<?=$this->getTreeHtml($item['childs']);?>
 			<?php endif; ?>
 		</div>

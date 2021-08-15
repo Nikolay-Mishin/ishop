@@ -7,10 +7,10 @@
             <!-- результаты поиска -->
             <div class="col-md-9 prdt-left">
                 <!-- выводим результаты поиска -->
-                <?php if(!empty($products)): ?>
+                <?php if (!empty($products)): ?>
                 <div class="product-one">
                     <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
-                    <?php foreach($products as $product): ?>
+                    <?php foreach ($products as $product): ?>
                         <div class="col-md-4 product-left p-left">
                         <div class="product-main simpleCart_shelfItem">
                             <!-- изображение -->
@@ -22,13 +22,13 @@
                                 <!-- цена товара -->
                                 <h4>
                                     <a data-id="<?=$product->id;?>" class="add-to-cart-link" href="cart/add?id=<?=$product->id;?>"><i></i></a> <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
-                                    <?php if($product->old_price): ?>
+                                    <?php if ($product->old_price): ?>
                                         <small><del><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                                     <?php endif; ?>
                                 </h4>
                             </div>
                             <!-- рассчет размера скидки (при наличии старой цены) -->
-                            <?php if($product->old_price > 0): ?>
+                            <?php if ($product->old_price > 0): ?>
                                 <div class="srch srch1">
                                     <span>-<?=number_round((1 - $product->price / $product->old_price) * 100);?>%</span>
                                 </div>

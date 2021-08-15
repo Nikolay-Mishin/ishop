@@ -8,10 +8,10 @@
                 <div class="sngl-top">
                     <div class="col-md-5 single-top-left">
                         <!-- выводим галерею -->
-                        <?php if($gallery): ?>
+                        <?php if ($gallery): ?>
                         <div class="flexslider">
                             <ul class="slides">
-                                <?php foreach($gallery as $item): ?>
+                                <?php foreach ($gallery as $item): ?>
                                 <li data-thumb="images/<?=$item->img;?>">
                                     <div class="thumb-image"> <img src="images/<?=$item->img;?>" data-imagezoom="true" class="img-responsive" alt=""/> </div>
                                 </li>
@@ -53,7 +53,7 @@
 
                             <!-- цена товара -->
                             <h5 class="item_price" id="base-price" data-base="<?=price_format($product->price * $curr['value']);?>"><?=$curr['symbol_left'];?><?=price_format($product->price * $curr['value']);?><?=$curr['symbol_right'];?></h5>
-                            <?php if($product->old_price): ?>
+                            <?php if ($product->old_price): ?>
                                 <del id="old-price"><?=$curr['symbol_left'];?><?=price_format($product->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del>
                             <?php endif; ?>
 
@@ -61,13 +61,13 @@
                             <?=$product->content;?>
 
                             <!-- модификации -->
-                            <?php if($mods): ?>
+                            <?php if ($mods): ?>
                             <div class="available">
                                 <ul>
                                     <li>Color
                                         <select>
                                             <option>Выбрать цвет</option>
-                                            <?php foreach($mods as $mod): ?>
+                                            <?php foreach ($mods as $mod): ?>
                                             <option data-title="<?=$mod->title;?>" data-price="<?=price_format($mod->price * $curr['value']);?>" value="<?=$mod->id;?>"><?=$mod->title;?></option>
                                             <?php endforeach; ?>
                                         </select>
@@ -146,11 +146,11 @@
                 <!-- // аккордеон -->
 
                 <!-- выводим связанные товары -->
-                <?php if($related): ?>
+                <?php if ($related): ?>
                 <div class="latestproducts">
                     <div class="product-one">
                         <h3>С этим товаром также покупают:</h3>
-                        <?php foreach($related as $item): ?>
+                        <?php foreach ($related as $item): ?>
                         <div class="col-md-4 product-left p-left">
                             <div class="product-main simpleCart_shelfItem">
                                 <!-- ссылка на товар -->
@@ -163,13 +163,13 @@
                                         <a class="item_add add-to-cart-link" href="cart/add?id=<?=$item['id'];?>" data-id="<?=$item['id'];?>"><i></i></a>
                                         <!-- новая и старая цена -->
                                         <span class="item_price"><?=$curr['symbol_left'];?><?=price_format($item['price'] * $curr['value']);?><?=$curr['symbol_right'];?></span>
-                                        <?php if($item['old_price']): ?>
+                                        <?php if ($item['old_price']): ?>
                                             <small><del><?=$curr['symbol_left'];?><?=price_format($item['old_price'] * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                                         <?php endif; ?>
                                     </h4>
                                 </div>
                                 <!-- рассчет размера скидки (при наличии старой цены) -->
-                                <?php if($item['old_price'] > 0): ?>
+                                <?php if ($item['old_price'] > 0): ?>
                                     <div class="srch">
                                         <span>-<?=number_round((1 - $item['price'] / $item['old_price']) * 100);?>%</span>
                                     </div>
@@ -184,11 +184,11 @@
                 <!-- // выводим связанные товары -->
 
                 <!-- выводим просмотренные товары -->
-                <?php if($recentlyViewed): ?>
+                <?php if ($recentlyViewed): ?>
                     <div class="latestproducts">
                         <div class="product-one">
                             <h3>Недавно просмотренные:</h3>
-                            <?php foreach($recentlyViewed as $item): ?>
+                            <?php foreach ($recentlyViewed as $item): ?>
                                 <div class="col-md-4 product-left p-left">
                                     <div class="product-main simpleCart_shelfItem">
                                         <!-- ссылка на товар -->
@@ -201,13 +201,13 @@
                                                 <a class="item_add add-to-cart-link" href="cart/add?id=<?=$item['id'];?>" data-id="<?=$item['id'];?>"><i></i></a>
                                                 <!-- новая и старая цена -->
                                                 <span class="item_price"><?=$curr['symbol_left'];?><?=$item['price'] * $curr['value'];?><?=$curr['symbol_right'];?></span>
-                                                <?php if($item['old_price']): ?>
+                                                <?php if ($item['old_price']): ?>
                                                     <small><del><?=$curr['symbol_left'];?><?=$item['old_price'] * $curr['value'];?><?=$curr['symbol_right'];?></del></small>
                                                 <?php endif; ?>
                                             </h4>
                                         </div>
                                         <!-- рассчет размера скидки (при наличии старой цены) -->
-                                        <?php if($item['old_price'] > 0): ?>
+                                        <?php if ($item['old_price'] > 0): ?>
                                             <div class="srch">
                                                 <span>-<?=number_round((1 - $item['price'] / $item['old_price']) * 100);?>%</span>
                                             </div>

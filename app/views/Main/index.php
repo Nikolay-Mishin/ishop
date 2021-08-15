@@ -19,12 +19,12 @@
 
 <!--about-starts-->
 <!-- выводим бренды -->
-<?php if($brands): ?>
+<?php if ($brands): ?>
 <div class="about">
     <div class="container">
         <div class="about-top grid-1">
             <!-- выводим отдельно каждый бренд -->
-            <?php foreach($brands as $brand): ?>
+            <?php foreach ($brands as $brand): ?>
                 <div class="col-md-4 about-left">
                 <figure class="effect-bubba">
                     <!-- изображение -->
@@ -47,7 +47,7 @@
 
 <!--product-starts-->
 <!-- выводим хиты -->
-<?php if($hits): ?>
+<?php if ($hits): ?>
 <!-- получаем активную валюту из контейнера (реестра) -->
 <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
 <div class="product">
@@ -55,7 +55,7 @@
         <div class="product-top">
             <div class="product-one">
             <!-- выводим отдельно каждый хит -->
-            <?php foreach($hits as $hit): ?>
+            <?php foreach ($hits as $hit): ?>
                 <div class="col-md-3 product-left">
                     <div class="product-main simpleCart_shelfItem">
                         <!-- изображение -->
@@ -71,13 +71,13 @@
                                 <a class="add-to-cart-link" href="cart/add?id=<?=$hit->id;?>" data-id="<?=$hit->id;?>"><i></i></a> <!-- цена товара -->
                                 <span class=" item_price"><?=$curr['symbol_left'];?><?=price_format($hit->price * $curr['value']);?><?=$curr['symbol_right'];?></span>
                                 <!-- выводим старую цену, если такая есть -->
-                                <?php if($hit->old_price): ?>
+                                <?php if ($hit->old_price): ?>
                                 <small><del><?=$curr['symbol_left'];?><?=price_format($hit->old_price * $curr['value']);?><?=$curr['symbol_right'];?></del></small>
                             <?php endif; ?>
                             </h4>
                         </div>
                         <!-- рассчет размера скидки (при наличии старой цены) -->
-                        <?php if($hit->old_price > 0): ?>
+                        <?php if ($hit->old_price > 0): ?>
                             <div class="srch">
                                 <span>-<?=number_round((1 - $hit->price / $hit->old_price) * 100);?>%</span>
                             </div>

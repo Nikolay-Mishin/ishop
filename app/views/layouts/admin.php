@@ -375,12 +375,12 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <?php if(isset($_SESSION['error'])): ?>
+        <?php if (isset($_SESSION['error'])): ?>
             <div class="alert alert-danger">
                 <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
             </div>
         <?php endif; ?>
-        <?php if(isset($_SESSION['success'])): ?>
+        <?php if (isset($_SESSION['success'])): ?>
             <div class="alert alert-success">
                 <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
             </div>
@@ -618,12 +618,6 @@
 <!-- <script src="/js/editor.js"></script>
 <script src="my.js"></script> -->
 
-<?php
-$logs = \R::getDatabaseAdapter()
-    ->getDatabase()
-    ->getLogger();
-
-debug( $logs->grep( 'SELECT' ) );
-?>
+<?php \ishop\Logger::getLog(); ?>
 </body>
 </html>
