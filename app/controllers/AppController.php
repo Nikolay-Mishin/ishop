@@ -29,12 +29,12 @@ class AppController extends Controller {
 
     // метод для кэширования массива категорий
     public static function cacheCategory(): array {
-        Cache::get('cats'); // получаем категории из кэша
+        $cats = Cache::get('cats'); // получаем категории из кэша
         // если данные из кэша не получены
         if (!$cats) {
             // SELECT * FROM category
             $cats = \R::getAssoc("SELECT * FROM category"); // берем категории из БД
-            $cache->set('cats', $cats); // записываем в кэш
+            Cache::set('cats', $cats); // записываем в кэш
         }
         return $cats;
     }

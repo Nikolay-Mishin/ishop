@@ -848,3 +848,7 @@
 =================
 [2021-08-15 23:57:36] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-08-16 12:36:55] Текст ошибки: Call to a member function set() on null | Файл: W:\domains\ishop\app\controllers\AppController.php | Строка: 37
+=================
+[2021-08-16 12:36:55] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
