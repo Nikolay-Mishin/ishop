@@ -3,6 +3,7 @@
 namespace ishop\libs;
 
 use ishop\App;
+use ishop\Cache;
 
 class Process {
     
@@ -75,7 +76,6 @@ class Process {
     public static function add(string $cmd, ?string $pkey = null, ?array $descriptorspec = null, ?string $cwd = null, ?array $env = null, ?int $terminate_after = null): ?self {
         if (self::getProcess($pkey)) return null;
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
-        //debug($process);
         self::$log['start']['process'] = $process;
         return $_SESSION['process'][$process->getPid()] = $process;
         return App::$app->addInProperty('process', $process->getPid(), $process);
@@ -84,10 +84,6 @@ class Process {
     public static function killProc(int|string $pkey): bool {
         if ($process = self::getProcess($pkey)) {
             $process->kill();
-            //debug($process);
-            //debug(self::isRun($process->pid));
-            //debug("команда вернула:");
-            //debug($process->result);
             self::$log['kill']['process'] = $process;
             self::$log['kill']['isRun'][] = self::isRun($process->pid);
             self::$log['kill']['result'] = $process->result;
@@ -156,7 +152,7 @@ class Process {
         return false;
     }
 
-    public static function checkOS(): bool {
+    protected static function checkOS(): bool {
         return stripos(php_uname('s'), 'win') > -1;
     }
 
