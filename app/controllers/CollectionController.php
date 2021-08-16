@@ -12,7 +12,7 @@ class CollectionController extends AppController {
 
 	public function indexAction(): void {
 		// Создаём коллекцию
-		$books = CollectionFactory::create('Book', 'app\models\collection');
+		$books = CollectionFactory::create('app\models\collection\Book');
 		
 
 		// Добавим объектов в коллекцию:
@@ -22,7 +22,7 @@ class CollectionController extends AppController {
 
 		//$books->add(new Magazine(1)); // Ошибка (неверный тип)
 
-		$magazines = CollectionFactory::create('Magazine', 'app\models\collection');
+		$magazines = CollectionFactory::create('app\models\collection\Magazine');
 		$magazines->add(new Magazine(1));
 
 

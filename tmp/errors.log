@@ -1156,3 +1156,23 @@
 =================
 [2021-08-16 18:12:56] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-08-16 19:40:32] Текст ошибки: Call to undefined function ishop\libs\collection\parseNamespace() | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 23
+=================
+[2021-08-16 20:06:35] Текст ошибки: Class "app\models\collection\app\models\collection\BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 20:21:33] Текст ошибки: Call to undefined function ishop\libs\collection\get_declared_class() | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 54
+=================
+[2021-08-16 20:31:14] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-16 20:41:52] Текст ошибки: ishop\libs\collection\Collection::__construct(): Argument #2 ($namespace) must be of type string, null given, called in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 23 | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 40
+=================
+[2021-08-16 20:42:59] Текст ошибки: Объект типа `app\models\collection\Magazine` не может быть добавлен в коллекцию объектов типа `app\models\collection\Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 55
+=================
+[2021-08-16 20:50:53] Текст ошибки: Undefined constant "ishop\libs\collection\self" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 44
+=================
+[2021-08-16 20:57:07] Текст ошибки: Undefined constant "ishop\libs\collection\self" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 44
+=================
+[2021-08-16 21:03:04] Текст ошибки: Call to undefined function ishop\libs\collection\getDeclaredClass() | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 44
+=================
+[2021-08-16 21:07:05] Текст ошибки: ishop\libs\collection\CollectionFactory::getDeclaredClass(): Return value must be of type array, string returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 56
+=================

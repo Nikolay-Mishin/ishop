@@ -37,8 +37,8 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @param string $namespace Пространство имен
 	* @return void
 	*/
-	public function __construct(string $type, string $namespace = '') {
-		$this->type = $namespace ? "$namespace\\$type" : $type;
+	public function __construct(string $type) {
+		$this->type = $type;
 	}
 
 	/**
