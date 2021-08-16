@@ -34,13 +34,12 @@ class MainController extends AppController {
         $age = 30;
         $names = ['Andrey', 'Jane', 'Mike'];
 
-        $cache = Cache::instance(); // создаем объект кэша */
-        // $cache->set('test', $names); // кэшируем данные
-        // $cache->delete('test'); // очищаем кэш
-        // $data = $cache->get('test'); // получаем данные из кэша
+        // Cache::set('test', $names); // кэшируем данные
+        // Cache::delete('test'); // очищаем кэш
+        // $data = Cache::get('test'); // получаем данные из кэша
         // если данные не получены, то кэшируем их заново
         /* if(!$data){
-            $cache->set('test', $names);
+            Cache::set('test', $names);
         } */
         // debug($data); // распечатываем массив с данными кэша
 

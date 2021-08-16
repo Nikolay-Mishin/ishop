@@ -66,7 +66,7 @@ class CategoryController extends AppController {
 			//    \R::store($category);
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//}
-			new Category($_POST, [$this->getRequestID()], 'update'); // объект модели категории
+			new Category($_POST, $this->getRequestID(), 'update'); // объект модели категории
 			redirect();
 		}
 	}

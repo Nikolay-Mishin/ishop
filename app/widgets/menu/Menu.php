@@ -74,8 +74,7 @@ class Menu {
 	// формирует меню
 	protected function run() {
 		if (!$this->isMenu) return null;
-		$cache = Cache::instance(); // получаем объект кэша
-		$this->menuHtml = $cache->get($this->cacheKey); // получаем данные html-разметки из кэша по ключу
+		$this->menuHtml = Cache::get($this->cacheKey); // получаем данные html-разметки из кэша по ключу
 		// если данные не получены из кэша, то формируем (получаем) их
 		if (!$this->menuHtml) {
 			$this->data = App::$app->getProperty('cats'); // получаем категории из контейнера (реестра)
@@ -87,7 +86,7 @@ class Menu {
 			$this->menuHtml = $this->getTreeHtml(); // получаем html-разметку и передаем дерево для ее формирования
 			// кэшируем меню, если включено кэширование
 			if ($this->cache) {
-				$cache->set($this->cacheKey, $this->menuHtml, $this->cache);
+				Cache::set($this->cacheKey, $this->menuHtml, $this->cache);
 			}
 		}
 		$this->output(); // выводим меню

@@ -29,8 +29,7 @@ class AppController extends Controller {
 
     // метод для кэширования массива категорий
     public static function cacheCategory(): array {
-        $cache = Cache::instance(); // объет кэша
-        $cats = $cache->get('cats'); // получаем категории из кэша
+        Cache::get('cats'); // получаем категории из кэша
         // если данные из кэша не получены
         if (!$cats) {
             // SELECT * FROM category

@@ -2,12 +2,12 @@
 
 namespace app\models\admin;
 
-use app\models\User as baseUser;
+use app\models\User as BaseUser;
 use app\models\admin\Order; // модель заказа
 use ishop\libs\Pagination;
 use \Bean;
 
-class User extends baseUser {
+class User extends BaseUser {
 
 	public static Pagination $pagination; // пагинация
 	public static array $orders; // заказы пользователя
@@ -36,7 +36,7 @@ class User extends baseUser {
 		],
 	];
 
-	public function __construct(array $data = [], array $attrs = [], string $action = 'save', string $valid = 'checkUnique') {
+	public function __construct(array $data = [], array|string|int $attrs = [], string $action = 'save', string $valid = 'checkUnique') {
 		if (!$data) return false;
 		$valid = toArray($valid, false, 'checkUnique');
 		// если пароль не изменен, удаляем его из списка аттрибутов

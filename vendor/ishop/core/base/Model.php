@@ -19,7 +19,7 @@ abstract class Model extends Sql {
 	public int $id; // id последней сохраненной записи (метод save())
 	protected \Bean $bean;
 
-	public function __construct(array $data = [], array $attrs = [], string $action = 'save', array $valid = []) {
+	public function __construct(array|string|int $data = [], array|string|int $attrs = [], string $action = 'save', array|string $valid = []) {
 		if (CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
 
 		$this->addProtectProperties('bean');
@@ -51,7 +51,7 @@ abstract class Model extends Sql {
 	// данного поля нет в свойстве $attributes
 	'login1' => '', // поле, которого не было в форме (если со стороны клиенты, например будет попытка подмены формы)
 	*/
-	public function load(array $data): void {
+	protected function load(array $data): void {
 		foreach($this->attributes as $name => $value){
 			// если в данных есть поле, соответствующее полю в $attributes, то записываем значение из данных в аттрибуты
 			if (isset($data[$name])) {
@@ -61,7 +61,7 @@ abstract class Model extends Sql {
 	}
 
 	// сохраняем данные в таблицу в БД
-	public function save(string $table = '', bool $valid = true): \Bean {
+	protected function save(string $table = '', bool $valid = true): \Bean {
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
@@ -82,7 +82,7 @@ abstract class Model extends Sql {
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	public function update(int $id, string $table = ''): \Bean {
+	protected function update(int $id, string $table = ''): \Bean {
 		//$bean = \R::load($table, $id);
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		//// для каждого аттрибута модели заполняем поля записи в БД
@@ -106,7 +106,7 @@ abstract class Model extends Sql {
 	}
 
 	// метод валидации данных
-	public function validate(array $data): bool {
+	protected function validate(array $data): bool {
 		Validator::langDir(WWW . '/validator/lang'); // указываем Валидатору директорию для языков
 		Validator::lang('ru'); // устанавливаем язык Валидатора
 		$v = new Validator($data); // объект Валидатора (передаем данные в конструктор)
@@ -137,7 +137,7 @@ abstract class Model extends Sql {
 		$this->addRequired($data, ...$required);
 	}
 
-	public function addRequired(array $data, string ...$required): void {
+	protected function addRequired(array $data, string ...$required): void {
 		$data = arrayGetValues($data, $required);
 		foreach ($data as $k => $v) {
 			$this->rules['required'][] = toArray($k);

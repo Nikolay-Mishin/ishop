@@ -12,16 +12,15 @@ class CacheController extends AppController {
 
     public function deleteAction(): void {
         $key = isset($_GET['key']) ? $_GET['key'] : null; // получаем ключ кэша
-        $cache = Cache::instance(); // инициализируем кэш
         // проверяем совпадение полученного ключа кэша с ключом имеющегося кэша и удаляем кэш при совпадении
         switch ($key) {
             case 'category':
-                $cache->delete('cats');
-                $cache->delete('ishop_menu');
+                Cache::delete('cats');
+                Cache::delete('ishop_menu');
                 break;
             case 'filter':
-                $cache->delete('filter_group');
-                $cache->delete('filter_attrs');
+                Cache::delete('filter_group');
+                Cache::delete('filter_attrs');
                 break;
         }
         $_SESSION['success'] = 'Выбранный кэш удален';

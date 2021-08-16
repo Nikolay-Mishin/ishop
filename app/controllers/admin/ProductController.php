@@ -47,6 +47,8 @@ class ProductController extends AppController {
 	public function editAction(): void {
 		// если данные из формы получены, обрабатываем их
 		if (!empty($_POST)) {
+			new Product($_POST, [$this->getRequestID()], 'update'); // объект товара
+			redirect();
 			//$id = $this->getRequestID(false); // получаем id
 			//$product = new Product(); // объект модели товара
 			//$data = $_POST; // записываем пришедшие данные в переменную
@@ -72,8 +74,7 @@ class ProductController extends AppController {
 			//    \R::store($product);
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//}
-			new Product($_POST, [$this->getRequestID()], 'update'); // объект товара
-			redirect();
+			//redirect();
 		}
 	}
 

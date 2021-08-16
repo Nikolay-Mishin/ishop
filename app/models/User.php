@@ -37,7 +37,7 @@ class User extends AppModel {
 		]
 	];
 
-	public function __construct(string $userAction = 'login', array $data = [], array $attrs = [], string $action = 'save', string $valid = 'checkUnique') {
+	public function __construct(string $userAction = 'login', array $data = [], array|string|int $attrs = [], string $action = 'save', string|array $valid = 'checkUnique') {
 		if ($data) {
 			// хэшируем пароль
 			// password_hash - хэширует пароль с учетом временной метки (текущей даты)

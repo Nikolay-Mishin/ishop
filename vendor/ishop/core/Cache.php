@@ -8,21 +8,19 @@ namespace ishop;
 
 class Cache {
 
-    use \ishop\traits\T_Singletone; // шаблон Одининочка
-
     // запись в кэш
-    public function set(string $key, array|string $data, int $seconds = 3600): bool {
+    public static function set(string $key, array|string $data, int $seconds = 3600): bool {
         // $key - уникальное имя файла кэша
         // $data - данные для кэширования
         // $seconds - время кэширования данных в сек (на 1ч)
         // если время кэширования > 0 - кэшируем данные (в целях тестирования ставится в 0, чтобы временно не кэшировать данные)
         if ($seconds) {
             $content['data'] = $data; // записываем переданные данные в массив
-            $content['end_time'] = time() + $seconds; // записываем в массив конечное время кэширования (текущие время + время кэша)
+            $content['end_time'] = $seconds ?: time() + $seconds; // записываем в массив конечное время кэширования (текущие время + время кэша)
             // записываем данные в кэш
             // md5($key) - хэшируем ключ имени кэша
             // serialize($content) - сериализует весь контент (переводит в строковый формат)
-            if (file_put_contents(CACHE . '/' . md5($key) . '.txt', serialize($content))) {
+            if (file_put_contents(CACHE.'/'.md5($key).'.txt', serialize($content))) {
                 return true;
             }
         }
@@ -30,8 +28,8 @@ class Cache {
     }
 
     // получение кэша
-    public function get(string $key): array|string|null {
-        $file = CACHE . '/' . md5($key) . '.txt'; // путь к файлу кэша по ключу
+    public static function get(string $key): array|string|null {
+        $file = CACHE.'/'.md5($key).'.txt'; // путь к файлу кэша по ключу
         // если файл существует вынимает контент из кэша
         if (file_exists($file)) {
             $content = unserialize(file_get_contents($file)); // десериализуем контент из файла (преобразовываем из строки в массив)
@@ -39,14 +37,14 @@ class Cache {
             if (time() <= $content['end_time']) {
                 return $content['data'];
             }
-            unlink($file);
+            if ($content['end_time']) unlink($file);
         }
         return null;
     }
 
     // удаление/очистка кэша
-    public function delete(string $key): void {
-        $file = CACHE . '/' . md5($key) . '.txt'; // путь к файлу кэша по ключу
+    public static function delete(string $key): void {
+        $file = CACHE.'/'.md5($key).'.txt'; // путь к файлу кэша по ключу
         // если файл существует, удаляем его
         if (file_exists($file)) {
             unlink($file);
