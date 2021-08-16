@@ -75,15 +75,15 @@ class UploadController extends AppController {
 			else echo "<strong>$check<br>$check_2</strong>"; // выводим сообщение об ошибке
 		}
 		$this->setMeta('Загрузка одного файла'); // устанавливаем мета-данные
-		$this->setStyle('css/upload-file');
-		$this->setScript('js/_upload', 'js/upload-file');
+		$this->setStyle('upload-file');
+		$this->setScript('_upload', 'upload-file');
 	}
 
 	public function multyAction(): void {
 		if ($this->isAjax()) exit(Upload::getHandler());
 		$this->setMeta('Загрузка нескольких файлов'); // устанавливаем мета-данные
-		$this->setStyle('css/upload-multy');
-		$this->setScript('js/_upload', 'js/upload-multy');
+		$this->setStyle('upload-multy');
+		$this->setScript('_upload', 'upload-multy');
 	}
 
 }
