@@ -9,14 +9,15 @@ namespace ishop;
 class Cache {
 
     // запись в кэш
-    public static function set(string $key, array|string $data, int $seconds = 3600): bool {
+    public static function set(string $key, array|string $data, int $seconds = 3600, bool $noDelete = false): bool {
         // $key - уникальное имя файла кэша
         // $data - данные для кэширования
         // $seconds - время кэширования данных в сек (на 1ч)
         // если время кэширования > 0 - кэшируем данные (в целях тестирования ставится в 0, чтобы временно не кэшировать данные)
-        if ($seconds) {
+        if ($seconds || $noDelete) {
             $content['data'] = $data; // записываем переданные данные в массив
-            $content['end_time'] = $seconds ?: time() + $seconds; // записываем в массив конечное время кэширования (текущие время + время кэша)
+            $content['end_time'] = time() + $seconds; // записываем в массив конечное время кэширования (текущие время + время кэша)
+            $content['no_delete'] = $seconds == 0 && $noDelete ? true : false;
             // записываем данные в кэш
             // md5($key) - хэшируем ключ имени кэша
             // serialize($content) - сериализует весь контент (переводит в строковый формат)
@@ -34,10 +35,10 @@ class Cache {
         if (file_exists($file)) {
             $content = unserialize(file_get_contents($file)); // десериализуем контент из файла (преобразовываем из строки в массив)
             // проверяем не устарели ли данные в кэше и возвращаем их, иначе удаляем файл
-            if (time() <= $content['end_time']) {
+            if (time() <= $content['end_time'] || $content['no_delete']) {
                 return $content['data'];
             }
-            if ($content['end_time']) unlink($file);
+            unlink($file);
         }
         return null;
     }

@@ -19,7 +19,7 @@ return [
         "/adminlte/bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
-        "_base_functions",
+        "_core",
         "@".CONF."/require/consts.php",
         "_functions",
         "_variables",

@@ -12,7 +12,7 @@ return [
         "bower_components/ckeditor/adapters/jquery",
     ],
     'init' => [
-        "/js/_base_functions",
+        "/js/_core",
         "@".CONF."/require/admin_consts.php",
         "_functions",
         "_variables",
