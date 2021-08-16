@@ -52,7 +52,7 @@ abstract class CollectionFactory {
 
 	public static function getDeclaredClass(string $class): string {
 		return current(array_filter(get_declared_classes(), function($value) use($class) {
-			debug($value);
+			//debug($value);
 			return call_user_func([__CLASS__, 'parseNamespace'], $value)['class'] == $class;
 		}));
 	}
