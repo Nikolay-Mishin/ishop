@@ -2,6 +2,8 @@
 
 namespace app\models\collection;
 
+use ishop\libs\collection\Collection;
+
 class BookStore {
 
 	function addBooks(BookCollection $books) {

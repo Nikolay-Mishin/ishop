@@ -3,10 +3,12 @@
 namespace ishop\libs\collection;
 
 use \IteratorAggregate;
-use \ArrayAccess;
 use \Countable;
+use \ArrayAccess;
+
 use \Exception;
-use \CollectionIterator;
+use \Traversable;
+use \ArrayIterator;
 
 /**
 * Класс коллекции
@@ -14,7 +16,7 @@ use \CollectionIterator;
 *
 * @author [x26]VOLAND
 */
-abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
+abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  {
 
 	/**
 	* Тип элементов, хранящихся в данной коллекции.
@@ -32,23 +34,25 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
 	*
 	* @param string $type Тип элементов
+	* @param string $namespace Пространство имен
 	* @return void
 	*/
-	public function __construct(string $type) {
-		$this->type = $type;
+	public function __construct(string $type, string $namespace = '') {
+		$this->type = $namespace ? "$namespace\\$type" : $type;
 	}
 
 	/**
 	* Проверяет тип объекта.
 	* Препятствует добавлению в коллекцию объектов `чужого` типа.
 	*
-	* @param object $object Объект для проверки
+	* @param object $obj Объект для проверки
 	* @return void
 	* @throws Exception
 	*/
-	private function check_type(object &$object): void {
-		if (get_class($object) != $this->type) {
-			throw new Exception('Объект типа `' . get_class($object) . '` не может быть добавлен в коллекцию объектов типа `' . $this->type . '`');
+	private function check_type(object &$obj): void {
+		if (get_class($obj) != $this->type) {
+			$class = get_class($obj);
+			throw new Exception("Объект типа `$class` не может быть добавлен в коллекцию объектов типа `$this->type`");
 		}
 	}
 
@@ -60,9 +64,9 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	*/
 	public function add(): self {
 		$args = func_get_args();
-		foreach ($args as $object) {
-			$this->check_type($object);
-			$this->collection[] = $object;
+		foreach ($args as $obj) {
+			$this->check_type($obj);
+			$this->collection[] = $obj;
 		}
 		return $this;
 	}
@@ -75,8 +79,8 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	*/
 	public function remove(): self {
 		$args = func_get_args();
-		foreach ($args as $object) {
-			unset($this->collection[array_search($object, $this->collection)]);
+		foreach ($args as $obj) {
+			unset($this->collection[array_search($obj, $this->collection)]);
 		}
 		return $this;
 	}
@@ -103,70 +107,20 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	/**
 	* Реализация интерфейса IteratorAggregate
 	*/
+
 	/**
 	* Возвращает объект итератора.
 	*
-	* @return CollectionIterator
+	* @return Traversable
 	*/
-	public function getIterator(): CollectionIterator {
-		return new CollectionIterator($this->collection);
+	public function getIterator(): Traversable {
+		return new ArrayIterator($this->collection);
 	}
-	
-	/**
-	* Реализация интерфейса ArrayAccess.
-	*/
 
-	/**
-	* Sets an element of collection at the offset
-	*
-	* @param integer $offset Offset
-	* @param object $object Object
-	* @return void
-	*/
-	public function offsetSet(int $offset, object $object): void {
-		$this->check_type($object);
-		if ($offset === NULL) {
-			$offset = max(array_keys($this->collection)) + 1;
-		}
-		$this->collection[$offset] = $object;
-	}
-	
-	/**
-	* Выясняет существует ли элемент с данным ключом.
-	*
-	* @param integer $offset Ключ
-	* @return bool
-	*/
-	public function offsetExists(int $offset): bool {
-		return isset($this->collection[$offset]);
-	}
-	
-	/**
-	* Удаляет элемент, на который ссылается ключ $offset.
-	*
-	* @param integer $offset Ключ
-	* @return void
-	*/
-	public function offsetUnset(int $offset): void {
-		unset($this->collection[$offset]);
-	}
-	
-	/**
-	* Возвращает элемент по ключу.
-	*
-	* @param integer $offset Ключ
-	* @return mixed
-	*/
-	public function offsetGet(int $offset): mixed {
-		if (isset($this->collection[$offset]) === false) {
-		    return null;
-		}
-		return $this->collection[$offset];
-	}
-	
 	/**
 	* Реализация интерфейса Countable
 	*/
+
 	/**
 	* Возвращает кол-во элементов в коллекции.
 	*
@@ -174,6 +128,58 @@ abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	*/
 	public function count(): int {
 		return sizeof($this->collection);
+	}
+	
+	/**
+	* Реализация интерфейса ArrayAccess.
+	*/
+
+	/**
+	* Выясняет существует ли элемент с данным ключом.
+	*
+	* @param mixed $offset Ключ
+	* @return bool
+	*/
+	public function offsetExists(mixed $offset): bool {
+		return isset($this->collection[$offset]);
+	}
+
+	/**
+	* Возвращает элемент по ключу.
+	*
+	* @param mixed $offset Ключ
+	* @return mixed
+	*/
+	public function offsetGet(mixed $offset): mixed {
+		if (isset($this->collection[$offset]) === false) {
+			return null;
+		}
+		return $this->collection[$offset];
+	}
+
+	/**
+	* Sets an element of collection at the offset
+	*
+	* @param mixed $offset Offset
+	* @param mixed $obj Object
+	* @return void
+	*/
+	public function offsetSet(mixed $offset, mixed $obj): void {
+		$this->check_type($obj);
+		if ($offset === NULL) {
+			$offset = max(array_keys($this->collection)) + 1;
+		}
+		$this->collection[$offset] = $obj;
+	}
+	
+	/**
+	* Удаляет элемент, на который ссылается ключ $offset.
+	*
+	* @param mixed $offset Ключ
+	* @return void
+	*/
+	public function offsetUnset(mixed $offset): void {
+		unset($this->collection[$offset]);
 	}
 
 }

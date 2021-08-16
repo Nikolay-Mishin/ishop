@@ -150,305 +150,6 @@ object(Ds\Vector)[3]
 
 
 
-## [Полноценные коллекции в PHP](https://habr.com/ru/post/64840/)
-
-[Скачать исходник](http://wonted.ru/upl/Collection.php.txt)
-
-Не так давно при разработке своего проекта возникла идея реализовать полноценные коллекции для хранения объектов одинакового типа, по удобству напоминающие `List<Type>` в C#.
-
-Идея состоит в том, чтобы коллекции, содержащие объекты различных типов сами по себе различались, а не имели, скажем, один унифицированный тип Collection. Другими словами, коллекция объектов типа *User* это не то же что коллекция объектов Book. Естественно, первой мыслью было создание различных классов для коллекций (*UserCollection*, *BookCollection*, …). Но данных подход не обеспечивает нужной гибкости, плюс ко всему, нужно тратить время на объявление каждого подобного класса.
-
-Немного поразмыслив, реализовал динамическое создание классов коллекций. Выглядит это так: пользователь создаёт коллекцию объектов типа Book, а нужный тип BookCollection создаётся (т.е. объявляется) автоматически.
-
-Что я получил в итоге:
-
-* Полноценный `TypeHinting` создаваемых типов коллекций.
-* Строгая типизация коллекций.
-* Возможнось обращатся к коллекции как к массиву как в C# (путём реализации интерфейса *ArrayAccess*)
-* Полноценная итерация коллекции (возможность использования в любых циклах).
-
-#### Реализация
-
-##### Фабрика коллекций
-
-```php
-/**
-* Фабрика коллекций
-*
-* @author [x26]VOLAND
-*/
-abstract class CollectionFactory {
-
-	/**
-	* Создаёт коллекцию заданного типа.
-	*
-	* @param string $type Тип коллекции
-	* @return mixed
-	*/
-	public static function create($type) {
-		$class = $type . 'Collection';
-		self::__create_class($class);
-		$obj = new $class($type);
-		return $obj;
-	}
-
-	/**
-	* Создаёт класс с именем $class
-	*
-	* @param string $class Имя класса
-	* @return void
-	*/
-	private static function __create_class($class) {
-		if ( ! class_exists($class)) {
-			eval('class ' . $class . ' extends Collection { }');
-		}
-	}
-
-}
-```
-
-
-##### Класс коллекции (описывает поведение)
-
-```php
-/**
-* Класс коллекции
-* Базовый универсальный тип, на основе которого будут создаваться коллекции.
-*
-* @author [x26]VOLAND
-*/
-abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
-
-	/**
-	* Тип элементов, хранящихся в данной коллекции.
-	* @var string
-	*/
-	private $__type;
-	/**
-	* Хранилище объектов
-	* @var array
-	*/
-	private $__collection = array();
-
-	/**
-	* Констурктор.
-	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
-	*
-	* @param string $type Тип элементов
-	* @return void
-	*/
-	public function __construct($type) {
-		$this->__type = $type;
-	}
-
-	/**
-	* Проверяет тип объекта.
-	* Препятствует добавлению в коллекцию объектов `чужого` типа.
-	*
-	* @param object $object Объект для проверки
-	* @return void
-	* @throws Exception
-	*/
-	private function __check_type(&$object) {
-		if (get_class($object) != $this->__type) {
-			throw new Exception('Объект типа `' . get_class($object)
-		. '` не может быть добавлен в коллекцию объектов типа `' . $this->__type . '`');
-		}
-	}
-
-	/**
-	* Добавляет в коллекцию объекты, переданные в аргументах.
-	*
-	* @param object(s) Объекты
-	* @return mixed Collection
-	*/
-	public function add() {
-		$args = func_get_args();
-		foreach ($args as $object) {
-			$this->__check_type($object);
-			$this->__collection[] = $object;
-		}
-		return $this;
-	}
-
-	/**
-	* Удаляет из коллекции объекты, переданные в аргументах.
-	*
-	* @param object(s) Объекты
-	* @return mixed Collection
-	*/
-	public function remove() {
-		$args = func_get_args();
-		foreach ($args as $object) {
-			unset($this->__collection[array_search($object, $this->__collection)]);
-		}
-		return $this;
-	}
-
-	/**
-	* Очищает коллекцию.
-	*
-	* @return mixed Collection
-	*/
-	public function clear() {
-		$this->__collection = array();
-		return $this;
-	}
-
-	/**
-	* Выясняет, пуста ли коллекция.
-	*
-	* @return bool
-	*/
-	public function isEmpty() {
-		return empty($this->__collection);
-	}
-
-	/**
-	* Реализация интерфейса IteratorAggregate
-	*/
-	/**
-	* Возвращает объект итератора.
-	*
-	* @return CollectionIterator
-	*/
-	public function getIterator() {
-		return new CollectionIterator($this->__collection);
-	}
-	
-	/**
-	* Реализация интерфейса ArrayAccess.
-	*/
-
-	/**
-	* Sets an element of collection at the offset
-	*
-	* @param ineter $offset Offset
-	* @param mixed $offset Object
-	* @return void
-	*/
-	public function offsetSet($offset, $object) {
-		$this->__check_type($object);
-		if ($offset === NULL) {
-			$offset = max(array_keys($this->__collection)) + 1;
-		}
-		$this->__collection[$offset] = $object;
-	}
-	
-	/**
-	* Выясняет существует ли элемент с данным ключом.
-	*
-	* @param integer $offset Ключ
-	* @return bool
-	*/
-	public function offsetExists($offset) {
-		return isset($this->__collection[$offset]);
-	}
-	
-	/**
-	* Удаляет элемент, на который ссылается ключ $offset.
-	*
-	* @param integer $offset Ключ
-	* @return void
-	*/
-	public function offsetUnset($offset) {
-		unset($this->__collection[$offset]);
-	}
-	
-	/**
-	* Возвращает элемент по ключу.
-	*
-	* @param integer $offset Ключ
-	* @return mixed
-	*/
-	public function offsetGet($offset) {
-		if (isset($this->__collection[$offset]) === FALSE) {
-		return NULL;
-		}
-		return $this->__collection[$offset];
-	}
-	
-	/**
-	* Реализация интерфейса Countable
-	*/
-	/**
-	* Возвращает кол-во элементов в коллекции.
-	*
-	* @return integer
-	*/
-	public function count() {
-		return sizeof($this->__collection);
-	}
-
-}
-```
-
-
-###### Примеры использования
-
-
-```php
-class BookStore {
-	function addBooks(BookCollection $books) {
-		// реализация
-	}
-
-	function addMagazines(MagazineCollection $magazines) {
-		// реализация
-	}
-
-	// Если тип коллекции не важен, можно указать базовый тип Collection
-	function addGoods(Collection $goods) {
-		// реализация
-	}
-}
-
-class Book {
-	var $id;
-
-	function __construct($id) {
-		$this->id = $id;
-	}
-}
-
-class Magazine {
-	var $id;
-
-	function __construct($id) {
-		$this->id = $id;
-	}
-}
-
-// Создаём коллекцию
-$books = CollectionFactory::create('Book');
-echo get_class($books); // BookCollection
-
-// Добавим объектов в коллекцию:
-$books->add(new Book(1), new Book(2));
-$books->add(new Book(3))->add(new Book(2));
-$books[] = new Book(5);
-echo count($books); // 5
-
-foreach ($books as $book) {
-	echo $book->id;
-}
-// 12345
-
-$books->add(new Magazine(1)); // Ошибка (неверный тип)
-
-$magazines = CollectionFactory::create('Magazine');
-$magazines->add(new Magazine(1));
-
-$bookStore = new BookStore();
-$bookStore->addBooks($books); // Всё в порядке
-$bookStore->addBooks($magazines); // Ошибка (неверный тип)
-$bookStore->addMagazines($magazines); // Всё в порядке
-$bookStore->addGoods($books); // Всё в порядке
-$bookStore->addGoods($magazines); // Всё в порядке
-```
-
-
-
 ## [Реализации наборов](https://ru.stackoverflow.com/questions/615126/%D0%A7%D1%82%D0%BE-%D1%82%D0%B0%D0%BA%D0%BE%D0%B5-%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%B2-php)
 
 Наборы представлены единственной реализацией UniqueStore. Объекты в хранилище UniqueStore. Уникальность объектов обеспечивается за счет метода getIdentity(), который возвращает идентификаторы объектов. В хранилище UniqueStore не могут присутствовать несколько объектов с одинаковыми идентификаторами. Внутренняя структура хранилища уникальных объектов UniqueStore построена на основе ассоциативных связей между объектами и их идентификаторами. Это дает возможность реализовывать все операции хранилища с помощью ассоциативных выборок, что очень сильно повышает скорость его работы. Сложность работы алгоритмов хранилища уникальных объектов равна O(1), что означает, что время установки/получения объектов не изменяется в зависимости от размера хранилища. Хранилище уникальных объектов UniqueStore поддерживает любые типы данных для значений.
@@ -865,3 +566,616 @@ if ($list->isEmpty()) {
 
 * Условно-низкая производительность. То, что можно было выжать из PHP реализации, я старался выжать. Но если бы данный пакет был реализован на С, как PECL модуль, то он бы работал значительно быстрее.
 
+
+
+## [Полноценные коллекции в PHP](https://habr.com/ru/post/64840/)
+
+[Скачать исходник](http://wonted.ru/upl/Collection.php.txt)
+
+Не так давно при разработке своего проекта возникла идея реализовать полноценные коллекции для хранения объектов одинакового типа, по удобству напоминающие `List<Type>` в C#.
+
+Идея состоит в том, чтобы коллекции, содержащие объекты различных типов сами по себе различались, а не имели, скажем, один унифицированный тип Collection. Другими словами, коллекция объектов типа *User* это не то же что коллекция объектов Book. Естественно, первой мыслью было создание различных классов для коллекций (*UserCollection*, *BookCollection*, …). Но данных подход не обеспечивает нужной гибкости, плюс ко всему, нужно тратить время на объявление каждого подобного класса.
+
+Немного поразмыслив, реализовал динамическое создание классов коллекций. Выглядит это так: пользователь создаёт коллекцию объектов типа Book, а нужный тип BookCollection создаётся (т.е. объявляется) автоматически.
+
+Что я получил в итоге:
+
+* Полноценный `TypeHinting` создаваемых типов коллекций.
+* Строгая типизация коллекций.
+* Возможнось обращатся к коллекции как к массиву как в C# (путём реализации интерфейса *ArrayAccess*)
+* Полноценная итерация коллекции (возможность использования в любых циклах).
+
+#### Реализация
+
+##### Фабрика коллекций
+
+```php
+/**
+* Фабрика коллекций
+*
+* @author [x26]VOLAND
+*/
+abstract class CollectionFactory {
+
+	/**
+	* Создаёт коллекцию заданного типа.
+	*
+	* @param string $type Тип коллекции
+	* @return mixed
+	*/
+	public static function create($type) {
+		$class = $type . 'Collection';
+		self::__create_class($class);
+		$obj = new $class($type);
+		return $obj;
+	}
+
+	/**
+	* Создаёт класс с именем $class
+	*
+	* @param string $class Имя класса
+	* @return void
+	*/
+	private static function __create_class($class) {
+		if ( ! class_exists($class)) {
+			eval('class ' . $class . ' extends Collection { }');
+		}
+	}
+
+}
+```
+
+
+##### Класс коллекции (описывает поведение)
+
+```php
+/**
+* Класс коллекции
+* Базовый универсальный тип, на основе которого будут создаваться коллекции.
+*
+* @author [x26]VOLAND
+*/
+abstract class Collection implements IteratorAggregate, ArrayAccess, Countable {
+
+	/**
+	* Тип элементов, хранящихся в данной коллекции.
+	* @var string
+	*/
+	private $__type;
+	/**
+	* Хранилище объектов
+	* @var array
+	*/
+	private $__collection = array();
+
+	/**
+	* Констурктор.
+	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
+	*
+	* @param string $type Тип элементов
+	* @return void
+	*/
+	public function __construct($type) {
+		$this->__type = $type;
+	}
+
+	/**
+	* Проверяет тип объекта.
+	* Препятствует добавлению в коллекцию объектов `чужого` типа.
+	*
+	* @param object $object Объект для проверки
+	* @return void
+	* @throws Exception
+	*/
+	private function __check_type(&$object) {
+		if (get_class($object) != $this->__type) {
+			throw new Exception('Объект типа `' . get_class($object)
+		. '` не может быть добавлен в коллекцию объектов типа `' . $this->__type . '`');
+		}
+	}
+
+	/**
+	* Добавляет в коллекцию объекты, переданные в аргументах.
+	*
+	* @param object(s) Объекты
+	* @return mixed Collection
+	*/
+	public function add() {
+		$args = func_get_args();
+		foreach ($args as $object) {
+			$this->__check_type($object);
+			$this->__collection[] = $object;
+		}
+		return $this;
+	}
+
+	/**
+	* Удаляет из коллекции объекты, переданные в аргументах.
+	*
+	* @param object(s) Объекты
+	* @return mixed Collection
+	*/
+	public function remove() {
+		$args = func_get_args();
+		foreach ($args as $object) {
+			unset($this->__collection[array_search($object, $this->__collection)]);
+		}
+		return $this;
+	}
+
+	/**
+	* Очищает коллекцию.
+	*
+	* @return mixed Collection
+	*/
+	public function clear() {
+		$this->__collection = array();
+		return $this;
+	}
+
+	/**
+	* Выясняет, пуста ли коллекция.
+	*
+	* @return bool
+	*/
+	public function isEmpty() {
+		return empty($this->__collection);
+	}
+
+	/**
+	* Реализация интерфейса IteratorAggregate
+	*/
+	/**
+	* Возвращает объект итератора.
+	*
+	* @return CollectionIterator
+	*/
+	public function getIterator() {
+		return new CollectionIterator($this->__collection);
+	}
+	
+	/**
+	* Реализация интерфейса ArrayAccess.
+	*/
+
+	/**
+	* Sets an element of collection at the offset
+	*
+	* @param ineter $offset Offset
+	* @param mixed $offset Object
+	* @return void
+	*/
+	public function offsetSet($offset, $object) {
+		$this->__check_type($object);
+		if ($offset === NULL) {
+			$offset = max(array_keys($this->__collection)) + 1;
+		}
+		$this->__collection[$offset] = $object;
+	}
+	
+	/**
+	* Выясняет существует ли элемент с данным ключом.
+	*
+	* @param integer $offset Ключ
+	* @return bool
+	*/
+	public function offsetExists($offset) {
+		return isset($this->__collection[$offset]);
+	}
+	
+	/**
+	* Удаляет элемент, на который ссылается ключ $offset.
+	*
+	* @param integer $offset Ключ
+	* @return void
+	*/
+	public function offsetUnset($offset) {
+		unset($this->__collection[$offset]);
+	}
+	
+	/**
+	* Возвращает элемент по ключу.
+	*
+	* @param integer $offset Ключ
+	* @return mixed
+	*/
+	public function offsetGet($offset) {
+		if (isset($this->__collection[$offset]) === FALSE) {
+		return NULL;
+		}
+		return $this->__collection[$offset];
+	}
+	
+	/**
+	* Реализация интерфейса Countable
+	*/
+	/**
+	* Возвращает кол-во элементов в коллекции.
+	*
+	* @return integer
+	*/
+	public function count() {
+		return sizeof($this->__collection);
+	}
+
+}
+```
+
+
+###### Примеры использования
+
+
+```php
+class BookStore {
+	function addBooks(BookCollection $books) {
+		// реализация
+	}
+
+	function addMagazines(MagazineCollection $magazines) {
+		// реализация
+	}
+
+	// Если тип коллекции не важен, можно указать базовый тип Collection
+	function addGoods(Collection $goods) {
+		// реализация
+	}
+}
+
+class Book {
+	var $id;
+
+	function __construct($id) {
+		$this->id = $id;
+	}
+}
+
+class Magazine {
+	var $id;
+
+	function __construct($id) {
+		$this->id = $id;
+	}
+}
+
+// Создаём коллекцию
+$books = CollectionFactory::create('Book');
+echo get_class($books); // BookCollection
+
+// Добавим объектов в коллекцию:
+$books->add(new Book(1), new Book(2));
+$books->add(new Book(3))->add(new Book(2));
+$books[] = new Book(5);
+echo count($books); // 5
+
+foreach ($books as $book) {
+	echo $book->id;
+}
+// 12345
+
+$books->add(new Magazine(1)); // Ошибка (неверный тип)
+
+$magazines = CollectionFactory::create('Magazine');
+$magazines->add(new Magazine(1));
+
+$bookStore = new BookStore();
+$bookStore->addBooks($books); // Всё в порядке
+$bookStore->addBooks($magazines); // Ошибка (неверный тип)
+$bookStore->addMagazines($magazines); // Всё в порядке
+$bookStore->addGoods($books); // Всё в порядке
+$bookStore->addGoods($magazines); // Всё в порядке
+```
+
+
+
+### [Интерфейс IteratorAggregate](https://www.php.net/manual/ru/class.iteratoraggregate.php)
+(PHP 5, PHP 7, PHP 8)
+
+#### Введение
+
+Интерфейс для создания внешнего итератора.
+
+#### Обзор интерфейсов
+
+```php
+class IteratorAggregate extends Traversable {
+	/* Методы */
+	abstract public getIterator(): Traversable
+}
+```
+
+
+
+### [Интерфейс Traversable](https://www.php.net/manual/ru/class.traversable.php)
+(PHP 5, PHP 7, PHP 8)
+
+#### Введение
+
+Интерфейс, определяющий, является ли класс обходимым (traversable) с использованием [foreach](https://www.php.net/manual/ru/control-structures.foreach.php).
+
+Абстрактный базовый интерфейс, который не может быть реализован сам по себе. Вместо этого должен реализовываться [IteratorAggregate](https://www.php.net/manual/ru/class.iteratoraggregate.php) или [Iterator](https://www.php.net/manual/ru/class.iterator.php).
+
+`Замечание:`
+
+Внутренние (встроенные) классы, которые реализуют этот интерфейс, могут быть использованы в конструкции foreach и не обязаны реализовывать IteratorAggregate или Iterator.
+
+`Замечание:`
+
+Это внутренний интерфейс, который не может быть реализован в скрипте PHP. Вместо него нужно использовать либо IteratorAggregate, либо Iterator. При реализации интерфейса, наследующего от Traversable, убедитесь, что в секции implements перед его именем стоит IteratorAggregate или Iterator.
+
+#### Обзор интерфейсов
+
+```php
+interface Traversable {
+}
+```
+
+
+
+### [Класс ArrayIterator](https://www.php.net/manual/ru/class.arrayiterator.php)
+(PHP 5, PHP 7, PHP 8)
+
+#### Введение
+
+Этот итератор позволяет сбрасывать и модифицировать значения и ключи в процессе итерации по массивам и объектам.
+
+Когда вы хотите перебрать один и тот же массив несколько раз, вам нужно создать экземпляр ArrayObject и создать для него объекты ArrayIterator, ссылающиеся на него либо при помощи [foreach](https://www.php.net/manual/ru/control-structures.foreach.php) или при вызове метода getIterator() вручную.
+
+#### Обзор классов
+
+```php
+class ArrayIterator implements ArrayAccess, SeekableIterator, Countable, Serializable {
+	/* Константы */
+	const int STD_PROP_LIST = 1;
+	const int ARRAY_AS_PROPS = 2;
+
+	/* Методы */
+	public __construct(array|object $array = [], int $flags = 0)
+	public append(mixed $value): void
+	public asort(int $flags = SORT_REGULAR): bool
+	public count(): int
+	public current(): mixed
+	public getArrayCopy(): array
+	public getFlags(): int
+	public key(): mixed
+	public ksort(int $flags = SORT_REGULAR): bool
+	public natcasesort(): bool
+	public natsort(): bool
+	public next(): void
+	public offsetExists(mixed $key): bool
+	public offsetGet(mixed $key): mixed
+	public offsetSet(mixed $key, mixed $value): void
+	public offsetUnset(mixed $key): void
+	public rewind(): void
+	public seek(int $offset): void
+	public serialize(): string
+	public setFlags(int $flags): void
+	public uasort(callable $callback): bool
+	public uksort(callable $callback): bool
+	public unserialize(string $data): void
+	public valid(): bool
+}
+```
+
+#### Предопределённые константы
+
+#### Флаги ArrayIterator
+
+##### ArrayIterator::STD_PROP_LIST
+
+Свойства имеют обычную функциональность при доступе в виде списке (var_dump, foreach и т.д.).
+
+##### ArrayIterator::ARRAY_AS_PROPS
+
+Записи могут быть доступны как свойства (чтение и запись).
+
+#### Содержание
+
+* [ArrayIterator::append](https://www.php.net/manual/ru/arrayiterator.append.php) — Добавить элемент
+* [ArrayIterator::asort](https://www.php.net/manual/ru/arrayiterator.asort.php) — Сортирует массив по значениям
+* [ArrayIterator::__construct](https://www.php.net/manual/ru/arrayiterator.construct.php) — Создаёт ArrayIterator
+* [ArrayIterator::count](https://www.php.net/manual/ru/arrayiterator.count.php) — Посчитать количество элементов
+* [ArrayIterator::current](https://www.php.net/manual/ru/arrayiterator.current.php) — Возвращает текущий элемент в массиве
+* [ArrayIterator::getArrayCopy](https://www.php.net/manual/ru/arrayiterator.getarraycopy.php) — Возвращает копию массива
+* [ArrayIterator::getFlags](https://www.php.net/manual/ru/arrayiterator.getflags.php) — Получает флаги поведения
+* [ArrayIterator::key](https://www.php.net/manual/ru/arrayiterator.key.php) — Возвращает ключ текущего элемента массива
+* [ArrayIterator::ksort](https://www.php.net/manual/ru/arrayiterator.ksort.php) — Сортирует массив по ключам
+* [ArrayIterator::natcasesort](https://www.php.net/manual/ru/arrayiterator.natcasesort.php) — Сортирует массив "натурально", с учётом регистра
+* [ArrayIterator::natsort](https://www.php.net/manual/ru/arrayiterator.natsort.php) — Сортирует массив "натурально"
+* [ArrayIterator::next](https://www.php.net/manual/ru/arrayiterator.next.php) — Перемещает указатель за следующую запись
+* [ArrayIterator::offsetExists](https://www.php.net/manual/ru/arrayiterator.offsetexists.php) — Проверяет существует ли смещение
+* [ArrayIterator::offsetGet](https://www.php.net/manual/ru/arrayiterator.offsetget.php) — Получает значение для смещения
+* [ArrayIterator::offsetSet](https://www.php.net/manual/ru/arrayiterator.offsetset.php) — Устанавливает значение для смещения
+* [ArrayIterator::offsetUnset](https://www.php.net/manual/ru/arrayiterator.offsetunset.php) — Сбрасывает значение по смещению
+* [ArrayIterator::rewind](https://www.php.net/manual/ru/arrayiterator.rewind.php) — Перемещает указатель в начало массива
+* [ArrayIterator::seek](https://www.php.net/manual/ru/arrayiterator.seek.php) — Перемещает указатель на выбранную позицию
+* [ArrayIterator::serialize](https://www.php.net/manual/ru/arrayiterator.serialize.php) — Сериализует массив
+* [ArrayIterator::setFlags](https://www.php.net/manual/ru/arrayiterator.setflags.php) — Устанавливает флаги, изменяющие поведение ArrayIterator
+* [ArrayIterator::uasort](https://www.php.net/manual/ru/arrayiterator.uasort.php) — Сортировка с помощью заданной пользователем функции и сохранением ключей
+* [ArrayIterator::uksort](https://www.php.net/manual/ru/arrayiterator.uksort.php) — Сортировка по ключам с помощью заданной функции сравнения
+* [ArrayIterator::unserialize](https://www.php.net/manual/ru/arrayiterator.unserialize.php) — Десериализация
+* [ArrayIterator::valid](https://www.php.net/manual/ru/arrayiterator.valid.php) — Проверяет, содержит ли массив ещё записи
+
+```php
+$fruits = array(
+	"apple" => "yummy",
+	"orange" => "ah ya, nice",
+	"grape" => "wow, I love it!",
+	"plum" => "nah, not me"
+);
+
+$obj = new ArrayObject( $fruits );
+$it = $obj->getIterator();
+
+// How many items are we iterating over?
+
+echo "Iterating over: " . $obj->count() . " values\n";
+
+// Iterate over the values in the ArrayObject:
+while($it->valid()) {
+	echo $it->key() . "=" . $it->current() . "\n";
+	$it->next();
+}
+
+// The good thing here is that it can be iterated with foreach loop
+
+foreach ($it as $key=>$val)
+	echo $key.":".$val."\n";
+
+/* Outputs something like */
+/*
+Iterating over: 4 values
+apple=yummy
+orange=ah ya, nice
+grape=wow, I love it!
+plum=nah, not me
+*/
+```
+
+
+
+## [Интерфейс Countable]()
+(PHP 5 >= 5.1.0, PHP 7, PHP 8)
+
+### Введение
+
+Классы, реализующие интерфейс Countable, могут быть использованы с функцией count().
+
+### Обзор интерфейсов
+
+```php
+interface Countable {
+	/* Методы */
+	public count(): int
+}
+```
+
+### Содержание
+
+* [Countable::count](https://www.php.net/manual/ru/countable.count.php) — Количество элементов объекта
+
+```php
+//Example One, BAD :(
+
+class CountMe {
+	protected $_myCount = 3;
+
+	public function count() {
+		return $this->_myCount;
+	}
+}
+
+$countable = new CountMe();
+echo count($countable); //result is "1", not as expected
+
+//Example Two, GOOD :)
+
+class CountMe implements Countable {
+	protected $_myCount = 3;
+
+	public function count() {
+		return $this->_myCount;
+	}
+}
+
+$countable = new CountMe();
+echo count($countable); //result is "3" as expected
+```
+
+
+
+## [Интерфейс ArrayAccess](https://www.php.net/manual/ru/class.arrayaccess)
+(PHP 5, PHP 7, PHP 8)
+
+### Введение
+
+Интерфейс обеспечивает доступ к объектам в виде массивов.
+
+### Обзор интерфейсов
+
+```php
+interface ArrayAccess {
+	/* Методы */
+	public offsetExists(mixed $offset): bool
+	public offsetGet(mixed $offset): mixed
+	public offsetSet(mixed $offset, mixed $value): void
+	public offsetUnset(mixed $offset): void
+}
+```
+
+### Содержание
+
+* [ArrayAccess::offsetExists](https://www.php.net/manual/ru/arrayaccess.offsetexists.php) — Определяет, существует ли заданное смещение (ключ)
+* [ArrayAccess::offsetGet](https://www.php.net/manual/ru/arrayaccess.offsetget.php) — Возвращает заданное смещение (ключ)
+* [ArrayAccess::offsetSet](https://www.php.net/manual/ru/arrayaccess.offsetset.php) — Присваивает значение заданному смещению
+*[ArrayAccess::offsetUnset](https://www.php.net/manual/ru/arrayaccess.offsetunset.php) — Удаляет смещение
+
+###### Пример #1 Основы использования
+
+```php
+class Obj implements ArrayAccess {
+	private $container = array();
+
+	public function __construct() {
+		$this->container = array(
+			"one"   => 1,
+			"two"   => 2,
+			"three" => 3,
+		);
+	}
+
+	public function offsetSet($offset, $value) {
+		if (is_null($offset)) {
+			$this->container[] = $value;
+		} else {
+			$this->container[$offset] = $value;
+		}
+	}
+
+	public function offsetExists($offset) {
+		return isset($this->container[$offset]);
+	}
+
+	public function offsetUnset($offset) {
+		unset($this->container[$offset]);
+	}
+
+	public function offsetGet($offset) {
+		return isset($this->container[$offset]) ? $this->container[$offset] : null;
+	}
+}
+
+$obj = new Obj;
+
+var_dump(isset($obj["two"]));
+var_dump($obj["two"]);
+unset($obj["two"]);
+var_dump(isset($obj["two"]));
+$obj["two"] = "A value";
+var_dump($obj["two"]);
+$obj[] = 'Append 1';
+$obj[] = 'Append 2';
+$obj[] = 'Append 3';
+print_r($obj);
+```
+
+###### Результатом выполнения данного примера будет что-то подобное:
+
+```php
+bool(true)
+int(2)
+bool(false)
+string(7) "A value"
+obj Object
+(
+	[container:obj:private] => Array
+		(
+			[one] => 1
+			[three] => 3
+			[two] => A value
+			[0] => Append 1
+			[1] => Append 2
+			[2] => Append 3
+		)
+
+)
+```

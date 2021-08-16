@@ -852,3 +852,281 @@
 =================
 [2021-08-16 12:36:55] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-08-16 12:40:39] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-16 12:40:39] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-08-16 12:40:42] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(33) : eval()'d code | Строка: 1
+=================
+[2021-08-16 12:42:48] Текст ошибки: syntax error, unexpected token "extends", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(35) : eval()'d code | Строка: 1
+=================
+[2021-08-16 12:43:16] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(35) : eval()'d code | Строка: 1
+=================
+[2021-08-16 12:51:06] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 51
+=================
+[2021-08-16 12:53:26] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 52
+=================
+[2021-08-16 13:00:13] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(35) : eval()'d code | Строка: 1
+=================
+[2021-08-16 13:00:22] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(35) : eval()'d code | Строка: 1
+=================
+[2021-08-16 13:00:37] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(35) : eval()'d code | Строка: 1
+=================
+[2021-08-16 13:01:50] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 52
+=================
+[2021-08-16 13:02:57] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 53
+=================
+[2021-08-16 13:03:36] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 53
+=================
+[2021-08-16 13:04:04] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 53
+=================
+[2021-08-16 13:06:31] Текст ошибки: syntax error, unexpected namespaced name "app\models\collection\BookColl...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(34) : eval()'d code | Строка: 1
+=================
+[2021-08-16 13:11:02] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:12:34] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:12:38] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `app\models\collection$type` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:12:56] Текст ошибки: Class "CollectionIterator" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 116
+=================
+[2021-08-16 13:14:43] Текст ошибки: Class "ishop\libs\collection\Traversable" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 116
+=================
+[2021-08-16 13:15:05] Текст ошибки: Cannot instantiate interface Traversable | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 116
+=================
+[2021-08-16 13:19:34] Текст ошибки: Cannot instantiate interface Traversable | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 115
+=================
+[2021-08-16 13:23:05] Текст ошибки: Class "ishop\libs\collection\ArrayIterator" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 115
+=================
+[2021-08-16 13:23:51] Текст ошибки: Объект типа `app\models\collection\Magazine` не может быть добавлен в коллекцию объектов типа `app\models\collection\Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:24:27] Текст ошибки: Объект типа `app\models\collection\Magazine` не может быть добавлен в коллекцию объектов типа `app\models\collection\Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:26:45] Текст ошибки: Объект типа `app\models\collection\Magazine` не может быть добавлен в коллекцию объектов типа `app\models\collection\Book` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:27:16] Текст ошибки: Объект типа `app\models\collection\Magazine` не может быть добавлен в коллекцию объектов типа `Magazine` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 54
+=================
+[2021-08-16 13:27:43] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:31:14] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:32:06] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:36:15] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:43:53] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:44:05] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:44:06] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:54:05] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:57:22] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:57:40] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:58:20] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:58:33] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:58:47] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:58:53] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:59:02] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:59:09] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:59:28] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:59:38] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 13:59:50] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:00:02] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:00:14] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:00:18] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:01:57] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:02:10] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:02:36] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:03:00] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:03:10] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:03:31] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:04:06] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:04:17] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:05:11] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:05:12] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:05:23] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:05:30] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:05:49] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:06:13] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:06:20] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:07:23] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:07:24] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:07:30] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:22:29] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:22:33] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:22:52] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:24:16] Текст ошибки: Class "ishop\libs\collection\ReflectionClass" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 26
+=================
+[2021-08-16 14:24:26] Текст ошибки: Non-static method ReflectionClass::getNamespaceName() cannot be called statically | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 26
+=================
+[2021-08-16 14:26:57] Текст ошибки: Too few arguments to function getReflector(), 0 passed in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 27 and exactly 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 116
+=================
+[2021-08-16 14:27:37] Текст ошибки: Too few arguments to function getReflector(), 0 passed in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 27 and exactly 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 116
+=================
+[2021-08-16 14:27:56] Текст ошибки: Too few arguments to function getReflector(), 0 passed in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 26 and exactly 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 116
+=================
+[2021-08-16 14:28:09] Текст ошибки: Non-static method ReflectionClass::getNamespaceName() cannot be called statically | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 28
+=================
+[2021-08-16 14:29:05] Текст ошибки: ReflectionClass::getNamespaceName() expects exactly 0 arguments, 1 given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 28
+=================
+[2021-08-16 14:29:18] Текст ошибки: ReflectionClass::getNamespaceName() expects exactly 0 arguments, 1 given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 28
+=================
+[2021-08-16 14:29:27] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:37:14] Текст ошибки: Class "BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:39:20] Текст ошибки: Class "BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:39:43] Текст ошибки: Class "BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:40:01] Текст ошибки: Class "BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:45:01] Текст ошибки: Class "Collection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:45:22] Текст ошибки: Class "ishop\libs\collectionCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:45:38] Текст ошибки: ishop\libs\collection\CollectionFactory::create(): Return value must be of type object, null returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 34
+=================
+[2021-08-16 14:46:21] Текст ошибки: Class "ishop\libs\collectionCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:49:37] Текст ошибки: Class "ishop\libs\collectionCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-16 14:54:58] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 14:56:14] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:00:20] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(27) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:00:44] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(27) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:01:04] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(27) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:01:05] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(27) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:01:19] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:02:43] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:02:48] Текст ошибки: syntax error, unexpected namespaced name "ishop\libs\collection\Collecti...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:03:03] Текст ошибки: Class "ishop\libs\collection\Collection\BookCollection\ishop\libs\collection\Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:03:30] Текст ошибки: Class "ishop\libs\collection\Collection\ishop\libs\collection\Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:03:43] Текст ошибки: Class "ishop\libs\collection\Collection\Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:03:51] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:04:17] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:04:31] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:05:04] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:05:09] Текст ошибки: syntax error, unexpected token "class", expecting "," or ";" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:05:15] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(29) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:06:26] Текст ошибки: Class "Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(31) : eval()'d code | Строка: 3
+=================
+[2021-08-16 15:06:35] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:08:06] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:08:19] Текст ошибки: Class "ishop\libs\collection\ishop\libs\collection\Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(28) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:08:26] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:09:51] Текст ошибки: syntax error, unexpected token ";", expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(26) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:10:27] Текст ошибки: syntax error, unexpected token "\" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(41) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:10:54] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:13:02] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:14:33] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:15:01] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:15:58] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:16:28] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:16:48] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:17:04] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 36 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:18:33] Текст ошибки: syntax error, unexpected token ";", expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(43) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:19:17] Текст ошибки: syntax error, unexpected token ";", expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(43) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:19:25] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 30 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:20:27] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 30 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:21:07] Текст ошибки: syntax error, unexpected token ";", expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php(42) : eval()'d code | Строка: 1
+=================
+[2021-08-16 15:21:57] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 30 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:22:19] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 21
+=================
+[2021-08-16 15:24:25] Текст ошибки: syntax error, unexpected double-quote mark | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 21
+=================
+[2021-08-16 15:24:45] Текст ошибки: app\models\collection\BookStore::addBooks(): Argument #1 ($books) must be of type app\models\collection\BookCollection, app\models\collection\MagazineCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 31 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 7
+=================
+[2021-08-16 15:25:13] Текст ошибки: app\models\collection\BookStore::addGoods(): Argument #1 ($goods) must be of type app\models\collection\Collection, app\models\collection\BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 33 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 16
+=================
+[2021-08-16 15:26:59] Текст ошибки: app\models\collection\BookStore::addGoods(): Argument #1 ($goods) must be of type app\models\collection\Collection, app\models\collection\BookCollection given, called in W:\domains\ishop\app\controllers\CollectionController.php on line 33 | Файл: W:\domains\ishop\app\models\collection\BookStore.php | Строка: 16
+=================
+[2021-08-16 15:28:51] Текст ошибки: Call to undefined method app\models\collection\BookStore::getIterator() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 38
+=================
+[2021-08-16 15:30:44] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
+[2021-08-16 15:30:56] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
+[2021-08-16 15:31:07] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
+[2021-08-16 15:31:15] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
+[2021-08-16 15:32:52] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
+[2021-08-16 15:34:40] Текст ошибки: Не найден вид W:\domains\ishop/app/views/Collection/index.php | Файл: W:\domains\ishop\vendor\ishop\core\base\View.php | Строка: 93
+=================
