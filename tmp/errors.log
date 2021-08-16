@@ -1176,3 +1176,13 @@
 =================
 [2021-08-16 21:07:05] Текст ошибки: ishop\libs\collection\CollectionFactory::getDeclaredClass(): Return value must be of type array, string returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 56
 =================
+[2021-08-16 21:11:11] Текст ошибки: Call to private method ishop\libs\collection\CollectionFactory::getDeclaredClass() from scope app\controllers\CollectionController | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 16
+=================
+[2021-08-16 21:16:43] Текст ошибки: call_user_func(): Argument #1 ($function) must be a valid callback, class "" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 138
+=================
+[2021-08-16 21:34:19] Текст ошибки: get_class(): Argument #1 ($object) must be of type object, string given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 22
+=================
+[2021-08-16 21:47:23] Текст ошибки: Too few arguments to function debug(), 0 passed in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 27 and at least 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 10
+=================
+[2021-08-16 21:53:15] Текст ошибки: syntax error, unexpected identifier "debug" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 29
+=================

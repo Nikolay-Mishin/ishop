@@ -13,7 +13,6 @@ class CollectionController extends AppController {
 	public function indexAction(): void {
 		// Создаём коллекцию
 		$books = CollectionFactory::create('app\models\collection\Book');
-		
 
 		// Добавим объектов в коллекцию:
 		$books->add(new Book(1), new Book(2));

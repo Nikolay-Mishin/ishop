@@ -2,8 +2,6 @@
 
 namespace ishop\libs\collection;
 
-use Collection;
-
 /**
 * Фабрика коллекций
 *
@@ -17,10 +15,14 @@ abstract class CollectionFactory {
 	* @param string $type Тип коллекции
 	* @return object
 	*/
-	public static function create(string $type): object {
+	public static function create(string|object $type, object ...$args): object {
+		$isObj = is_object($type);
+		$type = $isObj ? get_class($type) : $type;
 		$class = "${type}Collection";
 		self::createClass($class);
 		$obj = new $class($type);
+		if ($isObj) array_unshift($args, $type);
+		if ($args) $obj->add(...$args);
 		return $obj;
 	}
 
@@ -32,28 +34,27 @@ abstract class CollectionFactory {
 	*/
 	private static function createClass(string $class): void {
 		$curr_namespace = __NAMESPACE__;
-        extract(self::parseNamespace($class));
-        //debug($curr_namespace);
-        //debug("namespace $namespace; class $class extends \\$curr_namespace\Collection {}");
+		extract(self::parseNamespace($class));
+		//debug($curr_namespace);
+		//debug("namespace $namespace; class $class extends \\$curr_namespace\Collection {}");
 		if (!class_exists($class)) {
 			eval("namespace $namespace; class $class extends \\$curr_namespace\Collection {}");
 		}
-        //debug(getClassName("$namespace\\$class"));
-        debug($filter = self::getDeclaredClass('Collection'));
+		//debug(getClassName("$namespace\\$class"));
 	}
 
-	private static function parseNamespace(string $namespace): array {
-        preg_match('/(.*)(\W)(\w+)$/', $namespace, $match);
-        $class = $match[3] ?? $namespace;
-        $namespace = $match[1] ?? '';
+	public static function parseNamespace(string $namespace): array {
+		preg_match('/(.*)(\W)(\w+)$/', $namespace, $match);
+		$class = $match[3] ?? $namespace;
+		$namespace = $match[1] ?? '';
 		return compact('class', 'namespace');
 	}
 
-    private static function getDeclaredClass(string $class): string {
-        return current(array_filter(get_declared_classes(), function($value) use($class) {
-            //debug(__CLASS__);
-            return call_user_func([__CLASS__, 'parseNamespace'], $value)['class'] == $class;
-        }));
+	public static function getDeclaredClass(string $class): string {
+		return current(array_filter(get_declared_classes(), function($value) use($class) {
+			debug($value);
+			return call_user_func([__CLASS__, 'parseNamespace'], $value)['class'] == $class;
+		}));
 	}
 
 }

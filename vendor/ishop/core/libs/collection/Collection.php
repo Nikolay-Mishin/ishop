@@ -42,28 +42,12 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	}
 
 	/**
-	* Проверяет тип объекта.
-	* Препятствует добавлению в коллекцию объектов `чужого` типа.
-	*
-	* @param object $obj Объект для проверки
-	* @return void
-	* @throws Exception
-	*/
-	private function check_type(object &$obj): void {
-		if (get_class($obj) != $this->type) {
-			$class = get_class($obj);
-			throw new Exception("Объект типа `$class` не может быть добавлен в коллекцию объектов типа `$this->type`");
-		}
-	}
-
-	/**
 	* Добавляет в коллекцию объекты, переданные в аргументах.
 	*
 	* @param object(s) Объекты
 	* @return self Collection
 	*/
-	public function add(): self {
-		$args = func_get_args();
+	public function add(object ...$args): self {
 		foreach ($args as $obj) {
 			$this->check_type($obj);
 			$this->collection[] = $obj;
@@ -77,8 +61,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @param object(s) Объекты
 	* @return self Collection
 	*/
-	public function remove(): self {
-		$args = func_get_args();
+	public function remove(object ...$args): self {
 		foreach ($args as $obj) {
 			unset($this->collection[array_search($obj, $this->collection)]);
 		}
@@ -102,6 +85,21 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	*/
 	public function isEmpty(): bool {
 		return empty($this->collection);
+	}
+
+	/**
+	* Проверяет тип объекта.
+	* Препятствует добавлению в коллекцию объектов `чужого` типа.
+	*
+	* @param object $obj Объект для проверки
+	* @return void
+	* @throws Exception
+	*/
+	private function check_type(object &$obj): void {
+		if (get_class($obj) != $this->type) {
+			$class = get_class($obj);
+			throw new Exception("Объект типа `$class` не может быть добавлен в коллекцию объектов типа `$this->type`");
+		}
 	}
 
 	/**
