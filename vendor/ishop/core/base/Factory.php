@@ -35,8 +35,7 @@ abstract class Factory {
 	*/
 	private static function createClass(string|object $class): array {
 		extract(arrayMerge(get_class_vars(__CLASS__), get_class_vars(get_called_class())));
-		$type = $class;
-		$class .= $postfix;
+		list($type, $class) = [$class, $class.$postfix];
 		$return = compact('class', 'type');
 		extract(Parser::_namespace($class));
 		if (!class_exists($class)) {
