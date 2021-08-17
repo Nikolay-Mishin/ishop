@@ -5,6 +5,7 @@
 namespace ishop\base;
 
 use ishop\Db; // класс БД
+use ishop\db\Sql;
 use Valitron\Validator; // класс Валидатора
 
 abstract class Model extends Sql {
