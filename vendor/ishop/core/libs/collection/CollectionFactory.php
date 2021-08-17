@@ -11,8 +11,9 @@ use ishop\base\Factory;
 */
 abstract class CollectionFactory extends Factory {
 
-    private static string $postfix = 'Collection';
-    private static string $extends = '\\'.__NAMESPACE__.'\Collection';
+    protected static string $postfix = 'Collection';
+    protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
+    public $obj;
 
     /**
     * Создаёт коллекцию заданного типа.
@@ -21,8 +22,8 @@ abstract class CollectionFactory extends Factory {
     * @return object
     */
     public static function create(string|object $type, object ...$args): object {
-        parent::create($type, ...$args);
-        debug(self::$extends);
+        $obj = parent::create($type, ...$args);
+        if (is_object($type)) array_unshift($args, $type);
         if ($args) $obj->add(...$args);
         return $obj;
     }

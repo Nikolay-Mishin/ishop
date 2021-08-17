@@ -22,10 +22,9 @@ abstract class Factory {
 	* @param string $type Тип коллекции
 	* @return object
 	*/
-	public static function create(string|object $type, object ...$args): object {
-		$class = self::createClass($type);
-		if (is_object($type)) array_unshift($args, $type);
-		return new $class($class);
+	public static function create(string|object $type): object {
+		extract(self::createClass($type));
+		return new $class($type);
 	}
 
 	/**
@@ -34,17 +33,19 @@ abstract class Factory {
 	* @param string $class Имя класса
 	* @return void
 	*/
-	private static function createClass(string|object $class): void {
-		extract(Parser::_namespace($class.self::$postfix));
+	private static function createClass(string|object $class): array {
+		extract(arrayMerge(get_class_vars(__CLASS__), get_class_vars(get_called_class())));
+		$type = $class;
+		$class .= $postfix;
+		$return = compact('class', 'type');
+		extract(Parser::_namespace($class));
 		if (!class_exists($class)) {
-			$namespace = $namespace ? "namespace $namespace; " : $namespace;
-			$extends = self::$extends ? "extends ".self::$extends : self::$extends;
-			$implements = self::$implements ? "implements ".self::$implements : self::$implements;
-			debug("$namespace class $class $extends $implements {".self::$context."}");
-			eval("$namespace class $class $extends $implements {".self::$context."}");
+			$_namespace = $namespace ? "namespace $namespace;" : $namespace;
+			$extends = $extends ? "extends ".$extends : $extends;
+			$implements = $implements ? "implements ".$implements : $implements;
+			eval("$_namespace class $class $extends $implements { $context }");
 		}
-		debug(getClassName("$namespace\\$class"));
-	    return "$namespace\\$class".self::$postfix;
+		return $return;
 	}
 
 }

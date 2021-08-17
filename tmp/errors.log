@@ -1186,3 +1186,123 @@
 =================
 [2021-08-16 21:53:15] Текст ошибки: syntax error, unexpected identifier "debug" | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 29
 =================
+[2021-08-17 15:20:18] Текст ошибки: Class "namespace app\models\collection; \Book" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-08-17 15:23:06] Текст ошибки: syntax error, unexpected token "class" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(44) : eval()'d code | Строка: 1
+=================
+[2021-08-17 15:23:25] Текст ошибки: ishop\libs\collection\CollectionFactory::create(): Return value must be of type object, null returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 27
+=================
+[2021-08-17 15:23:54] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:27:18] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:28:00] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:30:30] Текст ошибки: Cannot instantiate abstract class ishop\libs\collection\CollectionFactory | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 25
+=================
+[2021-08-17 15:36:29] Текст ошибки: Cannot instantiate abstract class ishop\libs\collection\CollectionFactory | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 25
+=================
+[2021-08-17 15:36:43] Текст ошибки: Cannot instantiate abstract class ishop\libs\collection\CollectionFactory | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 25
+=================
+[2021-08-17 15:38:10] Текст ошибки: Cannot instantiate abstract class ishop\libs\collection\CollectionFactory | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 25
+=================
+[2021-08-17 15:38:37] Текст ошибки: Too few arguments to function ishop\base\Factory::__construct(), 0 passed in W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php on line 25 and exactly 1 expected | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 26
+=================
+[2021-08-17 15:39:43] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:41:07] Текст ошибки: Access to undeclared static property ishop\base\Factory::$postfix | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 45
+=================
+[2021-08-17 15:42:25] Текст ошибки: Access to undeclared static property ishop\libs\collection\CollectionFactory::$postfix | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 25
+=================
+[2021-08-17 15:42:40] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:44:38] Текст ошибки: get_class_vars() expects exactly 1 argument, 0 given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 26
+=================
+[2021-08-17 15:45:28] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:46:22] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:46:57] Текст ошибки: getCaller(): Return value must be of type array, stdClass returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 288
+=================
+[2021-08-17 15:47:12] Текст ошибки: getParentCaller(): Return value must be of type array, stdClass returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 292
+=================
+[2021-08-17 15:47:21] Текст ошибки: getCaller(): Return value must be of type array, stdClass returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 288
+=================
+[2021-08-17 15:49:06] Текст ошибки: getCaller(): Return value must be of type array, stdClass returned | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 288
+=================
+[2021-08-17 15:50:45] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:53:45] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:54:12] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:58:11] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 15:59:36] Текст ошибки: Access to undeclared static property stdClass::$class | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 29
+=================
+[2021-08-17 15:59:47] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:00:18] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:00:43] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:01:39] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:02:01] Текст ошибки: get_class_vars(): Argument #1 ($class) must be a valid class name, Array given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\CollectionFactory.php | Строка: 26
+=================
+[2021-08-17 16:02:14] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:03:05] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:03:58] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:04:53] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:05:34] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:05:59] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:08:57] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:09:53] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:13:57] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:14:07] Текст ошибки: syntax error, unexpected token ";", expecting ")" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-08-17 16:14:46] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:15:31] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:16:15] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:16:30] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:17:39] Текст ошибки: ishop\base\Factory::init(): Return value must be of type string, none returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 38
+=================
+[2021-08-17 16:22:22] Текст ошибки: Unclosed '{' on line 32 does not match ')' | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 35
+=================
+[2021-08-17 16:23:01] Текст ошибки: ishop\base\Factory::init(): Return value must be of type string, none returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 37
+=================
+[2021-08-17 16:23:39] Текст ошибки: ishop\base\Factory::init(): Return value must be of type string, none returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 36
+=================
+[2021-08-17 16:24:40] Текст ошибки: ishop\base\Factory::init(): Return value must be of type string, none returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 39
+=================
+[2021-08-17 16:24:48] Текст ошибки: ishop\base\Factory::init(): Return value must be of type string, none returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 39
+=================
+[2021-08-17 16:28:27] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:29:38] Текст ошибки: syntax error, unexpected end of file, expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(58) : eval()'d code | Строка: 1
+=================
+[2021-08-17 16:30:37] Текст ошибки: Class "app\models\collection\BookCollectionCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 29
+=================
+[2021-08-17 16:30:52] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `app\models\collection\BookCollection` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 101
+=================
+[2021-08-17 16:36:08] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `app\models\collection\BookCollection` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 101
+=================
+[2021-08-17 16:36:43] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `app\models\collection\BookCollection` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 101
+=================
+[2021-08-17 16:39:18] Текст ошибки: Call to undefined method stdClass::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
+[2021-08-17 16:40:10] Текст ошибки: ishop\base\Factory::createClass(): Return value must be of type object, array returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 53
+=================

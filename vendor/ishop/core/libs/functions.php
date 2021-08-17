@@ -275,24 +275,24 @@ function varName($v): ?string {
 	return $match[1] ?? null;
 }
 
-function getTrace(int $id = 0, bool $args = false): object {
+function getTrace(int $id = 0, bool $args = false): object|array {
 	$args = $args ? DEBUG_BACKTRACE_PROVIDE_OBJECT : DEBUG_BACKTRACE_IGNORE_ARGS;
 	$trace = debug_backtrace($args, $id ? $id + 1 : $id);
 	return $id ? (object) $trace[$id] : $trace;
 }
 
-function getCaller(int $id = 0): array {
+function getCaller(int $id = 0): object|array {
 	// position 0 would be the line that called debug_backtrace (getTrace) function so we ignore it
 	// position 1 would be the line that called this (getCaller) function so we ignore it
 	// position 2 would be the line that called getCaller function so we ignore it
 	return getTrace($id + 3);
 }
 
-function getParentCaller(int $id = 0): array {
+function getParentCaller(int $id = 0): object|array {
 	return getTrace($id + 4);
 }
 
-function getContext(string $pattern = '/^__(get|set|call)$/'): array {
+function getContext(string $pattern = '/^__(get|set|call)$/'): object|array|null {
 	return getMethodTrace($pattern) ?? getParentCaller();
 }
 
