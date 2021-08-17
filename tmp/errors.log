@@ -1306,3 +1306,5 @@
 =================
 [2021-08-17 16:40:10] Текст ошибки: ishop\base\Factory::createClass(): Return value must be of type object, array returned | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 53
 =================
+[2021-08-17 16:45:29] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
+=================
