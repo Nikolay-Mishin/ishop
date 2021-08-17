@@ -11,6 +11,9 @@ use ishop\base\Factory;
 */
 abstract class CollectionFactory extends Factory {
 
+        private static string $postfix = 'Collection';
+        private static string $extends = '\\'.__NAMESPACE__.'\Collection';
+
 	/**
 	* Создаёт коллекцию заданного типа.
 	*
@@ -19,7 +22,7 @@ abstract class CollectionFactory extends Factory {
 	*/
 	public static function create(string|object $type, object ...$args): object {
 		patent::create($type, ...$args);
-                $curr_namespace = __NAMESPACE__;
+                debug($extends);
 		if ($args) $obj->add(...$args);
 		return $obj;
 	}
