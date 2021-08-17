@@ -21,10 +21,9 @@ private static string $context = '';
 	* @return object
 	*/
 	public static function create(string|object $type, object ...$args): object {
-		self::createClass($class);
-		$obj = new $class($type);
+		$class = self::createClass($type);
 		if (is_object($type)) array_unshift($args, $type);
-		return $obj;
+		return new $class($class);
 	}
 
 	/**
@@ -35,15 +34,15 @@ private static string $context = '';
 	*/
 	private static function createClass(string|object $class): void {
 		extract(self::parseNamespace($class.self::$postfix));
-		//debug($curr_namespace);
-		//debug("namespace $namespace; class $class extends \\$curr_namespace\Collection {}");
 		if (!class_exists($class)) {
-                        $namespace = $namespace ? "namespace $namespace;" : $namespace;
+                        $namespace = $namespace ? "namespace $namespace; " : $namespace;
                         $extends = self::$extends ? "extends ".self::$extends : self::$extends;
                         $implements = self::$implements ? "implements ".self::$implements : self::$implements;
-                        eval("${namespace}class $class $extends $implements {".self::$context."}");
+                        debug("$namespace class $class $extends $implements {".self::$context."}");
+		        eval("$namespace class $class $extends $implements {".self::$context."}");
 		}
 		//debug(getClassName("$namespace\\$class"));
+                return "$namespace\\$class".self::$postfix;
 	}
 
 	public static function parseNamespace(string|object $namespace): array {
