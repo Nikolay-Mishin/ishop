@@ -44,7 +44,10 @@ class CollectionController extends AppController {
 		debug(['iteratorBooks' => $iteratorBooks]);
 		debug(['iteratorBooks->count()' => $iteratorBooks->count()]);
 
+		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
+
 		$this->setMeta('Коллекции');
+		$this->set(compact('breadcrumbs'));
 	}
 
 }
