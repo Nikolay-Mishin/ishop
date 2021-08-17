@@ -1310,3 +1310,5 @@
 =================
 [2021-08-17 20:36:20] Текст ошибки: Class "app\controllers\Breadcrumbs" not found | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 47
 =================
+[2021-08-17 21:01:09] Текст ошибки: Class "ishop\db\Sql" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 11
+=================
