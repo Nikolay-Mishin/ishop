@@ -7,6 +7,7 @@ use ishop\libs\collection\CollectionFactory;
 use app\models\collection\BookStore;
 use app\models\collection\Book;
 use app\models\collection\Magazine;
+use app\models\Breadcrumbs;
 
 class CollectionController extends AppController {
 

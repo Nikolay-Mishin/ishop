@@ -1308,3 +1308,5 @@
 =================
 [2021-08-17 16:45:29] Текст ошибки: Call to undefined method app\models\collection\Book::add() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 18
 =================
+[2021-08-17 20:36:20] Текст ошибки: Class "app\controllers\Breadcrumbs" not found | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 47
+=================
