@@ -1,3 +1,7 @@
+<?
+use ishop\App;
+?>
+
 <?=$breadcrumbs;?>
 
 <!--prdt-starts-->
@@ -12,7 +16,7 @@
                     <br><br>
                     <?php if (!empty($_SESSION['cart'])):?>
                         <!-- получаем активную валюту из контейнера (реестра) -->
-                        <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+                        <?php $curr = App::$app->getProperty('currency'); ?>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped">
                                 <thead>

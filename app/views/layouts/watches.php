@@ -1,3 +1,9 @@
+<?
+use app\widgets\currency\Currency;
+use app\widgets\menu\Menu;
+use ishop\Logger;
+?>
+
 <!--A Design by W3layouts
 Author: W3layout
 Author URL: http://w3layouts.com
@@ -51,7 +57,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="box">
                         <select id="currency" tabindex="4" class="dropdown drop">
                             <!-- вызываем виджет валюты (создаем объект класса) -->
-                            <?php new \app\widgets\currency\Currency(); ?>
+                            <?php new Currency(); ?>
                         </select>
                     </div>
 
@@ -144,7 +150,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <!-- обертка для меню -->
                     <div class="menu">
                         <!-- объект виджета меню - передаем параметры (пользовательский шаблон) и аттрибуты -->
-                        <?php new \app\widgets\menu\Menu([
+                        <?php new Menu([
                             'tpl' => WWW . '/menu/menu.php',
                             /* 'attrs' => [
                                 'style' => 'color: red; border: 1px solid red;',
@@ -339,7 +345,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- <script src="js/main.js"></script> -->
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
-<?php \ishop\Logger::getLog(); ?>
+<?php Logger::getLog(); ?>
 <?php
 //$logs = \R::getDatabaseAdapter()->getDatabase()->getLogger();
 //debug($logs->grep('SELECT'));

@@ -1,3 +1,9 @@
+<?
+use app\widgets\menu\Menu;
+use app\widgets\editor\Editor;
+use app\widgets\filter\Filter;
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -25,7 +31,7 @@
 
                         <div class="form-group">
                             <label for="category_id">Родительская категория</label>
-                            <?php new \app\widgets\menu\Menu([
+                            <?php new Menu([
                                 'tpl' => WWW . '/menu/select.php',
                                 'container' => 'select',
                                 'cache' => 0,
@@ -90,7 +96,7 @@
                             <?php endif; ?>
                         </div>
 
-                        <?= new \app\widgets\editor\Editor(['data' => $product->content]); ?>
+                        <?= new Editor(['data' => $product->content]); ?>
 
                         <div class="form-group">
                             <label>
@@ -115,7 +121,7 @@
                             </select>
                         </div>
 
-                        <?php new \app\widgets\filter\Filter($filter, WWW . '/filter/admin_filter_tpl.php'); ?>
+                        <?php new Filter($filter, WWW . '/filter/admin_filter_tpl.php'); ?>
 
                         <div class="form-group">
                             <div class="col-md-4">

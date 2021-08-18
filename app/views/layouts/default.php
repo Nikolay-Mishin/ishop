@@ -1,3 +1,7 @@
+<?
+use ishop\Logger;
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +21,7 @@
 <?=$content;?>
 
 <!-- выводим все запросы выполняемые RedBeanPHP -->
-<?php \ishop\Logger::getLog(); ?>
+<?php Logger::getLog(); ?>
 <?php
 //$logs = \R::getDatabaseAdapter()
 //    ->getDatabase()

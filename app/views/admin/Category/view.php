@@ -1,3 +1,7 @@
+<?
+use app\widgets\menu\Menu;
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -24,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="parent_id">Родительская категория</label>
-                            <?php new \app\widgets\menu\Menu([
+                            <?php new Menu([
                                 'tpl' => WWW . '/menu/select.php',
                                 'container' => 'select',
                                 'cache' => 0,

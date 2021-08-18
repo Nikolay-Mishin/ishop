@@ -1,3 +1,7 @@
+<?
+use ishop\App;
+?>
+
 <?=$breadcrumbs;?>
 
 <!--prdt-starts-->
@@ -9,7 +13,7 @@
                 <!-- выводим результаты поиска -->
                 <?php if (!empty($products)): ?>
                 <div class="product-one">
-                    <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+                    <?php $curr = App::$app->getProperty('currency'); ?>
                     <?php foreach ($products as $product): ?>
                         <div class="col-md-4 product-left p-left">
                         <div class="product-main simpleCart_shelfItem">

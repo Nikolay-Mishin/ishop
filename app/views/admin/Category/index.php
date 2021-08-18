@@ -1,3 +1,7 @@
+<?
+use app\widgets\menu\Menu;
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -15,7 +19,7 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body">
-                    <?php new \app\widgets\menu\Menu([
+                    <?php new Menu([
                         'tpl' => WWW . '/menu/category_admin.php',
                         'container' => 'div',
                         'cache' => 0,

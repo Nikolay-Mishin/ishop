@@ -1,6 +1,10 @@
+<?
+use ishop\App;
+?>
+
 <?php if (!empty($products)): ?>
     <!-- получаем активную валюту из контейнера -->
-    <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+    <?php $curr = App::$app->getProperty('currency'); ?>
     <!-- выводим отдельно каждый товар -->
     <?php foreach ($products as $product): ?>
         <div class="col-md-4 product-left p-left">

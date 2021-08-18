@@ -1,3 +1,8 @@
+<?
+use ishop\App;
+use app\widgets\comment\Comment;
+?>
+
 <?=$breadcrumbs;?>
 
 <!--start-single-->
@@ -26,8 +31,8 @@
                     </div>
 
                     <?php
-                    $curr = \ishop\App::$app->getProperty('currency'); // получаем активную валюту
-                    $cats = \ishop\App::$app->getProperty('cats'); // получаем категории
+                    $curr = App::$app->getProperty('currency'); // получаем активную валюту
+                    $cats = App::$app->getProperty('cats'); // получаем категории
                     ?>
 
                     <div class="col-md-7 single-top-right">
@@ -222,7 +227,7 @@
                 <!-- // выводим просмотренные товары -->
 
                 <!-- выводим комментарии -->
-                <?= new \app\widgets\comment\Comment([
+                <?= new Comment([
                     'data' => $comments,
                     'meta' => ['id' => $product->id]
                 ]); ?>

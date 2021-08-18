@@ -1,5 +1,9 @@
+<?
+use ishop\App;
+?>
+
 <?php // получаем из реестра id родительской категории
-$parent_id = \ishop\App::$app->getProperty('parent_id');
+$parent_id = App::$app->getProperty('parent_id');
 // если текущая категория является родительской, то делаем ее активной (selected)
 // делаем неактивной (блокируем - disabled) текущую категорию
 ?>

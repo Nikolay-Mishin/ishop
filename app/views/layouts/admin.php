@@ -1,3 +1,7 @@
+<?
+use ishop\Logger;
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -618,6 +622,6 @@
 <!-- <script src="/js/editor.js"></script>
 <script src="my.js"></script> -->
 
-<?php \ishop\Logger::getLog(); ?>
+<?php Logger::getLog(); ?>
 </body>
 </html>

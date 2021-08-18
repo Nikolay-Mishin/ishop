@@ -1,3 +1,8 @@
+<?
+use ishop\App;
+use app\widgets\filter\Filter;
+?>
+
 <?=$breadcrumbs;?>
 
 <!--prdt-starts-->
@@ -9,7 +14,7 @@
                 <?php if (!empty($products)): ?>
                     <div class="product-one">
                         <!-- получаем активную валюту из контейнера -->
-                        <?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+                        <?php $curr = App::$app->getProperty('currency'); ?>
                         <!-- выводим отдельно каждый товар -->
                         <?php foreach ($products as $product): ?>
                             <div class="col-md-4 product-left p-left">
@@ -62,7 +67,7 @@
             <!-- фильтры -->
             <div class="col-md-3 prdt-right">
                 <div class="w_sidebar">
-                    <?php new \app\widgets\filter\Filter(); ?>
+                    <?php new Filter(); ?>
                     <!--<section  class="sky-form">
                         <h4>Catogories</h4>
                         <div class="row1 scroll-pane">

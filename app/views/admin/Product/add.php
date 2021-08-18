@@ -1,3 +1,9 @@
+<?
+use app\widgets\menu\Menu;
+use app\widgets\editor\Editor;
+use app\widgets\filter\Filter;
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -25,7 +31,7 @@
 
                         <div class="form-group">
                             <label for="category_id">Родительская категория</label>
-                            <?php new \app\widgets\menu\Menu([
+                            <?php new Menu([
                                 'tpl' => WWW . '/menu/select.php',
                                 'container' => 'select',
                                 'cache' => 0,
@@ -87,7 +93,7 @@
                             </div>
                         </div>
 
-                        <?= new \app\widgets\editor\Editor(['data' => isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null]); ?>
+                        <?= new Editor(['data' => isset($_SESSION['form_data']['old_price']) ? $_SESSION['form_data']['old_price'] : null]); ?>
 
                         <div class="form-group">
                             <label>
@@ -106,7 +112,7 @@
                             <select name="related[]" class="form-control select2" id="related" multiple></select>
                         </div>
 
-                        <?php new \app\widgets\filter\Filter(null, WWW . '/filter/admin_filter_tpl.php'); ?>
+                        <?php new Filter(null, WWW . '/filter/admin_filter_tpl.php'); ?>
 
                         <!--https://dcrazed.com/html5-jquery-file-upload-scripts/-->
 

@@ -1,3 +1,7 @@
+<?
+use ishop\App;
+?>
+
 <!--banner-starts-->
 <div class="bnr" id="home">
     <div  id="top" class="callbacks_container">
@@ -49,7 +53,7 @@
 <!-- выводим хиты -->
 <?php if ($hits): ?>
 <!-- получаем активную валюту из контейнера (реестра) -->
-<?php $curr = \ishop\App::$app->getProperty('currency'); ?>
+<?php $curr = App::$app->getProperty('currency'); ?>
 <div class="product">
     <div class="container">
         <div class="product-top">
