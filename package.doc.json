@@ -7,8 +7,10 @@ npm init --yes // инициализация npm (создание файла pa
 npm outdated // является ли какой-либо модуль в проекте «старым»
 
 npm update // обновить все зависимости
-
 npm update xml2js // обновить одну зависимость, например xml2js
+
+npm view <package> versions
+npm i -D <package>@<version>
 
 ----- ГЛОБАЛЬНО -----
 
@@ -126,7 +128,7 @@ npm i -D sass-loader css-loader style-loader less less-loader
 		"babel-preset-latest": "^6.24.1",
 		"browser-sync": "^2.27.5",
 		"clean-webpack-plugin": "^4.0.0-alpha.0",
-		"copy-webpack-plugin": "^9.0.1",
+		"copy-webpack-plugin": "^5.1.2", // 9.0.1
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.2.0",
 		"csv-loader": "^3.0.3",
@@ -171,7 +173,7 @@ npm i -D sass-loader css-loader style-loader less less-loader
 		"rimraf": "^3.0.0",
 		"sass-loader": "^12.1.0",
 		"style-loader": "^3.2.1",
-		"terser-webpack-plugin": "^5.1.4",
+		"terser-webpack-plugin": "^2.3.8", // 5.1.4
 		"typescript": "^3.6.4",
 		"uninstall": "0.0.0",
 		"webpack": "^4.41.2",
