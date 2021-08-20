@@ -44,6 +44,8 @@ class CollectionController extends AppController {
 		debug(['bookStore'=> $bookStore]);
 		debug(['iteratorBooks' => $iteratorBooks]);
 		debug(['iteratorBooks->count()' => $iteratorBooks->count()]);
+		//debug(['$books->curr()' => $books->curr()]); // Ошибка (неверный метод)
+		debug(['$books->current()' => $books->current()]);
 
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
 

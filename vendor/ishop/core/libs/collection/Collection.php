@@ -41,6 +41,13 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 		$this->type = $type;
 	}
 
+	public function __call(string $method, array $args): mixed {
+		//$iterator = $this->getIterator();
+		if (!method_exists($this, $method) && isCallable($iterator = $this->getIterator(), $method)) return $iterator->$method(...$args);
+		list($class, $caller) = [get_class($this), get_called_class()];
+		throw new Exception("Метод `$class::$method()` отсутствует или не может быть вызван в области видимости `$caller`");
+	}
+
 	/**
 	* Добавляет в коллекцию объекты, переданные в аргументах.
 	*
