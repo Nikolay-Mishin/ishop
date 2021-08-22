@@ -1,23 +1,23 @@
 <?php
 
-namespace ishop\libs\collection;
+namespace ishop\libs\collection; // FFAE81FF - FFA6E229
 
 use ishop\base\Factory;
 
-/**
-* Фабрика коллекций
+/** // FFE04242
+* Фабрика коллекций // FF787878
 *
-* @author [x26]VOLAND
+* @author [x26]VOLAND // FFAFC84D
 */
-abstract class CollectionFactory extends Factory {
+abstract class CollectionFactory extends Factory { // FF4EC9B0
 
-    protected static string $postfix = 'Collection';
+    protected static string $postfix = 'Collection'; // FF66D9EF - FFCB892B?
     protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
 
     /**
     * Создаёт коллекцию заданного типа.
     *
-    * @param string $type Тип коллекции
+    * @param string $type Тип коллекции // FFB363D4
     * @return object
     */
     public static function create(string|object $type, object ...$args): object {
