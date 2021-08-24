@@ -54,7 +54,7 @@ class Breadcrumbs extends AppModel {
 	public static function getParts(array $cats, ?int $id): ?array {
 		if (!$id) return null; // если не передан id категории возвращаем false
 		$breadcrumbs = [];
-		foreach ($cats as $k => $v) {
+		foreach ($cats as $cat) {
 			// $k - идентификаторы элементов массива
 			// $v - массивы (значения элементов массива)
 			// если в массиве категорий существует переданный id, в массив хлебных крошек записываем ['алиас категории' => наименование]

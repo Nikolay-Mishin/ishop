@@ -61,7 +61,6 @@ class Order extends AppModel {
 		// debug(self::$delete);
 
 		return $orders;
-		return \R::getAll(self::getSql());
 	}
 
 	// получает заказ

@@ -6,7 +6,7 @@ use app\models\Category as Cat;
 
 class Category extends Cat {
 
-	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
+	public function __construct(array $data = [], array|int $attrs = [], string $action = 'save') {
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		/*

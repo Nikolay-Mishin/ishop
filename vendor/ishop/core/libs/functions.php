@@ -13,7 +13,7 @@ function debug($arr, bool $die = false): void {
 }
 
 // перенаправляет на указанную страницу
-function redirect(bool $http = false): void {
+function redirect(string|bool $http = false): void {
 	// $http - адрес перенаправления
 	// если $http передан то $redirect = адресу перенаправления, иначе обновить/перезапросить текущую страницу
 	if ($http) {
@@ -215,6 +215,7 @@ function arrayMerge(array $arr1, array $arr2): array {
 	return array_replace_recursive($arr1, array_intersect_key($arr2, $arr1));
 
 	// Example
+	/*
 	$defaults = [
 		'id'            => 123456,
 		'client_id'     => null,
@@ -234,6 +235,7 @@ function arrayMerge(array $arr1, array $arr2): array {
 		]
 	];
 	arrayMerge($defaults, $options);
+	*/
 
 	// Will return
 	//Array
@@ -250,7 +252,7 @@ function arrayMerge(array $arr1, array $arr2): array {
 
 // если получен массив, возвращает его
 // иначе возвращает полученное значение в виде массива
-function toArray(array|string $attrs, bool $attrToArray = false, array $data = [], string $result = 'attrs'): array {
+function toArray(array|string $attrs, bool $attrToArray = false, array|string $data = [], string $result = 'attrs'): array {
 	$attrs = is_array($attrs) ? $attrs : toArray([$attrs], $attrToArray, $data);
 	$data = is_array($data) ? $data : toArray($attrs, $attrToArray, [$data], 'data');
 	if ($data) {

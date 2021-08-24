@@ -1,4 +1,4 @@
-<?
+<?php
 use ishop\App;
 ?>
 
@@ -85,7 +85,7 @@ use ishop\App;
                                 </div>
                                 <div class="form-group">
                                     <label for="pay">
-                                        <input type="checkbox" name="pay" id="pay"></input> Оплатить онлайн
+                                        <input type="checkbox" name="pay" id="pay"> Оплатить онлайн
                                     </label>
                                 </div>
                                 <button type="submit" class="btn btn-default">Оформить</button>

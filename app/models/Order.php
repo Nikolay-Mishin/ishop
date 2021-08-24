@@ -4,11 +4,11 @@
 namespace app\models;
 
 use \Exception;
+use \Bean;
 
 use app\models\Payment; // модель оплаты
 use ishop\App;
 
-use \Bean;
 use Swift_Mailer; // класс отправки писем
 use Swift_Message; // класс формирования писем
 use Swift_SmtpTransport; // класс smtp-сервера
@@ -30,11 +30,13 @@ class Order extends AppModel {
 
 	public function __construct(array $data) {
 		parent::__construct($data); // вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		// если заказ не сохранен, прекращаем работу метода
-		if (!$this->id) return false; // id сохраненного заказа
-		$this->saveOrderProduct(); // сохраняем продукты заказа
-		// устанавливаем данные для оплаты заказа и отправляем письмо пользователю и администратору/менеджеру
-		$this->mailOrder($data['user_email'], Payment::setData($this->id, $data['pay']));
+		// если заказ сохранен, обрабатываем его
+		// id сохраненного заказа
+		if ($this->id) {
+			$this->saveOrderProduct(); // сохраняем продукты заказа
+			// устанавливаем данные для оплаты заказа и отправляем письмо пользователю и администратору/менеджеру
+			$this->mailOrder($data['user_email'], Payment::setData($this->id, $data['pay']));
+		}
 	}
 
 	// получает заказ
@@ -112,8 +114,8 @@ class Order extends AppModel {
 
 			// Send the message
 			// отправляем письма клиенту и администратору
-			$result = $mailer->send($message_client);
-			$result = $mailer->send($message_admin);
+			$mailer->send($message_client);
+			$mailer->send($message_admin);
 		} catch (Exception $e) {
 			
 		}

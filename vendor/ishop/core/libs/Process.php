@@ -78,7 +78,7 @@ class Process {
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
         self::$log['process'] = $process;
         return $_SESSION['process'][$process->getPid()] = $process;
-        return App::$app->addInProperty('process', $process->getPid(), $process);
+		//return App::$app->addInProperty('process', $process->getPid(), $process);
     }
     
     public static function killProc(int|string $pkey): bool {
@@ -101,10 +101,10 @@ class Process {
         }
         return $_SESSION['process'];
 
-        if (!$process_list = App::$app->getProperty('process')) {
-            $process_list = App::$app->setProperty('process', []);
-        }
-        return $process_list;
+		//if (!$process_list = App::$app->getProperty('process')) {
+		//    $process_list = App::$app->setProperty('process', []);
+		//}
+		//return $process_list;
     }
 
     public static function clean(): bool {
@@ -145,7 +145,7 @@ class Process {
                 return true;
             }
         }
-        elseif (posix_kill((int) $pid, 0)) {
+        elseif (\posix_kill((int) $pid, 0)) {
             return true;
         }
         return false;
@@ -167,8 +167,8 @@ class Process {
         if (!self::isRun($this->pid)) return true;
 
         if (self::getProcess($this->getPid())) {
-            //App::$app->deleteInProperty('process', $this->getPid());
             unset($_SESSION['process'][$this->getPid()]);
+            //App::$app->deleteInProperty('process', $this->getPid());
         }
 
         if (is_resource($this->process)) {
@@ -184,7 +184,7 @@ class Process {
 
         // вместо proc_terminate($this->process);
         stripos(php_uname('s'), 'win') > -1 ? exec("taskkill /f /t /pid $this->pid", $this->result) : exec("kill -9 $this->pid", $this->result);
-        //posix_kill($this->pid, SIGKILL);
+        //\posix_kill($this->pid, SIGKILL);
         return true;
     }
     

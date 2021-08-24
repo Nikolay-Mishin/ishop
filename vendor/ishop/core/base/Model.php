@@ -4,8 +4,11 @@
 
 namespace ishop\base;
 
+use \Bean;
+
 use ishop\Db; // класс БД
 use ishop\base\db\Sql;
+
 use Valitron\Validator; // класс Валидатора
 
 abstract class Model extends Sql {
@@ -18,7 +21,7 @@ abstract class Model extends Sql {
 	public array $errors = []; // хранение ошибок
 	public array $rules = []; // правила валидации данных
 	public int $id; // id последней сохраненной записи (метод save())
-	protected \Bean $bean;
+	protected Bean $bean;
 
 	public function __construct(array|string|int $data = [], array|string|int $attrs = [], string $action = 'save', array|string $valid = []) {
 		if (CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
@@ -62,7 +65,7 @@ abstract class Model extends Sql {
 	}
 
 	// сохраняем данные в таблицу в БД
-	protected function save(string $table = '', bool $valid = true): \Bean {
+	protected function save(string $table = '', bool $valid = true): Bean {
 		// если имя таблицы валидно, используем метод dispense, иначе xdispense
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
@@ -83,7 +86,7 @@ abstract class Model extends Sql {
 	}
 
 	// метод обновления (перезаписи) данных в БД
-	protected function update(int $id, string $table = ''): \Bean {
+	protected function update(int $id, string $table = ''): Bean {
 		//$bean = \R::load($table, $id);
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		//// для каждого аттрибута модели заполняем поля записи в БД
@@ -96,7 +99,7 @@ abstract class Model extends Sql {
 	}
 
 	// метод сохранения бина (представления таблицы) в БД
-	protected function saveBean(\Bean $bean): void {
+	protected function saveBean(Bean $bean): void {
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach ($this->attributes as $name => $value) {
 			$bean->$name = $value;

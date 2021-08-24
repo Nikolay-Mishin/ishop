@@ -30,11 +30,12 @@ class Currency extends AppModel {
 	];
 
 	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
-		if(!$data) return false;
-		$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
-		$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
-		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $attrs, $action);
+		if($data) {
+			$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
+			$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
+			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+			parent::__construct($data, $attrs, $action);
+		}
 		// сохраняем валюту в БД
 		if ($this->id) {
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Валюта добавлена';
@@ -102,7 +103,7 @@ class Currency extends AppModel {
 	}
 
 	// возвращает список всех курсов на текущую дату (если дата не передана)
-	public static function getCourses(?string $date = null): ?array {
+	public static function getCourses(?string $date = null): array|bool|null {
 		// если дата передана, форматируем ее
 		$date = $date ? '?date_req=' . (new \DateTime($date))->format('d.m.Y') : ''; // '2020/02/18' => 18.02.2020
 		if (!$file = file_get_contents(CURRENCY_API . $date)) return false; // получаем xml файл

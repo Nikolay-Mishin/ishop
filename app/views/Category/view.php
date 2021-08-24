@@ -1,4 +1,4 @@
-<?
+<?php
 use ishop\App;
 use app\widgets\filter\Filter;
 ?>

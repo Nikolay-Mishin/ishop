@@ -18,11 +18,11 @@ class Payment extends AppModel {
 	}
 
 	// метод устанавливает данные для оплаты заказа
-	public static function setData(array $data, bool $payNow = true): array {
+	public static function setData(array|int $data, bool $payNow = true): array {
 		// $data - данные для оплаты заказа
 		// $payNow - checkbox хочет ли пользователь сразу оплатить заказ
 		if ($payNow) {
-			$pay['id'] = !empty($data['id']) ? $data['id'] : $data; // получаем id заказа
+			$pay['id'] = !empty($data['id']) ? $data['id'] : (int) $data; // получаем id заказа
 			$pay['sum'] = !empty($_SESSION['cart']) ? $_SESSION['cart.sum'] : $data['sum']; // получаем сумму заказа
 			$pay['curr'] = !empty($_SESSION['cart']) ? $_SESSION['cart.currency']['code'] : $data['curr']; // получаем валюту заказа
 			$pay['ik_id'] = App::$app->getProperty('ik_id'); // получаем id кассы из реестра

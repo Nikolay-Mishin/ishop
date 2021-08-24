@@ -15,7 +15,7 @@ class Pagination {
 
     public string $limit; // sql-запрос ограничения выборки из БД
 
-    public function __construct(int $page, int $perpage, int $total, string $table = '') {
+    public function __construct(?int $page, int $perpage, ?int $total, string $table = '') {
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // текущая страница пагинации
 
         $this->perpage = $perpage;

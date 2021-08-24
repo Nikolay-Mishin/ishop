@@ -76,7 +76,7 @@ class UserController extends AppController {
 			//if(!$user->login(true)){
 			//    $_SESSION['error'] = 'Логин/пароль введены неверно';
 			//}
-			$user = new BaseUser('login', [], [$_POST, true]); // объект модели пользователя
+			new BaseUser('login', [], [$_POST, true]); // объект модели пользователя
 			// если авторизованный пользователь является админом, перенаправляем на гланую админки
 			// иначе направляем на главную сайта
 			if (User::isAdmin()) {

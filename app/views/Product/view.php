@@ -1,4 +1,4 @@
-<?
+<?php
 use ishop\App;
 use app\widgets\comment\Comment;
 ?>
@@ -86,8 +86,8 @@ use app\widgets\comment\Comment;
                                             <option>small</option>
                                         </select>
                                     </li> -->
-                                    <div class="clearfix"> </div>
                                 </ul>
+                                <div class="clearfix"></div>
                             </div>
                             <?php endif; ?>
 

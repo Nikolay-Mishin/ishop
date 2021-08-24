@@ -12,6 +12,8 @@
 
 namespace app\controllers;
 
+use \Exception;
+
 use app\models\Breadcrumbs; // модель хлебных крошек
 use app\models\Cart; // модель корзины
 use app\models\Modification; // модель модификаторов товара

@@ -1,4 +1,4 @@
-<?
+<?php
 use app\widgets\menu\Menu;
 use app\widgets\editor\Editor;
 use app\widgets\filter\Filter;

@@ -1,4 +1,4 @@
-<?
+<?php
 use app\widgets\currency\Currency;
 use app\widgets\menu\Menu;
 use ishop\Logger;
@@ -301,7 +301,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <?=$this->getScripts();?>
 
 <!-- _variables - ряд javaScript переменных (основных), которые будут использоваться в главном скрипте -->
-<? // require_once CONF.'/scripts_consts.php'; ?>
+<?php // require_once CONF.'/scripts_consts.php'; ?>
 
 <!-- <script src="js/_variables.js"></script> -->
 

@@ -12,7 +12,7 @@ class CommentController extends AppController {
 	public function addAction(): void {
 		$data = $_POST;
 		if (!empty($data)) {
-			$comment = new Comment($data);
+			new Comment($data);
 			$w_Comment = $this->getComments($data['product_id'], $data);
 			// если данные пришли ajax, загружаем вид и передаем соответствующие данные
 			if ($this->isAjax()) {

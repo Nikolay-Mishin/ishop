@@ -12,13 +12,13 @@ class Gallery extends AppModel {
 	public static function deleteSingle(int $id, string $src, Bean $data): int {
 		//$data = Product::getById($id); // загружаем данные товара из БД
 		$data->img = 'no_image.jpg'; // записываем путь к заглушке
-		return \R::store($data) ? deleteImg($src) : 0; // удаляем картинку из БД
+		return \R::store($data) ? self::deleteImg($src) : 0; // удаляем картинку из БД
 	}
 
 	// метод удаления картинок галлереи из БД и с сервера
 	public static function deleteGallery(int $id, string $src, string $table = 'gallery', string $idCol = 'product_id', string $srcCol = 'img'): int {
 		// удаляем картинку из БД
-		return \R::exec("DELETE FROM $table WHERE $idCol = ? AND $srcCol = ?", [$id, $src]) ? deleteImg($src) : 0;
+		return \R::exec("DELETE FROM $table WHERE $idCol = ? AND $srcCol = ?", [$id, $src]) ? self::deleteImg($src) : 0;
 	}
 
 	// метод удаления картинок галлереи из БД и с сервера

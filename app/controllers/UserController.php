@@ -103,7 +103,7 @@ class UserController extends AppController {
 			$data = $_POST; // данные, пришедшие от пользователя
 			$data['id'] = $_SESSION['user']['id']; // id пользователя
 			$data['role'] = $_SESSION['user']['role']; // роль пользователя
-			$user = new adminUser($data, $data['id'], 'update', 'saveSession'); // админская модель пользователя
+			new adminUser($data, $data['id'], 'update', 'saveSession'); // админская модель пользователя
 			redirect();
 		}
 	}

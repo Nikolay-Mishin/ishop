@@ -48,18 +48,18 @@ class Comment extends AppModel {
 	];
 
 	public function __construct(array $data = [], array|string|int $attrs = [], string $action = 'save') {
-		if (!$data) return false;
-
-		if ($action == 'save') {
-			$data['product_id'] = !empty($data['product_id']) ? (int) $data['product_id'] : null;
-			$data['user_id'] = !empty($data['user_id']) ? (int) $data['user_id'] : null;
-			$data['parent_id'] = !empty($data['parent_id']) ? (int) $data['parent_id'] : null;
+		if ($data) {
+			if ($action == 'save') {
+				$data['product_id'] = !empty($data['product_id']) ? (int) $data['product_id'] : null;
+				$data['user_id'] = !empty($data['user_id']) ? (int) $data['user_id'] : null;
+				$data['parent_id'] = !empty($data['parent_id']) ? (int) $data['parent_id'] : null;
+			}
+			else {
+				$this->setRequired($data, 'rate');
+			}
+			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+			parent::__construct($data, $attrs, $action);
 		}
-		else {
-			$this->setRequired($data, 'rate');
-		}
-		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $attrs, $action);
 		// сохраняем товар в БД
 		if ($this->id){
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Комментарий добавлен';

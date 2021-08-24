@@ -37,20 +37,21 @@ class User extends BaseUser {
 	];
 
 	public function __construct(array $data = [], array|string|int $attrs = [], string $action = 'save', string $valid = 'checkUnique') {
-		if (!$data) return false;
-		$valid = toArray($valid, false, 'checkUnique');
-		// если пароль не изменен, удаляем его из списка аттрибутов
-		// иначе хэшируем полученный пароль
-		if (!$data['password']) {
-			unset($this->attributes['password']);
+		if ($data) {
+			$valid = toArray($valid, false, 'checkUnique');
+			// если пароль не изменен, удаляем его из списка аттрибутов
+			// иначе хэшируем полученный пароль
+			if (!$data['password']) {
+				unset($this->attributes['password']);
+			}
+			else {
+				$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+			}
+			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+			// $this->checkUnique()
+			//debug(['User', $data, $attrs, $valid]);
+			parent::__construct('', $data, $attrs, $action, $valid);
 		}
-		else {
-			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-		}
-		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		// $this->checkUnique()
-		//debug(['User', $data, $attrs, $valid]);
-		parent::__construct('', $data, $attrs, $action, $valid);
 		// сохраняем изменения в БД
 		if ($this->id) {
 			$_SESSION['success'] = 'Изменения сохранены';

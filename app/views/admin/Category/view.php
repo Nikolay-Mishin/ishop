@@ -1,4 +1,4 @@
-<?
+<?php
 use app\widgets\menu\Menu;
 ?>
 

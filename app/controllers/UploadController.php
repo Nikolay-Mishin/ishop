@@ -50,7 +50,7 @@ class UploadController extends AppController {
 					$split = preg_split("/\n/", $str);
 					/* unset($split[0], $split[count ($split)]);
 					sort($split); */
-					$json = json_encode(['lines' => $split]);
+					json_encode(['lines' => $split]);
 					/* echo '<pre>';
 					print_r($split);
 					echo '</pre>';

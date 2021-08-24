@@ -216,7 +216,7 @@ class ChatServer {
 						// Отправляем приватное сообщение указанному пользователю
 						$connections[$toUserId]->send(json_encode($messageData));
 						// и отправителю
-						$connections->send(json_encode($messageData));
+						$connection->send(json_encode($messageData));
 					}
 					else {
 						$messageData['text'] = 'Не удалось отправить сообщение выбранному пользователю';

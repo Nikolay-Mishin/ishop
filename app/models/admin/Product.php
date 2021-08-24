@@ -41,28 +41,29 @@ class Product extends AppModel {
 	];
 
 	public function __construct(array $data = [], array $attrs = [], string $action = 'save'){
-		if (!$data) return false;
-		// устанавливаем необходимые аттрибуты для модели
-		$data['status'] = $data['status'] ? '1' : '0';
-		$data['hit'] = $data['hit'] ? '1' : '0';
-		if (!empty($data['modification']) && !empty($data['mod_price']) && count($data['modification']) == count($data['mod_price'])) {
-			foreach ($data['modification'] as $key => $mod) {
-				$data['mod'][] = ['title' => $data['modification'][$key], 'price' => $data['mod_price'][$key]];
+		if ($data) {
+			// устанавливаем необходимые аттрибуты для модели
+			$data['status'] = $data['status'] ? '1' : '0';
+			$data['hit'] = $data['hit'] ? '1' : '0';
+			if (!empty($data['modification']) && !empty($data['mod_price']) && count($data['modification']) == count($data['mod_price'])) {
+				foreach ($data['modification'] as $key => $mod) {
+					$data['mod'][] = ['title' => $data['modification'][$key], 'price' => $data['mod_price'][$key]];
+				}
 			}
+			$this->getImg(); // получаем основную картинку
+			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
+			parent::__construct($data, $attrs, $action);
 		}
-		$this->getImg(); // получаем основную картинку
-		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
-		parent::__construct($data, $attrs, $action);
 		// сохраняем товар в БД
-		if ($id = $this->id) {
+		if ($this->id) {
 			self::updateAlias('product', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
-			$this->saveGallery($id); // сохраняем галлерею
+			$this->saveGallery($this->id); // сохраняем галлерею
 			// изменяем модификации товара
-			$this->editAttrs($id, $data['mod'] ?? [], 'modification', 'product_id', ['title', 'price']);
+			$this->editAttrs($this->id, $data['mod'] ?? [], 'modification', 'product_id', ['title', 'price']);
 			// изменяем фильтры товара
-			$this->editAttrs($id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
+			$this->editAttrs($this->id, $data['attrs'] ?? [], 'attribute_product', 'product_id', 'attr_id');
 			// изменяем связанные товары
-			$this->editAttrs($id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
+			$this->editAttrs($this->id, $data['related'] ?? [], 'related_product', 'product_id', 'related_id');
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Товар добавлен';
 		}
 	}

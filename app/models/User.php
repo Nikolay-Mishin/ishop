@@ -140,7 +140,7 @@ class User extends AppModel {
 
 	// проверяет авторизован ли пользователь
 	public static function getData(): ?array {
-		return $this->checkAuth() ? $_SESSION['user'] : null;
+		return self::checkAuth() ? $_SESSION['user'] : null;
 	}
 
 }
