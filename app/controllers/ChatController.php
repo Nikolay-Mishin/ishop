@@ -11,15 +11,7 @@ use ishop\libs\Process;
 class ChatController extends AppController {
 
 	public function indexAction(): void {
-		if ($this->isAjax() && $action = $_GET['action'] ?? null) {
-			$log = Cache::get('chat') ?? [];
-			$result = Chat::$action();
-			if ($action == 'clean') exit($result);
-			$log[$action] = Process::$log;
-			Cache::set('chat', $log, 0, true);
-			Cache::set('processList', Process::getProcessList(), 0, true);
-			exit($result);
-		}
+		if ($this->isAjax() && $action = $_GET['action'] ?? null) exit(Chat::$action());
 
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
 

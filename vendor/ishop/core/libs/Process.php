@@ -7,7 +7,7 @@ use ishop\Cache;
 
 class Process {
     
-    public static self $log;
+    public static ?self $curr_process = null;
     public static array $isRun = [];
     
     public int $terminate_after = 5; // seconds after process is terminated
@@ -76,13 +76,10 @@ class Process {
 
     public static function add(string $cmd, ?string $pkey = null, ?array $descriptorspec = null, ?string $cwd = null, ?array $env = null, ?int $terminate_after = null): ?self {
         if (self::getProcess($pkey)) return null;
-        $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
-        self::$log = $process;
-        debug($process);
-		//self::$log['cache'] = Cache::get('chat');
-        //self::$log['processList'] = Cache::get('processList');
-        return $_SESSION['process'][$process->getPid()] = $process;
-		//return App::$app->addInProperty('process', $process->getPid(), $process);
+        self::$curr_process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
+        debug(self::$curr_process);
+		self::$curr_process->setCache();
+		return self::$curr_process;
     }
     
     public static function killProc(int|string $pkey): bool {
@@ -90,7 +87,7 @@ class Process {
             $process->kill();
             self::$isRun[] = self::isRun($process->pid);
             $process->_isRun = self::$isRun;
-            self::$log = $process;
+            self::$curr_process = $process;
             return true;
         }
         return false;
@@ -101,15 +98,7 @@ class Process {
     }
 
     public static function getProcessList(): array {
-        if (!isset($_SESSION['process'])) {
-            $_SESSION['process'] = [];
-        }
-        return $_SESSION['process'];
-
-		//if (!$process_list = App::$app->getProperty('process')) {
-		//    $process_list = App::$app->setProperty('process', []);
-		//}
-		//return $process_list;
+        return Cache::get('processList') ?? [];
     }
 
     public static function clean(): bool {
@@ -117,47 +106,41 @@ class Process {
             foreach ($process_list as $process) {
                 $process->kill();
             }
-            unset($_SESSION['process']);
+            Cache::delete('processList');
         }
         return true;
-
-		//if ($process_list = self::getProcessList()) {
-		//    foreach ($process_list as $process) {
-		//        $process->kill();
-		//    }
-		//    App::$app->deleteProperty('process');
-		//}
     }
 
     /** tasklist [/s <computer> [/u [<domain>\]<username> [/p <password>]]] [{/m <module> | /svc | /v}] [/fo {table | list | csv}] [/nh] [/fi <filter> [/fi <filter> [ ... ]]]
     * /fo {table | list | csv}	Указывает формат, используемый для выходных данных. Допустимые значения: Table, List и CSV. Формат выходных данных по умолчанию — Table.
     * /Fi <filter>	Указывает типы процессов, включаемых в запрос или исключаемых из него. Можно использовать более одного фильтра или использовать подстановочный знак ( \ ) для указания всех задач или имен изображений. Допустимые фильтры перечислены в разделе имена фильтров, операторы и значения этой статьи.
     */
-            
-    /**
-    * taskkill [/s <computer> [/u [<domain>\]<username> [/p [<password>]]]] {[/fi <filter>] [...] [/pid <processID> | /im <imagename>]} [/f] [/t]
-    * /f	Указывает, что процессы принудительно завершены. Этот параметр не учитывается для удаленных процессов; все удаленные процессы принудительно завершены.
-    * /t	Завершает указанный процесс и все дочерние процессы, запущенные этим процессом.
-    * /PID <processID>	Указывает идентификатор процесса для завершения процесса.
-    */
     public static function isRun(int $pid): bool {
         if (stripos(php_uname('s'), 'win') > -1) {
             exec("tasklist /fo list /fi \"pid eq $pid\"", $out);
-            //debug($out);
             if (!isset(self::$isRun['out'])) self::$isRun['out'] = [];
             self::$isRun['out'][] = $out;
             if (count($out) > 1) {
                 return true;
             }
         }
-        elseif (\posix_kill((int) $pid, 0)) {
-            return true;
-        }
+        elseif (\posix_kill((int) $pid, 0))  return true;
         return false;
     }
 
     protected static function checkOS(): bool {
         return stripos(php_uname('s'), 'win') > -1;
+    }
+
+    public function setCache($del = false): bool {
+        $processList = self::getProcessList();
+        if (!$del) $processList[$this->getPid()] = $this;
+        else unset($processList[$this->getPid()]);
+		return Cache::set('processList', $processList, 0, true);
+	}
+
+    public function getPid(): int|string {
+        return $this->pkey ?? $this->pid;
     }
 
     /**
@@ -166,35 +149,33 @@ class Process {
     * It works only under windows, you need a different kill routine on linux.
     * he script terminates the (else endless running) ping process after approximatly 5 seconds.
     */
+    /**
+    * taskkill [/s <computer> [/u [<domain>\]<username> [/p [<password>]]]] {[/fi <filter>] [...] [/pid <processID> | /im <imagename>]} [/f] [/t]
+    * /f	Указывает, что процессы принудительно завершены. Этот параметр не учитывается для удаленных процессов; все удаленные процессы принудительно завершены.
+    * /t	Завершает указанный процесс и все дочерние процессы, запущенные этим процессом.
+    * /PID <processID>	Указывает идентификатор процесса для завершения процесса.
+    */
     public function kill(): bool {
-        //debug(self::isRun($process->pid));
         self::$isRun = [self::isRun($this->pid)];
         if (!self::isRun($this->pid)) return true;
 
-        if (self::getProcess($this->getPid())) {
-            unset($_SESSION['process'][$this->getPid()]);
-            //App::$app->deleteInProperty('process', $this->getPid());
-        }
-
-        if (is_resource($this->process)) {
-            $result = proc_terminate($this->process);
-            // Важно закрывать все каналы перед вызовом proc_close во избежание мёртвой блокировки
-            foreach ($this->pipes as $pipe) {
-                if (is_resource($pipe)) fclose($pipe);
-            }
-            $result_2 = proc_close($this->process);
-            $this->result = [$result, $result_2];
-            return true;
-        }
+        if ($process = self::getProcess($this->getPid())) $process->setCache(true);
 
         // вместо proc_terminate($this->process);
-        stripos(php_uname('s'), 'win') > -1 ? exec("taskkill /f /t /pid $this->pid", $this->result) : exec("kill -9 $this->pid", $this->result);
         //\posix_kill($this->pid, SIGKILL);
+        stripos(php_uname('s'), 'win') > -1 ? exec("taskkill /f /t /pid $this->pid", $this->result) : exec("kill -9 $this->pid", $this->result);
         return true;
-    }
-    
-    public function getPid(): int|string {
-        return $this->pkey ?? $this->pid;
+
+		//if (is_resource($this->process)) {
+		//    $result = proc_terminate($this->process);
+		//    // Важно закрывать все каналы перед вызовом proc_close во избежание мёртвой блокировки
+		//    foreach ($this->pipes as $pipe) {
+		//        if (is_resource($pipe)) fclose($pipe);
+		//    }
+		//    $result_2 = proc_close($this->process);
+		//    $this->result = [$result, $result_2];
+		//    return true;
+		//}
     }
 
 }

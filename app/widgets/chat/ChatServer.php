@@ -227,7 +227,7 @@ class ChatServer {
 			}
 		};
 	}
-
+	
 }
 
 ChatServer::run();

@@ -1368,3 +1368,15 @@
 =================
 [2021-09-09 18:03:07] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-09-09 19:04:42] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
+[2021-09-09 19:23:36] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
+[2021-09-09 19:23:42] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
+[2021-09-09 19:33:27] Текст ошибки: Access to undeclared static property ishop\libs\Process::$log | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
+[2021-09-09 19:33:35] Текст ошибки: Access to undeclared static property ishop\libs\Process::$log | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
+[2021-09-09 19:34:21] Текст ошибки: Access to undeclared static property ishop\libs\Process::$process | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
+=================
