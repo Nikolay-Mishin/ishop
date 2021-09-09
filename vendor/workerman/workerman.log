@@ -1,0 +1,15 @@
+2021-09-09 16:46:42 pid:1 TypeError: app\widgets\chat\ChatServer::app\widgets\chat\{closure}(): Argument #1 ($connection) must be of type Workerman\Worker, Workerman\Connection\TcpConnection given, called in W:\domains\ishop\vendor\workerman\workerman\Worker.php on line 2468 and defined in W:\domains\ishop\app\widgets\chat\ChatServer.php:62
+Stack trace:
+#0 W:\domains\ishop\vendor\workerman\workerman\Worker.php(2468): app\widgets\chat\ChatServer::app\widgets\chat\{closure}()
+#1 W:\domains\ishop\vendor\react\event-loop\src\StreamSelectLoop.php(245): Workerman\Worker->acceptConnection()
+#2 W:\domains\ishop\vendor\react\event-loop\src\StreamSelectLoop.php(212): React\EventLoop\StreamSelectLoop->waitForStreamActivity()
+#3 W:\domains\ishop\vendor\workerman\workerman\Events\React\Base.php(254): React\EventLoop\StreamSelectLoop->run()
+#4 W:\domains\ishop\vendor\workerman\workerman\Events\React\Base.php(137): Workerman\Events\React\Base->run()
+#5 W:\domains\ishop\vendor\workerman\workerman\Worker.php(2401): Workerman\Events\React\Base->loop()
+#6 W:\domains\ishop\vendor\workerman\workerman\Worker.php(1397): Workerman\Worker->run()
+#7 W:\domains\ishop\vendor\workerman\workerman\Worker.php(1340): Workerman\Worker::forkWorkersForWindows()
+#8 W:\domains\ishop\vendor\workerman\workerman\Worker.php(539): Workerman\Worker::forkWorkers()
+#9 W:\domains\ishop\app\widgets\chat\ChatServer.php(24): Workerman\Worker::runAll()
+#10 W:\domains\ishop\app\widgets\chat\ChatServer.php(233): app\widgets\chat\ChatServer::run()
+#11 {main}
+2021-09-09 16:46:42 pid:1 Worker process terminated

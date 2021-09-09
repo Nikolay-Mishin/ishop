@@ -1326,3 +1326,17 @@
 =================
 [2021-09-09 16:14:09] Текст ошибки: Cannot auto-initialize an array inside property ishop\libs\Process::$log of type self | Файл: W:\domains\ishop\vendor\ishop\core\libs\Process.php | Строка: 144
 =================
+[2021-09-09 16:47:22] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 17
+=================
+[2021-09-09 16:59:01] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 17
+=================
+[2021-09-09 16:59:14] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 17
+=================
+[2021-09-09 16:59:53] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 16:59:55] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 17
+=================
+[2021-09-09 17:00:59] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 19
+=================
+[2021-09-09 17:02:18] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 19
+=================

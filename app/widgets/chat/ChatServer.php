@@ -2,6 +2,7 @@
 
 namespace app\widgets\chat;
 
+require_once dirname(__DIR__)."/../../config/init.php";
 require_once CONF.'/chat.php';
 
 // Подключаем библиотеку Workerman
@@ -15,16 +16,18 @@ class ChatServer {
 	public static array $connections = []; // сюда будем складывать все подключения
 
 	public static function run(): void {
-		self::$worker = new Worker(self::$websocket);
+		//self::$worker = new Worker(self::$websocket);
 		//self::onWorkerStart(self::$connections);
 		//self::onConnect(self::$connections);
 		//self::onClose(self::$connections);
 		//self::onMessage(self::$connections);
-		self::start(self::$worker, self::$connections);
+		self::start(self::$connections/*, self::$worker*/);
 		Worker::runAll();
 	}
 
-	public static function start(Worker $worker, array $connections): void {
+	public static function start(array &$connections/*, Worker &$worker*/): void {
+		//$connections = []; // сюда будем складывать все подключения
+		$worker = new Worker(self::$websocket);
 		$worker->onWorkerStart = function($worker) use (&$connections) {
 			$interval = 5; // пингуем каждые 5 секунд
 			Timer::add($interval, function() use (&$connections) {

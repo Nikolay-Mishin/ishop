@@ -9,8 +9,7 @@ use Workerman\Worker;
 
 $connections = []; // сюда будем складывать все подключения
 
-// Стартуем WebSocket-сервер на порту 8090
-$worker = new Worker(PROTOCOL."://".IP_LISTEN.":".PORT);
+$worker = new Worker(PROTOCOL."://".IP_LISTEN.":".PORT); // Стартуем WebSocket-сервер на порту 8090
 
 $worker->onWorkerStart = function($worker) use (&$connections) {
     $interval = 5; // пингуем каждые 5 секунд

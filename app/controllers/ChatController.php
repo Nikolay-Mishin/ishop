@@ -11,9 +11,12 @@ use ishop\libs\Process;
 class ChatController extends AppController {
 
 	public function indexAction(): void {
+		debug($_GET);
 		if ($this->isAjax() && $action = $_GET['action'] ?? null) {
 			$log = Cache::get('chat') ?? [];
 			$result = Chat::$action();
+			debug($action);
+			debug($result);
 			$log[$action] = Process::$log;
 			Cache::set('chat', $log, 0, true);
 			Cache::set('processList', Process::getProcessList(), 0, true);

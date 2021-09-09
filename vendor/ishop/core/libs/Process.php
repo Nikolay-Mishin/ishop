@@ -7,7 +7,7 @@ use ishop\Cache;
 
 class Process {
     
-    public static self $log;
+    public static ?self $log = null;
     public static array $isRun = [];
     
     public int $terminate_after = 5; // seconds after process is terminated

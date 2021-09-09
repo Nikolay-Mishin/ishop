@@ -8,3 +8,4 @@ define('IP_LISTEN', '0.0.0.0');
 
 define('SERVER_PATH',  '/chat');
 define('SERVER',  APP.'/widgets/chat/server.php');
+define('CHAT_SERVER',  APP.'/widgets/chat/ChatServer.php');
