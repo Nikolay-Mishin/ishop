@@ -4,6 +4,7 @@
 	<input type="button" id="chat-start" value="start" >
 	<input type="button" id="chat-stop" value="stop" >
 	<input type="button" id="chat-clean" value="clean" >
+	<input type="button" id="chat-server" value="server" >
 </div>
 
 <form id="chat" action="">

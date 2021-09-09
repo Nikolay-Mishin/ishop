@@ -20,7 +20,7 @@ class Chat {
 		return Process::clean();
 	}
 
-	public static function startServer(): bool {
+	public static function server(): bool {
 		return Process::add('php '.CHAT_SERVER, 'chat') ? true : false;
 	}
 
