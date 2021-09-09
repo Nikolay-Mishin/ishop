@@ -6,7 +6,6 @@ namespace app\controllers;
 use app\widgets\chat\Chat;
 use app\models\Breadcrumbs;
 use ishop\Cache;
-use ishop\libs\Process;
 
 class ChatController extends AppController {
 

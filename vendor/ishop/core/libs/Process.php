@@ -2,7 +2,6 @@
 
 namespace ishop\libs;
 
-use ishop\App;
 use ishop\Cache;
 
 class Process {
