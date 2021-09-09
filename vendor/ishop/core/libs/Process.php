@@ -7,7 +7,8 @@ use ishop\Cache;
 
 class Process {
     
-    public static array $log = [];
+    public static self $log;
+    public static array $isRun = [];
     
     public int $terminate_after = 5; // seconds after process is terminated
     public $process;
@@ -76,7 +77,9 @@ class Process {
     public static function add(string $cmd, ?string $pkey = null, ?array $descriptorspec = null, ?string $cwd = null, ?array $env = null, ?int $terminate_after = null): ?self {
         if (self::getProcess($pkey)) return null;
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
-        self::$log['process'] = $process;
+        self::$log = $process;
+		//self::$log['cache'] = Cache::get('chat');
+        //self::$log['processList'] = Cache::get('processList');
         return $_SESSION['process'][$process->getPid()] = $process;
 		//return App::$app->addInProperty('process', $process->getPid(), $process);
     }
@@ -84,8 +87,9 @@ class Process {
     public static function killProc(int|string $pkey): bool {
         if ($process = self::getProcess($pkey)) {
             $process->kill();
-            self::$log['process'] = $process;
-            self::$log['isRun'][] = self::isRun($process->pid);
+            self::$isRun[] = self::isRun($process->pid);
+            $process->_isRun = self::$isRun;
+            self::$log = $process;
             return true;
         }
         return false;
@@ -139,8 +143,8 @@ class Process {
         if (stripos(php_uname('s'), 'win') > -1) {
             exec("tasklist /fo list /fi \"pid eq $pid\"", $out);
             //debug($out);
-            if (!isset(self::$log['isRun']['out'])) self::$log['isRun']['out'] = [];
-            self::$log['isRun']['out'][] = $out;
+            if (!isset(self::$isRun['out'])) self::$isRun['out'] = [];
+            self::$isRun['out'][] = $out;
             if (count($out) > 1) {
                 return true;
             }
@@ -163,7 +167,7 @@ class Process {
     */
     public function kill(): bool {
         //debug(self::isRun($process->pid));
-        self::$log['isRun'] = [self::isRun($this->pid)];
+        self::$isRun = [self::isRun($this->pid)];
         if (!self::isRun($this->pid)) return true;
 
         if (self::getProcess($this->getPid())) {

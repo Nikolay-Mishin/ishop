@@ -1322,3 +1322,7 @@
 =================
 [2021-08-20 19:40:42] Текст ошибки: Метод `app\models\collection\BookCollection::curr()` отсутствует или не может быть вызван в области видимости `app\models\collection\BookCollection` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 48
 =================
+[2021-09-09 16:04:51] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 16:14:09] Текст ошибки: Cannot auto-initialize an array inside property ishop\libs\Process::$log of type self | Файл: W:\domains\ishop\vendor\ishop\core\libs\Process.php | Строка: 144
+=================

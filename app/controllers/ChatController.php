@@ -4,24 +4,28 @@
 namespace app\controllers;
 
 use app\widgets\chat\Chat;
-use ishop\Cache;
 use app\models\Breadcrumbs;
+use ishop\Cache;
+use ishop\libs\Process;
 
 class ChatController extends AppController {
 
 	public function indexAction(): void {
-		if ($this->isAjax()) {
-			$action = $_GET['action'] ?? null;
+		if ($this->isAjax() && $action = $_GET['action'] ?? null) {
 			$log = Cache::get('chat') ?? [];
-			$log[$action] = Chat::$action();
+			$result = Chat::$action();
+			$log[$action] = Process::$log;
 			Cache::set('chat', $log, 0, true);
-			exit($log[$action]['result']);
+			Cache::set('processList', Process::getProcessList(), 0, true);
+			exit($result);
 		}
 
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
 
 		$log = Cache::get('chat');
-		//debug($log);
+		$processList = Cache::get('processList');
+		debug($log);
+		debug($processList);
 
 		$this->setStyle('widgets/chat'/*, 'widgets/chat'*/);
 		$this->setScript('widgets/chat'/*, 'widgets/chat'*/);
