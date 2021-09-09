@@ -16,6 +16,10 @@ class Chat {
 		return Process::killProc('chat');
 	}
 
+	public static function clean(): bool {
+		return Process::clean();
+	}
+
 	public static function startServer(): bool {
 		return Process::add('php '.CHAT_SERVER, 'chat') ? true : false;
 	}

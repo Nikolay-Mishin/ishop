@@ -7,7 +7,7 @@ use ishop\Cache;
 
 class Process {
     
-    public static ?self $log = null;
+    public static self $log;
     public static array $isRun = [];
     
     public int $terminate_after = 5; // seconds after process is terminated
@@ -78,6 +78,7 @@ class Process {
         if (self::getProcess($pkey)) return null;
         $process = new self($cmd, $pkey, $descriptorspec, $cwd, $env, $terminate_after);
         self::$log = $process;
+        debug($process);
 		//self::$log['cache'] = Cache::get('chat');
         //self::$log['processList'] = Cache::get('processList');
         return $_SESSION['process'][$process->getPid()] = $process;
@@ -120,12 +121,12 @@ class Process {
         }
         return true;
 
-        if ($process_list = self::getProcessList()) {
-            foreach ($process_list as $process) {
-                $process->kill();
-            }
-            App::$app->deleteProperty('process');
-        }
+		//if ($process_list = self::getProcessList()) {
+		//    foreach ($process_list as $process) {
+		//        $process->kill();
+		//    }
+		//    App::$app->deleteProperty('process');
+		//}
     }
 
     /** tasklist [/s <computer> [/u [<domain>\]<username> [/p <password>]]] [{/m <module> | /svc | /v}] [/fo {table | list | csv}] [/nh] [/fi <filter> [/fi <filter> [ ... ]]]

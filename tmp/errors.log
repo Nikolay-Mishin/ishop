@@ -1340,3 +1340,29 @@
 =================
 [2021-09-09 17:02:18] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 19
 =================
+[2021-09-09 17:22:30] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:25:09] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:28:30] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:29:26] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 20
+=================
+[2021-09-09 17:33:13] Текст ошибки: Typed static property ishop\libs\Process::$log must not be accessed before initialization | Файл: W:\domains\ishop\app\controllers\ChatController.php | Строка: 20
+=================
+[2021-09-09 17:49:35] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:50:06] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:50:08] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:51:27] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:51:48] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-09-09 17:52:09] Текст ошибки: Typed property ishop\base\Model::$id must not be accessed before initialization | Файл: W:\domains\ishop\app\models\Comment.php | Строка: 64
+=================
+[2021-09-09 17:58:03] Текст ошибки: Typed property ishop\base\Model::$id must not be accessed before initialization | Файл: W:\domains\ishop\app\models\Comment.php | Строка: 64
+=================
+[2021-09-09 17:59:01] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
