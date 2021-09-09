@@ -20,7 +20,7 @@ abstract class Model extends Sql {
 	public array $attributes = []; // массив свойств модели (идентичен полям в таблицах БД - автозагрузка данных из форм в модель)
 	public array $errors = []; // хранение ошибок
 	public array $rules = []; // правила валидации данных
-	public int $id; // id последней сохраненной записи (метод save())
+	public ?int $id = null; // id последней сохраненной записи (метод save())
 	protected Bean $bean;
 
 	public function __construct(array|string|int $data = [], array|string|int $attrs = [], string $action = 'save', array|string $valid = []) {
@@ -99,14 +99,14 @@ abstract class Model extends Sql {
 	}
 
 	// метод сохранения бина (представления таблицы) в БД
-	protected function saveBean(Bean $bean): void {
+	protected function saveBean(Bean $bean): Bean {
 		// для каждого аттрибута модели заполняем поля записи в БД
 		foreach ($this->attributes as $name => $value) {
 			$bean->$name = $value;
 		}
-		$this->bean = $bean;
+		$this->id = \R::store($this->bean = $bean);
 		// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
-		//return $this->id = \R::store($this->bean = $bean);
+		return $this->bean;
 	}
 
 	// метод валидации данных
