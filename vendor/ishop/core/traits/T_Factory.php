@@ -20,7 +20,7 @@ class Cat {}
  * @phpstan-param T $param
  * @phpstan-return T
  */
-function foo($param) {
+function ex($param) {
 	return new Exception;
 }
 
@@ -37,6 +37,17 @@ interface Collection {
 	 * @return T
 	 */
 	public function get(int $index);
+}
+
+/**
+ * @param Collection<Dog> $dogs
+ * @return Collection<Dog>
+ */
+function foo(Collection $dogs) {
+	$dogs->add(new Dog());
+	// Dog expected, Cat given
+	//$dogs->add(new Cat());
+	return $dogs;
 }
 
 class Foo {}
