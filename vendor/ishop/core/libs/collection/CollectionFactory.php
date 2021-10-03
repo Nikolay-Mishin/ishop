@@ -11,6 +11,8 @@ use ishop\base\Factory;
 */
 abstract class CollectionFactory extends Factory {
 
+	//use \ishop\traits\T_Factory;
+
     protected static string $postfix = 'Collection';
     protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
 
@@ -18,6 +20,7 @@ abstract class CollectionFactory extends Factory {
     * Создаёт коллекцию заданного типа.
     *
     * @param string $type Тип коллекции
+	* @param object $args Объекты
     * @return object
     */
     public static function create(string|object $type, object ...$args): object {

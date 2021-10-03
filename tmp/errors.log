@@ -1380,3 +1380,7 @@
 =================
 [2021-09-09 19:34:21] Текст ошибки: Access to undeclared static property ishop\libs\Process::$process | Файл: W:\domains\ishop\app\widgets\chat\Chat.php | Строка: 30
 =================
+[2021-09-09 22:01:21] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-03 14:56:34] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================

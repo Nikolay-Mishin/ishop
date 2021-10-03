@@ -23,6 +23,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @var string
 	*/
 	private string $type;
+
 	/**
 	* Хранилище объектов
 	* @var array
@@ -34,7 +35,6 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
 	*
 	* @param string $type Тип элементов
-	* @param string $namespace Пространство имен
 	* @return void
 	*/
 	public function __construct(string $type) {
@@ -50,7 +50,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	/**
 	* Добавляет в коллекцию объекты, переданные в аргументах.
 	*
-	* @param object(s) Объекты
+	* @param object $args Объекты
 	* @return self Collection
 	*/
 	public function add(object ...$args): self {
@@ -64,7 +64,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	/**
 	* Удаляет из коллекции объекты, переданные в аргументах.
 	*
-	* @param object(s) Объекты
+	* @param object $args Объекты
 	* @return self Collection
 	*/
 	public function remove(object ...$args): self {
@@ -101,7 +101,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @return void
 	* @throws Exception
 	*/
-	private function check_type(object &$obj): void {
+	private function check_type(object $obj): void {
 		if (get_class($obj) != $this->type) {
 			$class = get_class($obj);
 			throw new Exception("Объект типа `$class` не может быть добавлен в коллекцию объектов типа `$this->type`");
