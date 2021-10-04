@@ -12,8 +12,12 @@ use app\models\Breadcrumbs;
 class CollectionController extends AppController {
 
 	public function indexAction(): void {
+		$booksTest = CollectionFactory::create(new Book(1));
+		debug(['Book' => Book::class]);
+		debug(['$booksTest' => $booksTest]);
+
 		// Создаём коллекцию
-		$books = CollectionFactory::create('app\models\collection\Book');
+		$books = CollectionFactory::create(Book::class);
 
 		// Добавим объектов в коллекцию:
 		$books->add(new Book(1), new Book(2));
@@ -22,7 +26,7 @@ class CollectionController extends AppController {
 
 		//$books->add(new Magazine(1)); // Ошибка (неверный тип)
 
-		$magazines = CollectionFactory::create('app\models\collection\Magazine');
+		$magazines = CollectionFactory::create(Magazine::class);
 		$magazines->add(new Magazine(1));
 
 
@@ -45,7 +49,7 @@ class CollectionController extends AppController {
 		debug(['iteratorBooks' => $iteratorBooks]);
 		debug(['iteratorBooks->count()' => $iteratorBooks->count()]);
 		//debug(['$books->curr()' => $books->curr()]); // Ошибка (неверный метод)
-		debug(['$books->current()' => $books->current()]);
+		debug(['$books->getArrayCopy()' => $books->getArrayCopy()]);
 
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
 

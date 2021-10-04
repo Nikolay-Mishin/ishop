@@ -5,6 +5,7 @@ namespace ishop\libs\collection;
 use \IteratorAggregate;
 use \Countable;
 use \ArrayAccess;
+use \Iterator;
 
 use \Exception;
 use \Traversable;
@@ -16,7 +17,7 @@ use \ArrayIterator;
 *
 * @author [x26]VOLAND
 */
-abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  {
+abstract class Collection implements IteratorAggregate, Countable, ArrayAccess, Iterator {
 
 	/**
 	* Тип элементов, хранящихся в данной коллекции.
@@ -30,15 +31,23 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	*/
 	private array $collection = [];
 
+	///**
+	//* Позиция текущей итерации коллекции.
+	//* @var int
+	//*/
+	//private int $position = 0;
+
 	/**
 	* Констурктор.
 	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
 	*
 	* @param string $type Тип элементов
+    * @param mixed $args Объекты
 	* @return void
 	*/
-	public function __construct(string $type) {
+	public function __construct(string $type, mixed ...$args) {
 		$this->type = $type;
+        $this->add(...$args);
 	}
 
 	public function __call(string $method, array $args): mixed {
@@ -55,7 +64,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	*/
 	public function add(object ...$args): self {
 		foreach ($args as $obj) {
-			$this->check_type($obj);
+			$this->checkType($obj);
 			$this->collection[] = $obj;
 		}
 		return $this;
@@ -101,7 +110,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @return void
 	* @throws Exception
 	*/
-	private function check_type(object $obj): void {
+	private function checkType(object $obj): void {
 		if (get_class($obj) != $this->type) {
 			$class = get_class($obj);
 			throw new Exception("Объект типа `$class` не может быть добавлен в коллекцию объектов типа `$this->type`");
@@ -128,7 +137,7 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	/**
 	* Возвращает кол-во элементов в коллекции.
 	*
-	* @return integer
+	* @return int
 	*/
 	public function count(): int {
 		return sizeof($this->collection);
@@ -155,25 +164,22 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	* @return mixed
 	*/
 	public function offsetGet(mixed $offset): mixed {
-		if (isset($this->collection[$offset]) === false) {
-			return null;
-		}
-		return $this->collection[$offset];
+		return $this->offsetExists($offset) ? $this->collection[$offset] : null;
 	}
 
 	/**
 	* Sets an element of collection at the offset
 	*
 	* @param mixed $offset Offset
-	* @param mixed $obj Object
+	* @param mixed $value Object
 	* @return void
 	*/
-	public function offsetSet(mixed $offset, mixed $obj): void {
-		$this->check_type($obj);
-		if ($offset === NULL) {
+	public function offsetSet(mixed $offset, mixed $value): void {
+		$this->checkType($value);
+		if (is_null($offset)) {
 			$offset = max(array_keys($this->collection)) + 1;
 		}
-		$this->collection[$offset] = $obj;
+		$this->collection[$offset] = $value;
 	}
 	
 	/**
@@ -185,5 +191,59 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess  
 	public function offsetUnset(mixed $offset): void {
 		unset($this->collection[$offset]);
 	}
+
+	/**
+	* Реализация интерфейса Iterator.
+	*/
+
+	/**
+	* Возврат текущего элемента.
+	*
+	* @return mixed
+	*/
+	public function current(): mixed {
+        return current($this->collection);
+		//return $this->collection[$this->position];
+    }
+
+	/**
+	* Переход к следующему элементу.
+	*
+	* @return mixed
+	*/
+	public function next(): mixed {
+        return next($this->collection);
+		//return ++$this->position;
+    }
+
+	/**
+	* Возврат ключа текущего элемента.
+	*
+	* @return int|string|null
+	*/
+    public function key(): int|string|null {
+        return key($this->collection);
+		//return $this->position;
+    }
+
+	/**
+	* Проверяет корректность текущей позиции.
+	*
+	* @return bool
+	*/
+    public function valid(): bool {
+		return is_null($this->key());
+		//return isset($this->collection[$this->position]);
+    }
+
+	/**
+	* Перемотать итератор на первый элемент.
+	*
+	* @return mixed
+	*/
+    public function rewind(): mixed {
+		return reset($this->myArray);
+		//return $this->position = 0;
+    }
 
 }

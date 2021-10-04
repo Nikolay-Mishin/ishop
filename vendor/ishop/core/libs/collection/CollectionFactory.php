@@ -16,18 +16,4 @@ abstract class CollectionFactory extends Factory {
     protected static string $postfix = 'Collection';
     protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
 
-    /**
-    * Создаёт коллекцию заданного типа.
-    *
-    * @param string $type Тип коллекции
-	* @param object $args Объекты
-    * @return object
-    */
-    public static function create(string|object $type, object ...$args): object {
-        $obj = parent::create($type, ...$args);
-        if (is_object($type)) array_unshift($args, $type);
-        if ($args) $obj->add(...$args);
-        return $obj;
-    }
-
 }

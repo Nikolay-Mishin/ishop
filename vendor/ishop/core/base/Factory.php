@@ -11,20 +11,37 @@ use ishop\libs\Parser;
 */
 abstract class Factory {
 
-	private static string $postfix = '';
-	private static string $extends = '';
-	private static string $implements = '';
-	private static string $context = '';
+	protected static string $postfix = '';
+	protected static string $extends = '';
+	protected static string $implements = '';
+	protected static string $context = '';
+    
+    /**
+	* Создаёт экземпляр класса заданного типа.
+	*
+	* @param string $type Тип коллекции
+    * @param mixed $args Объекты
+	* @return object
+	*/
+    public static function create(string|object $type, mixed ...$args): object {
+        $args = self::checkType($type) ? array_unshift($args, $type) : $args;
+		return self::getInstance($type, ...$args);
+	}
+  
+    protected static function checkType(string|object $type): bool {
+		return is_object($type) || !is_string($type);
+	}
 
 	/**
 	* Создаёт экземпляр класса заданного типа.
 	*
 	* @param string $type Тип коллекции
+    * @param mixed $args Объекты
 	* @return object
 	*/
-	public static function create(string|object $type): object {
+	protected static function getInstance(string|object $type, mixed ...$args): object {
 		extract(self::createClass($type));
-		return new $class($type);
+		return new $class($type, ...$args);
 	}
 
 	/**
@@ -33,16 +50,15 @@ abstract class Factory {
 	* @param string $class Имя класса
 	* @return void
 	*/
-	private static function createClass(string|object $class): array {
-		extract(arrayMerge(get_class_vars(__CLASS__), get_class_vars(get_called_class())));
-		list($type, $class) = [$class, $class.$postfix];
-		$return = compact('class', 'type');
+	protected static function createClass(string|object $class): array {
 		extract(Parser::_namespace($class));
+		list($type, $class) = [$class, $class.$postfix];
+		$return = compact('type', 'class');
 		if (!class_exists($class)) {
 			$_namespace = $namespace ? "namespace $namespace;" : $namespace;
-			$extends = $extends ? "extends ".$extends : $extends;
-			$implements = $implements ? "implements ".$implements : $implements;
-			eval("$_namespace class $class $extends $implements { $context }");
+			$extends = self::$extends ? "extends ".self::$extends : self::$extends;
+			$implements = self::$implements ? "implements ".self::$implements : self::$implements;
+			eval("$_namespace class $class $extends $implements { self::$context }");
 		}
 		return $return;
 	}

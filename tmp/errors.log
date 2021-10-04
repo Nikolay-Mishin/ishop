@@ -1384,3 +1384,15 @@
 =================
 [2021-10-03 14:56:34] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-10-03 20:49:50] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-03 21:14:30] Текст ошибки: syntax error, unexpected token "\" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(46) : eval()'d code | Строка: 1
+=================
+[2021-10-03 21:14:44] Текст ошибки: syntax error, unexpected token "\" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(46) : eval()'d code | Строка: 1
+=================
+[2021-10-03 21:17:31] Текст ошибки: Undefined constant "app\controllers\Book" | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 16
+=================
+[2021-10-03 21:17:43] Текст ошибки: Undefined constant "Book" | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 16
+=================
+[2021-10-03 21:21:47] Текст ошибки: Object of class app\models\collection\Book could not be converted to string | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 39
+=================
