@@ -16,6 +16,7 @@ trait T_Factory {
 	* @return object
 	*/
 	public static function create(string|object $type, mixed ...$args): object {
+		debug(['Factory' => self::instance()]);
 	    return self::instance()->_create($type, ...$args);
 	}
 
