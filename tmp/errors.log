@@ -1486,3 +1486,13 @@
 =================
 [2021-10-04 20:58:56] Текст ошибки: Non-static method ishop\base\Factory::create() cannot be called statically | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 19
 =================
+[2021-10-04 21:33:03] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-04 21:55:40] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-04 22:06:16] Текст ошибки: Cannot instantiate abstract class ishop\base\Factory | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Singletone.php | Строка: 15
+=================
+[2021-10-04 22:07:06] Текст ошибки: Cannot instantiate abstract class ishop\base\Factory | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Singletone.php | Строка: 15
+=================
+[2021-10-04 22:07:07] Текст ошибки: Cannot instantiate abstract class ishop\base\Factory | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Singletone.php | Строка: 15
+=================
