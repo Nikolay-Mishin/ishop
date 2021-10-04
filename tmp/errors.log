@@ -1396,3 +1396,93 @@
 =================
 [2021-10-03 21:21:47] Текст ошибки: Object of class app\models\collection\Book could not be converted to string | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 39
 =================
+[2021-10-04 16:53:28] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-04 16:53:48] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 28
+=================
+[2021-10-04 17:26:35] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 29
+=================
+[2021-10-04 17:27:41] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-10-04 17:28:59] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-10-04 17:51:22] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-10-04 17:55:33] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-10-04 17:55:37] Текст ошибки: Only arrays and Traversables can be unpacked | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 30
+=================
+[2021-10-04 17:57:11] Текст ошибки: syntax error, unexpected identifier "self", expecting "function" or "const" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 17:58:21] Текст ошибки: syntax error, unexpected identifier "self", expecting "function" or "const" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 17:59:33] Текст ошибки: syntax error, unexpected end of file, expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 17:59:58] Текст ошибки: syntax error, unexpected identifier "self", expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 18:00:20] Текст ошибки: syntax error, unexpected end of file, expecting "{" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 18:00:49] Текст ошибки: syntax error, unexpected token "{", expecting "function" or "const" | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(63) : eval()'d code | Строка: 1
+=================
+[2021-10-04 19:05:24] Текст ошибки: Object of class ishop\libs\collection\CollectionFactory could not be converted to string | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 154
+=================
+[2021-10-04 19:07:01] Текст ошибки: Object of class ishop\libs\collection\CollectionFactory could not be converted to string | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 154
+=================
+[2021-10-04 19:08:42] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 123
+=================
+[2021-10-04 19:10:52] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 123
+=================
+[2021-10-04 19:12:51] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 121
+=================
+[2021-10-04 19:16:59] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 121
+=================
+[2021-10-04 19:17:09] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 121
+=================
+[2021-10-04 19:30:06] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:33:29] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:33:30] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:33:39] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:34:33] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:34:49] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:36:21] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:36:33] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 55
+=================
+[2021-10-04 19:37:58] Текст ошибки: Object of class app\models\collection\Book could not be converted to string | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 38
+=================
+[2021-10-04 19:38:16] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 19:40:38] Текст ошибки: reset(): Argument #1 ($array) must be of type array, null given | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 183
+=================
+[2021-10-04 19:48:00] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 19:55:49] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 19:56:06] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 19:56:47] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 20:00:37] Текст ошибки: Class "BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 27
+=================
+[2021-10-04 20:20:12] Текст ошибки: syntax error, unexpected namespaced name "app\models\collection\BookColl...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(71) : eval()'d code | Строка: 1
+=================
+[2021-10-04 20:29:59] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php | Строка: 61
+=================
+[2021-10-04 20:30:18] Текст ошибки: syntax error, unexpected namespaced name "app\models\collection\BookColl...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(72) : eval()'d code | Строка: 1
+=================
+[2021-10-04 20:31:07] Текст ошибки: Объект типа `app\models\collection\Book` не может быть добавлен в коллекцию объектов типа `app\models\collection\BookCollection` | Файл: W:\domains\ishop\vendor\ishop\core\libs\collection\Collection.php | Строка: 116
+=================
+[2021-10-04 20:41:10] Текст ошибки: ishop\libs\Parser::_namespace(): Argument #2 ($postfix) must be of type string, null given, called in W:\domains\ishop\vendor\ishop\core\base\Factory.php on line 108 | Файл: W:\domains\ishop\vendor\ishop\core\libs\Parser.php | Строка: 7
+=================
+[2021-10-04 20:52:20] Текст ошибки: Call to protected ishop\libs\collection\CollectionFactory::__construct() from scope app\controllers\CollectionController | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 15
+=================
+[2021-10-04 20:58:45] Текст ошибки: Call to undefined method ishop\libs\collection\CollectionFactory::_create() | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 17
+=================
+[2021-10-04 20:58:56] Текст ошибки: Non-static method ishop\base\Factory::create() cannot be called statically | Файл: W:\domains\ishop\app\controllers\CollectionController.php | Строка: 19
+=================

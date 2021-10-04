@@ -9,11 +9,16 @@ use ishop\base\Factory;
 *
 * @author [x26]VOLAND
 */
-abstract class CollectionFactory extends Factory {
+class CollectionFactory extends Factory {
 
-	//use \ishop\traits\T_Factory;
+	use \ishop\traits\T_Singletone;
 
-    protected static string $postfix = 'Collection';
-    protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
+	protected static string $postfix = 'Collection';
+	protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
+
+	protected string $_postfix = 'Collection';
+	protected string $_extends = '\\'.__NAMESPACE__.'\Collection';
+
+	protected function __construct(){}
 
 }

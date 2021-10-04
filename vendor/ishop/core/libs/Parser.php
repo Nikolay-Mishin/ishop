@@ -4,12 +4,13 @@ namespace ishop\libs;
 
 abstract class Parser {
 
-	public static function _namespace(string|object $namespace): array {
-		$namespace = is_object($namespace) ? get_class($namespace) : $namespace;
-		preg_match('/(.*)(\W)(\w+)$/', $namespace, $match);
-		$class = $match[3] ?? $namespace;
+	public static function _namespace(string|object $class, string $postfix = ''): array {
+		$type = is_object($class) ? get_class($class) : $class;
+		$class = $type.$postfix;
+		preg_match('/(.*)(\W)(\w+)$/', $class, $match);
 		$namespace = $match[1] ?? '';
-		return compact('class', 'namespace');
+		$className = $match[3] ?? $class;
+		return compact('type', 'class', 'namespace', 'className');
 	}
 
 }

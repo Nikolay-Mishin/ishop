@@ -12,6 +12,10 @@ use app\models\Breadcrumbs;
 class CollectionController extends AppController {
 
 	public function indexAction(): void {
+		$collectionFactory = CollectionFactory::instance();
+		debug(['CollectionFactory' => $collectionFactory]);
+		debug(['create' => $collectionFactory->_create(new Book(1))]);
+
 		$booksTest = CollectionFactory::create(new Book(1));
 		debug(['Book' => Book::class]);
 		debug(['$booksTest' => $booksTest]);

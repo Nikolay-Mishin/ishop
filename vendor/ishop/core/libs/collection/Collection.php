@@ -3,9 +3,9 @@
 namespace ishop\libs\collection;
 
 use \IteratorAggregate;
+use \Iterator;
 use \Countable;
 use \ArrayAccess;
-use \Iterator;
 
 use \Exception;
 use \Traversable;
@@ -17,7 +17,7 @@ use \ArrayIterator;
 *
 * @author [x26]VOLAND
 */
-abstract class Collection implements IteratorAggregate, Countable, ArrayAccess, Iterator {
+abstract class Collection implements /*IteratorAggregate,*/ Iterator, Countable, ArrayAccess {
 
 	/**
 	* Тип элементов, хранящихся в данной коллекции.
@@ -131,6 +131,60 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess, 
 	}
 
 	/**
+	* Реализация интерфейса Iterator.
+	*/
+
+	/**
+	* Возврат текущего элемента.
+	*
+	* @return mixed
+	*/
+	public function current(): mixed {
+        return current($this->collection);
+		//return $this->collection[$this->position];
+    }
+
+	/**
+	* Переход к следующему элементу.
+	*
+	* @return mixed
+	*/
+	public function next(): mixed {
+        return next($this->collection);
+		//return ++$this->position;
+    }
+
+	/**
+	* Возврат ключа текущего элемента.
+	*
+	* @return int|string|null
+	*/
+    public function key(): int|string|null {
+        return key($this->collection);
+		//return $this->position;
+    }
+
+	/**
+	* Проверяет корректность текущей позиции.
+	*
+	* @return bool
+	*/
+    public function valid(): bool {
+		return is_null($this->key());
+		//return isset($this->collection[$this->position]);
+    }
+
+	/**
+	* Перемотать итератор на первый элемент.
+	*
+	* @return mixed
+	*/
+    public function rewind(): mixed {
+		return reset($this->collection);
+		//return $this->position = 0;
+    }
+
+	/**
 	* Реализация интерфейса Countable
 	*/
 
@@ -191,59 +245,5 @@ abstract class Collection implements IteratorAggregate, Countable, ArrayAccess, 
 	public function offsetUnset(mixed $offset): void {
 		unset($this->collection[$offset]);
 	}
-
-	/**
-	* Реализация интерфейса Iterator.
-	*/
-
-	/**
-	* Возврат текущего элемента.
-	*
-	* @return mixed
-	*/
-	public function current(): mixed {
-        return current($this->collection);
-		//return $this->collection[$this->position];
-    }
-
-	/**
-	* Переход к следующему элементу.
-	*
-	* @return mixed
-	*/
-	public function next(): mixed {
-        return next($this->collection);
-		//return ++$this->position;
-    }
-
-	/**
-	* Возврат ключа текущего элемента.
-	*
-	* @return int|string|null
-	*/
-    public function key(): int|string|null {
-        return key($this->collection);
-		//return $this->position;
-    }
-
-	/**
-	* Проверяет корректность текущей позиции.
-	*
-	* @return bool
-	*/
-    public function valid(): bool {
-		return is_null($this->key());
-		//return isset($this->collection[$this->position]);
-    }
-
-	/**
-	* Перемотать итератор на первый элемент.
-	*
-	* @return mixed
-	*/
-    public function rewind(): mixed {
-		return reset($this->myArray);
-		//return $this->position = 0;
-    }
 
 }
