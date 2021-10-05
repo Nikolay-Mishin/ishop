@@ -8,7 +8,6 @@ use ishop\Db; // класс БД
 abstract class Controller {
 
     use \ishop\traits\T_Ajax;
-    use \ishop\traits\T_Protect;
     
     public array $route; // массив с маршрутами
     public string $controller; // контроллер

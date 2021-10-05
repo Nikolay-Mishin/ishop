@@ -9,17 +9,17 @@ trait T_Set {
 
     protected array $properties = ['get' => [], 'set' => []];
 
-    public function get(string $property): mixed {
+    public function __get(string $property): mixed {
         $exist = property_exists($this, $property);
         $inSet = in_array($property, $this->properties['set']);
         $inGet = in_array($property, $this->properties['get']);
-        return $inSet && $exist || $inGet && $exist ? $this->$property : null;
+        return $exist && ($inGet || $inSet) ? $this->$property : null;
     }
 
-    public function set(string $property, mixed $value): mixed {
+    public function __set(string $property, mixed $value): mixed {
         $exist = property_exists($this, $property);
         $inSet = in_array($property, $this->properties['set']);
-        return $inSet && $exist ? $this->$property = $value : null;
+        return $exist && $inSet ? $this->$property = $value : null;
     }
 
 }

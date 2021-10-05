@@ -1500,3 +1500,11 @@
 =================
 [2021-10-05 14:01:19] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-10-05 17:31:03] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-05 18:51:40] Текст ошибки: Typed property ishop\base\Model::$bean must not be accessed before initialization | Файл: W:\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2021-10-05 18:52:13] Текст ошибки: Cannot assign string to property ishop\base\Model::$bean of type Bean | Файл: W:\domains\ishop\vendor\ishop\core\base\Model.php | Строка: 30
+=================
+[2021-10-05 20:13:41] Текст ошибки: Call to undefined function ishop\traits\debog() | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 73
+=================

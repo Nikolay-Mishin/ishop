@@ -26,7 +26,11 @@ abstract class Model extends Sql {
 	public function __construct(array|string|int $data = [], array|string|int $attrs = [], string $action = 'save', array|string $valid = []) {
 		if (CUSTOM_DB_INSTANCE) Db::instance(); // создаем объект класса БД
 
-		$this->addProtectProperties('bean');
+		$this->addProtectProperties('bean => set');
+		$this->bean = \R::load(self::getTableName(), 1); // получаем бин записи из БД (структуру объекта)
+		debug(['ProtectProperties' => $this->getProtectProperties()]);
+		debug(['bean' => $this->bean]);
+
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if ($data) {
 			list($data, $attrs, $valid) = toArray([$data, $attrs, $valid], true);
