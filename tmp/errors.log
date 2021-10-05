@@ -1508,3 +1508,19 @@
 =================
 [2021-10-05 20:13:41] Текст ошибки: Call to undefined function ishop\traits\debog() | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Protect.php | Строка: 73
 =================
+[2021-10-05 21:22:16] Текст ошибки: Class name must be a valid object or a string | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 36
+=================
+[2021-10-05 21:22:48] Текст ошибки: syntax error, unexpected identifier "_class", expecting variable or "$" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 36
+=================
+[2021-10-05 21:24:06] Текст ошибки: syntax error, unexpected identifier "_class", expecting variable or "$" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 36
+=================
+[2021-10-05 21:24:08] Текст ошибки: syntax error, unexpected identifier "_class", expecting variable or "$" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 36
+=================
+[2021-10-05 21:24:15] Текст ошибки: Class name must be a valid object or a string | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 36
+=================
+[2021-10-05 21:25:53] Текст ошибки: syntax error, unexpected identifier "_class", expecting variable or "$" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 37
+=================
+[2021-10-05 21:28:05] Текст ошибки: Access to undeclared static property ishop\base\db\Query::$models | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 38
+=================
+[2021-10-05 22:04:12] Текст ошибки: Undefined constant "ishop\base\db\self" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 32
+=================

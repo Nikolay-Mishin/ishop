@@ -4,13 +4,9 @@ namespace ishop\base\db;
 
 abstract class Query {
 
-	use \ishop\traits\T_Static;
+	use \ishop\traits\T_Instance;
 
 	protected ?string $table = null;
-
-	protected static ?self $model = null;
-
-	protected static array $models = [];
 
 	protected static string $query = '';
 
@@ -33,18 +29,11 @@ abstract class Query {
 	protected string $delete = '';
 
 	protected static function init(): self {
-		if (!array_key_exists(self::_class(), self::$models)) {
-			self::$models[self::$class] = new self::$class;
-		}
-		return self::getModel();
-	}
-
-	protected static function getModel(): self {
-		return self::$model = self::$model instanceof self::$class ? self::$model : self::$models[self::$class];
+		return self::instance();
 	}
 
 	protected static function getTable(): string {
-		return self::init()->table = self::init()->table ?? self::getTableName();
+		return self::init()->table ??= self::getTableName();
 	}
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)

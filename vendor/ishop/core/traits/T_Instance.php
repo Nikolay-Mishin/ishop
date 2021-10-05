@@ -5,13 +5,15 @@
 
 namespace ishop\traits;
 
-trait T_Singletone {
+trait T_Instance {
 
-    use T_Instance { instance as t_instance; }
+    use T_Static;
 
-    // если свойство текущего класса не инициализировано (пусто), то в него записываем объект данного класса и вернем его
-    public static function instance(): self {
-        return self::$instance ?? self::t_instance();
-    }
+    private static ?self $instance = null; // хранит экземпляр класса
+
+    public static function instance(?string $class = null): self {
+		$class ??= self::_class();
+		return self::$instance instanceof $class ? self::$instance : self::$instance = new $class;
+	}
 
 }
