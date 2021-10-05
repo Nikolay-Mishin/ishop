@@ -87,7 +87,7 @@ class View {
 		$viewFile = APP . "/views/{$this->prefix}{$this->controller}/{$this->view}.php";
 		// если такой файл существует - подключаем его, иначе выбрасываем исключение - такой вид не найден
 		if (is_file($viewFile)) {
-			$content = self::getFileContents($viewFile, $data); // получаем контент из буфера
+			$content = $this->getContents($viewFile, $data); // получаем контент из буфера
 		}
 		else {
 			throw new Exception("Не найден вид {$viewFile}", 500);

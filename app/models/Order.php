@@ -95,7 +95,7 @@ class Order extends AppModel {
 			// Create a message
 			// создаем сообщение письма и записываем его в переменную
 			// для письма администратору можно создать отдельный шаблон и подключать его ($body_admin)
-			$body = self::getFileContents($this->tpl); // получаем контент из буфера
+			$body = $this->getContents($this->tpl); // получаем контент из буфера
 
 			// письмо для клиента
 			// setFrom должно совпадать с setUsername в настройках smtp

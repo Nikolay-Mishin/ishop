@@ -1496,3 +1496,7 @@
 =================
 [2021-10-04 22:07:07] Текст ошибки: Cannot instantiate abstract class ishop\base\Factory | Файл: W:\domains\ishop\vendor\ishop\core\traits\T_Singletone.php | Строка: 15
 =================
+[2021-10-05 14:01:18] Текст ошибки: Using $this when not in object context | Файл: W:\domains\ishop\app\widgets\currency\currency_tpl.php | Строка: 2
+=================
+[2021-10-05 14:01:19] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
