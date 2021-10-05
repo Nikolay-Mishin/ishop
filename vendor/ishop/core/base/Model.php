@@ -28,8 +28,8 @@ abstract class Model extends Sql {
 
 		$this->addProtectProperties('bean => set');
 		$this->bean = \R::load(self::getTableName(), 1); // получаем бин записи из БД (структуру объекта)
-		debug(['ProtectProperties' => $this->getProtectProperties()]);
-		debug(['bean' => $this->bean]);
+		//debug(['ProtectProperties' => $this->getProtectProperties()]);
+		//debug(['bean' => $this->bean]);
 
 		// если в конструктор модели переданы данные, то загружаем их в свойство $attributes модели и сохраняем в БД
 		if ($data) {

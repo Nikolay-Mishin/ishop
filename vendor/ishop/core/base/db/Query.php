@@ -4,9 +4,10 @@ namespace ishop\base\db;
 
 abstract class Query {
 
+	use \ishop\traits\T_Static;
+
 	protected ?string $table = null;
 
-	protected static ?string $class = null;
 	protected static ?self $model = null;
 
 	protected static array $models = [];
@@ -32,8 +33,7 @@ abstract class Query {
 	protected string $delete = '';
 
 	protected static function init(): self {
-		self::$class = self::$class == static::class ? self::$class : static::class;
-		if (!array_key_exists(self::$class, self::$models)) {
+		if (!array_key_exists(self::_class(), self::$models)) {
 			self::$models[self::$class] = new self::$class;
 		}
 		return self::getModel();
