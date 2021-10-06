@@ -28,8 +28,8 @@ abstract class Query {
 
 	protected string $delete = '';
 
-	protected static function init(): self {
-		return self::instance();
+	protected static function init(): static {
+		return static::instance();
 	}
 
 	protected static function getTable(): string {
@@ -37,8 +37,8 @@ abstract class Query {
 	}
 
 	// возвращает имя таблицы в БД на основе имени модели (thisMethodName => this_method_name)
-	public static function getTableName(?string $class = null): string {
-		return lowerCamelCase(getClassShortName($class ?? get_called_class()));
+	public static function getTableName(): string {
+		return lowerCamelCase(getClassName(static::class));
 	}
 
 	protected static function getSql(): string {

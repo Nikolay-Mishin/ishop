@@ -28,7 +28,7 @@ trait T_Protect {
 
 	public function __call(string $method, array $args): mixed {
 		return $this->exist($method, function(object $obj, string $method, $const, string $class, bool $isBean, bool $exist) use($args) {
-			//debug(['class' => getClassName($obj), 'method' => $method, 'isBean' => $isBean, 'exist' => $exist]);
+			//debug(['class' => getClass($obj), 'method' => $method, 'isBean' => $isBean, 'exist' => $exist]);
 			return $isBean && $exist ? call_user_func_array([$obj, $method], $args) : callPrivateMethod($obj, $method, $args);
 		}, 'protectMethods');
 	}
@@ -63,7 +63,7 @@ trait T_Protect {
 		if ($new) $this->structuredProtect($this->$protectList, $protectList, false);
 		//debug(["$protectList - start" => $this->$protectList]);
 		foreach ($protectProperties as $property => $mod) {
-			//debug(['class' => getClassName($this), $property => $mod]);
+			//debug(['class' => getClass($this), $property => $mod]);
 			$this->reverseProtectProperty($property, $mod, $protectList, $new);
 		}
 		//debug(["$protectList - end" => $this->$protectList]);
@@ -99,7 +99,7 @@ trait T_Protect {
 
 	private function exist(string $property, Closure $callback, string $protectList = 'protectProperties'): mixed {
 		$this->structuredProtect($this->$protectList, $protectList, false);
-		$class = getClassName($this);
+		$class = getClass($this);
 		$error = ($this->isMethod($protectList) ? 'Метод' : 'Свойство') . " $class::$property";
 		list($_property, $exist, $access) = $this->propertyExist($this, $property, $callback, $protectList);
 		//debug(['_property' => $_property, 'exist' => $exist, 'access' => $access, 'type' => gettype($_property)]);
@@ -120,7 +120,7 @@ trait T_Protect {
 
 		//debug(['$property' => $this->$protectList[$property]]);
 		//debug([
-		//    'class' => getClassName($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
+		//    'class' => getClass($obj), 'property' => $property, 'inProperty' => $inProperty, 'protectList' => $protectList,
 		//    'isMethod' => $isMethod, 'isBean' => $isBean, 'List' => $this->$protectList, 
 		//    'propertyExist' => $propertyExist, 'access' => $access, 'else' => !$access && !$isBean && !$inProperty
 		//]);
@@ -128,7 +128,7 @@ trait T_Protect {
 		if ($propertyExist && $access) {
 			$isConst = ($this->$protectList[$property] ?? 'get') === 'get';
 			
-			$_property = $callback($obj, $property, $isConst, getClassName($obj), $isBean, $exist);
+			$_property = $callback($obj, $property, $isConst, getClass($obj), $isBean, $exist);
 		}
 		elseif (!$access && !$isBean && !$inProperty) {
 			//debug(['protectProperties' => $this->protectProperties]);
