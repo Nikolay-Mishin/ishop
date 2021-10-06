@@ -98,37 +98,67 @@ function upperCamelCase(string $name): string {
 	return preg_replace_callback('/(?:^|_)(.?)/', function($matches){ return strtoupper($matches[1]); }, $name);
 }
 
-function callMethod(object|string $objOrClass, string $method, array $attrs = []): bool {
-	return isCallable($objOrClass, $method) ? call_user_func_array([$objOrClass, $method], toArray($attrs)) : false;
+function callMethod(object|string $class, string $method, array $attrs = []): bool {
+	return isCallable($class, $method) ? call_user_func_array([$class, $method], toArray($attrs)) : false;
 }
 
-function callPrivateMethod(object|string $objOrClass, string $method, array $args): mixed {
-	if (isCallable($objOrClass, $method)) {
-		$method = getReflector($objOrClass)->getMethod($method);
+function callPrivateMethod(object|string $class, string $method, array $args): mixed {
+	if (isCallable($class, $method)) {
+		$method = getReflector($class)->getMethod($method);
 		$method->setAccessible(true);
-		$result = $method->invokeArgs($objOrClass, $args);
+		$result = $method->invokeArgs($class, $args);
 		$method->setAccessible(false);
 	}
 	return $result ?? null;
 }
 
 // возвращает информацию о классе (app\models\User)
-function getReflector(object|string $objOrClass): \ReflectionClass {
-	return new \ReflectionClass(is_object($objOrClass) ? get_class($objOrClass) : $objOrClass);
+function getReflector(object|string $class): \ReflectionClass {
+	return new \ReflectionClass(is_object($class) ? get_class($class) : $class);
+}
+
+// возвращает полное имя класса (app\models\User)
+function getClass(object|string $class): string {
+	return getReflector($class)->getName();
 }
 
 // возвращает короткое имя класса (app\models\User => User)
-function getClassShortName(object|string $objOrClass): string {
-	return getReflector($objOrClass)->getShortName();
+function getClassName(object|string $class): string {
+	return getReflector($class)->getShortName();
 }
 
-// возвращает короткое имя класса (app\models\User)
-function getClassName(object|string $objOrClass): string {
-	return getReflector($objOrClass)->getName();
+// возвращает название пространства имён (app\models\User => app\models)
+function getNamespace(object|string $class): string {
+	return getReflector($class)->getNamespaceName();
 }
 
-function isCallable(object|string $objOrClass, string $method): bool {
-	return method_exists($objOrClass, $method) && is_callable([$objOrClass, $method]);
+// возвращает массив трейтов, используемых в этом классе
+function getTraits(object|string $class): ?array {
+	return getReflector($class)->getTraits();
+}
+
+// возвращает свойства
+function getProperties(object|string $class, ?int $filter = null): ?array {
+	return getReflector($class)->getProperties($filter);
+}
+
+// возвращает статические свойства
+function getStaticProperties(object|string $class): ?array {
+	return getReflector($class)->getStaticProperties();
+}
+
+// возвращает массив трейтов, используемых в этом классе
+function getConstants(object|string $class, ?int $filter = null): ?array {
+	return getReflector($class)->getConstants();
+}
+
+// возвращает список методов в виде массива
+function getMethods(object|string $class, ?int $filter = null): ?array {
+	return getReflector($class)->getMethods($filter);
+}
+
+function isCallable(object|string $class, string $method): bool {
+	return method_exists($class, $method) && is_callable([$class, $method]);
 }
 
 // метод для преобразования массива в объект (stdClass Object)
@@ -311,10 +341,10 @@ function validateAttrs(object|string $objOrClass, array $attrs): array {
 	return $attrs;
 }
 
-function getProp(object|string $objOrClass, string $attr): mixed {
-	if (property_exists($objOrClass, $attr)) {
-		$isStatic = array_key_exists($attr, getReflector($objOrClass)->getStaticProperties());
-		$attr = is_object($objOrClass) && !$isStatic ? $objOrClass->$attr : getClassName($objOrClass)::${$attr};
+function getProp(object|string $class, string $attr): mixed {
+	if (property_exists($class, $attr)) {
+		$isStatic = array_key_exists($attr, getStaticProperties($class));
+		$attr = is_object($class) && !$isStatic ? $class->$attr : getClass($class)::${$attr};
 	}
 	return $attr;
 }
