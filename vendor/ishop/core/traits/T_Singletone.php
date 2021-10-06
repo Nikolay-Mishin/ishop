@@ -7,11 +7,8 @@ namespace ishop\traits;
 
 trait T_Singletone {
 
-    use T_Instance { instance as t_instance; }
+    use T_Instance;
 
-    // если свойство текущего класса не инициализировано (пусто), то в него записываем объект данного класса и вернем его
-    public static function instance(): self {
-        return self::$instance ?? self::t_instance();
-    }
+    protected function __construct() {}
 
 }

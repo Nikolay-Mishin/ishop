@@ -52,7 +52,7 @@ abstract class Collection implements /*IteratorAggregate,*/ Iterator, Countable,
 
 	public function __call(string $method, array $args): mixed {
 		if (isCallable($obj = $this->getIterator(), $method)) return $obj->$method(...$args);
-		list($class, $caller) = [get_class($this), get_called_class()];
+		list($class, $caller) = [get_class($this), static::class];
 		throw new Exception("Метод `$class::$method()` отсутствует или не может быть вызван в области видимости `$caller`");
 	}
 

@@ -7,13 +7,17 @@ namespace ishop\traits;
 
 trait T_Instance {
 
-    use T_Static;
+    protected static ?self $instance = null; // хранит экземпляр класса
 
-    private static ?self $instance = null; // хранит экземпляр класса
+    public function __construct() {}
 
-    public static function instance(?string $class = null): self {
-		$class ??= self::_class();
-		return self::$instance instanceof $class ? self::$instance : self::$instance = new $class;
+    // если свойство текущего класса не инициализировано (пусто), то в него записываем объект данного класса и вернем его
+    public static function instance(): static {
+        return static::$instance ?? static::getInstance();
+    }
+
+    protected static function getInstance(): static {
+        return static::$instance = new static;
 	}
 
 }

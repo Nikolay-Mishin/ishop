@@ -1524,3 +1524,13 @@
 =================
 [2021-10-05 22:04:12] Текст ошибки: Undefined constant "ishop\base\db\self" | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 32
 =================
+[2021-10-06 15:48:59] Текст ошибки: Cannot instantiate abstract class ishop\base\db\Query | Файл: W:\domains\ishop\vendor\ishop\core\base\db\Query.php | Строка: 32
+=================
+[2021-10-06 15:48:59] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
+[2021-10-06 17:05:58] Текст ошибки: Class "app\models\collection\BookCollection" does not exist | Файл: W:\domains\ishop\vendor\ishop\core\libs\functions.php | Строка: 117
+=================
+[2021-10-06 17:08:55] Текст ошибки: syntax error, unexpected namespaced name "app\models\collection\BookColl...", expecting identifier | Файл: W:\domains\ishop\vendor\ishop\core\libs\Parser.php(11) : eval()'d code | Строка: 1
+=================
+[2021-10-06 17:09:17] Текст ошибки: Class "app\models\collection\BookCollection" not found | Файл: W:\domains\ishop\vendor\ishop\core\libs\Parser.php | Строка: 11
+=================
