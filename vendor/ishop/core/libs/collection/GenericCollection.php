@@ -13,14 +13,13 @@ use \InvalidArgumentException;
 //use \ArrayIterator;
 
 class GenericCollection<T> implements Iterator, ArrayAccess {
-//class GenericCollection implements Iterator, ArrayAccess {
 
     private $position;
 
     private $array = [];
 
-    public function current(): ?T {
-        return $this->array[$this->position];
+    public function __construct() {
+        $this->position = 0;
     }
 
     public function offsetGet($offset): ?T {
@@ -39,24 +38,8 @@ class GenericCollection<T> implements Iterator, ArrayAccess {
         }
     }
 
-	//public function current() {
-	//    return $this->array[$this->position];
-	//}
-
-	//public function offsetGet($offset) {
-	//    return isset($this->array[$offset]) ? $this->array[$offset] : null;
-	//}
-
-	//public function offsetSet($offset, $value) {
-	//    if (is_null($offset)) {
-	//        $this->array[] = $value;
-	//    } else {
-	//        $this->array[$offset] = $value;
-	//    }
-	//}
-
-    public function __construct() {
-        $this->position = 0;
+    public function current(): ?T {
+        return $this->array[$this->position];
     }
 
     public function next() {
@@ -86,7 +69,6 @@ class GenericCollection<T> implements Iterator, ArrayAccess {
 }
 
 $collection = new GenericCollection<Post>();
-//$collection = new GenericCollection();
 $collection[] = new Post(1);
 
 // This would throw the InvalidArgumentException.

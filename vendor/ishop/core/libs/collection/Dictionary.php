@@ -18,25 +18,19 @@ use \ArrayIterator;
 *
 * @author [x26]VOLAND
 */
-abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /*, Iterator*/ {
+abstract class Dictionary extends Collection implements Countable, ArrayAccess, IteratorAggregate /*, Iterator*/ {
 
-	/**
-	* Тип элементов, хранящихся в данной коллекции.
-	* @var string
-	*/
-	protected string $type;
+	protected $keyType;
+    protected $valType;
 
-	/**
-	* Хранилище объектов
-	* @var array
-	*/
-	protected array $collection = [];
+	private $keys = [];
+    private $values = [];
 
 	///**
 	//* Позиция текущей итерации коллекции.
 	//* @var int
 	//*/
-	//protected int $position = 0;
+	//private int $position = 0;
 
 	/**
 	* Констурктор.
@@ -106,20 +100,19 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 		return empty($this->collection);
 	}
 
-	/**
-	* Проверяет тип объекта.
-	* Препятствует добавлению в коллекцию объектов `чужого` типа.
-	*
-	* @param object $obj Объект для проверки
-	* @return void
-	* @throws InvalidArgumentException
-	*/
-	protected function checkType(object $value): void {
-		if (!($value instanceof $this->type)) {
-			throw new InvalidArgumentException(
-				sprintf('Value for collection must be of type %s: %s given', $this->type, get_class($value)));
-		}
-	}
+	private function verifyKey($key) {
+        if(!($key instanceof $this->keyType)) {
+            throw new InvalidArgumentException(
+				sprintf('Key for dictionary must be of type %s: %s given', $this->keyType, get_class($key)));
+        }
+    }
+
+    private function verifyValue($value) {
+        if(!($value instanceof $this->type)) {
+            throw new InvalidArgumentException(
+				sprintf('Value for dictionary must be of type %s: %s given', $this->type, get_class($value)));
+        }
+    }
 
 	/**
 	* Реализация интерфейса Countable
@@ -131,7 +124,8 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* @return int
 	*/
 	public function count(): int {
-		return count($this->collection);
+		return count($this->keys);
+		//return count($this->collection);
 	}
 	
 	/**
@@ -148,6 +142,11 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 		return isset($this->collection[$offset]);
 	}
 
+	public function _offsetExists($key) {
+        $this->verifyKey($key);
+        return array_search($key, $this->keys, true) !== false;
+    }
+
 	/**
 	* Возвращает элемент по ключу.
 	*
@@ -157,6 +156,11 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	public function offsetGet(mixed $offset): mixed {
 		return $this->offsetExists($offset) ? $this->collection[$offset] : null;
 	}
+
+	public function _offsetGet($key) {
+        $this->verifyKey($key);
+        return $this->values[array_search($key, $this->keys, true)];
+    }
 
 	/**
 	* Sets an element of collection at the offset
@@ -172,6 +176,16 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 		}
 		$this->collection[$offset] = $value;
 	}
+
+	public function _offsetSet($key, $value) {
+        $this->verifyKey($key);
+        $this->verifyValue($value);
+        if($this->offsetExists($key)) {
+            $this->values[array_search($key, $this->keys, true)] = $value;
+        }
+        $this->keys[] = $key;
+        $this->values[] = $value;
+    }
 	
 	/**
 	* Удаляет элемент, на который ссылается ключ $offset.
@@ -182,6 +196,14 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	public function offsetUnset(mixed $offset): void {
 		unset($this->collection[$offset]);
 	}
+
+	public function _offsetUnset($key) {
+        $this->verifyKey($key);
+        if($this->offsetExists($key)) {
+            $valueKey = array_search($key, $this->keys, true);
+            unset($this->keys[$valueKey], $this->values[$valueKey]);
+        }
+    }
 
 	/**
 	* Реализация интерфейса IteratorAggregate
