@@ -1,6 +1,6 @@
 <?php
 
-namespace ishop\libs\collection;
+namespace ishop\factory;
 
 use ishop\base\Factory;
 

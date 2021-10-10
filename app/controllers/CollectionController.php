@@ -3,7 +3,7 @@
 
 namespace app\controllers;
 
-use ishop\libs\collection\CollectionFactory;
+use ishop\factory\CollectionFactory;
 use app\models\collection\BookStore;
 use app\models\collection\Book;
 use app\models\collection\Magazine;
@@ -48,6 +48,7 @@ class CollectionController extends AppController {
 		debug(['iteratorBooks' => $iteratorBooks]);
 		debug(['iteratorBooks->count()' => $iteratorBooks->count()]);
 		//debug(['$books->curr()' => $books->curr()]); // Ошибка (неверный метод)
+		debug(['$books->current()' => $books->current()]);
 		debug(['$books->getArrayCopy()' => $books->getArrayCopy()]);
 
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs(null, 'Чат'); // хлебные крошки;
