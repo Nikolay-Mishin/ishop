@@ -5,21 +5,23 @@
 
 namespace ishop\traits;
 
-trait T_Set {
+trait T_Access {
 
     protected array $properties = ['get' => [], 'set' => []];
 
     public function __get(string $property): mixed {
-        $exist = property_exists($this, $property);
-        $inSet = in_array($property, $this->properties['set']);
-        $inGet = in_array($property, $this->properties['get']);
-        return $exist && ($inGet || $inSet) ? $this->$property : null;
+        return $this->verifyAccess('get', $property);
     }
 
     public function __set(string $property, mixed $value): mixed {
+        return $this->verifyAccess('set', $property, $value);
+    }
+
+    public function verifyAccess(string $type, string $property, mixed $value = null): mixed {
         $exist = property_exists($this, $property);
-        $inSet = in_array($property, $this->properties['set']);
-        return $exist && $inSet ? $this->$property = $value : null;
+        $inGet = !$this->properties['get'] ?: in_array($property, $this->properties['get']);
+        $inSet = !$this->properties['set'] ?: in_array($property, $this->properties['set']);
+        return $exist && ($inSet || $inGet) ? ($type != 'set' ? $this->$property : $this->$property = $value) : null;
     }
 
 }
