@@ -20,11 +20,17 @@ use \ArrayIterator;
 */
 abstract class Dictionary extends Collection implements Countable, ArrayAccess, IteratorAggregate /*, Iterator*/ {
 
-	protected $keyType;
-    protected $valType;
+	/**
+	* Тип ключей, хранящихся в данной коллекции.
+	* @var string
+	*/
+	private string $keyType;
 
-	private $keys = [];
-    private $values = [];
+	/**
+	* Хранилище ключей
+	* @var array
+	*/
+	private array $keys = [];
 
 	///**
 	//* Позиция текущей итерации коллекции.
@@ -41,8 +47,9 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return void
 	*/
 	public function __construct(string $type, mixed ...$args) {
-		$this->type = $type;
-        $this->add(...$args);
+		$this->keyType = $type['key'];
+        $this->type = $type['value'];
+		$this->add(...$args);
 	}
 
 	/**
@@ -57,26 +64,17 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	/**
 	* Добавляет в коллекцию объекты, переданные в аргументах.
 	*
-	* @param object $args Объекты
+	* @param array $args Объекты
 	* @return self Collection
 	*/
-	public function add(object ...$args): self {
+	public function add(array ...$args): self {
 		foreach ($args as $value) {
-			$this->checkType($value);
+			$key = key($value);
+			$value = current($value);
+			$this->verifyKey($key);
+			$this->verifyValue($value);
+			$this->keys[] = $key;
 			$this->collection[] = $value;
-		}
-		return $this;
-	}
-
-	/**
-	* Удаляет из коллекции объекты, переданные в аргументах.
-	*
-	* @param object $args Объекты
-	* @return self Collection
-	*/
-	public function remove(object ...$args): self {
-		foreach ($args as $value) {
-			unset($this->collection[array_search($value, $this->collection)]);
 		}
 		return $this;
 	}
@@ -87,45 +85,35 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return self Collection
 	*/
 	public function clear(): self {
-		$this->collection = [];
+		$this->keys = [];
+		parent::clear();
 		return $this;
 	}
 
 	/**
-	* Выясняет, пуста ли коллекция.
+	* Проверяет тип ключа.
+	* Препятствует добавлению в коллекцию объектов `чужого` типа.
 	*
-	* @return bool
+	* @param int|string|null $key Объект для проверки
+	* @return void
+	* @throws InvalidArgumentException
 	*/
-	public function isEmpty(): bool {
-		return empty($this->collection);
-	}
-
-	private function verifyKey($key) {
+	private function verifyKey(int|string|null $key): void {
         if(!($key instanceof $this->keyType)) {
             throw new InvalidArgumentException(
 				sprintf('Key for dictionary must be of type %s: %s given', $this->keyType, get_class($key)));
         }
     }
 
-    private function verifyValue($value) {
-        if(!($value instanceof $this->type)) {
-            throw new InvalidArgumentException(
-				sprintf('Value for dictionary must be of type %s: %s given', $this->type, get_class($value)));
-        }
-    }
-
 	/**
-	* Реализация интерфейса Countable
-	*/
-
-	/**
-	* Возвращает кол-во элементов в коллекции.
+	* Ищет указанный ключ.
 	*
-	* @return int
+	* @param int|string|null $key Ключ
+	* @return bool|int|string
 	*/
-	public function count(): int {
-		return count($this->keys);
-		//return count($this->collection);
+	private function searchKey(int|string|null $key, bool $strict = true): bool|int|string {
+		$this->verifyKey($key);
+		return array_search($key, $this->keys, $strict);
 	}
 	
 	/**
@@ -139,13 +127,8 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return bool
 	*/
 	public function offsetExists(mixed $offset): bool {
-		return isset($this->collection[$offset]);
+		return $this->searchKey($offset) !== false;
 	}
-
-	public function _offsetExists($key) {
-        $this->verifyKey($key);
-        return array_search($key, $this->keys, true) !== false;
-    }
 
 	/**
 	* Возвращает элемент по ключу.
@@ -154,38 +137,30 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return mixed
 	*/
 	public function offsetGet(mixed $offset): mixed {
-		return $this->offsetExists($offset) ? $this->collection[$offset] : null;
+        return $this->offsetExists($offset) ? $this->collection[$this->searchKey($offset)] : null;
 	}
 
-	public function _offsetGet($key) {
-        $this->verifyKey($key);
-        return $this->values[array_search($key, $this->keys, true)];
-    }
-
 	/**
-	* Sets an element of collection at the offset
+	* Устанавливает элемент коллекции по ключу $offset.
 	*
 	* @param mixed $offset Offset
 	* @param mixed $value Object
 	* @return void
 	*/
 	public function offsetSet(mixed $offset, mixed $value): void {
-		$this->checkType($value);
-		if (is_null($offset)) {
-			$offset = max(array_keys($this->collection)) + 1;
-		}
-		$this->collection[$offset] = $value;
+		if ($this->offsetExists($offset)) $offset = $this->searchKey($offset);
+		else $this->keys[] = $offset;
+		parent::offsetSet($offset, $value);
+		//$this->verifyValue($value);
+		//if (is_null($offset)) $offset = max(array_keys($this->keys)) + 1;
+		//if ($this->offsetExists($offset)) {
+		//    $this->collection[$this->searchKey($offset)] = $value;
+		//}
+		//else {
+		//    $this->keys[] = $offset;
+		//    $this->collection[] = $value;
+		//}
 	}
-
-	public function _offsetSet($key, $value) {
-        $this->verifyKey($key);
-        $this->verifyValue($value);
-        if($this->offsetExists($key)) {
-            $this->values[array_search($key, $this->keys, true)] = $value;
-        }
-        $this->keys[] = $key;
-        $this->values[] = $value;
-    }
 	
 	/**
 	* Удаляет элемент, на который ссылается ключ $offset.
@@ -194,83 +169,10 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return void
 	*/
 	public function offsetUnset(mixed $offset): void {
-		unset($this->collection[$offset]);
-	}
-
-	public function _offsetUnset($key) {
-        $this->verifyKey($key);
-        if($this->offsetExists($key)) {
-            $valueKey = array_search($key, $this->keys, true);
-            unset($this->keys[$valueKey], $this->values[$valueKey]);
+        if ($this->offsetExists($offset)) {
+            $key = $this->searchKey($offset);
+            unset($this->keys[$key], $this->collection[$key]);
         }
-    }
-
-	/**
-	* Реализация интерфейса IteratorAggregate
-	*/
-
-	/**
-	* Возвращает объект итератора.
-	*
-	* @return Traversable
-	*/
-	public function getIterator(): Traversable {
-		return new ArrayIterator($this->collection);
 	}
-
-	
-	///**
-	//* Реализация интерфейса Iterator.
-	//*/
-
-	///**
-	//* Возврат текущего элемента.
-	//*
-	//* @return mixed
-	//*/
-	//public function current(): mixed {
-	//    return current($this->collection);
-	//    //return $this->collection[$this->position];
-	//}
-
-	///**
-	//* Переход к следующему элементу.
-	//*
-	//* @return mixed
-	//*/
-	//public function next(): mixed {
-	//    return next($this->collection);
-	//    //return ++$this->position;
-	//}
-
-	///**
-	//* Возврат ключа текущего элемента.
-	//*
-	//* @return int|string|null
-	//*/
-	//public function key(): int|string|null {
-	//    return key($this->collection);
-	//    //return $this->position;
-	//}
-
-	///**
-	//* Проверяет корректность текущей позиции.
-	//*
-	//* @return bool
-	//*/
-	//public function valid(): bool {
-	//    return is_null($this->key());
-	//    //return isset($this->collection[$this->position]);
-	//}
-
-	///**
-	//* Перемотать итератор на первый элемент.
-	//*
-	//* @return mixed
-	//*/
-	//public function rewind(): mixed {
-	//    return reset($this->collection);
-	//    //return $this->position = 0;
-	//}
 
 }

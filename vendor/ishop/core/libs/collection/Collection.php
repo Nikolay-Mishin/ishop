@@ -68,7 +68,7 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	*/
 	public function add(object ...$args): self {
 		foreach ($args as $value) {
-			$this->checkType($value);
+			$this->verifyValue($value);
 			$this->collection[] = $value;
 		}
 		return $this;
@@ -82,7 +82,7 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	*/
 	public function remove(object ...$args): self {
 		foreach ($args as $value) {
-			unset($this->collection[array_search($value, $this->collection)]);
+			$this->offsetUnset($this->searchValue($value));
 		}
 		return $this;
 	}
@@ -110,15 +110,26 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* Проверяет тип объекта.
 	* Препятствует добавлению в коллекцию объектов `чужого` типа.
 	*
-	* @param object $obj Объект для проверки
+	* @param object $value Объект для проверки
 	* @return void
 	* @throws InvalidArgumentException
 	*/
-	protected function checkType(object $value): void {
+	protected function verifyValue(object $value): void {
 		if (!($value instanceof $this->type)) {
 			throw new InvalidArgumentException(
 				sprintf('Value for collection must be of type %s: %s given', $this->type, get_class($value)));
 		}
+	}
+
+	/**
+	* Ищет указанное значение.
+	*
+	* @param object $value Ключ
+	* @return bool|int|string
+	*/
+	protected function searchValue(object $value, bool $strict = true): bool|int|string {
+		$this->verifyValue($value);
+		return array_search($value, $this->collection, $strict);
 	}
 
 	/**
@@ -159,18 +170,21 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	}
 
 	/**
-	* Sets an element of collection at the offset
+	* Устанавливает элемент коллекции по ключу $offset.
 	*
 	* @param mixed $offset Offset
 	* @param mixed $value Object
 	* @return void
 	*/
 	public function offsetSet(mixed $offset, mixed $value): void {
-		$this->checkType($value);
-		if (is_null($offset)) {
-			$offset = max(array_keys($this->collection)) + 1;
+		$this->verifyValue($value);
+		if (is_null($offset)) $offset = max(array_keys($this->collection)) + 1;
+		if ($this->offsetExists($offset)) {
+            $this->collection[$offset] = $value;
+        }
+		else {
+			$this->collection[] = $value;
 		}
-		$this->collection[$offset] = $value;
 	}
 	
 	/**
@@ -180,7 +194,9 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* @return void
 	*/
 	public function offsetUnset(mixed $offset): void {
-		unset($this->collection[$offset]);
+		if ($this->offsetExists($offset)) {
+            unset($this->collection[$offset]);
+        }
 	}
 
 	/**
@@ -195,7 +211,6 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	public function getIterator(): Traversable {
 		return new ArrayIterator($this->collection);
 	}
-
 	
 	///**
 	//* Реализация интерфейса Iterator.

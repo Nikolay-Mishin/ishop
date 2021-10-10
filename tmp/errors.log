@@ -1540,3 +1540,7 @@
 =================
 [2021-10-10 18:15:02] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
 =================
+[2021-10-10 20:49:26] Текст ошибки: Class "ishop\factory\Collection" not found | Файл: W:\domains\ishop\vendor\ishop\core\base\Factory.php(59) : eval()'d code | Строка: 1
+=================
+[2021-10-10 20:49:27] Текст ошибки: Страница не найдена | Файл: W:\domains\ishop\vendor\ishop\core\Router.php | Строка: 58
+=================
