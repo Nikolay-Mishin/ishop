@@ -13,9 +13,8 @@ Thumbs.db
 
 
 # Vendor folders
-[Vv]endor/**
+[Vv]endor/*
 ![Vv]endor/ishop
-![Vv]endor/ishop/**
 
 # User-specific files
 *.suo

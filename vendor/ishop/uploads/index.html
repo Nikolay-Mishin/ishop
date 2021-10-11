@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta charset="UTF-8">
+    <title>Hometask 4.2 - Загрузка файлов + Ajax</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form id="upload-form" action="handler.php" method="post" enctype="multipart/form-data">
+        <textarea id="uploads" name="uploads" rows="7" cols="30">Select one or more files.</textarea>
+        <input id="upload" type="file" name="upload[]" multiple>
+        <input type="submit" value="Загрузить"></input>
+    </form>
+    <div id="pBar" class="progress-bar">
+        <div class="bg"></div>
+        <div class="val">0%</div>
+    </div>
+    <div class="image-preview"></div>
+
+    <script src="../_libs/jquery_3.3.1/jquery.min.js"></script>
+    <script src="uploads-functions.js"></script>
+    <script src="uploads.js"></script>
+</body>
+</html>
