@@ -1,1 +1,0 @@
-SELECT * FROM `ishop`.`attribute_product` LIMIT 1000;
