@@ -3,9 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# cache
+tmp
+
 # Vendor folders
+[Vv]endor
 ![Vv]endor/ishop
-#[Vv]endor/
 
 # User-specific files
 *.suo
