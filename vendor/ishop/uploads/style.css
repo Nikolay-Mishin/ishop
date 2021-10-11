@@ -1,0 +1,25 @@
+.image-preview { margin-top: 20px; }
+/* ------ адаптивное изображение ------ */
+.adaptive_img { width: auto; height: 130px; display: inline-block; margin-bottom: 30px; margin-right: 10px; }
+.adaptive_img img { width: auto; height: 100%; }
+
+#pBar { margin-top: 20px; }
+.progress-bar {
+    width: 300px;
+    height: 20px;
+    background: #999999;
+    position: relative;
+}
+.adaptive_img .progress-bar { width: 200px; }
+.progress-bar .bg {
+    position: absolute;
+    width: 0;
+    height: inherit;
+    background: green;
+}
+.progress-bar .val {
+    position: absolute;
+    text-align: center;
+    width: inherit;
+    height: inherit;
+}
