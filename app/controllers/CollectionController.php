@@ -3,7 +3,7 @@
 
 namespace app\controllers;
 
-use ishop\factory\CollectionFactory;
+use ishop\factories\CollectionFactory;
 use app\models\collection\BookStore;
 use app\models\collection\Book;
 use app\models\collection\Magazine;

@@ -15,6 +15,11 @@ Thumbs.db
 # Vendor folders
 [Vv]endor/*
 ![Vv]endor/ishop
+#[Pp]ublic/images/*
+#[Pp]ublic/upload/*
+#[Pp]ublic/adminlte/*
+#[Pp]ublic/jquery-ui-1.12.1/*
+#[Pp]ublic/validator/*
 
 # User-specific files
 *.suo

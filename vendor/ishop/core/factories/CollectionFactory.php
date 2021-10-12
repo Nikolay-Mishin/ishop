@@ -1,6 +1,6 @@
 <?php
 
-namespace ishop\factory;
+namespace ishop\factories;
 
 use ishop\base\Factory;
 
@@ -10,6 +10,6 @@ use ishop\base\Factory;
 class CollectionFactory extends Factory {
 
 	protected static string $postfix = 'Collection';
-	protected static string $extends = '\\'.__NAMESPACE__.'\Collection';
+	protected static string $extends = '\ishop\libs\collection\Collection';
 
 }
