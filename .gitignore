@@ -8,20 +8,22 @@
 Thumbs.db
 
 # Runtime
-[Cc]ache
-[Tt]mp
+[Cc]ache/
+[Tt]mp/
 
 # Vendor folders
 [Vv]endor/*
-![Vv]endor/ishop
+![Vv]endor/ishop/
 
 # Public folders
-[Pp]ublic/images
-[Pp]ublic/upload
+[Pp]ublic/images/
+[Pp]ublic/upload/
+#*.png
+#*.jp[e]g
 [Pp]ublic/adminlte/*
 ![Pp]ublic/adminlte/*.*
-[Pp]ublic/jquery-ui-1.12.1
-#[Pp]ublic/validator
+[Pp]ublic/jquery-ui-1.12.1/
+#[Pp]ublic/validator/
 
 # User-specific files
 *.suo
