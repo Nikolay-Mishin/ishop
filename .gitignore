@@ -14,6 +14,8 @@ Thumbs.db
 # Vendor folders
 [Vv]endor/*
 ![Vv]endor/ishop
+
+# Public folders
 [Pp]ublic/images
 [Pp]ublic/upload
 [Pp]ublic/adminlte/*
