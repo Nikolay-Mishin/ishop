@@ -18,12 +18,19 @@ Thumbs.db
 # Public folders
 [Pp]ublic/images/
 [Pp]ublic/upload/
-#*.png
-#*.jp[e]g
 [Pp]ublic/adminlte/*
 ![Pp]ublic/adminlte/*.*
 [Pp]ublic/jquery-ui-1.12.1/
 #[Pp]ublic/validator/
+
+# Public files
+*.png
+*.jpg
+*.jpeg
+
+# Project-specific files
+*.cs
+appsettings.*
 
 # User-specific files
 *.suo
