@@ -18,7 +18,8 @@ use \ArrayIterator;
 *
 * @author [x26]VOLAND
 */
-abstract class Dictionary extends Collection implements Countable, ArrayAccess, IteratorAggregate /*, Iterator*/ {
+//abstract
+class Dictionary extends Collection implements Countable, ArrayAccess, IteratorAggregate /*, Iterator*/ {
 
 	/**
 	* Тип ключей, хранящихся в данной коллекции.
@@ -42,13 +43,13 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* Констурктор.
 	* Задаёт тип элементо, которые будут хранитья в данной коллекции.
 	*
-	* @param string $type Тип элементов
+	* @param array $type Тип элементов
     * @param mixed $args Объекты
 	* @return void
 	*/
-	public function __construct(string $type, mixed ...$args) {
-		$this->keyType = $type['key'];
-        $this->type = $type['value'];
+	public function __construct(array $type, mixed ...$args) {
+		$this->keyType = key($type);
+        $this->type = current($type);
 		$this->add(...$args);
 	}
 
@@ -65,14 +66,15 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* Добавляет в коллекцию объекты, переданные в аргументах.
 	*
 	* @param array $args Объекты
-	* @return self Collection
+	* @return self Dictionary
 	*/
-	public function add(array ...$args): self {
+	public function add(mixed ...$args): self {
 		foreach ($args as $value) {
 			$key = key($value);
 			$value = current($value);
+			debug([$key => $value]);
 			$this->verifyKey($key);
-			$this->verifyValue($value);
+			$this->verify($value);
 			$this->keys[] = $key;
 			$this->collection[] = $value;
 		}
@@ -82,7 +84,7 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	/**
 	* Очищает коллекцию.
 	*
-	* @return self Collection
+	* @return self Dictionary
 	*/
 	public function clear(): self {
 		$this->keys = [];
@@ -99,10 +101,7 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @throws InvalidArgumentException
 	*/
 	private function verifyKey(int|string|null $key): void {
-        if (!($key instanceof $this->keyType)) {
-            throw new InvalidArgumentException(
-				sprintf('Key for dictionary must be of type %s: %s given', $this->keyType, get_class($key)));
-        }
+		$this->verify($key, $this->keyType, 'Key for dictionary');
     }
 
 	/**
@@ -148,18 +147,15 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @return void
 	*/
 	public function offsetSet(mixed $offset, mixed $value): void {
-		if ($this->offsetExists($offset)) $offset = $this->searchKey($offset);
-		else $this->keys[] = $offset;
+		debug(['Dictionary->offsetSet:this' => $this]);
+		$max = max(array_keys($this->keys));
+		$isStr = $this->keyType === 'string';
+		if ($exist = $this->offsetExists($offset ??= !$isStr ? ++$max : (string) ++$max)) {
+			$key = $this->searchKey($offset);
+			$offset = !$isStr ? $key : (string) $key;
+		}
 		parent::offsetSet($offset, $value);
-		//$this->verifyValue($value);
-		//if (is_null($offset)) $offset = max(array_keys($this->keys)) + 1;
-		//if ($this->offsetExists($offset)) {
-		//    $this->collection[$this->searchKey($offset)] = $value;
-		//}
-		//else {
-		//    $this->keys[] = $offset;
-		//    $this->collection[] = $value;
-		//}
+		if (!$exist) $this->keys[] = $offset;
 	}
 	
 	/**

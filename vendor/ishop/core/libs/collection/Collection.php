@@ -68,7 +68,7 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	*/
 	public function add(object ...$args): self {
 		foreach ($args as $value) {
-			$this->verifyValue($value);
+			$this->verify($value);
 			$this->collection[] = $value;
 		}
 		return $this;
@@ -110,14 +110,16 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* Проверяет тип объекта.
 	* Препятствует добавлению в коллекцию объектов `чужого` типа.
 	*
-	* @param object $value Объект для проверки
+	* @param object|int|string|null $value Объект для проверки
 	* @return void
 	* @throws InvalidArgumentException
 	*/
-	protected function verifyValue(object $value): void {
-		if (!($value instanceof $this->type)) {
+	protected function verify(object|int|string|null $value, mixed $type = null, ?string $msg = null): void {
+		$type ??= $this->type;
+		$msg ??= 'Value for collection';
+		if (!($isObj = is_object($value) ? $value instanceof $type : gettype($value) === $type)) {
 			throw new InvalidArgumentException(
-				sprintf('Value for collection must be of type %s: %s given', $this->type, get_class($value)));
+				sprintf("$msg must be of type %s: %s given", $type, call_user_func($isObj ? 'get_class' : 'gettype', $value)));
 		}
 	}
 
@@ -128,7 +130,7 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* @return bool|int|string
 	*/
 	protected function searchValue(object $value, bool $strict = true): bool|int|string {
-		$this->verifyValue($value);
+		$this->verify($value);
 		return array_search($value, $this->collection, $strict);
 	}
 
@@ -177,9 +179,9 @@ abstract class Collection implements Countable, ArrayAccess, IteratorAggregate /
 	* @return void
 	*/
 	public function offsetSet(mixed $offset, mixed $value): void {
-		$this->verifyValue($value);
-		if (is_null($offset)) $offset = max(array_keys($this->collection)) + 1;
-		if ($this->offsetExists($offset)) {
+		debug(['Collection->offsetSet:this' => $this]);
+		$this->verify($value);
+		if ($this->offsetExists($offset ??= max(array_keys($this->collection)) + 1)) {
             $this->collection[$offset] = $value;
         }
 		else {

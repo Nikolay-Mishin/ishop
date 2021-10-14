@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 use ishop\factories\CollectionFactory;
+use ishop\libs\collection\Dictionary;
 use app\models\collection\BookStore;
 use app\models\collection\Book;
 use app\models\collection\Magazine;
@@ -12,8 +13,14 @@ use app\models\Breadcrumbs;
 class CollectionController extends AppController {
 
 	public function indexAction(): void {
+		$dictionary = new Dictionary(['string' => Book::class], ['книга 1' => new Book(1)]);
+		debug(['Dictionary' => $dictionary]);
+		$dictionary[] = new Book(2);
+		$dictionary['3'] = new Book(3);
+		debug(['Dictionary' => $dictionary]);
+		
 		$books = CollectionFactory::create(new Book(1));
-		debug(['BookCollection ' => $books]);
+		debug(['BookCollection' => $books]);
 
 		// Создаём коллекцию
 		$books = CollectionFactory::create(Book::class);
