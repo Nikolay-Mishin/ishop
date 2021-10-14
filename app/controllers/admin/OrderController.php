@@ -45,7 +45,7 @@ class OrderController extends AppController {
   //WHERE `order`.`id` = ?
   //GROUP BY `order`.`id` ORDER BY `order`.`status`, `order`.`id` LIMIT 1", [$order_id]);
 		//// если заказ не найден, выбрасываем исключение
-		//if(!$order){
+		//if (!$order) {
 		//    throw new \Exception('Страница не найдена', 404);
 		//}
 		//$order_products = \R::findAll('order_product', "order_id = ?", [$order_id]);
@@ -73,7 +73,7 @@ class OrderController extends AppController {
 		//$status = !empty($_GET['status']) ? '1' : '0'; // статус
 		//$order = \R::load('order', $order_id); // получаем данные заказа из БД
 		//// если заказ не найден, выбрасываем исключение
-		//if(!$order){
+		//if (!$order) {
 		//    throw new \Exception('Страница не найдена', 404);
 		//}
 		//$order->status = $status; // записываем статус заказа

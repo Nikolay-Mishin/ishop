@@ -30,7 +30,7 @@ class Currency extends AppModel {
 	];
 
 	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
-		if($data) {
+		if ($data) {
 			$data['base'] = $data['base'] ? '1' : '0'; // конвертируем значения флага базовой валюты для записи в БД
 			$data['value'] = self::getValue($data['course']); // значение курса валюты для пересчета цен
 			// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
@@ -43,17 +43,17 @@ class Currency extends AppModel {
 	}
 
 	// получает общее число валют
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('currency');
 	//}
 
 	// получаем список валют
-	//public static function getAll(){
+	//public static function getAll() {
 	//    return \R::findAll('currency');
 	//}
 
 	// получаем из БД валюту по id
-	//public static function getById($id){
+	//public static function getById($id) {
 	//    return \R::load('currency', $id);
 	//}
 
@@ -121,14 +121,14 @@ class Currency extends AppModel {
 	]
 	*/
 	// возвращает список курсов по кодам переданных валют
-	public static function getCoursesByCode($codeList){
+	public static function getCoursesByCode($codeList) {
 		$courses = self::getCourses(); // получаем список всех курсов на текущую дату
 		if (!$courses) return false;
 
 		$courses_curr = [];
-		foreach ($courses as $code => $cours){
+		foreach ($courses as $code => $cours) {
 			// если валюта есть в переданном массиве - возьмем ее
-			if(in_array($code, $codeList)){
+			if (in_array($code, $codeList)) {
 				$courses_curr[$code] = $cours;
 			}
 		}

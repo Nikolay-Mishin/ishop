@@ -20,7 +20,7 @@ class FilterGroup extends AppModel {
 		],
 	];
 
-	public function __construct(array $data = [], array $attrs = [], string $action = 'save'){
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
 		// вызов родительского конструктора, чтобы его не затереть (перегрузка методов и свойств)
 		parent::__construct($data, $attrs, $action);
 		// сохраняем группу фильтров в БД
@@ -30,7 +30,7 @@ class FilterGroup extends AppModel {
 	}
 
 	// получает общее число групп фильтров
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('attribute_group');
 	//}
 
@@ -40,12 +40,12 @@ class FilterGroup extends AppModel {
 	}
 
 	// получаем список групп фильтров
-	//public static function getAll(){
+	//public static function getAll() {
 	//    return \R::findAll('attribute_group');
 	//}
 
 	// получаем данные группы фильтров из БД
-	//public static function getById($id){
+	//public static function getById($id) {
 	//    return \R::load('attribute_group', $id);
 	//}
 

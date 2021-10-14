@@ -18,7 +18,8 @@ function redirect(string|bool $http = false): void {
 	// если $http передан то $redirect = адресу перенаправления, иначе обновить/перезапросить текущую страницу
 	if ($http) {
 		$redirect = $http;
-	} else {
+	}
+	else {
 		// если в массиве $_SERVER есть страница, с которой пришел пользователь (предыдущая страница), то берем ее, иначе главную
 		$redirect = referer_url();
 	}
@@ -28,16 +29,16 @@ function redirect(string|bool $http = false): void {
 	exit; // завершаем скрипт
 }
 
+function referer_url(string $url = ''): string {
+	$referer_url = isset($_SERVER['HTTP_REFERER']) ? rtrim($_SERVER['HTTP_REFERER'], '/') : PATH;
+	return $_SESSION['redirect'] = $url && $referer_url == PATH ? $url : $referer_url;
+}
+
 // обертка для функции htmlspecialchars() - обрабатывет спец символы от html-инъекций
 function h(string $str): string {
 	// ENT_QUOTES - чтобы преобразовывать и " (двойные кавычки)
 	// return htmlentities($str, ENT_QUOTES, 'UTF-8');
 	return htmlspecialchars($str, ENT_QUOTES);
-}
-
-function referer_url(string $url = ''): string {
-	$referer_url = isset($_SERVER['HTTP_REFERER']) ? rtrim($_SERVER['HTTP_REFERER'], '/') : PATH;
-	return $_SESSION['redirect'] = $url && $referer_url == PATH ? $url : $referer_url;
 }
 
 // добавление разрядов к цене (1000 => 1 000)

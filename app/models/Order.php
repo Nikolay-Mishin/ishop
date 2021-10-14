@@ -51,7 +51,7 @@ class Order extends AppModel {
 
 	// сохраняет оформленный заказ
 	// ДЗ - сделать правильное сохранение заказа (с помощью метода save в базовой модели)
-	/* public static function saveOrder($data){
+	/* public static function saveOrder($data) {
 		$order = \R::dispense('order'); // создаем запись для сохранения данных в БД
 		$order->user_id = $data['user_id']; // id пользователя
 		$order->note = $data['note']; // примечание к заказу

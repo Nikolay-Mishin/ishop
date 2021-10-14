@@ -33,7 +33,8 @@ class GenericCollection<T> implements Iterator, ArrayAccess {
 
         if (is_null($offset)) {
             $this->array[] = $value;
-        } else {
+        }
+        else {
             $this->array[$offset] = $value;
         }
     }

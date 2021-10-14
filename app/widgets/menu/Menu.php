@@ -49,11 +49,11 @@ class Menu {
 	}
 
 	// получает опции
-	//protected function setProperties($options){
+	//protected function setProperties($options) {
 	//    // если в свойствах класс существует ключ из переданных настроек, то заполняем данное свойство переданным значением
-	//    foreach($options as $k => $v){
+	//    foreach ($options as $k => $v) {
 	//        // проверяем существет ли такое свойство у класса
-	//        if(property_exists($this, $k)){
+	//        if (property_exists($this, $k)) {
 	//            $this->$k = $v;
 	//        }
 	//    }

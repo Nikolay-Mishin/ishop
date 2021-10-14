@@ -58,12 +58,12 @@ class ProductController extends AppController {
 			//$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
 			//$product->getImg(); // получаем основную картинку
 			//// валидируем данные
-			//if(!$product->validate($data)){
+			//if (!$product->validate($data)) {
 			//    $product->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($product->update('product', $id)){
+			//if ($product->update('product', $id)) {
 			//    $product->editFilter($id, $data); // изменяем фильтры товара
 			//    $product->editRelatedProduct($id, $data); // изменяем связанные товары
 			//    $product->saveGallery($id); // сохраняем галлерею
@@ -90,13 +90,13 @@ class ProductController extends AppController {
 			//$product->attributes['hit'] = $product->attributes['hit'] ? '1' : '0';
 			//$product->getImg(); // получаем основную картинку
 			//// валидируем данные
-			//if(!$product->validate($data)){
+			//if (!$product->validate($data)) {
 			//    $product->getErrors();
 			//    $_SESSION['form_data'] = $data;
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($id = $product->save('product')){
+			//if ($id = $product->save('product')) {
 			//    $product->saveGallery($id); // сохраняем галлерею
 			//    $product->editFilter($id, $data); // изменяем фильтры товара
 			//    $product->editRelatedProduct($id, $data); // изменяем связанные товары
@@ -151,10 +151,11 @@ class ProductController extends AppController {
 			// устанавливаем max значения ширины и высоты изображений в зависимости от того какие картинки пришли
 			// (основная - 'single' или галлереи)
 			// получаем необходимые значения из контейнера приложения
-			//if($_POST['name'] == 'single'){
+			//if ($_POST['name'] == 'single') {
 			//    $wmax = App::$app->getProperty('img_width');
 			//    $hmax = App::$app->getProperty('img_height');
-			//}else{
+			//}
+			//else {
 			//    $wmax = App::$app->getProperty('gallery_width');
 			//    $hmax = App::$app->getProperty('gallery_height');
 			//}
@@ -179,7 +180,7 @@ class ProductController extends AppController {
 			return null;
 		}
 		// в зависимости от типа загруженной картинки удаляем базовую картинку либо картинку галлереи
-		//if(\R::exec("DELETE FROM gallery WHERE product_id = ? AND img = ?", [$id, $src])){
+		//if (\R::exec("DELETE FROM gallery WHERE product_id = ? AND img = ?", [$id, $src])) {
 		//    @unlink(WWW . "/images/$src");
 		//    exit('1');
 		//}

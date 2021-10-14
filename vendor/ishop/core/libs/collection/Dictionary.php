@@ -99,7 +99,7 @@ abstract class Dictionary extends Collection implements Countable, ArrayAccess, 
 	* @throws InvalidArgumentException
 	*/
 	private function verifyKey(int|string|null $key): void {
-        if(!($key instanceof $this->keyType)) {
+        if (!($key instanceof $this->keyType)) {
             throw new InvalidArgumentException(
 				sprintf('Key for dictionary must be of type %s: %s given', $this->keyType, get_class($key)));
         }

@@ -18,9 +18,10 @@
                 <div class="tab-pane<?php if($i == 1) echo ' active' ?>" id="tab_<?= $group_id ?>">
                     <?php foreach($this->attrs[$group_id] as $attr_id => $value): ?>
                         <?php
-                        if(!empty($this->filter) && in_array($attr_id, $this->filter)){
+                        if (!empty($this->filter) && in_array($attr_id, $this->filter)) {
                             $checked = ' checked';
-                        }else{
+                        }
+                        else {
                             $checked = null;
                         }
                         ?>

@@ -123,7 +123,7 @@ class Process {
                 return true;
             }
         }
-        elseif (\posix_kill((int) $pid, 0))  return true;
+        elseif (\posix_kill((int) $pid, 0)) return true;
         return false;
     }
 

@@ -54,11 +54,13 @@
                                     <td>
                                         <?//=$order['status'] ? 'Завершен' : 'Новый';?>
                                         <?php
-                                        if($order['status'] == '1'){
+                                        if ($order['status'] == '1') {
                                             echo 'Завершен';
-                                        }elseif($order['status'] == '2'){
+                                        }
+                                        elseif ($order['status'] == '2') {
                                             echo 'Оплачен';
-                                        }else{
+                                        }
+                                        else {
                                             echo 'Новый';
                                         }
                                         ?>

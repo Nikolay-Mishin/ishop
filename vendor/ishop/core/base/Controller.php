@@ -16,7 +16,8 @@ abstract class Controller {
     public string $prefix; // префикс
     public string $layout = ''; // шаблон
     public array $data = []; // обычные данные (контент)
-    public array $meta = ['title' => '', 'desc' => '', 'keywords' => '']; // мета-данные (по умолчанию пустые значения для индексов)
+    // мета-данные (по умолчанию пустые значения для индексов)
+    public array $meta = ['title' => '', 'desc' => '', 'keywords' => '']; 
 
     public string $canonical = ''; // каноническая ссылка
     public string $file_prefix = ''; // префикс
@@ -30,16 +31,20 @@ abstract class Controller {
         $this->controller = $route['controller'];
         $this->model = $route['controller'];
         $this->view = $route['action'];
-        $this->prefix = $route['prefix'];
+		$this->prefix = $route['prefix'];
 
-        $this->file_prefix = rtrim($this->prefix, '\\') . ($this->prefix ? '_' : ''); // вырезаем из конца строки '\'
+        // если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
+		// если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
+        $this->layout = $this->layout === false ? false : ($this->layout ?: LAYOUT);
+
+        $this->file_prefix = rtrim($this->prefix, '\\') . ($this->prefix ? '_' : '');
         $this->setStyle();
         $this->setScript();
     }
 
     // получает объект вида и вызывает рендер
     public function getView(): void {
-        $viewObject = new View($this->route, $this->layout, $this->view, $this->meta, $this); // объект класса Вида
+        $viewObject = new View($this /*, $this->route, $this->layout, $this->view, $this->meta*/); // объект класса Вида
         $viewObject->render($this->data); // вызов метода для рендера и передаем данные из контроллера в вид
     }
 
@@ -54,7 +59,7 @@ abstract class Controller {
     }
 
     // определяет, каким видом пришел запрос (асинхронно/ajax или нет)
-    //public function isAjax(){
+    //public function isAjax() {
     //    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
     //}
 
@@ -86,16 +91,16 @@ abstract class Controller {
 
     public function setFiles(string $type, string ...$files): void {
         $file = require_once CONF . "/require/{$this->file_prefix}{$type}.php"; // подключаем файл конфигурации
-
-        if ($file !== true) {
-            foreach ($file as $file_type => $file_list) {
-                $this->$type[$file_type] = $file_list;
-            }
-        }
-
-        foreach ($files as $file) {
-            $this->$type['add'][] = $file;
-        }
+        if ($file !== true) foreach ($file as $file_type => $file_list) $this->$type[$file_type] = $file_list;
+        foreach ($files as $file) $this->$type['add'][] = $file;
+		//if ($file !== true) {
+		//    foreach ($file as $file_type => $file_list) {
+		//        $this->$type[$file_type] = $file_list;
+		//    }
+		//}
+		//foreach ($files as $file) {
+		//    $this->$type['add'][] = $file;
+		//}
     }
 
 }

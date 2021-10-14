@@ -73,15 +73,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach($orders as $order): ?>
+                                <?php foreach ($orders as $order): ?>
                                     <?php
-                                    if($order['status'] == '1'){
+                                    if ($order['status'] == '1') {
                                         $class = 'success';
                                         $text = 'Завершен';
-                                    }elseif($order['status'] == '2'){
+                                    }
+                                    elseif ($order['status'] == '2') {
                                         $class = 'info';
                                         $text = 'Оплачен';
-                                    }else{
+                                    }
+                                    else {
                                         $class = '';
                                         $text = 'Новый';
                                     }

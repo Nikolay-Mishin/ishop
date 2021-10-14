@@ -20,7 +20,6 @@ return [
     ],
     'init' => [
         "_core",
-        "@".CONF."/require/consts.php",
         "_functions",
         "_variables",
     ],

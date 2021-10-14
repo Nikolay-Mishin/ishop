@@ -2,9 +2,9 @@
 // параметры/свойства приложения
 
 return [
-	'admin_email' => 'mishin.nikolay.d270893@yandex.ru',
-	'shop_name' => 'Магазин ishop2.loc', // название магазина
 	'project' => 'Ishop', // название проекта/приложения
+	'shop_name' => 'Магазин ishop2.loc', // название магазина
+	'admin_email' => 'mishin.nikolay.d270893@yandex.ru',
 	'pagination' => 3,
 	'smtp_host' => 'smtp.yandex.ru', // smtp.ukr.net
 	'smtp_port' => '465', // 25 или 587

@@ -38,7 +38,7 @@ class MainController extends AppController {
         // Cache::delete('test'); // очищаем кэш
         // $data = Cache::get('test'); // получаем данные из кэша
         // если данные не получены, то кэшируем их заново
-        /* if(!$data){
+        /* if (!$data) {
             Cache::set('test', $names);
         } */
         // debug($data); // распечатываем массив с данными кэша

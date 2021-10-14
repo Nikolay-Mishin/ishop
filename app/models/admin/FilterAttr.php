@@ -35,7 +35,7 @@ class FilterAttr extends AppModel {
 	}
 
 	// получает общее число аттрибутов фильтров
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('attribute_value');
 	//}
 
@@ -45,7 +45,7 @@ class FilterAttr extends AppModel {
 	}
 
 	// получаем данные аттрибутов фильтров из БД
-	//public static function getById($id){
+	//public static function getById($id) {
 	//    return \R::load('attribute_value', $id);
 	//}
 

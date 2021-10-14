@@ -28,9 +28,10 @@ class AppController extends Controller {
     // по умолчанию значение берется из параметра id
     public function getRequestID(int $id = 'id'): int {
         // если в массиве есть параметр id, приводим его к числу, иначе записываем null
-        //if($get){
+        //if ($get) {
         //    $data = $_GET;
-        //}else{
+        //}
+        //else {
         //    $data = $_POST;
         //}
         //$id = !empty($data[$id]) ? (int)$data[$id] : null;

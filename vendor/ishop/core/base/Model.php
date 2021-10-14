@@ -60,7 +60,7 @@ abstract class Model extends Sql {
 	'login1' => '', // поле, которого не было в форме (если со стороны клиенты, например будет попытка подмены формы)
 	*/
 	protected function load(array $data): void {
-		foreach($this->attributes as $name => $value){
+		foreach ($this->attributes as $name => $value) {
 			// если в данных есть поле, соответствующее полю в $attributes, то записываем значение из данных в аттрибуты
 			if (isset($data[$name])) {
 				$this->attributes[$name] = $data[$name];
@@ -74,14 +74,15 @@ abstract class Model extends Sql {
 		// '_' в имени запрещено для RedBeanPHP => attributeValue вместо attribute_value)
 		// производим 1 из операций CRUD - Create Update Delete
 		// создаем бин (bean) - новую строку записи для сохранения данных в таблицу в БД
-		//if($valid){
+		//if ($valid) {
 		//    $tbl = \R::dispense($table);
-		//}else{
+		//}
+		//else {
 		//    $tbl = \R::xdispense($table);
 		//}
 		$tbl = !preg_match('/_/', $this->table) ? \R::dispense($this->table) : \R::xdispense($this->table);
 		//// в каждое поле таблицы записываем соответствуещее значение из списка аттрибутов модели
-		//foreach($this->attributes as $name => $value){
+		//foreach ($this->attributes as $name => $value) {
 		//    $tbl->$name = $value;
 		//}
 		//// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)
@@ -94,7 +95,7 @@ abstract class Model extends Sql {
 		//$bean = \R::load($table, $id);
 		$bean = \R::load($this->table, $id); // получаем бин записи из БД (структуру объекта)
 		//// для каждого аттрибута модели заполняем поля записи в БД
-		//foreach($this->attributes as $name => $value){
+		//foreach ($this->attributes as $name => $value) {
 		//    $bean->$name = $value;
 		//}
 		//// сохраняем сформированные данные в БД и возвращаем результат сохранения (id записи либо 0)

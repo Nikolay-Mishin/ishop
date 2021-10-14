@@ -25,15 +25,17 @@ class UserController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$user->load($data); // загружаем данные в модель
 			//// валидируем данные
-			//if(!$user->validate($data) || !$user->checkUnique()){
+			//if (!$user->validate($data) || !$user->checkUnique()) {
 			//    $user->getErrors();
 			//    $_SESSION['form_data'] = $data;
-			//}else{
+			//}
+			//else {
 			//    $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
 			//    // сохраняем данные в БД
-			//    if($user->save('user')){
+			//    if ($user->save('user')) {
 			//        $_SESSION['success'] = 'Пользователь зарегистрирован';
-			//    }else{
+			//    }
+			//else {
 			//        $_SESSION['error'] = 'Ошибка!';
 			//    }
 			//}
@@ -57,9 +59,10 @@ class UserController extends AppController {
 			// авторизовываем пользователя и выводим сообщение об успешной/не успешной авторизации
 			//$user = new User(); // объект модели пользователя
 			//// сохраняем данные в БД
-			//if($user->login()){
+			//if ($user->login()) {
 			//    $_SESSION['success'] = 'Вы успешно авторизованы';
-			//}else{
+			//}
+			//else {
 			//    $_SESSION['error'] = 'Логин/пароль введены неверно';
 			//}
 			$user = new User('login'); // объект модели пользователя

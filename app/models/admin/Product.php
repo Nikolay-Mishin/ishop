@@ -40,7 +40,7 @@ class Product extends AppModel {
 		],
 	];
 
-	public function __construct(array $data = [], array $attrs = [], string $action = 'save'){
+	public function __construct(array $data = [], array $attrs = [], string $action = 'save') {
 		if ($data) {
 			// устанавливаем необходимые аттрибуты для модели
 			$data['status'] = $data['status'] ? '1' : '0';
@@ -69,7 +69,7 @@ class Product extends AppModel {
 	}
 
 	// получает общее число товаров
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('product');
 	//}
 
@@ -115,7 +115,7 @@ class Product extends AppModel {
 			/*
 			$sql_part = ''; // часть sql-запроса
 			// формируем sql-запрос
-			foreach($_SESSION['gallery'] as $v){
+			foreach ($_SESSION['gallery'] as $v) {
 				$sql_part .= "('$v', $id),";
 			}
 			$sql_part = rtrim($sql_part, ','); // удаляем конечную ','

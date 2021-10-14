@@ -33,7 +33,8 @@ class Pagination {
     public function __get(string $property): string {
         if (property_exists($this, $property) && $property == 'limit') {
             return "LIMIT {$this->getStart()}, $this->perpage";
-        } else {
+        }
+        else {
             throw new Exception('Oops, there is no such property here!');
         }
     }

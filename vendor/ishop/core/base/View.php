@@ -6,10 +6,14 @@ namespace ishop\base;
 
 use \Exception;
 
+use ishop\App;
+
 class View {
 
 	use \ishop\traits\T_SetProperties;
 	use \ishop\traits\T_GetContents;
+
+	public ?Controller $controllerObj = null;
 
 	public array $route = [];
 	public string $controller = '';
@@ -29,7 +33,21 @@ class View {
 		'script' => '<script src="file.js"></script>'
 	];
 
-	public function __construct(array $route, string $layout = '', string $view = '', array $meta = [], ?Controller $controller = null) {
+	public function __construct(?Controller $controller = null /*, array $route, string $layout = '', string $view = '', array $meta = []*/) {
+		$this->setProperties([objectUnset(clone $this->controllerObj = $controller, 'data')]);
+		//$this->setProperties([objectUnset(clone $controller, 'data')], function($k) use($controller) {
+		//    // если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
+		//    if ($k === 'layout') {
+		//        if ($controller->$k === false) {
+		//            $this->$k = false;
+		//        }
+		//        else {
+		//            // если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
+		//            $this->$k = $controller->$k ?: LAYOUT;
+		//        }
+		//    }
+		//});
+
 		//$layout - шаблон для отображения (обертка над видом - статичные части сайта - меню, сайдбар, футер и тд)
 		//$view - вид для отображения
 
@@ -47,20 +65,6 @@ class View {
 		//    // если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
 		//    $this->layout = $layout ?: LAYOUT;
 		//}
-
-		//$this->setProperties(objectUnset(clone $controller, 'data'), function($controller, $k){
-		$this->setProperties([objectUnset(clone $controller, 'data')], function($k) use($controller) {
-			// если жёстко передано значение false (подключение шаблона выключено - например, когда контент передан ajax-запросом)
-			if ($k === 'layout') {
-				if($controller->$k === false){
-					$this->$k = false;
-				}
-				else {
-					// если передан какой-то шаблон, то берем его, иначе значение константы LAYOUT
-					$this->$k = $controller->$k ?: LAYOUT;
-				}
-			}
-		});
 	}
 
 	// получает опции
@@ -108,9 +112,9 @@ class View {
 	// возвращает готовую разметку (или массив) с мета-тегами (title, description, keywords)
 	public function getMeta(): string {
 		// разметку для вывода в шаблон запишем в переменную и вернем ее
-		$output = '<title>' . $this->meta['title'] . '</title>' . PHP_EOL; // PHP_EOL - перенос строк
-		$output .= '<meta name="description" content="' . $this->meta['desc'] . '">' . PHP_EOL;
-		$output .= '<meta name="keywords" content="' . $this->meta['keywords'] . '">' . PHP_EOL;
+		$output = "<title>{$this->meta['title']}</title>".PHP_EOL; // PHP_EOL - перенос строк
+		$output .= "<meta name='description' content={$this->meta['desc']}>".PHP_EOL;
+		$output .= "<meta name='keywords' content={$this->meta['keywords']}>".PHP_EOL;
 		return $output;
 	}
 
@@ -118,7 +122,7 @@ class View {
 	public function getCanonical(): string {
 		// разметку для вывода в шаблон запишем в переменную и вернем ее
 		// PHP_EOL - перенос строк
-		return $this->canonical ? '<link rel="canonical" href="' . $this->canonical . '">' : '';
+		return $this->canonical ? "<link rel='canonical' href='{$this->canonical}'>" : '';
 	}
 
 	// возвращает готовую разметку (или массив) со стилями
@@ -128,7 +132,8 @@ class View {
 
 	// возвращает готовую разметку (или массив) со стилями
 	public function getScripts(): string  {
-		return $this->getFilesList($this->script, 'script');
+		return App::getConsts(CONF."/require/{$this->controllerObj->file_prefix}consts.php").PHP_EOL.
+			$this->getFilesList($this->script, 'script');
 	}
 
 	protected function getFilesList(array $files, string $type_file): string {

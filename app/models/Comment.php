@@ -61,7 +61,7 @@ class Comment extends AppModel {
 			parent::__construct($data, $attrs, $action);
 		}
 		// сохраняем товар в БД
-		if ($this->id){
+		if ($this->id) {
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Комментарий добавлен';
 		}
 	}

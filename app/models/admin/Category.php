@@ -12,13 +12,13 @@ class Category extends Cat {
 		/*
 		$this->load($data); // загружаем категорию из БД
 		// валидируем данные из формы
-		if(!$this->validate($data)){
+		if (!$this->validate($data)) {
 			$this->getErrors(); // получаем список ошибок
 			redirect();
 		}
 		*/
 		// сохраняем данные категории в таблицу БД и получаем id соханенной категории в переменную
-		// if($this->update('category', $id)){
+		// if ($this->update('category', $id)) {
 		if ($this->id) {
 			self::updateAlias('category', $data['title'], $this->id); // создаем алиас для категории на основе ее названия и id
 			$_SESSION['success'] = $action == 'update' ? 'Изменения сохранены' : 'Категория добавлена';
@@ -26,12 +26,12 @@ class Category extends Cat {
 	}
 
 	// получает общее число категорий
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('category');
 	//}
 
 	// получаем из БД категорию по id
-	//public static function getById($id){
+	//public static function getById($id) {
 	//    return \R::load('category', $id); // получаем данную категорию из БД
 	//}
 

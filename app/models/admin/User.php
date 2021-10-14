@@ -59,7 +59,7 @@ class User extends BaseUser {
 	}
 
 	// получает общее число пользователей
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('user');
 	//}
 

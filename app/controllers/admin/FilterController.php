@@ -20,7 +20,7 @@ class FilterController extends AppController {
 		//$id = $this->getRequestID(); // получаем id
 		//$count = \R::count('attribute_value', 'attr_group_id = ?', [$id]); // считаем число аттрибутов в данной группе фильтров
 		//// если есть вложенные фильтры в данной группе, показываем ошибку
-		//if($count){
+		//if ($count) {
 		//    $_SESSION['error'] = 'Удаление невозможно, в группе есть аттрибуты';
 		//    redirect();
 		//}
@@ -47,12 +47,12 @@ class FilterController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$group->load($data); // получаем данные групп фильтров из БД
 			//// валидируем данные
-			//if(!$group->validate($data)){
+			//if (!$group->validate($data)) {
 			//    $group->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($group->update('attribute_group', $id)){
+			//if ($group->update('attribute_group', $id)) {
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//    redirect();
 			//}
@@ -69,12 +69,12 @@ class FilterController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$group->load($data); // получаем данные групп фильтров из БД
 			//// валидируем данные
-			//if(!$group->validate($data)){
+			//if (!$group->validate($data)) {
 			//    $group->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($group->save('attribute_group', false)){
+			//if ($group->save('attribute_group', false)) {
 			//    $_SESSION['success'] = 'Группа добавлена';
 			//}
 			new FilterGroup($_POST); // объект модели группы фильтров
@@ -120,12 +120,12 @@ class FilterController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$attr->load($data); // получаем данные аттрибутов фильтров из БД
 			//// валидируем данные
-			//if(!$attr->validate($data)){
+			//if (!$attr->validate($data)) {
 			//    $attr->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($attr->update('attribute_value', $id)){
+			//if ($attr->update('attribute_value', $id)) {
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//    redirect();
 			//}
@@ -142,12 +142,12 @@ class FilterController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$attr->load($data); // получаем данные аттрибутов фильтров из БД
 			//// валидируем данные
-			//if(!$attr->validate($data)){
+			//if (!$attr->validate($data)) {
 			//    $attr->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($attr->save('attribute_value', false)){
+			//if ($attr->save('attribute_value', false)) {
 			//    $_SESSION['success'] = 'Атрибут добавлен';
 			//    redirect();
 			//}

@@ -20,7 +20,7 @@ class Order extends AppModel {
 	protected string $limit = '1';
 
 	// получает общее число заказов
-	//public static function getCount(){
+	//public static function getCount() {
 	//    return \R::count('order');
 	//}
 

@@ -48,18 +48,19 @@ class UserController extends AppController {
 			//$data = $_POST; // записываем пришедшие данные в переменную
 			//$user->load($data); // загружаем данные в модель
 			////обрабатываем пароль
-			//if(!$user->attributes['password']){
+			//if (!$user->attributes['password']) {
 			//    unset($user->attributes['password']);
-			//}else{
+			//}
+			//else {
 			//    $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
 			//}
 			//// валидируем данные
-			//if(!$user->validate($data) || !$user->checkUnique()){
+			//if (!$user->validate($data) || !$user->checkUnique()) {
 			//    $user->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($user->update('user', $id)){
+			//if ($user->update('user', $id)) {
 			//    $_SESSION['success'] = 'Изменения сохранены';
 			//}
 			new User($_POST, $this->getRequestID(), 'update'); // объект модели пользователя
@@ -73,7 +74,7 @@ class UserController extends AppController {
 		if (!empty($_POST)) {
 			//$user = new User(); // объект модели пользователя
 			////авторизовываем пользователя
-			//if(!$user->login(true)){
+			//if (!$user->login(true)) {
 			//    $_SESSION['error'] = 'Логин/пароль введены неверно';
 			//}
 			new BaseUser('login', [], [$_POST, true]); // объект модели пользователя

@@ -45,7 +45,7 @@
                                             if ($order['status'] == '1') {
                                                 echo 'Завершен';
                                             }
-                                            elseif($order['status'] == '2') {
+                                            elseif ($order['status'] == '2') {
                                                 echo 'Оплачен';
                                             }
                                             else {

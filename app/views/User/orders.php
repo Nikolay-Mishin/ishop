@@ -29,11 +29,11 @@
                                         $class = 'success';
                                         $text = 'Завершен';
                                     }
-                                    elseif($order['status'] == '2') {
+                                    elseif ($order['status'] == '2') {
                                         $class = 'info';
                                         $text = 'Оплачен';
                                     }
-                                    else{
+                                    else {
                                         $class = '';
                                         $text = 'Новый';
                                     }

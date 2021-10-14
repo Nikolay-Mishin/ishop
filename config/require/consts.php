@@ -7,4 +7,4 @@ $curr = App::$app->getProperty('currency'); // получаем активную
 $symboleLeft = $curr["symbol_left"];
 $symboleRight = $curr["symbol_right"];
 
-return App::getConsts(compact('path', 'symboleLeft', 'symboleRight'));
+return compact('path', 'symboleLeft', 'symboleRight');

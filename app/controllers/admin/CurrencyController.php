@@ -44,12 +44,12 @@ class CurrencyController extends AppController {
 			//// конвертируем значения флага базовой валюты для записи в БД
 			//$currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
 			//// валидируем данные
-			//if(!$currency->validate($data)){
+			//if (!$currency->validate($data)) {
 			//    $currency->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($currency->update('currency', $id)){
+			//if ($currency->update('currency', $id)) {
 			//    $_SESSION['success'] = "Изменения сохранены";
 			//}
 			new Currency($_POST, [$this->getRequestID()], 'update'); // объект модели валют
@@ -67,12 +67,12 @@ class CurrencyController extends AppController {
 			//// конвертируем значения флага базовой валюты для записи в БД
 			//$currency->attributes['base'] = $currency->attributes['base'] ? '1' : '0';
 			//// валидируем данные
-			//if(!$currency->validate($data)){
+			//if (!$currency->validate($data)) {
 			//    $currency->getErrors();
 			//    redirect();
 			//}
 			//// сохраняем данные в БД
-			//if($currency->save('currency')){
+			//if ($currency->save('currency')) {
 			//    $_SESSION['success'] = 'Валюта добавлена';
 			//}
 			new Currency($_POST); // объект модели валют
