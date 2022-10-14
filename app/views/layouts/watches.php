@@ -70,7 +70,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <option value="3">German</option>
                         </select>
                     </div>
-                    
+
                     <!-- вход и регистрация -->
                     <div class="btn-group">
                         <a class="dropdown-toggle" data-toggle="dropdown">Аккаунт <span class="caret"></span></a>
