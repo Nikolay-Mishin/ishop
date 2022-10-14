@@ -16,11 +16,11 @@ if (notEmpty(comments)) {
 		vote = '.vote',
 		reply = '.reply',
 		reply_editor = '#reply_editor';
-	
+
 	setEditorOnChange(editor, btn);
 
 	console.log(content);
-	
+
 	// блокируем отправку формы, если тип отправки Ajax
 	if (comment_add.data('ajax')) {
 		comment_add.on('submit', e => addComment(e, comment_add, content, comments, count));

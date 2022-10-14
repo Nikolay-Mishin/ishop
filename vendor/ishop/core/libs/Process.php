@@ -5,10 +5,10 @@ namespace ishop\libs;
 use ishop\Cache;
 
 class Process {
-    
+
     public static ?self $curr_process = null;
     public static array $isRun = [];
-    
+
     public int $terminate_after = 5; // seconds after process is terminated
     public $process;
     public ?string $pkey;
@@ -59,7 +59,7 @@ class Process {
             // terminate the process
             $time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
             //debug('Process terminated after: '.$time);
-            
+
             /*
             Результатом выполнения данного примера будет что-то подобное:
             Array
@@ -80,7 +80,7 @@ class Process {
 		self::$curr_process->setCache();
 		return self::$curr_process;
     }
-    
+
     public static function killProc(int|string $pkey): bool {
         if ($process = self::getProcess($pkey)) {
             $process->kill();

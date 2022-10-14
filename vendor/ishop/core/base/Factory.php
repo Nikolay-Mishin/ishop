@@ -15,7 +15,7 @@ abstract class Factory {
 	protected static string $extends = '';
 	protected static string $implements = '';
 	protected static string $context = '';
-    
+
 	/**
 	* Создаёт экземпляр класса заданного типа.
 	*
@@ -23,12 +23,12 @@ abstract class Factory {
 	* @param mixed $args Объекты
 	* @return object
 	*/
-	public static function create(string|object $type, mixed ...$args): object {
+	public static function create(object|string $type, mixed ...$args): object {
 	    if (self::checkType($type)) array_unshift($args, $type);
 	    return self::getInstance($type, ...$args);
 	}
-  
-	protected static function checkType(string|object $type): bool {
+
+	protected static function checkType(object|string $type): bool {
 	    return is_object($type) || !is_string($type);
 	}
 
@@ -39,7 +39,7 @@ abstract class Factory {
 	* @param mixed $args Объекты
 	* @return object
 	*/
-	protected static function getInstance(string|object $type, mixed ...$args): object {
+	protected static function getInstance(object|string $type, mixed ...$args): object {
 	    extract(self::createClass($type));
 	    return new $class($type, ...$args);
 	}
@@ -50,7 +50,7 @@ abstract class Factory {
 	* @param string $class Имя класса
 	* @return void
 	*/
-	protected static function createClass(string|object $class): array {
+	protected static function createClass(object|string $class): array {
 	    extract(Parser::_namespace($class, static::$postfix));
 	    if (!class_exists($class)) {
 	        $_namespace = $namespace ? "namespace $namespace;" : $namespace;

@@ -18,7 +18,7 @@ class CollectionController extends AppController {
 		$dictionary[] = new Book(2);
 		$dictionary['3'] = new Book(3);
 		debug(['Dictionary' => $dictionary]);
-		
+
 		$books = CollectionFactory::create(new Book(1));
 		debug(['BookCollection' => $books]);
 

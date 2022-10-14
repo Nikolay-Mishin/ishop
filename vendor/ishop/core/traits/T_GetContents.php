@@ -14,10 +14,10 @@ trait T_GetContents {
         return ob_get_clean(); // получаем контент из буфера и очищаем буфер
     }
 
-    public function getContents(string $file, array $vars = []): string {
+    public function getContents(string $file, array $vars = [], $require_once = true): string {
         extract($vars); // извлекаем данные из массива и сформируем из них соответствующие переменные
         ob_start(); // включаем буферизацию
-        require_once $file; // подключаем шаблон
+        $require_once ? require_once($file) : require($file);
         return ob_get_clean(); // получаем контент из буфера и очищаем буфер
     }
 

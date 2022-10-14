@@ -130,12 +130,12 @@ class Menu {
 		}
 		return $this->tree = $tree;
 	}
- 
+
 	/**
 	 * метод для получения html-разметки на основе дерева и разтелителя
 	 * код взят из бесплатного курса по созданию фреймворка
 	 * передаем дерево, а не работаем с ним внутри метода, чтобы рекурсивно формировать html-разметку на основе шаблона
-	 * для формирования html-разметки потомков */ 
+	 * для формирования html-разметки потомков */
 	protected function getTreeHtml(?array $tree = null, string $tab = ''): string {
 		// $tree - дерево
 		// $tab - разделитель
@@ -160,7 +160,8 @@ class Menu {
 		// $category - категория (участок дерева)
 		// $tab - разделитель
 		// $id - id категории
-		return $this->getContents($this->tpl, compact('item', 'id', 'tab')); // получаем контент из буфера
+		$content = $this->getContents($this->tpl, compact('item', 'id', 'tab'), false); // получаем контент из буфера
+		return $content;
 	}
 
 }
